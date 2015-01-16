@@ -1,0 +1,1070 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: multi-rating\n"
+"POT-Creation-Date: 2015-01-05 16:34+1000\n"
+"PO-Revision-Date: 2015-01-05 16:34+1000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.6\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../includes/admin/about.php:70
+#, php-format
+msgid "Multi Rating v%s"
+msgstr ""
+
+#: ../includes/admin/about.php:72
+msgid ""
+"The best rating system plugin for WordPress.  Multi Rating allows visitors "
+"to rate a post based on multiple criteria and questions."
+msgstr ""
+
+#: ../includes/admin/about.php:78
+msgid "Getting Started"
+msgstr ""
+
+#: ../includes/admin/about.php:79
+msgid "Support"
+msgstr ""
+
+#: ../includes/admin/about.php:80
+msgid "Multi Rating Pro"
+msgstr ""
+
+#: ../includes/admin/about.php:95
+msgid "Use the tips below to help you get started."
+msgstr ""
+
+#: ../includes/admin/about.php:100
+msgid "Add New Rating Items"
+msgstr ""
+
+#: ../includes/admin/about.php:101
+#, php-format
+msgid ""
+"Setup your criteria and questions by <a href=\"admin.php?page=%s\">adding "
+"new rating items</a>."
+msgstr ""
+
+#: ../includes/admin/about.php:105 ../includes/class-settings.php:238
+msgid "Auto Placement Settings"
+msgstr ""
+
+#: ../includes/admin/about.php:106
+#, php-format
+msgid ""
+"Use the <a href=\"admin.php?page=%s\">automatic placement settings</a> to "
+"set the rating form and rating results to display on every post or page in "
+"default positions."
+msgstr ""
+
+#: ../includes/admin/about.php:110
+msgid "View the Frontend"
+msgstr ""
+
+#: ../includes/admin/about.php:111
+msgid ""
+"If everything is setup correctly, the rating form and rating results should "
+"appear on your website!"
+msgstr ""
+
+#: ../includes/admin/about.php:120
+msgid "Shortcodes"
+msgstr ""
+
+#: ../includes/admin/about.php:121
+msgid "[display_rating_form] - displays the rating form</i>."
+msgstr ""
+
+#: ../includes/admin/about.php:122
+msgid ""
+"[display_top_rating_results] - displays the top rating results and includes "
+"an optional category filter"
+msgstr ""
+
+#: ../includes/admin/about.php:123
+msgid "[display_rating_result] - displays the rating result"
+msgstr ""
+
+#: ../includes/admin/about.php:124
+#, php-format
+msgid ""
+"Refer to the <a href=\"%s\">documentation</a> for more information on the "
+"attributes available."
+msgstr ""
+
+#: ../includes/admin/about.php:128
+msgid "View Rating Results"
+msgstr ""
+
+#: ../includes/admin/about.php:129
+#, php-format
+msgid ""
+"View all <a href=\"admin.php?page=%s\">rating results</a> and entries from "
+"the WP-admin."
+msgstr ""
+
+#: ../includes/admin/about.php:139
+msgid "Custom Post Types"
+msgstr ""
+
+#: ../includes/admin/about.php:140
+msgid ""
+"If you want to use the plugin for pages and other post types you'll need to "
+"be enable them in the plugin settings."
+msgstr ""
+
+#: ../includes/admin/about.php:142
+msgid "Custom Taxonomy"
+msgstr ""
+
+#: ../includes/admin/about.php:143
+msgid ""
+"Shortcodes and API support custom taxonomies e.g. "
+"[display_top_rating_results taxonomy=\"post_tag\" term_id=\"1\"]. The "
+"category_id attribute is a shortcut to taxonomy=\"category\" and term_id="
+"\"category_id\"."
+msgstr ""
+
+#: ../includes/admin/about.php:145
+msgid "I18n, WPML & Custom Text"
+msgstr ""
+
+#: ../includes/admin/about.php:146
+msgid ""
+"The plugin has been internationalized and is translation ready (.pot file in "
+"the languages directory). There's a WPML configuration file located in the "
+"languages directory for translating the custom text stored in the WP options "
+"table. You can also modify the default text and messages."
+msgstr ""
+
+#: ../includes/admin/about.php:151
+msgid "Rich Snippets"
+msgstr ""
+
+#: ../includes/admin/about.php:152
+msgid ""
+"<a href=\"http://schema.org\">schema.org</a> structured markup is be added "
+"to every page that allow search engines to display the aggregated rating "
+"results as rich snippets."
+msgstr ""
+
+#: ../includes/admin/about.php:155
+msgid "Font Awesome"
+msgstr ""
+
+#: ../includes/admin/about.php:156
+msgid ""
+"Font Awesome versions 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by the "
+"plugin."
+msgstr ""
+
+#: ../includes/admin/about.php:158
+msgid "Upload Custom Star Images"
+msgstr ""
+
+#: ../includes/admin/about.php:159 ../includes/class-settings.php:332
+msgid ""
+"You can upload your own star images to use instead of the using the default "
+"Font Awesome star icons."
+msgstr ""
+
+#: ../includes/admin/about.php:161 ../includes/admin/tools.php:13
+msgid "Export Rating Results"
+msgstr ""
+
+#: ../includes/admin/about.php:162
+msgid "You can export the rating results to a CSV file."
+msgstr ""
+
+#: ../includes/admin/about.php:164
+msgid "Edit Ratings"
+msgstr ""
+
+#: ../includes/admin/about.php:165
+msgid ""
+"Administrator and Editor user roles have the capability to edit ratings."
+msgstr ""
+
+#: ../includes/admin/about.php:170 ../multi-rating.php:355
+msgid "Reports"
+msgstr ""
+
+#: ../includes/admin/about.php:171
+msgid "You can view the number of rating entries per day over time."
+msgstr ""
+
+#: ../includes/admin/about.php:174
+msgid "Meta-box"
+msgstr ""
+
+#: ../includes/admin/about.php:175
+msgid ""
+"There's a meta-box on the edit post page so that you can override the "
+"default settings (e.g. autu placement settings)."
+msgstr ""
+
+#: ../includes/admin/about.php:177
+msgid "Developer API"
+msgstr ""
+
+#: ../includes/admin/about.php:178
+msgid ""
+"The API functions are located in the class-api.php file which contains a "
+"static class called Multi_Rating_API."
+msgstr ""
+
+#: ../includes/admin/about.php:180
+msgid "Action Hooks & Filters"
+msgstr ""
+
+#: ../includes/admin/about.php:181
+msgid ""
+"Developers can customize the default templates through action hooks and "
+"filters are availale for adding custom validation on rating form submit."
+msgstr ""
+
+#: ../includes/admin/about.php:189
+#, php-format
+msgid ""
+"All support for the free Multi Rating plugin should use the <a href=\"%s"
+"\">WordPress.org support forum</a>."
+msgstr ""
+
+#: ../includes/admin/about.php:190
+#, php-format
+msgid ""
+"Please use the <a href=\"%s\">contact form</a> to send translation files or "
+"to contact me directly."
+msgstr ""
+
+#: ../includes/admin/about.php:191
+#, php-format
+msgid ""
+"Please <a href=\"%1$s\" target=\"_blank\">rate this plugin</a> on WordPress."
+"org"
+msgstr ""
+
+#: ../includes/admin/about.php:196
+#, php-format
+msgid ""
+"<a href=\"%s\">Multi Rating Pro</a> provides advanced features to the free "
+"Multi Rating plugin."
+msgstr ""
+
+#: ../includes/admin/about.php:198
+msgid "The following key features are available in the Pro version:"
+msgstr ""
+
+#: ../includes/admin/about.php:200
+msgid "Multiple rating forms with different rating items"
+msgstr ""
+
+#: ../includes/admin/about.php:201
+msgid "WordPress comments system integration"
+msgstr ""
+
+#: ../includes/admin/about.php:202
+msgid "Add custom fields to collect additional information"
+msgstr ""
+
+#: ../includes/admin/about.php:202 ../includes/admin/about.php:203
+msgid "New"
+msgstr ""
+
+#: ../includes/admin/about.php:203
+msgid "Ratings moderation (approve or unapprove rating entries)"
+msgstr ""
+
+#: ../includes/admin/about.php:204
+msgid "Logged in users can update or delete their existing ratings"
+msgstr ""
+
+#: ../includes/admin/about.php:205
+msgid ""
+"New shortcodes, API functions and widgets (e.g. display user reviews and "
+"individual rating item results)"
+msgstr ""
+
+#: ../includes/admin/about.php:206
+msgid "Rating forms can optionally include a name, e-mail and comment fields"
+msgstr ""
+
+#: ../includes/admin/about.php:207
+msgid ""
+"Ability to use text descriptions for select and radio options instead of "
+"numbers"
+msgstr ""
+
+#: ../includes/admin/about.php:208
+msgid ""
+"Post, category and specific page filters to include (whitelist) or exclude "
+"(blacklist) automatic placement of the rating form and rating results"
+msgstr ""
+
+#: ../includes/admin/about.php:209
+msgid ""
+"Options to exclude the home page and archive pages (i.e. Category, Tag, "
+"Author or a Date based pages)"
+msgstr ""
+
+#: ../includes/admin/about.php:210
+msgid "Like/dislike or thumbs up/down rating item type"
+msgstr ""
+
+#: ../includes/admin/about.php:211
+msgid "Display detailed rating item results breakdown in a poll format"
+msgstr ""
+
+#: ../includes/admin/about.php:212
+msgid "Allow/disallow anonymous user ratings option"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:31 ../multi-rating.php:349
+msgid "Multi Rating"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:85
+msgid "Rating form position"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:87
+#: ../includes/admin/class-post-metabox.php:97
+msgid "Do not show"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:88
+#: ../includes/admin/class-post-metabox.php:98
+msgid "Use default settings"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:89
+#: ../includes/class-settings.php:274
+msgid "Before content"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:90
+#: ../includes/class-settings.php:275
+msgid "After content"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:95
+msgid "Rating result position"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:99
+#: ../includes/class-settings.php:260
+msgid "Before title"
+msgstr ""
+
+#: ../includes/admin/class-post-metabox.php:100
+#: ../includes/class-settings.php:261
+msgid "After title"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:31
+#: ../includes/admin/class-rating-entry-table.php:119
+#: ../includes/admin/class-rating-results-table.php:107
+msgid "Rating Result"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:32
+#: ../includes/admin/class-rating-results-table.php:30
+#: ../includes/admin/class-rating-results-table.php:31
+#: ../includes/admin/rating-results.php:14 ../multi-rating.php:351
+msgid "Rating Results"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:75
+#: ../includes/admin/class-rating-results-table.php:59
+#: ../includes/admin/reports.php:52 ../includes/admin/tools.php:24
+#: ../includes/admin/tools.php:70 ../includes/admin/tools.php:106
+msgid "All posts / pages"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:95
+#: ../includes/admin/class-rating-results-table.php:88
+#: ../includes/admin/reports.php:73 ../includes/class-settings.php:80
+msgid "Filter"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:114
+#: ../includes/class-api.php:874
+msgid "Entry Id"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:115
+#: ../includes/admin/class-rating-results-table.php:106
+msgid "Post"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:116
+#: ../includes/class-api.php:875
+msgid "Entry Date"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:117
+#: ../includes/class-settings.php:130
+msgid "IP Address"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:118
+msgid "User ID"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:120
+#: ../includes/admin/class-rating-results-table.php:109
+msgid "Action"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:121
+#: ../includes/admin/class-rating-results-table.php:110
+msgid "Shortcode"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:269
+#: ../includes/admin/class-rating-results-table.php:338
+msgid "Star: "
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:270
+#: ../includes/admin/class-rating-results-table.php:339
+msgid "Score: "
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:271
+#: ../includes/admin/class-rating-results-table.php:340
+msgid "Percentage: "
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:292
+#: ../includes/admin/edit-rating.php:9 ../multi-rating.php:358
+msgid "Edit Rating"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:323
+#: ../includes/admin/class-rating-item-table.php:191
+#: ../includes/admin/class-rating-results-table.php:377
+msgid "Delete"
+msgstr ""
+
+#: ../includes/admin/class-rating-entry-table.php:360
+msgid "Entries deleted successfully"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:30
+msgid "Rating Item"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:31
+#: ../includes/admin/rating-items.php:9 ../multi-rating.php:352
+msgid "Rating Items"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:59
+msgid "Rating Item ID"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:61
+#: ../includes/admin/rating-items.php:90
+msgid "Description"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:62
+#: ../includes/admin/rating-items.php:96
+msgid "Type"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:63
+#: ../includes/admin/rating-items.php:122
+msgid "Weight"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:64
+#: ../includes/admin/rating-items.php:114
+msgid "Default Option Value"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:65
+#: ../includes/admin/rating-items.php:107
+msgid "Max Option Value"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:133
+#: ../includes/admin/class-rating-item-table.php:294
+#: ../includes/admin/rating-items.php:99
+msgid "Select"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:133
+#: ../includes/admin/class-rating-item-table.php:294
+#: ../includes/admin/rating-items.php:100
+msgid "Radio"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:133
+#: ../includes/admin/class-rating-item-table.php:294
+#: ../includes/admin/rating-items.php:101
+msgid "Star Rating"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:137
+msgid "Edit"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:151
+msgid "Save"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:215
+msgid "Delete rating items bulk action processed successfully"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:238
+#: ../includes/admin/edit-rating.php:124
+msgid "An error occured"
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:258
+#: ../includes/admin/rating-items.php:36
+msgid "Description cannot be empty. "
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:263
+#: ../includes/admin/rating-items.php:45
+msgid "Max option value cannot be empty and must be a whole number. "
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:267
+#: ../includes/admin/class-rating-item-table.php:275
+msgid "Default option value cannot be greater than the max option value. "
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:271
+#: ../includes/admin/rating-items.php:49
+msgid "Default option value cannot be empty and must be a whole number. "
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:279
+msgid "Weight must be numeric."
+msgstr ""
+
+#: ../includes/admin/class-rating-item-table.php:287
+#: ../includes/admin/update-check.php:50
+#: ../includes/admin/update-check.php:112
+msgid "An error occured."
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:79
+msgid "Sort"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:82
+msgid "Post Title Ascending"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:83
+msgid "Post Title Descending"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:84
+#: ../includes/class-settings.php:78
+msgid "Top Rating Results"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:85
+msgid "Most Entries"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:108
+#: ../includes/admin/rating-results.php:15 ../includes/admin/reports.php:14
+msgid "Entries"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:309
+msgid "View Entries"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:342
+#: ../includes/class-settings.php:259 ../includes/class-settings.php:273
+msgid "None"
+msgstr ""
+
+#: ../includes/admin/class-rating-results-table.php:423
+msgid "Rating results deleted successfully."
+msgstr ""
+
+#: ../includes/admin/edit-rating.php:89
+msgid "Update"
+msgstr ""
+
+#: ../includes/admin/rating-items.php:9
+msgid "Add New"
+msgstr ""
+
+#: ../includes/admin/rating-items.php:68
+msgid "Rating item added successfully."
+msgstr ""
+
+#: ../includes/admin/rating-items.php:71
+msgid "An error occured. Rating item could not be added."
+msgstr ""
+
+#: ../includes/admin/rating-items.php:84
+#: ../includes/admin/rating-items.php:131 ../multi-rating.php:353
+msgid "Add New Rating Item"
+msgstr ""
+
+#: ../includes/admin/rating-items.php:92
+msgid "Enter a description..."
+msgstr ""
+
+#: ../includes/admin/rating-items.php:103
+msgid ""
+"Do you want to use a select drop-down list, radio buttons or star rating "
+"icons from Font Awesome?"
+msgstr ""
+
+#: ../includes/admin/rating-items.php:109
+msgid "Enter max option value"
+msgstr ""
+
+#: ../includes/admin/rating-items.php:110
+msgid ""
+"If the max option value is set to 5, then the rating item options would be "
+"0, 1, 2, 3, 4 and 5."
+msgstr ""
+
+#: ../includes/admin/rating-items.php:116
+msgid "Enter default option value"
+msgstr ""
+
+#: ../includes/admin/rating-items.php:117
+msgid "This is used to default the selected option value."
+msgstr ""
+
+#: ../includes/admin/rating-items.php:124
+msgid "Enter weight"
+msgstr ""
+
+#: ../includes/admin/rating-items.php:125
+msgid ""
+"All rating items are rated equally by default. Modifying the weight of a "
+"rating item will adjust the rating results accordingly."
+msgstr ""
+
+#: ../includes/admin/reports.php:27
+msgid "Number of entries per day"
+msgstr ""
+
+#: ../includes/admin/settings.php:10 ../multi-rating.php:354
+msgid "Settings"
+msgstr ""
+
+#: ../includes/admin/settings.php:17
+msgid "Settings saved."
+msgstr ""
+
+#: ../includes/admin/tools.php:9 ../multi-rating.php:356
+msgid "Tools"
+msgstr ""
+
+#: ../includes/admin/tools.php:15
+msgid "Export Rating Results to a CSV file."
+msgstr ""
+
+#: ../includes/admin/tools.php:44
+msgid "Export"
+msgstr ""
+
+#: ../includes/admin/tools.php:59 ../includes/admin/tools.php:89
+msgid "Clear Database"
+msgstr ""
+
+#: ../includes/admin/tools.php:61
+msgid "Delete rating results from the database."
+msgstr ""
+
+#: ../includes/admin/tools.php:99 ../includes/admin/tools.php:126
+msgid "Clear Cache"
+msgstr ""
+
+#: ../includes/admin/tools.php:101
+msgid ""
+"Clear the cached rating results stored in the WordPress post meta table."
+msgstr ""
+
+#: ../includes/admin/tools.php:238
+msgid "Database cleared successfully."
+msgstr ""
+
+#: ../includes/admin/tools.php:240
+#, php-format
+msgid "An error has occured. %s"
+msgstr ""
+
+#: ../includes/admin/tools.php:243
+msgid "No entries found"
+msgstr ""
+
+#: ../includes/admin/tools.php:274
+msgid "Cache cleared successfully."
+msgstr ""
+
+#: ../includes/class-api.php:876
+msgid "Post Id"
+msgstr ""
+
+#: ../includes/class-api.php:877
+msgid "Post Title"
+msgstr ""
+
+#: ../includes/class-api.php:878
+msgid "Score Rating Result"
+msgstr ""
+
+#: ../includes/class-api.php:879
+msgid "Adjusted Score Rating Result"
+msgstr ""
+
+#: ../includes/class-api.php:880
+msgid "Total Max Option Value"
+msgstr ""
+
+#: ../includes/class-api.php:881
+msgid "Percentage Rating Result"
+msgstr ""
+
+#: ../includes/class-api.php:882
+msgid "Adjusted Percentage Rating Result"
+msgstr ""
+
+#: ../includes/class-api.php:883
+msgid "Star Rating Result"
+msgstr ""
+
+#: ../includes/class-api.php:884
+msgid "Adjusted Star Rating Result"
+msgstr ""
+
+#: ../includes/class-api.php:885
+msgid "User Id"
+msgstr ""
+
+#: ../includes/class-settings.php:77
+msgid "Please rate this"
+msgstr ""
+
+#: ../includes/class-settings.php:79
+msgid "Submit Rating"
+msgstr ""
+
+#: ../includes/class-settings.php:81 ../includes/widgets.php:114
+msgid "Category"
+msgstr ""
+
+#: ../includes/class-settings.php:82
+msgid "Your rating was %adjusted_star_result%/5."
+msgstr ""
+
+#: ../includes/class-settings.php:83
+msgid "You cannot submit a rating form for the same post multiple times."
+msgstr ""
+
+#: ../includes/class-settings.php:84
+msgid "No rating results yet"
+msgstr ""
+
+#: ../includes/class-settings.php:110
+msgid "General Settings"
+msgstr ""
+
+#: ../includes/class-settings.php:112
+msgid "Enabled Post Types"
+msgstr ""
+
+#: ../includes/class-settings.php:113
+msgid "Rating Restriction"
+msgstr ""
+
+#: ../includes/class-settings.php:114
+msgid "Rating Results Cache"
+msgstr ""
+
+#: ../includes/class-settings.php:115
+msgid "Hide Rating Form"
+msgstr ""
+
+#: ../includes/class-settings.php:131
+msgid "Cookie"
+msgstr ""
+
+#: ../includes/class-settings.php:147
+msgid "Hours"
+msgstr ""
+
+#: ../includes/class-settings.php:148
+msgid "Restrict saving a rating form for the same post multiple times."
+msgstr ""
+
+#: ../includes/class-settings.php:177
+#, php-format
+msgid ""
+"Enable the rating results to be cached in the WordPress post meta table. The "
+"cache is refreshed whenever the rating form is submitted. You can also use "
+"the <a href=\"admin.php?page=%s\">Tools</a> to clear the rating results "
+"cache."
+msgstr ""
+
+#: ../includes/class-settings.php:203
+msgid "Save rating restriction hours must be numeric."
+msgstr ""
+
+#: ../includes/class-settings.php:205
+msgid "Save rating restriction hours must be greater than 0."
+msgstr ""
+
+#: ../includes/class-settings.php:240
+msgid "Rating Results Position"
+msgstr ""
+
+#: ../includes/class-settings.php:241
+msgid "Rating Form Position"
+msgstr ""
+
+#: ../includes/class-settings.php:249
+msgid ""
+"These settings allow you to automatically place the rating form and rating "
+"results on every post or page in default positions."
+msgstr ""
+
+#: ../includes/class-settings.php:263
+msgid ""
+"Choose to automatically display the rating result before or after the post "
+"title for all enabled post types."
+msgstr ""
+
+#: ../includes/class-settings.php:277
+msgid ""
+"Choose to automatically display the rating form before or after the post "
+"content for all enabled post types."
+msgstr ""
+
+#: ../includes/class-settings.php:300
+msgid "Style Settings"
+msgstr ""
+
+#: ../includes/class-settings.php:302
+msgid "Custom CSS"
+msgstr ""
+
+#: ../includes/class-settings.php:303
+msgid "Star Rating Color"
+msgstr ""
+
+#: ../includes/class-settings.php:304
+msgid "Star Rating On Hover Color"
+msgstr ""
+
+#: ../includes/class-settings.php:305
+msgid "Load Font Awesome Library?"
+msgstr ""
+
+#: ../includes/class-settings.php:306
+msgid "Font Awesome Version"
+msgstr ""
+
+#: ../includes/class-settings.php:307
+msgid "Use Custom Star Images"
+msgstr ""
+
+#: ../includes/class-settings.php:322
+msgid "Do you want the plugin to include loading of the Font Awesome CSS?"
+msgstr ""
+
+#: ../includes/class-settings.php:343
+msgid "Full Star"
+msgstr ""
+
+#: ../includes/class-settings.php:345 ../includes/class-settings.php:352
+#: ../includes/class-settings.php:359 ../includes/class-settings.php:366
+msgid "Upload"
+msgstr ""
+
+#: ../includes/class-settings.php:350
+msgid "Half Star"
+msgstr ""
+
+#: ../includes/class-settings.php:357
+msgid "Empty Star"
+msgstr ""
+
+#: ../includes/class-settings.php:364
+msgid "Hover Star"
+msgstr ""
+
+#: ../includes/class-settings.php:376
+msgid "Image width"
+msgstr ""
+
+#: ../includes/class-settings.php:377 ../includes/class-settings.php:379
+msgid "pixels"
+msgstr ""
+
+#: ../includes/class-settings.php:378
+msgid "Image height"
+msgstr ""
+
+#: ../includes/class-settings.php:385
+msgid ""
+"Each image must be one star of the same size. Valid mime types are image/"
+"jpeg, image/png, image/bmp, image/tiff and image/x-icon."
+msgstr ""
+
+#: ../includes/class-settings.php:386
+msgid "Preview e.g. 2.5/5:"
+msgstr ""
+
+#: ../includes/class-settings.php:394
+#, php-format
+msgid ""
+"<a href=\"%1$s\" target=\"_blank\">Learn how to setup your own Custom Star "
+"Rating images.</a>"
+msgstr ""
+
+#: ../includes/class-settings.php:471
+msgid "Full star, half star and empty star custom images are required."
+msgstr ""
+
+#: ../includes/class-settings.php:486
+msgid ""
+"Invalid image format. Valid mime types: image/jpeg, image/png, image/bmp, "
+"image/tiff and image/x-icon"
+msgstr ""
+
+#: ../includes/class-settings.php:495
+msgid "Custom image height must be numeric."
+msgstr ""
+
+#: ../includes/class-settings.php:497
+msgid "Custom image height cannot be less than 1 or greater than 128."
+msgstr ""
+
+#: ../includes/class-settings.php:501
+msgid "Custom image width must be numeric."
+msgstr ""
+
+#: ../includes/class-settings.php:503
+msgid "Custom image width cannot be less than 1 or greater than 128."
+msgstr ""
+
+#: ../includes/class-settings.php:517
+msgid "Custom Text Settings"
+msgstr ""
+
+#: ../includes/class-settings.php:519
+msgid "Rating Form Title"
+msgstr ""
+
+#: ../includes/class-settings.php:520
+msgid "Top Rating Results Title"
+msgstr ""
+
+#: ../includes/class-settings.php:521
+msgid "Rating Form Submit Button Text"
+msgstr ""
+
+#: ../includes/class-settings.php:522
+msgid "Filter Button Text"
+msgstr ""
+
+#: ../includes/class-settings.php:523
+msgid "Category Label Text"
+msgstr ""
+
+#: ../includes/class-settings.php:524
+msgid "Rating Form Submit Success Message"
+msgstr ""
+
+#: ../includes/class-settings.php:525
+msgid "Rating Restriction Error Message"
+msgstr ""
+
+#: ../includes/class-settings.php:526
+msgid "No Rating Results Text"
+msgstr ""
+
+#: ../includes/class-settings.php:527
+msgid "Character Encoding"
+msgstr ""
+
+#: ../includes/class-settings.php:535
+msgid "Modify the default text and messages."
+msgstr ""
+
+#: ../includes/class-settings.php:571
+msgid ""
+"Substitutions: %star_result%, %adjusted_star_result%, %score_result%, "
+"%adjusted_score_result%, %percentage_result%, %adjusted_percentage_result% "
+"and %total_max_option_value%. e.g. \"Your rating was %adjusted_star_result"
+"%/5\"."
+msgstr ""
+
+#: ../includes/class-settings.php:617
+msgid "Keep current charset (Recommended)"
+msgstr ""
+
+#: ../includes/class-settings.php:618
+msgid "UTF-8 (try this first)"
+msgstr ""
+
+#: ../includes/class-settings.php:619
+msgid "latin1_swedish_ci"
+msgstr ""
+
+#: ../includes/misc-functions.php:14
+#, php-format
+msgid ""
+"Please <a href=\"%1$s\" target=\"_blank\">rate this plugin</a> on WordPress."
+"org | Check out <a href=\"%2$s\" target=\"_blank\">Multi Rating Pro</a>!"
+msgstr ""
+
+#: ../includes/widgets.php:13
+msgid "Displays the Top Rating Results."
+msgstr ""
+
+#: ../includes/widgets.php:16
+msgid "Top Rating Results Widget"
+msgstr ""
+
+#: ../includes/widgets.php:106
+msgid "Title"
+msgstr ""
+
+#: ../includes/widgets.php:110
+msgid "Limit"
+msgstr ""
+
+#: ../includes/widgets.php:119
+msgid "Show category filter"
+msgstr ""
+
+#: ../includes/widgets.php:123
+msgid "Show featured image"
+msgstr ""
+
+#: ../includes/widgets.php:126
+msgid "Image size"
+msgstr ""
+
+#: ../multi-rating.php:357
+msgid "About"
+msgstr ""

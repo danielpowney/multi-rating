@@ -1,0 +1,56 @@
+.form-table .widefat th,.form-table .widefat td {
+	padding: 8px 10px;
+}
+form#rating-entry-value-table-form div.tablenav label,form#rating-entry-value-table-form div.tablenav input {
+	margin-right: 6px;
+}
+table.form-table .checkbox-label {
+	margin-right: 12px;
+}
+
+/* Reports */
+#reports-form p.description { 
+	margin-top: 4px;
+}
+
+.report-wrapper {
+	padding: 0px;
+	margin: 0px 0 10px 0;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+body.admin-color-classic .report-wrapper {
+	background: #fff;
+	background-color: #f7fcfe;
+	border: 1px solid #d1e5ee;
+}
+
+.flot-container {
+	width: 100%;
+	max-width: 100%;
+	display: inline-block;
+}
+
+.report-placeholder {
+	margin: 10px;
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+#reports-form select {
+	max-width: 180px;
+}
+
+
+
+.clear-anchor {
+	margin-left: 10px;
+}
+
+div#custom-star-images-details td {
+	padding-bottom: 0px !important;
+	padding-top: 10px !important;
+}

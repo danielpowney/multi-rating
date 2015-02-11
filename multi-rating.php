@@ -434,7 +434,7 @@ class Multi_Rating {
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'ajax_nonce' => wp_create_nonce( Multi_Rating::ID.'-nonce' ),
 				'icon_classes' => json_encode( $icon_classes ),
-				'use_custom_star_images' => $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES]
+				'use_custom_star_images' => ( $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES] == true ) ? true : false
 		);
 		
 		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );

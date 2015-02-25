@@ -45,12 +45,11 @@ function mr_filter_the_content( $content ) {
 
 	$rating_form = null;
 	if ( $rating_form_position == 'before_content' || $rating_form_position == 'after_content' ) {
-		$rating_form = Multi_Rating_API::display_rating_form(
-				array(
-						'post_id' => $post_id,
-						'echo' => false,
-						'class' => $rating_form_position . ' mr-filter'
-		));
+		$rating_form = Multi_Rating_API::display_rating_form( array(
+				'post_id' => $post_id,
+				'echo' => false,
+				'class' => $rating_form_position . ' mr-filter'
+		) );
 	}
 	
 	if ( $rating_form_position == '' ) {
@@ -70,7 +69,7 @@ function mr_filter_the_content( $content ) {
 		$filtered_content .= $rating_form;
 	}
 	
-	do_action( 'after_auto_placement', 'the_content', $post_id );
+	do_action( 'mr_after_auto_placement', 'the_content', $post_id );
 
 	return $filtered_content;
 }
@@ -119,14 +118,13 @@ function mr_filter_the_title( $title ) {
 		$rating_results_position = $position_settings[ Multi_Rating::RATING_RESULTS_POSITION_OPTION ];
 	}
 
-	$rating_result = Multi_Rating_API::display_rating_result(
-			array(
-					'post_id' => $post_id,
-					'echo' => false,
-					'show_date' => false,
-					'show_rich_snippets' => true,
-					'class' => $rating_results_position . ' mr-filter'
-			));
+	$rating_result = Multi_Rating_API::display_rating_result( array(
+			'post_id' => $post_id,
+			'echo' => false,
+			'show_date' => false,
+			'show_rich_snippets' => true,
+			'class' => $rating_results_position . ' mr-filter'
+	) );
 	
 	if ( $rating_results_position == '' ) {
 		remove_filter( 'the_title', 'mr_filter_the_title' );
@@ -145,7 +143,7 @@ function mr_filter_the_title( $title ) {
 		$filtered_title .= $rating_result;
 	}
 	
-	do_action( 'after_auto_placement', 'the_title', $post_id );
+	do_action( 'mr_after_auto_placement', 'the_title', $post_id );
 
 	return $filtered_title;
 }
@@ -166,4 +164,4 @@ function mr_check_auto_placement( $filter, $post_id )  {
 		remove_filter( $filter, 'mr_filter_' . $filter );
 	}
 }
-add_action( 'after_auto_placement', 'mr_check_auto_placement', 10, 3);
+add_action( 'mr_after_auto_placement', 'mr_check_auto_placement', 10, 3);

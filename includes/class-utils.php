@@ -43,7 +43,8 @@ class MR_Utils {
 		
 		$icon_classes = array();
 		
-		if ( $font_awesome_version == '4.0.3' || $font_awesome_version == '4.1.0' || $font_awesome_version == '4.2.0' ) {
+		if ( $font_awesome_version == '4.0.3' || $font_awesome_version == '4.1.0' || $font_awesome_version == '4.2.0'
+				|| $font_awesome_version == '4.3.0' ) {
 			$icon_classes['star_full'] = 'fa fa-star mr-star-full';
 			$icon_classes['star_half'] = 'fa fa-star-half-o mr-star-half';
 			$icon_classes['star_empty'] = 'fa fa-star-o mr-star-empty';
@@ -183,6 +184,154 @@ class MR_Utils {
 		}
 	
 		return $message;
+	}
+	
+	/**
+	 * Helper to sort by top rating results by percentage
+	 *
+	 * @param unknown_type $a
+	 * @param unknown_type $b
+	 */
+	public static function sort_highest_rated_by_percentage_result_type( $a, $b ) {
+	
+		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
+		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
+	
+		if ( $a['adjusted_percentage_result'] == $b['adjusted_percentage_result'] ) {
+			return 0;
+		}
+	
+		return ( $a['adjusted_percentage_result'] > $b['adjusted_percentage_result'] ) ? -1 : 1;
+	}
+	
+	/**
+	 * Helper to sort by top rating results by score
+	 *
+	 * @param unknown_type $a
+	 * @param unknown_type $b
+	 */
+	public static function sort_highest_rated_by_score_result_type( $a, $b ) {
+	
+		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
+		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
+	
+		if ( $a['adjusted_score_result'] == $b['adjusted_score_result'] ) {
+			return 0;
+		}
+	
+		return ( $a['adjusted_score_result'] > $b['adjusted_score_result'] ) ? -1 : 1;
+	}
+	
+	/**
+	 * Helper to sort by lowest rated percentage
+	 *
+	 * @param unknown_type $a
+	 * @param unknown_type $b
+	 */
+	public static function sort_lowest_rated_by_percentage_result_type( $a, $b ) {
+	
+		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
+		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
+	
+		if ( $a['adjusted_percentage_result'] == $b['adjusted_percentage_result'] ) {
+			return 0;
+		}
+	
+		return ( $a['adjusted_percentage_result'] < $b['adjusted_percentage_result'] ) ? -1 : 1;
+	}
+	
+	/**
+	 * Helper to sort by lowest rated score
+	 *
+	 * @param unknown_type $a
+	 * @param unknown_type $b
+	 */
+	public static function sort_lowest_rated_by_score_result_type( $a, $b ) {
+	
+		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
+		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
+	
+		if ( $a['adjusted_score_result'] == $b['adjusted_score_result'] ) {
+			return 0;
+		}
+	
+		return ( $a['adjusted_score_result'] < $b['adjusted_score_result'] ) ? -1 : 1;
+	}
+	
+	/**
+	 * Helper to sort by most entries
+	 *
+	 * @param unknown_type $a
+	 * @param unknown_type $b
+	 */
+	public static function sort_most_entries( $a, $b ) {
+	
+		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
+		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
+	
+		if ( $a['count'] == $b['count'] ) {
+			return 0;
+		}
+	
+		return ( $a['count'] > $b['count'] ) ? -1 : 1;
+	}
+	
+	/**
+	 * Helper to sort the rating results by latest entry date if it exists
+	 *
+	 * @param unknown_type $a
+	 * @param unknown_type $b
+	 */
+	public static function sort_most_recent_by_entry_date( $a, $b ) {
+	
+		$entry_date_a = isset( $a['rating_result']['entry_date'] ) ? $a['rating_result']['entry_date'] : $a['entry_date'];
+		$entry_date_b = isset( $b['rating_result']['entry_date'] ) ? $b['rating_result']['entry_date'] : $b['entry_date'];
+	
+		// sort by entry date
+		if ( $entry_date_a == $entry_date_b ) {
+			return 0;
+		}
+		return ( $entry_date_a > $entry_date_b ) ? -1 : 1;
+	
+		return 0;
+	}
+	
+	/**
+	 * Sorts rating results
+	 *
+	 * @param unknown $rating_results
+	 * @param unknown $sort_by
+	 * @return $rating_results
+	 */
+	public static function sort_rating_results( $rating_results, $sort_by, $result_type = 'star_rating' ) {
+	
+		if ( $sort_by == 'highest_rated' ) {
+				
+			if ( $result_type == MRP_Multi_Rating::SCORE_RESULT_TYPE) {
+				uasort( $rating_results, array( 'MR_Utils' , 'sort_highest_rated_by_score_result_type' ) );
+			} else {
+				uasort( $rating_results, array( 'MR_Utils' , 'sort_highest_rated_by_percentage_result_type' ) );
+			}
+				
+		} else if ( $sort_by == 'lowest_rated' ) {
+				
+			if ( $result_type == MRP_Multi_Rating::SCORE_RESULT_TYPE) {
+				uasort( $rating_results, array( 'MR_Utils' , 'sort_lowest_rated_by_score_result_type' ) );
+			} else {
+				uasort( $rating_results, array( 'MR_Utils' , 'sort_lowest_rated_by_percentage_result_type' ) );
+			}
+				
+		} else if ( $sort_by == 'most_entries' ) {
+				
+			uasort( $rating_results, array( 'MR_Utils' , 'sort_most_entries' ) );
+				
+		} else if ( $sort_by == 'most_recent' ) {
+				
+			uasort( $rating_results, array( 'MR_Utils' , 'sort_most_recent_by_entry_date' ) );
+				
+		}
+	
+		return $rating_results;
 	}
 }
 ?>

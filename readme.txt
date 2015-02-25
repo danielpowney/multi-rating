@@ -19,20 +19,22 @@ The best rating system plugin for WordPress. Multi Rating allows visitors to rat
 * 5 star ratings, percentage and score results
 * Multuple rating criteria and questions using star ratings, select drop-down lists and radio buttons to choose answers from
 * Font Awesome used for star rating icons or upload your own star rating images to use instead
-* Shortcodes to display the rating form, rating results and top rating results
-* schema.org structured markup is be added to every page that allow search engines to display the aggregated rating results as rich snippets
+* Shortcodes to display the rating form and rating results
+* Shortcode and widget to display a list of rating results (sort by highest rated, lowest rated, most entries, post title ascending or post title descending)
+* Ability to add schema.org microdata to show the aggregate ratings in search engine results as rich snippets
 * View the rating results, entries and selected values in the WP-admin
-* Widget to display the top rating results
 * Enable for custom post types and pages
 * Add custom weights to each rating item to adjust the overall rating results
 * Automatic placement settings to display the rating form and rating results on every post in different positions
 * Meta-box on the edit post page to override the default automatic placement settings
 * Settings to restrict post types, turn on validation, modify text, apply different styles and clear the database etc...
-* Reports on number of entries per day
-* Export rating results to CSV file
+* Graphical reports on number of entries per day
+* Export rating results to a CSV file
 * Custom taxonomy support
-* API functions & action hooks for using Multi Rating in your theme
-* Edit ratings in WP-admin (Editor & Administrator user roles)
+* Developer API functions and template tags to use in your theme
+* Edit ratings in WP-admin (Editor & Administrator user roles can only do this)
+* In-built template system for customization
+* All data stoted in your own WordPress database - no signup required!
 
 Here's a live demo: http://danielpowney.com/multi-rating/
 
@@ -40,12 +42,15 @@ The plugin is i18n translation ready (.pot file in the languages directory). Dif
 
 = Shortcode Examples =
 
-* [display_rating_form]
-* [display_rating_form post_id="100" title="My rating form" submit_button_text="Submit"]
-* [display_rating_result]
-* [display_rating_result post_id="100" no_rating_results_text="No rating result yet" show_rich_snippets="false" show_count="true" show_title="false"]
-* [display_top_rating_results]
-* [display_top_rating_results title="Top Rating Results" limit="10"]
+* [mr_rating_form]
+* [mr_rating_form title="Please rate this" submit_button_text="Submit"]
+* [mr_rating_result]
+* [mr_rating_result post_id="100" no_rating_results_text="No rating result yet" show_rich_snippets="false"]
+* [mr_rating_results_list]
+* [mr_rating_results_list title="Top Ratings" sort_by="highest_rated" limit="10"]
+* [mr_rating_results_list title="Ratings" sort_by="most_entries" limit="5" before_title="<h3>" after_title="</h3>" ]
+
+Github Repositpory: http://github.com/danielpowney/multi-rating
 
 = Multi Rating Pro =
 
@@ -56,13 +61,13 @@ The following key features are available in the Pro version:
 * Add custom fields to collect additional information
 * Ratings moderation (approve or unapprove rating entries)
 * Logged in users can update or delete their existing ratings
-* New shortcodes, API functions and widgets (e.g. display user reviews and individual rating item results)
+* New shortcodes, API functions and widgets (i.e. reviews and rating item results)
 * Rating forms can optionally include a name, e-mail and comment fields
 * Ability to use text descriptions for select and radio options instead of numbers
 * Post, category and specific page filters to include (whitelist) or exclude (blacklist) automatic placement of the rating form and rating results
 * Options to exclude the home page and archive pages (i.e. Category, Tag, Author or a Date based pages)
-* Like/dislike or thumbs up/down rating item type
-* Display detailed rating item results breakdown in a poll format
+* Thumbs up/thumbs down rating item type
+* Display a breakdown of rating item results in 3 layouts
 * Allow/disallow anonymous user ratings option
 
 Check it out here http://danielpowney.com/downloads/multi-rating-pro/
@@ -89,6 +94,13 @@ Full documentation available here http://danielpowney.com/multi-rating/
 9. Reports page
 
 == Changelog ==
+
+= 4.0 =
+* New template system
+* Added lots of new actions & filters
+* Added CSS cursor pointer on hover of star rating icons
+* Renamed the Top Rating Results widget to Rating Results List widget and added more options
+* API & shortcode changes
 
 = 3.2.1 =
 * Added loading spinner when saving rating form

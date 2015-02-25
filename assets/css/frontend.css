@@ -96,7 +96,7 @@ label.description {
 .mr-star-rating-select .mr-minus {
 	margin-right: 5px;
 }
-.mr-star-rating-select i {
+.mr-star-rating-select i,  .mr-star-rating-select span  {
 	cursor: pointer;
 }
 

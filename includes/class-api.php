@@ -77,6 +77,11 @@ class Multi_Rating_API {
 			$max_option_value = $rating_item_row->max_option_value;
 			$type = $rating_item_row->type;
 			
+			// WPML translate string
+			if ( function_exists( 'icl_translate' ) && strlen( $description ) > 0 ) {
+				$description = icl_translate( 'multi-rating', 'rating-item-' . $rating_item_id . '-description', $description );
+			}
+			
 			$rating_items[$rating_item_id] = array(
 					'max_option_value' => $max_option_value,
 					'weight' => $weight,
@@ -493,16 +498,15 @@ class Multi_Rating_API {
 	
 		if ( count( $rating_item_entry_value_rows ) > 0 ) {
 			// calculate 5 star result
-			$star_result = ( doubleval( $score_result ) / doubleval( $total_max_option_value ) ) * 5;
-			$adjusted_star_result = ( doubleval( $adjusted_score_result ) / doubleval( $total_adjusted_max_option_value ) ) * 5;
+			$star_result = round( ( doubleval( $score_result ) / doubleval( $total_max_option_value ) ) * 5, 2 );
+			$adjusted_star_result = round( ( doubleval( $adjusted_score_result ) / doubleval( $total_adjusted_max_option_value ) ) * 5, 2);
 		
 			// calculate percentage result
-			$percentage_result = ( doubleval( $score_result ) / doubleval( $total_max_option_value ) ) * 100;
-			$adjusted_percentage_result = ( doubleval( $adjusted_score_result ) / doubleval( $total_adjusted_max_option_value ) ) * 100;
+			$percentage_result = round( ( doubleval( $score_result ) / doubleval( $total_max_option_value ) ) * 100, 2);
+			$adjusted_percentage_result = round( ( doubleval( $adjusted_score_result ) / doubleval( $total_adjusted_max_option_value ) ) * 100, 2);
 		
 			// calculate adjusted score result relative to max value
-			$adjusted_score_result = ( doubleval( $adjusted_score_result ) / doubleval( $total_adjusted_max_option_value ) ) * $total_max_option_value;
-
+			$adjusted_score_result = round( ( doubleval( $adjusted_score_result ) / doubleval( $total_adjusted_max_option_value ) ) * $total_max_option_value, 2);
 		}
 	
 		return array(
@@ -517,283 +521,316 @@ class Multi_Rating_API {
 	}
 	
 	/**
-	 * Sorts top rating results by score result type
-	 * 
-	 * @param $a
-	 * @param $b
-	 */
-	private static function sort_top_rating_results_by_score_result_type( $a, $b ) {
-		
-		if ( $a['adjusted_score_result'] == $b['adjusted_score_result'] ) {
-			return 0;
-		}
-		
-		return ( $a['adjusted_score_result'] > $b['adjusted_score_result'] ) ? -1 : 1;
-	}
-	
-	/**
-	 * Sorts top rating results by percentage or star rating result type
-	 *
-	 * @param $a
-	 * @param $b
-	 */
-	private static function sort_top_rating_results_by_percentage_result_type( $a, $b ) {
-	
-		if ( $a['adjusted_percentage_result'] == $b['adjusted_percentage_result'] ) {
-			return 0;
-		}
-	
-		return ( $a['adjusted_percentage_result'] > $b['adjusted_percentage_result'] ) ? -1 : 1;
-	}
-	
-	
-	/**
-	 * Get the top rating results
-	 *
-	 * @param $limit the count of top rating results to return
-	 * @param $category_id
-	 * @return top rating results
-	 */
-	public static function get_top_rating_results( $params = array() ) {
-	
-		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-		
-		extract( wp_parse_args( $params, array(
-				'taxonomy' => null,
-				'term_id' => 0,
-				'limit' => 10,
-				'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
-		) ) );
-		
-		if ( $term_id == 0 && $taxonomy != null ){
-			// get all terms in the taxonomy
-			$tax_terms = get_terms( $taxonomy );
-			
-			// convert array of term objects to array of term Id's
-			$term_id = wp_list_pluck( $tax_terms, 'term_id' );
-		}
-		
-		$post_query_args = array( 
-				'numberposts' => -1,
-				'post_type' => $general_settings[Multi_Rating::POST_TYPES_OPTION]
-		);
-		
-		if ( $taxonomy != null) {
-			$post_query_args = array_merge( $post_query_args, array( 'tax_query' => array( array(
-							'taxonomy' => $taxonomy,
-							'field' => 'term_id',
-							'terms' => $term_id
-			) ) ) );
-		}
-		$posts = get_posts( $post_query_args );
-	
-		// iterate the post types and calculate rating results
-		$rating_results = array();
-		foreach ( $posts as $current_post ) {
-			
-			$post_id = $current_post->ID;
-			
-			if( ! is_array( $term_id ) ) {
-				//skip if not in that term
-				$terms_objects = wp_get_object_terms( $post_id, $taxonomy );
-			
-				if ( !empty( $terms_objects ) ) {
-					foreach ( $terms_objects as $current_taxonomy ) {
-						if( $current_taxonomy->term_id != $term_id ){
-							continue;
-						}
-					}
-				}
-			}
-			
-			$rating_result = Multi_Rating_API::get_rating_result( $post_id );
-				
-			if ( intval( $rating_result['count'] ) > 0 ) {
-				array_push( $rating_results, $rating_result );
-			}
-		}
-	
-		if ( $result_type == Multi_Rating::SCORE_RESULT_TYPE ) {
-			uasort( $rating_results, array( 'Multi_Rating_API' , 'sort_top_rating_results_by_score_result_type' ) );
-		} else {
-			uasort( $rating_results, array( 'Multi_Rating_API' , 'sort_top_rating_results_by_percentage_result_type' ) );
-		}
-	
-		$rating_results = array_slice( $rating_results, 0, $limit );
-		
-		return $rating_results;
-	}
-	
-	/**
-	 * Displays the rating form.
+	 * Gets rating results
 	 *
 	 * @param unknown_type $params
-	 * @return html
 	 */
-	public static function display_rating_form( $params = array()) {
-	
-		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
-		$position_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );
+	public static function get_rating_results( $params = array() ) {
 	
 		extract( wp_parse_args( $params, array(
-				'post_id' => null,
-				'title' => $custom_text_settings[Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION],
-				'before_title' => '<h4>',
-				'after_title' => '</h4>',
-				'submit_button_text' => $custom_text_settings[Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION],
-				'echo' => true,
-				'class' => ''
+			'taxonomy' => null,
+			'term_id' => 0,
+			'limit' => 10,
+			'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
+			'sort_by' => 'highest_rated',
+			'post_id' => null
 		) ) );
 	
-		// get post id
-		global $post;
+		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 	
-		if ( !isset( $post_id ) && isset( $post ) ) {
-			$post_id = $post->ID;
-		} else if ( ! isset( $post ) && ! isset( $post_id ) ) {
-			return; // No post Id available to display rating form
+		global $wpdb;
+	
+		$query = 'SELECT rie.post_id AS post_id';
+		if ( $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc' ) {
+			$query .= ', p.post_title AS post_title';
 		}
 	
-		$rating_items = Multi_Rating_API::get_rating_items( array() );
+		$query .= ' FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' as rie';
 	
-		$params = array(
-				'title' => $title,
-				'before_title' => $before_title,
-				'after_title' => $after_title,
-				'submit_button_text' => $submit_button_text,
-				'class' => $class
-		);
-		
-		ob_start();
-		do_action( 'mr_display_rating_form', $rating_items, $post_id, $params );
-		$html = ob_get_contents();
-		ob_end_clean();
-	
-		if ( $echo == true ) {
-			echo $html;
+		if ( $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc' || $taxonomy ) {
+			$query .= ', ' . $wpdb->posts . ' as p';
 		}
 	
-		return $html;
-	}
+		if ( $taxonomy != null ) {
+			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'term_relationships rel ON rel.object_id = p.ID';
+			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'term_taxonomy tax ON tax.term_taxonomy_id = rel.term_taxonomy_id';
+			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'terms t ON t.term_id = tax.term_id';
+		}
+	
+		$added_to_query = false;
+		if (  $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc'
+				|| $taxonomy || ( $taxonomy && $term_id ) || $post_id ) {
+			$query .= ' WHERE';
+		}
+	
+		if ( $post_id ) {
+			if ( $added_to_query ) {
+				$query .= ' AND';
+			}
+
+			$query .= ' rie.post_id = "' . $post_id . '"';
+			$added_to_query = true;
+		}
+	
+		if ( $taxonomy ) {
+			if ( $added_to_query ) {
+				$query .= ' AND';
+			}
+
+			$query .= ' p.ID = rie.post_id AND tax.taxonomy = "' . $taxonomy . '"';
+
+			if ( $term_id ) {
+				$query .= ' AND t.term_id IN (' . $term_id . ')';
+			}
+	
+			$added_to_query = true;
+		}
+	
+		if ( $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc' ) {
+			if ( $added_to_query ) {
+				$query .= ' AND';
+			}
+	
+			$query .= ' rie.post_id = p.ID';
+			$added_to_query = true;
+		}
+	
+		$query .= ' GROUP BY rie.post_id';
+
+		if ( $sort_by == 'post_title_asc' ) {
+			$query .= ' ORDER BY post_title ASC';
+		} else if ( $sort_by == 'post_title_desc' ) {
+			$query .= ' ORDER BY post_title DESC';
+		}
+	
+		$results =  $wpdb->get_results( $query, ARRAY_A );
+	
+		$rating_results = array();
+	
+		foreach ( $results as $row ) {
+			$temp_post_id = $row['post_id'];
+
+			$rating_result = Multi_Rating_API::get_rating_result( $temp_post_id );
+						
+			array_push( $rating_results, $rating_result);
+		}
+	
+		// TODO pagination
+	
+		$rating_results = array_slice( MR_Utils::sort_rating_results( $rating_results, $sort_by, $result_type ), 0, $limit );
+	
+		return $rating_results;
+	}	
 	
 	/**
 	 * Displays the rating result
-	 *
+	 * 
 	 * @param unknown_type $atts
 	 * @return void|string
 	 */
 	public static function display_rating_result( $params = array()) {
-	
+		
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
-	
+		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+		
+		$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+		$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
+		$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
+		$image_width = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
+		$image_height = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
+		
 		extract( wp_parse_args( $params, array(
 				'post_id' => null,
 				'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION],
 				'show_rich_snippets' => false,
 				'show_title' => false,
-				'show_date' => true,
 				'show_count' => true,
 				'echo' => true,
 				'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
-				'class' => ''
+				'class' => '',
+				'before_count' => '(',
+				'after_count' => ')'
 		) ) );
-	
-		if ( is_string($show_rich_snippets ) ) {
+		
+		if ( is_string( $show_rich_snippets ) ) {
 			$show_rich_snippets = $show_rich_snippets == 'true' ? true : false;
 		}
 		if ( is_string( $show_title ) ) {
 			$show_title = $show_title == 'true' ? true : false;
 		}
-		if ( is_string( $show_date ) ) {
-			$show_date = $show_date == 'true' ? true : false;
-		}
-		if ( is_string( $show_count ) ) {
-			$show_count = $show_count == 'true' ? true : false;
-		}
-		if ( is_string($echo ) ) {
-			$echo = $echo == 'true' ? true : false;
-		}
-	
-		// get post id
-		global $post;
-	
-		if ( !isset( $post_id ) && isset( $post ) ) {
-			$post_id = $post->ID;
-		} else if ( ! isset($post) && ! isset( $post_id ) ) {
-			return; // No post Id available to display rating form
-		}
-	
-		$rating_result = Multi_Rating_API::get_rating_result( $post_id );
-		
-		$params = array(
-				'no_rating_results_text' => $no_rating_results_text,
-				'show_rich_snippets' => $show_rich_snippets,
-				'show_title' => $show_title,
-				'show_date' => $show_date,
-				'show_count' => $show_count,
-				'no_rating_results_text' => $no_rating_results_text,
-				'result_type' => $result_type,
-				'class' => $class . ' rating-result-' . $post_id
-		);
-		
-		ob_start();
-		do_action( 'mr_display_rating_results', $rating_result, $params );
-		$html = ob_get_contents();
-		ob_end_clean();
-	
-		if ( $echo == true ) {
-			echo $html;
-		}
-	
-		return $html;
-	}
-	
-	/**
-	 * Displays the top rating results
-	 * 
-	 * @param $params
-	 * @return html
-	 */
-	public static function display_top_rating_results( $params = array()) {
-	
-		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-	
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
-	
-		extract( wp_parse_args( $params, array(
-				'title' => $custom_text_settings[Multi_Rating::TOP_RATING_RESULTS_TITLE_TEXT_OPTION],
-				'before_title' => '<h4>',
-				'after_title' => '</h4>',
-				'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION ],
-				'show_count' => true,
-				'echo' => true,
-				'show_category_filter' => true,
-				'category_id' => 0, // 0 = All,
-				'limit' => 10, // modified was count
-				'show_rank' => true,
-				'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
-		        'show_title' => true,
-				'class' => '',
-				'taxonomy' => null,
-				'term_id' => 0, // 0 = All
-				'filter_button_text' => $custom_text_settings[Multi_Rating::FILTER_BUTTON_TEXT_OPTION ],
-				'category_label_text' => $custom_text_settings[Multi_Rating::CATEGORY_LABEL_TEXT_OPTION ],
-				'show_featured_img' => false,
-				'image_size' => 'thumbnail'
-		) ) );
-	
 		if ( is_string( $show_count ) ) {
 			$show_count = $show_count == 'true' ? true : false;
 		}
 		if ( is_string( $echo ) ) {
 			$echo = $echo == 'true' ? true : false;
 		}
+		
+		// get the post id
+		global $post;
+		
+		if ( ! isset( $post_id ) && isset( $post ) ) {
+			$post_id = $post->ID;
+		} else if ( ! isset( $post ) && ! isset( $post_id ) ) {
+			return; // No post Id available to display rating form
+		}
+		
+		$rating_result = Multi_Rating_API::get_rating_result( $post_id );
+	
+		ob_start();
+		mr_get_template_part( 'rating-result', null, true, array(
+				'no_rating_results_text' => $no_rating_results_text,
+				'show_rich_snippets' => $show_rich_snippets,
+				'show_title' => $show_title,
+				'show_date' => false,
+				'show_count' => $show_count,
+				'no_rating_results_text' => $no_rating_results_text,
+				'result_type' => $result_type,
+				'class' => $class . ' rating-result-' . $post_id,
+				'rating_result' => $rating_result,
+				'before_count' => $before_count,
+				'after_count' => $after_count,
+				'post_id' => $post_id,
+				'ignore_count' => false,
+				'preserve_max_option' => false, 
+				'icon_classes' => $icon_classes,
+				'use_custom_star_images' => $use_custom_star_images,
+				'image_width' => $image_width,
+				'image_height' => $image_height
+		) );
+		$html = ob_get_contents();
+		ob_end_clean();
+		
+		if ( $echo == true ) {
+			echo $html;
+		}
+		
+		return $html;
+	}
+	
+	/**
+	 * Displays the rating form
+	 * 
+	 * @param unknown_type $params
+	 */
+	public static function display_rating_form( $params = array()) {
+		
+		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
+		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$position_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );
+		
+		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+		$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+		$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
+		$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
+
+		extract( wp_parse_args($params, array(
+				'post_id' => null,
+				'title' => $custom_text_settings[Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION],
+				'before_title' => '<h4>',
+				'after_title' => '</h4>',
+				'submit_button_text' => $custom_text_settings[Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION],
+				'echo' => true,
+				'class' => '',
+		) ) );
+		
+		// get the post id
+		global $post;
+	
+		if ( ! isset( $post_id ) && isset( $post ) ) {
+			$post_id = $post->ID;
+		} else if ( !isset($post) && !isset( $post_id ) ) {
+			return; // No post Id available to display rating form
+		}
+		
+		MR_Rating_Form::$sequence++;
+	
+		$rating_items = Multi_Rating_API::get_rating_items( array( ) );
+		
+		ob_start();
+		mr_get_template_part( 'rating-form', null, true, array(
+			'title' => $title,
+			'before_title' => $before_title,
+			'after_title' => $after_title,
+			'submit_button_text' => $submit_button_text,
+			'class' => $class,
+			'post_id' => $post_id,
+			'rating_items' => $rating_items,
+			'icon_classes' => $icon_classes,
+			'use_custom_star_images' => $use_custom_star_images
+		) );
+		$html = ob_get_contents();
+		ob_end_clean();
+		
+		if ( $echo == true ) {
+			echo $html;
+		}
+		
+		return $html;
+	}
+	
+	/**
+	 * Displays a rating results list. This is used by the Rating Result List widet and shortcode.
+	 * 
+	 * @param unknown_type $params
+	 * @return string
+	 */
+	public static function display_rating_results_list( $params = array() ) {
+		
+		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
+		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+		
+		$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+		$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
+		$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
+		$image_width = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
+		$image_height = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
+		
+		extract( wp_parse_args( $params, array(
+				'rating_form_id' => $general_settings[ Multi_Rating::DEFAULT_RATING_FORM_OPTION ],
+				'title' => $custom_text_settings[Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION],
+				'before_title' => '<h4>',
+				'after_title' => '</h4>',
+				'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION ],
+				'show_count' => true,
+				'echo' => true,
+				'show_category_filter' => true, // @deprecated
+				'category_id' => 0, // 0 = All, // uses the category taxonomy
+				'limit' => 10, // modified was count
+				'show_rank' => true,
+				'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
+				'show_title' => true,
+				'class' => '',
+				'taxonomy' => null,
+				'term_id' => 0, // 0 = All
+				'filter_button_text' => $custom_text_settings[Multi_Rating::FILTER_BUTTON_TEXT_OPTION],
+				'category_label_text' => $custom_text_settings[Multi_Rating::FILTER_LABEL_TEXT_OPTION], // @deprecated
+				'show_featured_img' => true,
+				'image_size' => 'thumbnail',
+				
+				// new
+				'sort_by' => 'highest_rated',
+				'filter_label_text' => $custom_text_settings[Multi_Rating::FILTER_LABEL_TEXT_OPTION],
+				'show_filter' => false
+		) ) );
+		
+		// temp
 		if ( is_string( $show_category_filter ) ) {
 			$show_category_filter = $show_category_filter == 'true' ? true : false;
+			$show_filter = $show_category_filter; 
 		}
-		if ( is_string( $show_rank ) ) {
+		
+		if ( is_string( $show_filter ) ) {
+			$show_filter = $show_filter == 'true' ? true : false;
+		}
+		if ( is_string($show_count) ) {
+			$show_count = $show_count == 'true' ? true : false;
+		}
+		if ( is_string( $echo ) ) {
+			$echo = $echo == 'true' ? true : false;
+		}
+		if ( is_string($show_rank ) ) {
 			$show_rank = $show_rank == 'true' ? true : false;
 		}
 		if ( is_string( $show_title ) ) {
@@ -803,60 +840,74 @@ class Multi_Rating_API {
 			$show_featured_img = $show_featured_img == 'true' ? true : false;
 		}
 		
-		// show the filter for categories
-		if ( $show_category_filter == true ) {
-			
+		// show the filter for taxonomy
+		if ( $show_filter == true && isset( $_REQUEST['term-id'] ) ) {
 			// override category id if set in HTTP request
-			if ( isset( $_REQUEST['category-id'] ) ) {
-				$category_id = $_REQUEST['category-id'];
-			}
+			$term_id = $_REQUEST['term-id'];
 		}
 		
-		if ($category_id != 0) {
+		if ( $show_filter && $taxonomy == null ) {
+			$taxonomy = 'category';
+		}
+		
+		if ( $category_id != 0) {
 			$term_id = $category_id;
 			$taxonomy = 'category';
 		}
-	
+		
 		if ( $term_id == 0 ) {
-			$term_id = null; // so that all categories are returned
+			$term_id = null; // so that all terms are returned
 		}
 		
-		$top_rating_results = Multi_Rating_API::get_top_rating_results( array(
+		$rating_results = Multi_Rating_API::get_rating_results( array(
 				'limit' => $limit,
 				'taxonomy' => $taxonomy,
 				'term_id' => $term_id,
-				'result_type' => $result_type
+				'result_type' => $result_type,
+				'sort_by' => $sort_by
 		) );
 		
-		$params = array(
-				'show_title' => $show_title,
-				'show_count' => $show_count,
-				'show_category_filter' => $show_category_filter,
-				'category_id' => $category_id,
-				'before_title' => $before_title,
-				'after_title' => $after_title,
-				'title' => $title,
-				'show_rank' => $show_rank,
-				'no_rating_results_text' => $no_rating_results_text,
-				'result_type' => $result_type,
-				'class' => $class,
-				'term_id' => $term_id,
-				'taxonomy' => $taxonomy,
-				'filter_button_text' => $filter_button_text,
-				'category_label_text' => $category_label_text,
-				'show_featured_img' => $show_featured_img,
-				'image_size' => $image_size
-		);
-		
 		ob_start();
-		do_action( 'mr_display_top_rating_results', $top_rating_results, $params );
+		mr_get_template_part( 'rating-result', 'list', true, array(
+			'show_title' => $show_title,
+			'show_count' => $show_count,
+			//'show_category_filter' => $show_category_filter,
+			'show_filter' => $show_filter,
+			'category_id' => $category_id,
+			'before_title' => $before_title,
+			'after_title' => $after_title,
+			'title' => $title,
+			'show_rank' => $show_rank,
+			'no_rating_results_text' => $no_rating_results_text,
+			'result_type' => $result_type,
+			'taxonomy' => $taxonomy,
+			'term_id' => $term_id,
+			'filter_button_text' => $filter_button_text,
+			//'category_label_text' => $category_label_text,
+			'filter_label_text' => $filter_label_text,
+			'show_featured_img' => $show_featured_img,
+			'image_size' => $image_size,
+			'show_rich_snippets' => false,
+			'class' => $class . ' rating-results-list',
+			'rating_results' => $rating_results,
+			'before_count' => '(',
+			'after_count' => ')',
+			'ignore_count' => false,
+			'preserve_max_option' => false, 
+			'before_date' => '',
+			'after_date' => '',
+			'icon_classes' => $icon_classes,
+			'use_custom_star_images' => $use_custom_star_images,
+			'image_width' => $image_width,
+			'image_height' => $image_height
+		) );
 		$html = ob_get_contents();
 		ob_end_clean();
 		
 		if ( $echo == true ) {
 			echo $html;
 		}
-	
+		
 		return $html;
 	}
 	
@@ -928,5 +979,13 @@ class Multi_Rating_API {
 		
 		return true;
 	}
+	
+	
+	/** @deprecated */
+	public static function display_top_rating_results( $params = array()) { return Multi_Rating_API::display_rating_results_list( $params ); }
+	/** @deprecated */
+	private static function sort_top_rating_results_by_score_result_type( $a, $b ) { return MR_Utils::sort_highest_rated_by_score_result_type($a, $b); }
+	/** @deprecated */
+	private static function sort_top_rating_results_by_percentage_result_type( $a, $b ) {  return MR_Utils::sort_highest_rated_by_percentage_result_type($a, $b); }
 }
 ?>

@@ -49,7 +49,7 @@ function mr_add_new_rating_item_screen() {
 				$error_message .= __( 'Default option value cannot be empty and must be a whole number. ', 'multi-rating' );
 			}
 
-			if (strlen($error_message) == 0) {
+			if (strlen( $error_message) == 0) {
 					
 				global $wpdb;
 					
@@ -64,6 +64,13 @@ function mr_add_new_rating_item_screen() {
 						'weight' => $weight,
 						'type' => $type
 				) );
+				
+				$rating_item_id = $wpdb->insert_id;
+				
+				// WPML register string
+				if ( function_exists( 'icl_register_string' ) ) {
+					icl_register_string( 'multi-rating', 'rating-item-' . $rating_item_id . '-description', $description);
+				}
 					
 				$success_message .= __('Rating item added successfully.', 'multi-rating' );
 			}

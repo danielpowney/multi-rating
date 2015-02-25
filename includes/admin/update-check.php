@@ -18,9 +18,76 @@ function mr_update_check() {
 	
 	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 3.2 ) {
 		mr_upgrade_to_3_2();
+	}
+	
+	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 4 ) {
+		mr_upgrade_to_4_0();
 		update_option( Multi_Rating::VERSION_OPTION, Multi_Rating::VERSION ); // latest version upgrade complete
 	}
 }
+
+/**
+ * Upgrade to 4.0
+ */
+function mr_upgrade_to_4_0() {
+
+	try {
+		$sidebar_widgets = wp_get_sidebars_widgets();
+
+		foreach ( $sidebar_widgets as &$widgets ) {
+			foreach ( $widgets as $widget_key => $widget_id ) {
+				if ( strpos( $widget_id, 'top_rating_results_widget' ) !== false) {
+						
+					$instance = substr( $widget_id, 26 );
+					$widget_id = 'rating_results_list-' . $instance;
+
+					$widget_options = get_option( 'widget_top_rating_results_widget' );
+					$show_filter = $widget_options[$instance]['show_category_filter'];
+					$term_id = $widget_options[$instance]['category_id'];
+						
+					unset( $widget_options[$instance]['show_category_filter'] );
+					$widget_options[$instance]['show_filter'] = $show_filter;
+					unset( $widget_options[$instance]['category_id'] );
+					$widget_options[$instance]['term_id'] = $term_id;
+					$widget_options[$instance]['taxonomy'] = 'category';
+
+					add_option( 'widget_rating_results_list' , $widget_options );
+					delete_option( 'widget_top_rating_results_widget' );
+						
+					$widgets[$widget_key] = $widget_id;
+				}
+			}
+		}
+
+		// custom settings
+		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+			
+		if ( isset( $custom_text_settings['mr_category_label_text'] ) ) {
+			$custom_text_settings[Multi_Rating::FILTER_LABEL_TEXT_OPTION] = $custom_text_settings['mr_category_label_text'];
+			unset( $custom_text_settings['mr_category_label_text'] );
+		}
+
+		if ( isset( $custom_text_settings['mr_top_rating_results_title_text'] ) ) {
+			$custom_text_settings[Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION] = $custom_text_settings['mr_top_rating_results_title_text'];
+			unset( $custom_text_settings['mr_top_rating_results_title_text'] );
+		}
+
+		update_option( Multi_Rating::CUSTOM_TEXT_SETTINGS, $custom_text_settings);
+
+		// PHP files
+
+		if ( file_exists( dirname(__FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'class-rating-result.php' ))
+			unlink( dirname(__FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'class-rating-result.php' );
+
+	} catch (Exception $e) {
+		die( __( 'An error occured.', 'multi-rating' ) );
+	}
+
+
+	wp_set_sidebars_widgets( $sidebar_widgets );
+	
+}
+
 
 /**
  * Upgrade to 3.2

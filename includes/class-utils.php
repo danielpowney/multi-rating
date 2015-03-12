@@ -139,7 +139,7 @@ class MR_Utils {
 		$previous_day_date_mysql = date( 'Y-m-d H:i:s', $previous_day_date );
 		
 		$ip_address_check_query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE ip_address = "'
-				. $ip_address . '" AND post_id =' . $post_id . ' AND entry_date >= "' . $previous_day_date_mysql . '"';
+				. esc_sql( $ip_address ) . '" AND post_id =' . esc_sql( $post_id ) . ' AND entry_date >= "' . esc_sql( $previous_day_date_mysql ) . '"';
 		$rows = $wpdb->get_results( $ip_address_check_query );
 		
 		return ( count( $rows ) > 0 );

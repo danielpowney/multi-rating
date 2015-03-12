@@ -1,4 +1,4 @@
-<div class="rating-form <?php echo $class; ?>">
+<div class="rating-form <?php echo esc_attr( $class ); ?>">
 
 	<?php
 	if ( ! empty( $title ) ) {
@@ -6,7 +6,7 @@
 		$before_title = apply_filters( 'mr_rating_form_before_title', $before_title, $post_id );
 		$after_title = apply_filters( 'mr_rating_form_after_title', $after_title, $post_id );
 		
-		echo "$before_title" . $title . "$after_title";
+		echo "$before_title" . esc_html( $title ) . "$after_title";
 	}
 	
 	?>
@@ -50,7 +50,7 @@
 		do_action( 'mr_rating_form_before_buttons' );
 		
 		?>
-		<input type="button" class="btn btn-default save-rating" id="saveBtn-<?php echo $post_id; ?>-<?php echo MR_Rating_Form::$sequence; ?>" value="<?php echo $submit_button_text; ?>"></input>
+		<input type="button" class="btn btn-default save-rating" id="saveBtn-<?php echo $post_id; ?>-<?php echo MR_Rating_Form::$sequence; ?>" value="<?php echo esc_attr( $submit_button_text ); ?>"></input>
 		<input type="hidden" name="sequence" value="<?php echo MR_Rating_Form::$sequence; ?>" />
 		
 		<?php 

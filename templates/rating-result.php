@@ -1,4 +1,4 @@
-<span class="rating-result <?php echo $class; ?>"<?php
+<span class="rating-result <?php echo esc_attr( $class ); ?>"<?php
  
 $count = isset( $rating_result['count'] ) ? $rating_result['count'] : 0;
  
@@ -8,7 +8,7 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 		<?php 
 		$no_rating_results_text = apply_filters( 'mr_no_rating_results_text', $no_rating_results_text );
 		?>
-		<span class="no-rating-results-text"><?php echo $no_rating_results_text; ?></span>
+		<span class="no-rating-results-text"><?php echo esc_html( $no_rating_results_text ); ?></span>
 		<?php
 } else {
 
@@ -16,7 +16,7 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 		
 		$microdata_thing = apply_filters( 'mr_rating_result_microdata_thing', "http://schema.org/Article", $rating_result['post_id'], $rating_result );
 		
-		?> itemscope itemtype="<?php echo $microdata_thing; ?>" <?php
+		?> itemscope itemtype="<?php echo esc_attr( $microdata_thing ); ?>" <?php
 		
 		do_action( 'mr_rating_result_microdata_thing_properties', $post_id, $rating_result );
 	}
@@ -27,7 +27,7 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 		if ( $show_title == true ) {
 			$post_obj = get_post( $post_id );
 			?>
-			<a href="<?php echo get_permalink( $post_id ); ?>"><?php echo $post_obj->post_title; ?></a>
+			<a href="<?php echo esc_attr( get_permalink( $post_id ) ); ?>"><?php echo esc_html( $post_obj->post_title ); ?></a>
 			<?php
 		}
 		

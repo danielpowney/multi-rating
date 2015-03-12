@@ -4,8 +4,8 @@
  * Rating form rating item template
  */
 ?>
-<p class="rating-item mr <?php if ( isset( $class ) ) { echo $class; } ?>" <?php if ( isset( $style ) ) { echo 'style="' . $style . '"'; } ?>>
-	<label class="description" for="<?php echo $element_id; ?>"><?php echo $description; ?></label>
+<p class="rating-item mr <?php if ( isset( $class ) ) { echo esc_attr( $class ); } ?>" <?php if ( isset( $style ) ) { echo 'style="' . esc_attr( $style ) . '"'; } ?>>
+	<label class="description" for="<?php echo $element_id; ?>"><?php echo esc_html( $description ); ?></label>
 			
 	<?php
 	if ( $rating_item_type == "star_rating" ) {

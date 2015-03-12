@@ -12,13 +12,13 @@ for ( $index; $index <= $max_option_value; $index++ ) {
 		
 	?>
 	<span class="radio-option">
-		<input type="radio" name="<?php echo $element_id; ?>" id="<?php echo $element_id; ?>-<?php echo $index; ?>" value="<?php echo $index; ?>"<?php
+		<input type="radio" name="<?php echo $element_id; ?>" id="<?php echo $element_id; ?>-<?php echo $index; ?>" value="<?php echo esc_attr( $index ); ?>"<?php
 		
 		if ( $is_selected ) {
 			?> checked="checked"<?php
 		}
 					
-		?>><?php echo $index; ?></input>
+		?>><?php echo esc_html( $index ); ?></input>
 	</span>
 	<?php
 }

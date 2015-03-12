@@ -3,14 +3,14 @@
  * Rating Result List template
  */
 ?>
-<div class="rating-results-list <?php if (isset( $class ) ) { echo $class; } ?>">
+<div class="rating-results-list <?php if ( isset( $class ) ) { echo esc_attr( $class ); } ?>">
 	<?php
 	if ( ! empty( $title ) ) {
 		
 		$before_title = apply_filters( 'mr_rating_results_list_before_title', $before_title );
 		$after_title = apply_filters( 'mr_rating_results_list_after_title', $after_title );
 		
-		echo "$before_title" . $title . "$after_title";
+		echo "$before_title" . esc_html( $title ) . "$after_title";
 	}
 	
 	if ( $show_filter == true && $taxonomy ) {
@@ -18,7 +18,7 @@
 		?>
 		<form action="" class="mr-filter" method="POST">
 			
-			<label for="term-id"><?php echo $filter_label_text; ?></label>
+			<label for="term-id"><?php echo esc_html( $filter_label_text ); ?></label>
 			<select id="term-id" name="term-id" class="term-id">
 			
 			<?php
@@ -39,13 +39,13 @@
 				}
 				?>
 				
-				<option value="<?php echo $current_term->term_id; ?>" <?php echo $selected; ?>><?php echo $current_term->name; ?></option>
+				<option value="<?php echo $current_term->term_id; ?>" <?php echo $selected; ?>><?php echo esc_html( $current_term->name ); ?></option>
 				<?php
 			}
 			?>
 			</select>
 			
-			<input type="submit" value="<?php echo $filter_button_text; ?>" />
+			<input type="submit" value="<?php echo esc_attr( $filter_button_text ); ?>" />
 		</form>
 	<?php
 	
@@ -57,7 +57,7 @@
 		$no_rating_results_text = apply_filters( 'mr_no_rating_results_text', $no_rating_results_text );
 		
 		?>
-		<p class="mrp"><?php echo $no_rating_results_text; ?></p>
+		<p class="mrp"><?php echo esc_html( $no_rating_results_text ); ?></p>
 		<?php
 	} else {	
 		?>
@@ -110,7 +110,7 @@
 			?>>
 			
 			
-			<a class="title" href="<?php echo get_the_permalink( $post_id ); ?>"><?php echo $post_obj->post_title; ?></a>
+			<a class="title" href="<?php echo esc_attr( get_the_permalink( $post_id ) ); ?>"><?php echo esc_html( $post_obj->post_title ); ?></a>
 			
 			<?php
 			if ( $featured_img_shown == true ) {

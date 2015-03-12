@@ -28,6 +28,12 @@ class MR_Rating_Form {
 			$ip_address = MR_Utils::get_ip_address();
 			$entry_date_mysql = current_time( 'mysql' );
 			$sequence = isset($_POST['sequence']) ? $_POST['sequence'] : '';
+			
+			// WPML get original pst id for default language
+			if ( function_exists( 'icl_object_id' ) ) {
+				global $sitepress;
+				$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
+			}
 	
 			$data = array(
 					'sequence' => $sequence,

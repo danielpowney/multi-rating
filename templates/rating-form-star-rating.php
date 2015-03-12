@@ -31,7 +31,7 @@ $include_minus = apply_filters( 'mr_rating_form_include_minus', true);
 		$class .= ' index-' . $index . '-' . $element_id;
 		
 		?>
-		<i title="<?php echo $index; ?>" id="<?php echo $id; ?>" class="<?php echo $class; ?>"></i>
+		<i title="<?php echo esc_attr( $index ); ?>" id="<?php echo $id; ?>" class="<?php echo $class; ?>"></i>
 		<?php
 	}
 ?>

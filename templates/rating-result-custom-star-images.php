@@ -43,6 +43,6 @@
 <span class="star-result">
 	<?php 
 	$out_of_text = apply_filters( 'mr_out_of_text', '/' );
-	echo $star_result . $out_of_text . $max_stars; 
+	echo $star_result . esc_html( $out_of_text ) . $max_stars; 
 	?>
 </span>

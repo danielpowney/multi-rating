@@ -16,13 +16,13 @@
 		}
 			
 		?>
-		<option value="<?php echo $index; ?>"<?php
+		<option value="<?php echo esc_attr( $index ); ?>"<?php
 			
 			if ( $is_selected ) {
 				?> selected="selected"<?php
 			}
 			
-		?>><?php echo $index; ?></option>
+		?>><?php echo esc_html( $index ); ?></option>
 		<?php
 	} ?>
 </select>

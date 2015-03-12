@@ -15,6 +15,10 @@ class Multi_Rating_API {
 	 */
 	public static function get_rating_items( $params = array() ) {
 		
+		$rating_item_ids = isset( $params['rating_item_ids'] ) ? $params['rating_item_ids'] : null;
+		$rating_entry_id = isset( $params['rating_item_entry_id'] ) ? esc_sql( $params['rating_item_entry_id'] ) : null;
+		$post_id = isset( $params['post_id'] ) ? esc_sql( $params['post_id'] ) : null;
+		
 		global $wpdb;
 		
 		// base query
@@ -22,7 +26,7 @@ class Multi_Rating_API {
 				. 'ri.max_option_value, ri.weight, ri.active, ri.type FROM '
 				. $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' as ri';
 		
-		if ( isset( $params['rating_item_entry_id'] ) || isset($params['post_id'] ) ) {
+		if ( $rating_entry_id || $post_id ) {
 			
 			$rating_items_query .= ', ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' AS rie, '
 					. $wpdb->prefix.Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME
@@ -30,7 +34,7 @@ class Multi_Rating_API {
 		}
 		
 		$added_to_query = false;
-		if ( isset( $params['rating_item_entry_id'] ) || isset( $params['post_id'] ) ) {
+		if ( $rating_entry_id || $post_id ) {
 			
 			$rating_items_query .= ' WHERE';
 			$rating_items_query .= ' riev.rating_item_entry_id = rie.rating_item_entry_id AND ri.rating_item_id = riev.rating_item_id';
@@ -38,26 +42,26 @@ class Multi_Rating_API {
 		}
 		
 		// rating_item_entry_id
-		if ( isset( $params['rating_item_entry_id'] ) ) {
+		if ( $rating_entry_id ) {
 			
 			if ( $added_to_query == true ) {
 				$rating_items_query .= ' AND';
 				$added_to_query = false;
 			}
 			
-			$rating_items_query .= ' rie.rating_item_entry_id =  "' . $params['rating_item_entry_id'] . '"';
+			$rating_items_query .= ' rie.rating_item_entry_id =  ' . $rating_entry_id;
 			$added_to_query = true;
 		}
 		
 		// post_id
-		if ( isset( $params['post_id'] ) ) {
+		if ( $post_id ) {
 			
 			if ( $added_to_query == true ) {
 				$rating_items_query .= ' AND';
 				$added_to_query = false;
 			}
 			
-			$rating_items_query .= ' rie.post_id = "' . $params['post_id'] . '"';
+			$rating_items_query .= ' rie.post_id = ' . $post_id;
 			$added_to_query = true;
 			
 			//$post_type = get_post_type( $params['post_id'] );
@@ -83,11 +87,11 @@ class Multi_Rating_API {
 			}
 			
 			$rating_items[$rating_item_id] = array(
-					'max_option_value' => $max_option_value,
-					'weight' => $weight,
-					'rating_item_id' => $rating_item_id,
-					'description' => $description,
-					'default_option_value' => $default_option_value,
+					'max_option_value' => intval( $max_option_value ),
+					'weight' => floatval( $weight ),
+					'rating_item_id' => intval( $rating_item_id ),
+					'description' => stripslashes( $description ),
+					'default_option_value' => intval( $default_option_value ),
 					'type' => $type
 			);
 		}
@@ -155,7 +159,7 @@ class Multi_Rating_API {
 	 */
 	public static function calculate_rating_result( $params = array() ) {
 	
-		if ( ! isset($params['rating_items'] ) || ! isset($params['post_id'] ) ) {
+		if ( ! isset( $params['rating_items'] ) || ! isset( $params['post_id'] ) ) {
 			return;
 		}
 	
@@ -174,7 +178,7 @@ class Multi_Rating_API {
 		$adjusted_percentage_result_total = 0;
 		$total_max_option_value = 0;
 		
-		$count_entries = count($rating_item_entries);
+		$count_entries = count( $rating_item_entries );
 		
 		// get max option value
 		$total_max_option_value = 0;
@@ -182,7 +186,7 @@ class Multi_Rating_API {
 			$total_max_option_value += $rating_item['max_option_value'];
 		}
 		
-		$count_entries = count($rating_item_entries);
+		$count_entries = count( $rating_item_entries );
 	
 		// process all entries for the post and construct a rating result for each post
 		foreach ( $rating_item_entries as $rating_item_entry ) {
@@ -265,10 +269,10 @@ class Multi_Rating_API {
 			global $wpdb;
 	
 			$query = 'SELECT ri.description AS description, riev.value AS value, ri.max_option_value AS max_option_value, '
-			. 'riev.rating_item_entry_id AS rating_item_entry_id, ri.rating_item_id AS rating_item_id '
-			. 'FROM '.$wpdb->prefix.Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' AS riev, '
-			. $wpdb->prefix.Multi_Rating::RATING_ITEM_TBL_NAME . ' AS ri WHERE ri.rating_item_id = riev.rating_item_id '
-			. 'AND riev.rating_item_entry_id = "' . $rating_item_entry['rating_item_entry_id'] . '"';
+					. 'riev.rating_item_entry_id AS rating_item_entry_id, ri.rating_item_id AS rating_item_id '
+					. 'FROM '.$wpdb->prefix.Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' AS riev, '
+					. $wpdb->prefix.Multi_Rating::RATING_ITEM_TBL_NAME . ' AS ri WHERE ri.rating_item_id = riev.rating_item_id '
+					. 'AND riev.rating_item_entry_id = ' . esc_sql( $rating_item_entry['rating_item_entry_id'] );
 				
 			$rating_item_entry_value_rows = $wpdb->get_results( $query, ARRAY_A );
 				
@@ -307,51 +311,75 @@ class Multi_Rating_API {
 				'term_id' => 0,
 				
 				// new
-				'published_posts_only' => true
+				'published_posts_only' => true,
+				'group_by' => array(),
+				'order_by' => array()
 		) ) );	
 	
 		global $wpdb;
 	
-		$query = 'SELECT rie.rating_item_entry_id, rie.user_id, rie.post_id, rie.entry_date';
+		/*
+		 * Select
+		 */
+		$query_select = 'SELECT rie.rating_item_entry_id, rie.user_id, rie.post_id, rie.entry_date';
 		
 		if ( $published_posts_only ) {
-			$query .= ', p.post_status ';
-		}
-
-		$query .= ' FROM '.$wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' as rie';
-
-		if ( $taxonomy != null || $published_posts_only ) {
-			$query .= ', ' . $wpdb->prefix . 'posts as p';
+			$query_select .= ', p.post_status ';
 		}
 		
-		if ( $taxonomy != null ) {
-			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'term_relationships rel ON rel.object_id = p.ID';
-			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'term_taxonomy tax ON tax.term_taxonomy_id = rel.term_taxonomy_id';
-			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'terms t ON t.term_id = tax.term_id';
+		$query_select = apply_filters( 'mr_entries_query_select', $query_select, $params );
+
+		/*
+		 * From
+		 */
+		$query_from = ' FROM '.$wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' as rie';
+		
+		if ( $taxonomy != null || $published_posts_only ) {
+			$query_from .= ', ' . $wpdb->prefix . 'posts as p';
 		}
+		
+		$query_from = apply_filters( 'mr_entries_query_from', $query_from, $params );
+		
+		/*
+		 * Join
+		 */
+		$query_join = '';
+		
+		if ( $taxonomy != null ) {
+			$query_join .= ' LEFT JOIN ' . $wpdb->prefix . 'term_relationships rel ON rel.object_id = p.ID';
+			$query_join .= ' LEFT JOIN ' . $wpdb->prefix . 'term_taxonomy tax ON tax.term_taxonomy_id = rel.term_taxonomy_id';
+			$query_join .= ' LEFT JOIN ' . $wpdb->prefix . 'terms t ON t.term_id = tax.term_id';
+		}
+		
+		$query_join = apply_filters( 'mr_entries_query_join', $query_join, $params );
+		
+		/*
+		 * Where
+		 */
+		$query_where = '';
 		
 		$added_to_query = false;
 		// is a WHERE clause required?
 		if ( $post_id || $user_id ||$from_date || $to_date || $taxonomy || $published_posts_only ) {
 
-			$query .= ' WHERE';
+			$query_where .= ' WHERE';
 		}
 	
 		if ( $post_id ) {	
 			if ( $added_to_query ) {
-				$query .= ' AND';
+				$query_where .= ' AND';
 			}
 			
-			$query .= ' rie.post_id = "' . $post_id . '"';
+			$query_where .= ' rie.post_id = ' . esc_sql( $post_id );
 			$added_to_query = true;
 		}
 		
 		if ( $user_id ) {
 			if ( $added_to_query ) {
-				$query .= ' AND';
+				$query_where .= ' AND';
 			}
 			
-			$query .= ' rie.user_id = "' . $user_id . '"';
+			$query_where .= ' rie.user_id = ' . esc_sql( $user_id );
 			$added_to_query = true;
 		}
 		
@@ -360,10 +388,10 @@ class Multi_Rating_API {
 				$query .= ' AND';
 			}
 			
-			$query .= ' p.ID = rie.post_id AND tax.taxonomy = "' . $taxonomy . '"';
+			$query_where .= ' p.ID = rie.post_id AND tax.taxonomy = "' . esc_sql( $taxonomy ) . '"';
 
 			if ( $term_id ) {
-			 	$query .= ' AND t.term_id IN (' . $term_id . ')';
+			 	$query_where .= ' AND t.term_id IN (' . esc_sql( $term_id ) . ')';
 			}
 			 
 			$added_to_query = true;
@@ -371,46 +399,95 @@ class Multi_Rating_API {
 
 		if ( $from_date ) {
 			if ( $added_to_query ) {
-				$query .= ' AND';
+				$query_where .= ' AND';
 			}
 			
-			$query .= ' rie.entry_date >= "' . $from_date . '"';
+			$query_where .= ' rie.entry_date >= "' . esc_sql( $from_date ) . '"';
 			$added_to_query = true;
 		}
 		
 		if ( $to_date ) {
 			if ( $added_to_query ) {
-				$query .= ' AND';
+				$query_where .= ' AND';
 			}
 			
-			$query .= ' rie.entry_date <= "' . $to_date . '"';
+			$query_where .= ' rie.entry_date <= "' . esc_sql( $to_date ) . '"';
 			$added_to_query = true;
 		}
 		
 		// only return published posts
 		if ( $published_posts_only ) {
-			if ($added_to_query) {
-				$query .= ' AND';
+			if ( $added_to_query ) {
+				$query_where .= ' AND';
 			}
 				
-			$query .= ' p.ID = rie.post_id AND p.post_status = "publish"';
+			$query_where .= ' p.ID = rie.post_id AND p.post_status = "publish"';
 			$added_to_query = true;
 		}
 		
+		$query_where = apply_filters( 'mr_entries_query_where', $query_where, $params );
+		
+		/*
+		 * Group by
+		 */
+		$added_to_query = false;
+		$query_group_by = '';
+		foreach ( $group_by as $temp_group_by ) {
+			if ( strlen( $query_group_by ) == 0 ) {
+				$query_group_by .= ' GROUP BY ';
+			}
+				
+			if ( $added_to_query ) {
+				$query_group_by .= ', ';
+			}
+				
+			$query_group_by .= esc_sql( $temp_group_by );
+			$added_to_query = true;
+		}
+		$query_group_by = apply_filters( 'mr_entries_query_group_by', $query_group_by, $params );
+		
+		/*
+		 * Order by
+		*/
+		$query_order_by = '';
+		$added_to_query = false;
+		foreach ( $order_by as $temp_order_by ) {
+			if ( strlen( $query_order_by ) == 0 ) {
+				$query_order_by .= ' ORDER BY ';
+			}
+		
+			if ( $added_to_query ) {
+				$query_order_by .= ', ';
+			}
+		
+			$query_order_by .= esc_sql( $temp_order_by );
+			$added_to_query = true;
+		}
+		$query_order_by = apply_filters( 'mr_entries_query_order_by', $query_order_by, $params );
+		
+		/*
+		 * Limit
+		 */
+		$query_limit = '';
+		
 		if ( $limit && is_numeric( $limit ) ) {
 			if ( intval( $limit ) > 0 ) {
-				$query .= ' LIMIT 0, ' . intval( $limit );
+				$query_limit .= ' LIMIT 0, ' . intval( $limit );
 			}
 		}
+		$query_limit = apply_filters( 'mr_entries_query_limit', $query_limit, $params );
 	
-		$rows = $wpdb->get_results( $query );
+		$query = $query_select . $query_from . $query_join . $query_where . $query_group_by . $query_order_by .  $query_limit;
+		$query = apply_filters( 'mr_entries_query', $query, $params );
+		
+		$rows = $wpdb->get_results($query );
 		
 		$rating_item_entries = array();
 		foreach ( $rows as $row ) {
 			$rating_item_entry = array(
-					'rating_item_entry_id' => $row->rating_item_entry_id,
-					'user_id' => $row->user_id,
-					'post_id' => $row->post_id,
+					'rating_item_entry_id' => intval( $row->rating_item_entry_id ),
+					'user_id' => intval( $row->user_id ),
+					'post_id' => intval( $row->post_id ),
 					'entry_date' => $row->entry_date
 			);
 			
@@ -438,7 +515,7 @@ class Multi_Rating_API {
 		global $wpdb;
 	
 		$query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME
-				. ' WHERE rating_item_entry_id = ' . $rating_item_entry_id;
+				. ' WHERE rating_item_entry_id = ' . esc_sql( $rating_item_entry_id );
 		$rating_item_entry_value_rows = $wpdb->get_results( $query );
 	
 		$total_max_option_value = 0;
@@ -535,86 +612,34 @@ class Multi_Rating_API {
 			'sort_by' => 'highest_rated',
 			'post_id' => null
 		) ) );
-	
-		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-	
-		global $wpdb;
-	
-		$query = 'SELECT rie.post_id AS post_id';
-		if ( $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc' ) {
-			$query .= ', p.post_title AS post_title';
-		}
-	
-		$query .= ' FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' as rie';
-	
-		if ( $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc' || $taxonomy ) {
-			$query .= ', ' . $wpdb->posts . ' as p';
-		}
-	
-		if ( $taxonomy != null ) {
-			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'term_relationships rel ON rel.object_id = p.ID';
-			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'term_taxonomy tax ON tax.term_taxonomy_id = rel.term_taxonomy_id';
-			$query .= ' LEFT JOIN ' . $wpdb->prefix . 'terms t ON t.term_id = tax.term_id';
-		}
-	
-		$added_to_query = false;
-		if (  $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc'
-				|| $taxonomy || ( $taxonomy && $term_id ) || $post_id ) {
-			$query .= ' WHERE';
-		}
-	
-		if ( $post_id ) {
-			if ( $added_to_query ) {
-				$query .= ' AND';
-			}
-
-			$query .= ' rie.post_id = "' . $post_id . '"';
-			$added_to_query = true;
-		}
-	
-		if ( $taxonomy ) {
-			if ( $added_to_query ) {
-				$query .= ' AND';
-			}
-
-			$query .= ' p.ID = rie.post_id AND tax.taxonomy = "' . $taxonomy . '"';
-
-			if ( $term_id ) {
-				$query .= ' AND t.term_id IN (' . $term_id . ')';
-			}
-	
-			$added_to_query = true;
-		}
-	
-		if ( $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc' ) {
-			if ( $added_to_query ) {
-				$query .= ' AND';
-			}
-	
-			$query .= ' rie.post_id = p.ID';
-			$added_to_query = true;
-		}
-	
-		$query .= ' GROUP BY rie.post_id';
-
+		
+		$order_by = array();
 		if ( $sort_by == 'post_title_asc' ) {
-			$query .= ' ORDER BY post_title ASC';
+			$order_by = array( 'post_title ASC' );
 		} else if ( $sort_by == 'post_title_desc' ) {
-			$query .= ' ORDER BY post_title DESC';
+			$order_by = array( 'post_title DESC' );
 		}
-	
-		$results =  $wpdb->get_results( $query, ARRAY_A );
-	
+		
+		$group_by = array( 'rie.post_id, rie.rating_form_id' );
+		
+		$rating_entries = Multi_Rating_API::get_rating_item_entries( array(
+				'taxonomy' => $taxonomy,
+				'term_id' => $term_id,
+				'post_id' => $post_id,
+				'order_by' => $order_by,
+				'group_by' => $group_by
+		) );
+		
 		$rating_results = array();
-	
-		foreach ( $results as $row ) {
-			$temp_post_id = $row['post_id'];
-
+		
+		foreach ( $rating_entries as $rating_entry ) {
+				
+			$temp_post_id = $rating_entry['post_id'];	
 			$rating_result = Multi_Rating_API::get_rating_result( $temp_post_id );
-						
+				
 			array_push( $rating_results, $rating_result);
 		}
-	
+		
 		// TODO pagination
 	
 		$rating_results = array_slice( MR_Utils::sort_rating_results( $rating_results, $sort_by, $result_type ), 0, $limit );
@@ -673,6 +698,12 @@ class Multi_Rating_API {
 			$post_id = $post->ID;
 		} else if ( ! isset( $post ) && ! isset( $post_id ) ) {
 			return; // No post Id available to display rating form
+		}
+		
+		// WPML get original post id for default language
+		if ( function_exists( 'icl_object_id' ) ) {
+			global $sitepress;
+			$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
 		}
 		
 		$rating_result = Multi_Rating_API::get_rating_result( $post_id );
@@ -741,6 +772,12 @@ class Multi_Rating_API {
 			$post_id = $post->ID;
 		} else if ( !isset($post) && !isset( $post_id ) ) {
 			return; // No post Id available to display rating form
+		}
+		
+		// WPML get original post id for default language
+		if ( function_exists( 'icl_object_id' ) ) {
+			global $sitepress;
+			$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
 		}
 		
 		MR_Rating_Form::$sequence++;
@@ -952,12 +989,14 @@ class Multi_Rating_API {
 				
 				$rating_result = Multi_Rating_API::calculate_rating_item_entry_result( $rating_item_entry_id,  $rating_items );
 	
+				// FIXME some fields may have a comma (e.g. post title, comment etc..) causing formatting issues
+				
 				$current_row = $rating_item_entry_id .', ' . $rating_item_entry['entry_date'] . ', '
-				. $post_id . ', ' . get_the_title($post_id) . ', ' . $rating_result['score_result'] . ', '
-				. $rating_result['adjusted_score_result'] . ', ' . $rating_result['total_max_option_value'] . ', '
-				. $rating_result['percentage_result'] . ', ' . $rating_result['adjusted_percentage_result'] . ', '
-				. $rating_result['star_result'] . ', ' . $rating_result['adjusted_star_result'] . ', '
-				. $rating_item_entry['user_id'];
+						. $post_id . ', ' . get_the_title($post_id) . ', ' . $rating_result['score_result'] . ', '
+						. $rating_result['adjusted_score_result'] . ', ' . $rating_result['total_max_option_value'] . ', '
+						. $rating_result['percentage_result'] . ', ' . $rating_result['adjusted_percentage_result'] . ', '
+						. $rating_result['star_result'] . ', ' . $rating_result['adjusted_star_result'] . ', '
+						. $rating_item_entry['user_id'];
 	
 				array_push( $export_data_rows, $current_row );
 			}

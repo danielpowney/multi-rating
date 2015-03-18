@@ -1,7 +1,7 @@
 === Multi Rating ===
 Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
-Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, multi rating, feedback, user rating
+Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, multi rating, feedback, user rating, wpml, feedback, question, star rating, 5 star, font awesome
 Requires at least: 3.0.1
 Tested up to: 4.1
 Stable tag: trunk
@@ -17,7 +17,7 @@ The best rating system plugin for WordPress. Multi Rating allows visitors to rat
 = Features =
 
 * 5 star ratings, percentage and score results
-* Multuple rating criteria and questions using star ratings, select drop-down lists and radio buttons to choose answers from
+* Multiple rating criteria and questions using star ratings, select drop-down lists and radio buttons to choose answers from
 * Font Awesome used for star rating icons or upload your own star rating images to use instead
 * Shortcodes to display the rating form and rating results
 * Shortcode and widget to display a list of rating results (sort by highest rated, lowest rated, most entries, post title ascending or post title descending)
@@ -28,11 +28,11 @@ The best rating system plugin for WordPress. Multi Rating allows visitors to rat
 * Automatic placement settings to display the rating form and rating results on every post in different positions
 * Meta-box on the edit post page to override the default automatic placement settings
 * Settings to restrict post types, turn on validation, modify text, apply different styles and clear the database etc...
-* Graphical reports on number of entries per day
+* Graphical reports on the number of entries per day
 * Export rating results to a CSV file
 * Custom taxonomy support
 * Developer API functions and template tags to use in your theme
-* Edit ratings in WP-admin (Editor & Administrator user roles can only do this)
+* Edit ratings in WP-admin (Editor & Administrator user roles only)
 * In-built template system for customization
 * All data stoted in your own WordPress database - no signup required!
 * Fully WPML compatible 
@@ -67,7 +67,7 @@ The following key features are available in the Pro version:
 * Ability to use text descriptions for select and radio options instead of numbers
 * Post, category and specific page filters to include (whitelist) or exclude (blacklist) automatic placement of the rating form and rating results
 * Options to exclude the home page and archive pages (i.e. Category, Tag, Author or a Date based pages)
-* Thumbs up/thumbs down rating item type
+* Thumbs up/thumbs down rating item type (e.g. like/dislike)
 * Display a breakdown of rating item results in 3 layouts
 * Allow/disallow anonymous user ratings option
 
@@ -97,12 +97,29 @@ Full documentation available here http://danielpowney.com/multi-rating/
 == Changelog ==
 
 = 4.0 =
-* New template system
-* Added lots of new actions & filters
-* Added CSS cursor pointer on hover of star rating icons
-* Renamed the Top Rating Results widget to Rating Results List widget and added more options
-* API & shortcode changes
-* Fully WPML compatible
+* New: Fully WPML compatible
+* New: Added filters for entries query: select, from, join, where, order by, group by and limit
+* New: Added support for Font Awesome 4.3.0
+* New: Added sorting by entry count for equal ratings.
+* Bug: Updated jQuery .on("hover") to .on("mouseenter mouseleave") as this was removed in jQuery 1.9
+* New: Added in-built template system
+* New: Added more options to the Rating Results List widget (formally Top Rating Results widget) including taxonomy, terms, result type, show filter, filter label, show rank, header and sort by.
+* New: Added a setting to be able to default hide the Multi Rating meta box.
+* New: Added more sorting options to rating results in the WP-admin.
+* New: Added CSS cursor pointer on hover of star rating icons.
+* Bug: Fixed AJAX returning rating result where rating results position for a post is do not show.
+* Tweak: Renamed all shortcodes to have a prefix mr_ (old shortcode names are deprecated but will still work). display_rating_form => mr_rating_form, display_rating_results => mr_rating_results and display_top_rating_results => mr_rating_results_list
+* Tweak: Renamed the Top Rating Results widget to Rating Results List widget which is more generic and supports different sorting mechanisms.
+* Tweak: Refactored all shortcodes, widgets and the correspnding API functions to use new template system. Renamed some shortcode attributes names, widget options names and API function parameters to improve consistency.
+* Tweak: Improved readability of frontend JS
+* Tweak: General CSS improvements
+* Tweak: Removed the view more functionality. This will added again later utilising AJAX instead of a page refresh.
+* Tweak: Renamed the display_top_rating_results() API function to display_rating_results_list() (old API function is deprecated, but will still work).
+* Tweak: Renamed the following API parameters and shortcode attributes: show_category_filter => show_filter (deprecated show_category_filter) and category_label_text => filter_label_text (deprecated category_label_text)
+* Important: Deleted class-rating-results.php file as it's no longer needed.
+* Important: Deleted template functions from class-rating-form.php.
+* Important: Deleted actions that no longer make sense due to the new template system. If you've used these actions to modify the template, it will no longer work: mrp_display_top_rating_results, mrp_display_rating_results and mrp_display_rating_form
+* Important: Moved common sorting functions from API to utils class.
 
 = 3.2.1 =
 * Added loading spinner when saving rating form
@@ -121,7 +138,7 @@ Full documentation available here http://danielpowney.com/multi-rating/
 = 3.1.3 =
 * Added settings to upload your own star rating images to use instead of Font Awesome star icons
 * Added after_auto_placement action hook
-* Added mrp_can_apply_filter and mr_can_do_shortcode filters
+* Added mr_can_apply_filter and mr_can_do_shortcode filters
 * Modified the Top Rating Results widget, [display_top_rating_results] shortcode and the display_top_rating_results() API function to be able to display the featured image of a post
 * Added more options to show feature image and thumbnail size to the Top Rating Results widget
 * Added Font Awesome 4.2.0 support

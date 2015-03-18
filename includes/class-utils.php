@@ -237,12 +237,21 @@ class MR_Utils {
 	 * @param unknown_type $b
 	 */
 	public static function sort_highest_rated_by_percentage_result_type( $a, $b ) {
-	
+		
 		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
 		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
 	
 		if ( $a['adjusted_percentage_result'] == $b['adjusted_percentage_result'] ) {
-			return 0;
+			
+			if ( ! isset( $a['count'] ) ) {
+				return 0;
+			}
+			
+			if ( $a['count'] == $b['count'] ) {
+				return 0;
+			} else {
+				return (  $a['count'] > $b['count'] ) ? -1 : 1;
+			}
 		}
 	
 		return ( $a['adjusted_percentage_result'] > $b['adjusted_percentage_result'] ) ? -1 : 1;
@@ -255,12 +264,21 @@ class MR_Utils {
 	 * @param unknown_type $b
 	 */
 	public static function sort_highest_rated_by_score_result_type( $a, $b ) {
-	
+		
 		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
 		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
 	
 		if ( $a['adjusted_score_result'] == $b['adjusted_score_result'] ) {
-			return 0;
+			
+			if ( ! isset( $a['count'] ) ) {
+				return 0;
+			}
+			
+			if ( $a['count'] == $b['count'] ) {
+				return 0;
+			} else {
+				return (  $a['count'] > $b['count'] ) ? -1 : 1;
+			}
 		}
 	
 		return ( $a['adjusted_score_result'] > $b['adjusted_score_result'] ) ? -1 : 1;
@@ -273,12 +291,21 @@ class MR_Utils {
 	 * @param unknown_type $b
 	 */
 	public static function sort_lowest_rated_by_percentage_result_type( $a, $b ) {
-	
+		
 		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
 		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
 	
 		if ( $a['adjusted_percentage_result'] == $b['adjusted_percentage_result'] ) {
-			return 0;
+			
+			if ( ! isset( $a['count'] ) ) {
+				return 0;
+			}
+			
+			if ( $a['count'] == $b['count'] ) {
+				return 0;
+			} else {
+				return (  $a['count'] < $b['count'] ) ? -1 : 1;
+			}
 		}
 	
 		return ( $a['adjusted_percentage_result'] < $b['adjusted_percentage_result'] ) ? -1 : 1;
@@ -291,12 +318,21 @@ class MR_Utils {
 	 * @param unknown_type $b
 	 */
 	public static function sort_lowest_rated_by_score_result_type( $a, $b ) {
-	
+		
 		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
 		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
 	
 		if ( $a['adjusted_score_result'] == $b['adjusted_score_result'] ) {
-			return 0;
+			
+			if ( ! isset( $a['count'] ) ) {
+				return 0;
+			}
+			
+			if ( $a['count'] == $b['count'] ) {
+				return 0;
+			} else {
+				return (  $a['count'] < $b['count'] ) ? -1 : 1;
+			}
 		}
 	
 		return ( $a['adjusted_score_result'] < $b['adjusted_score_result'] ) ? -1 : 1;
@@ -309,7 +345,7 @@ class MR_Utils {
 	 * @param unknown_type $b
 	 */
 	public static function sort_most_entries( $a, $b ) {
-	
+		
 		$a = isset( $a['rating_result'] ) ? $a['rating_result'] : $a;
 		$b = isset( $b['rating_result'] ) ? $b['rating_result'] : $b;
 	
@@ -327,9 +363,9 @@ class MR_Utils {
 	 * @param unknown_type $b
 	 */
 	public static function sort_most_recent_by_entry_date( $a, $b ) {
-	
-		$entry_date_a = isset( $a['rating_result']['entry_date'] ) ? $a['rating_result']['entry_date'] : $a['entry_date'];
-		$entry_date_b = isset( $b['rating_result']['entry_date'] ) ? $b['rating_result']['entry_date'] : $b['entry_date'];
+		
+		$entry_date_a = isset( $a['rating_result']['entry_date'] ) ? $a['rating_result']['entry_date'] : $a['entry_date']; 
+		$entry_date_b = isset( $b['rating_result']['entry_date'] ) ? $b['rating_result']['entry_date'] : $b['entry_date']; 
 	
 		// sort by entry date
 		if ( $entry_date_a == $entry_date_b ) {

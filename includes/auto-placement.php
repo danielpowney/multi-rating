@@ -11,7 +11,7 @@ function mr_filter_the_content( $content ) {
 	$general_settings = ( array ) get_option( Multi_Rating::GENERAL_SETTINGS );
 
 	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
-	if ( ! apply_filters( 'mrp_can_apply_filter', $can_apply_filter, 'the_content', $content ) ) {
+	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_content', $content ) ) {
 		return $content;
 	}
 
@@ -87,7 +87,7 @@ function mr_filter_the_title( $title ) {
 	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 
 	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
-	if ( ! apply_filters( 'mrp_can_apply_filter', $can_apply_filter, 'the_title', $title ) ) {
+	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_title', $title ) ) {
 		return $title;
 	}
 

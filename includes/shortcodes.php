@@ -33,14 +33,14 @@ function mr_rating_form( $atts = array(), $content = null, $tag ) {
 		return; // No post Id available
 	}
 
-	return MR_Multi_Rating_API::display_rating_form( array(
+	return Multi_Rating_API::display_rating_form( array(
 			'post_id' => $post_id,
 			'title' => $title,
 			'before_title' => $before_title,
 			'after_title' => $after_title,
 			'submit_button_text' => $submit_button_text,
 			'echo' => false,
-			'class' => $class . ' mrp-shortcode',
+			'class' => $class . ' mr-shortcode',
 	) );
 }
 add_shortcode( 'mr_rating_form', 'mr_rating_form' );
@@ -69,7 +69,7 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 	
 	extract( shortcode_atts( array(
 			'post_id' => $post_id,
-			'no_rating_results_text' =>  $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION],
+			'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION],
 			'show_rich_snippets' => false,
 			'show_title' => false,
 			'show_count' => true,
@@ -93,7 +93,7 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 		$show_count = $show_count == 'true' ? true : false;
 	}
 	
-	return MR_Multi_Rating_API::display_rating_result( array(
+	return Multi_Rating_API::display_rating_result( array(
 			'post_id' => $post_id,
 			'no_rating_results_text' => $no_rating_results_text,
 			'show_rich_snippets' => $show_rich_snippets,
@@ -102,7 +102,7 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 			'show_count' => $show_count,
 			'echo' => false,
 			'result_type' => $result_type,
-			'class' => $class . ' mrp-shortcode',
+			'class' => $class . ' mr-shortcode',
 			'before_count' => $before_count,
 			'after_count' => $after_count
 	) );
@@ -175,7 +175,7 @@ function mr_rating_results_list( $atts = array(), $content = null, $tag ) {
 		$taxonomy = 'category';
 	}
 	
-	return MR_Multi_Rating_API::display_rating_results_list( array(
+	return Multi_Rating_API::display_rating_results_list( array(
 			'no_rating_results_text' => $no_rating_results_text,
 			'show_count' => $show_count,
 			'echo' => false,
@@ -186,7 +186,7 @@ function mr_rating_results_list( $atts = array(), $content = null, $tag ) {
 			'result_type' => $result_type,
 			'show_rank' => $show_rank,
 			'show_title' => $show_title,
-			'class' => $class . ' mrp-shortcode',
+			'class' => $class . ' mr-shortcode',
 			'before_title' => $before_title,
 			'after_title' => $after_title,
 			'taxonomy' => $taxonomy,

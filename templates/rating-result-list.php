@@ -57,7 +57,7 @@
 		$no_rating_results_text = apply_filters( 'mr_no_rating_results_text', $no_rating_results_text );
 		
 		?>
-		<p class="mrp"><?php echo esc_html( $no_rating_results_text ); ?></p>
+		<p class="mr"><?php echo esc_html( $no_rating_results_text ); ?></p>
 		<?php
 	} else {	
 		?>
@@ -129,7 +129,7 @@
 				'show_date' => false,
 				'show_count' => $show_count,
 				'result_type' => $result_type,
-				'class' => $class . ' rating-result-list' . $rating_form_id . '-' . $post_id,
+				'class' => $class . ' rating-result-list-' . $post_id,
 				'rating_result' => $rating_result,
 				'before_count' => $before_count,
 				'after_count' => $after_count,

@@ -10,7 +10,7 @@ class Multi_Rating_API {
 	/**
 	 * Get rating items
 	 * 
-	 * @param array $params	rating_item_entry_id, post_id and rating_form_id
+	 * @param array $params	rating_item_entry_id and post_id
 	 * @return rating items
 	 */
 	public static function get_rating_items( $params = array() ) {
@@ -572,6 +572,8 @@ class Multi_Rating_API {
 				continue; // skip
 			}
 		}
+		
+		// FIXME if rating item has been deleted, this returns division by zero error
 	
 		if ( count( $rating_item_entry_value_rows ) > 0 ) {
 			// calculate 5 star result
@@ -620,7 +622,7 @@ class Multi_Rating_API {
 			$order_by = array( 'post_title DESC' );
 		}
 		
-		$group_by = array( 'rie.post_id, rie.rating_form_id' );
+		$group_by = array( 'rie.post_id' );
 		
 		$rating_entries = Multi_Rating_API::get_rating_item_entries( array(
 				'taxonomy' => $taxonomy,
@@ -634,9 +636,14 @@ class Multi_Rating_API {
 		
 		foreach ( $rating_entries as $rating_entry ) {
 				
-			$temp_post_id = $rating_entry['post_id'];	
+			$temp_post_id = $rating_entry['post_id'];
 			$rating_result = Multi_Rating_API::get_rating_result( $temp_post_id );
-				
+			
+			// WPML get adjusted post id for active language and override
+			if ( function_exists( 'icl_object_id' ) ) {
+				$rating_result['post_id'] = icl_object_id( $temp_post_id , get_post_type( $temp_post_id ), true, ICL_LANGUAGE_CODE );
+			}
+			
 			array_push( $rating_results, $rating_result);
 		}
 		
@@ -700,13 +707,15 @@ class Multi_Rating_API {
 			return; // No post Id available to display rating form
 		}
 		
-		// WPML get original post id for default language
+		// WPML get original post id for default language to get rating results
+		$temp_post_id = $post_id;
 		if ( function_exists( 'icl_object_id' ) ) {
 			global $sitepress;
-			$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
+			$temp_post_id = icl_object_id( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
 		}
 		
-		$rating_result = Multi_Rating_API::get_rating_result( $post_id );
+		$rating_result = Multi_Rating_API::get_rating_result( $temp_post_id );
+		$rating_result['post_id'] = $post_id; // set back to adjusted for WPML
 	
 		ob_start();
 		mr_get_template_part( 'rating-result', null, true, array(
@@ -825,7 +834,6 @@ class Multi_Rating_API {
 		$image_height = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
 		
 		extract( wp_parse_args( $params, array(
-				'rating_form_id' => $general_settings[ Multi_Rating::DEFAULT_RATING_FORM_OPTION ],
 				'title' => $custom_text_settings[Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION],
 				'before_title' => '<h4>',
 				'after_title' => '</h4>',

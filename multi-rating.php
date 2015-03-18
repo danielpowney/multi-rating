@@ -116,7 +116,7 @@ class Multi_Rating {
 	RATING_RESULTS_POST_META_KEY				= 'mr_rating_results',
 	
 	// cookies
-	POST_SAVE_RATING_COOKIE						= 'mrp_post_save_rating';
+	POST_SAVE_RATING_COOKIE						= 'mr_post_save_rating';
 	
 	/**
 	 *
@@ -150,7 +150,7 @@ class Multi_Rating {
 			if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 				
 				self::$instance->post_metabox = new MR_Post_Metabox();
-				add_filter( 'default_hidden_meta_boxes', array( self::$instance, 'default_hidden_meta_boxes' ), 10, 2);
+				add_filter( 'hidden_meta_boxes', array( self::$instance, 'default_hidden_meta_boxes' ), 10, 2);
 				
 				add_action( 'delete_user', array( self::$instance, 'delete_user' ), 11, 2 );
 				add_action( 'deleted_post', array( self::$instance, 'deleted_post' ) );
@@ -189,17 +189,24 @@ class Multi_Rating {
 	 */
 	public function default_hidden_meta_boxes( $hidden, $screen ) {
 	
-		// $post_type = $screen->post_type;
+		$post_type = $screen->post_type;
 	
-		// check option if we're hiding by default
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-		if ( $general_settings[Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION] ) {
-			if ( ! isset( $hidden['mr_meta_box'] ) ) {
-				array_push( $hidden, 'mr_meta_box' );
-			}
+		$post_types = $general_settings[Multi_Rating::POST_TYPES_OPTION];
+		
+		if ( ! is_array( $post_types ) && is_string( $post_types ) ) {
+			$post_types = array( $post_types );
 		}
 		
-		echo var_dump( $hidden );
+		if ( $post_types != null && in_array( $post_type, $post_types ) ) {
+		
+			// check option if we're hiding by default
+			if ( $general_settings[Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION] ) {
+				if ( ! isset( $hidden['mr_meta_box'] ) ) {
+					array_push( $hidden, 'mr_meta_box' );
+				}
+			}
+		}
 	
 		return $hidden;
 	}
@@ -483,8 +490,8 @@ class Multi_Rating {
 		add_action( 'wp_ajax_nopriv_save_rating', array( 'MR_Rating_Form', 'save_rating' ) );
 		add_action( 'wp_ajax_save_rating_item_table_column', array( 'MR_Rating_Item_Table', 'save_rating_item_table_column' ) );
 		
-		add_action( 'wp_ajax_nopriv_retrieve_terms_by_taxonomy', 'mrp_retrieve_terms_by_taxonomy' );
-		add_action( 'wp_ajax_retrieve_terms_by_taxonomy', 'mrp_retrieve_terms_by_taxonomy' );
+		add_action( 'wp_ajax_nopriv_retrieve_terms_by_taxonomy', 'mr_retrieve_terms_by_taxonomy' );
+		add_action( 'wp_ajax_retrieve_terms_by_taxonomy', 'mr_retrieve_terms_by_taxonomy' );
 		
 	}
 		

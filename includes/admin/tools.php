@@ -29,10 +29,17 @@ function mr_tools_screen() {
 								$rows = $wpdb->get_results( $query, ARRAY_A );
 			
 								foreach ( $rows as $row ) {
-									$post = get_post( $row['post_id'] );
+									$post_id = $row['post_id'];
+									$temp_post_id = $post_id;
+									
+									// WPML get adjusted post id for active language, just for the string translation
+									if ( function_exists( 'icl_object_id' ) ) {
+										$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
+									}
+									
 									?>
-									<option value="<?php echo $post->ID; ?>">
-										<?php echo get_the_title( $post->ID ); ?>
+									<option value="<?php echo $post_id; ?>">
+										<?php echo get_the_title( $temp_post_id ); ?>
 									</option>
 								<?php } ?>
 							</select>
@@ -74,10 +81,17 @@ function mr_tools_screen() {
 									
 									$rows = $wpdb->get_results( $query, ARRAY_A );
 									foreach ( $rows as $row ) {
-										$post = get_post( $row['post_id'] );
+										$post_id = $row['post_id'];
+										$temp_post_id = $post_id;
+										
+										// WPML get adjusted post id for active language, just for the string translation
+										if ( function_exists( 'icl_object_id' ) ) {
+											$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
+										}
+										
 										?>
-										<option value="<?php echo $post->ID; ?>">
-											<?php echo get_the_title( $post->ID ); ?>
+										<option value="<?php echo $post_id; ?>">
+											<?php echo get_the_title( $temp_post_id ); ?>
 										</option>
 									<?php } ?>
 								</select>
@@ -111,10 +125,17 @@ function mr_tools_screen() {
 									$rows = $wpdb->get_results( $query, ARRAY_A );
 				
 									foreach ( $rows as $row ) {
-										$post = get_post( $row['post_id'] );
+										$post_id = $row['post_id'];
+										$temp_post_id = $post_id;
+										
+										// WPML get adjusted post id for active language, just for the string translation
+										if ( function_exists( 'icl_object_id' ) ) {
+											$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
+										}
+										
 										?>
-										<option value="<?php echo $post->ID; ?>">
-											<?php echo get_the_title( $post->ID ); ?>
+										<option value="<?php echo $post_id; ?>">
+											<?php echo get_the_title( $temp_post_id ); ?>
 										</option>
 									<?php } ?>
 								</select>

@@ -11,7 +11,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 	
 	function __construct( ) {
 	
-		$id_base = 'rating_results_list';
+		$id_base = 'mr_rating_results_list';
 		$name = __( 'Rating Results List Widget', 'multi-rating' );
 		$widget_opts = array(
 				'classname' => 'rating-results-list-widget',
@@ -46,19 +46,21 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 		$show_rank = empty( $instance['show_rank'] ) ? false : $instance['show_rank'];
 		$result_type = empty( $instance['result_type'] ) ? 'star_rating' : $instance['result_type'];
 	
-		$before_title = '<' . $header . '>';
+		$before_title = '<' . $header . ' class="widget-title">';
 		$after_title = '</' . $header . '>';
+		
+		$title = apply_filters( 'widget_title', $title );
 	
 		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
 	
 		echo $before_widget;
 	
-		MR_Multi_Rating_API::display_rating_results_list( array(
+		Multi_Rating_API::display_rating_results_list( array(
 			'limit' => $limit, 'title' => $title,
 			'show_filter' => $show_filter,
 			'taxonomy' => $taxonomy,
 			'term_id' => $term_id,
-			'class' => 'mrp-widget',
+			'class' => 'mr-widget',
 			'before_title' => $before_title,
 			'after_title' => $after_title,
 			'show_featured_img' => $show_featured_img,
@@ -179,7 +181,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e( 'Taxonomy', 'multi-rating' ); ?></label>
-			<select class="widefat mrp-rating-results-widget-taxonomy" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>">				
+			<select class="widefat mr-rating-results-widget-taxonomy" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" id="<?php echo $this->get_field_id( 'taxonomy' ); ?>">				
 				<?php
 				//$selected = '';
 				if ( $taxonomy === '' || $taxonomy == null ) {

@@ -35,10 +35,11 @@ The best rating system plugin for WordPress. Multi Rating allows visitors to rat
 * Edit ratings in WP-admin (Editor & Administrator user roles can only do this)
 * In-built template system for customization
 * All data stoted in your own WordPress database - no signup required!
+* Fully WPML compatible 
 
 Here's a live demo: http://danielpowney.com/multi-rating/
 
-The plugin is i18n translation ready (.pot file in the languages directory). Different versions of Font Awesome are supported as well to help prevent any theme or plugin conflicts. For WPML plugin support, there is a wpml-config.xml file in the languages directory of the plugin.
+The plugin is i18n translation ready. Different versions of Font Awesome are supported as well to help prevent any theme or plugin conflicts.
 
 = Shortcode Examples =
 
@@ -101,6 +102,7 @@ Full documentation available here http://danielpowney.com/multi-rating/
 * Added CSS cursor pointer on hover of star rating icons
 * Renamed the Top Rating Results widget to Rating Results List widget and added more options
 * API & shortcode changes
+* Fully WPML compatible
 
 = 3.2.1 =
 * Added loading spinner when saving rating form

@@ -49,11 +49,11 @@ jQuery(document).ready(function() {
 		// ajax call to retrieve new terms		
 		var data = {
 				action : "retrieve_terms_by_taxonomy",
-				nonce : mrp_admin_data.ajax_nonce, // tbc
+				nonce : mr_admin_data.ajax_nonce, // tbc
 				taxonomy : taxonomy
 		};
 
-		jQuery.post(mrp_admin_data.ajax_url, data, function(response) {
+		jQuery.post(mr_admin_data.ajax_url, data, function(response) {
 				var jsonResponse = jQuery.parseJSON(response);
 			
 				var termSelect = jQuery("#widget-" + name + "-" + instance + "-term_id");

@@ -143,7 +143,7 @@ function mr_about_screen() {
 						<p><?php _e( 'Shortcodes and API support custom taxonomies e.g. [mr_rating_resultlist taxonomy="post_tag" term_id="1"]. The category_id attribute is a shortcut to taxonomy="category" and term_id="category_id".', 'multi-rating' ); ?></p>
 					
 						<h4><?php _e( 'I18n, WPML & Custom Text', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'The plugin has been internationalized and is translation ready (.pot file in the languages directory). There\'s a WPML configuration file located in the languages directory for translating the custom text stored in the WP options table. You can also modify the default text and messages.', 'multi-rating' ); ?></p>
+						<p><?php _e( 'The plugin has been internationalized and is translation ready (.pot file in the languages directory). The plugin is fully WPML compatible. You can also modify the default text and messages.', 'multi-rating' ); ?></p>
 
 						<h4><?php _e( 'Template System', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'The plugin has an in-built template system.', 'multi-rating' ); ?></p>
@@ -181,7 +181,10 @@ function mr_about_screen() {
 						<p><?php _e( 'The <a href="http://danielpowney.com/docs/api/">API functions</a> are located in the class-api.php file which contains a static class called Multi_Rating_API.', 'multi-rating' ); ?></p>
 						
 						<h4><?php _e( 'Action Hooks & Filters', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'Developers can extend the plugin functionality using action hooks and filters.', 'multi-rating' ); ?></p>										
+						<p><?php _e( 'Developers can extend the plugin functionality using action hooks and filters.', 'multi-rating' ); ?></p>		
+						
+							<h4><?php _e( 'GitHub', 'multi-rating' ); ?></h4>
+						<p><?php printf( __( 'We\'re on <a href="%s">GitHub</a>. Contributions welcome.', 'multi-rating' ), 'https://github.com/danielpowney/multi-rating' ); ?></p>										
 					
 					</div>
 			</div>

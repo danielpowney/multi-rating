@@ -187,6 +187,50 @@ class MR_Utils {
 	}
 	
 	/**
+	 * Helper function to retrieve list of image sizes and dimensions
+	 *
+	 * @param $size
+	 * @return
+	 */
+	public static function get_image_sizes( $size = '' ) {
+	
+		global $_wp_additional_image_sizes;
+	
+		$sizes = array();
+		$get_intermediate_image_sizes = get_intermediate_image_sizes();
+	
+		// Create the full array with sizes and crop info
+		foreach( $get_intermediate_image_sizes as $_size ) {
+	
+			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+	
+				$sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
+				$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
+				$sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
+	
+			} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+	
+				$sizes[ $_size ] = array(
+						'width' => $_wp_additional_image_sizes[ $_size ]['width'],
+						'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+						'crop' =>  $_wp_additional_image_sizes[ $_size ]['crop']
+				);
+			}
+		}
+	
+		// Get only 1 size if found
+		if ( $size ) {
+			if( isset( $sizes[ $size ] ) ) {
+				return $sizes[ $size ];
+			} else {
+				return false;
+			}
+		}
+	
+		return $sizes;
+	}
+	
+	/**
 	 * Helper to sort by top rating results by percentage
 	 *
 	 * @param unknown_type $a
@@ -307,7 +351,7 @@ class MR_Utils {
 	
 		if ( $sort_by == 'highest_rated' ) {
 				
-			if ( $result_type == MRP_Multi_Rating::SCORE_RESULT_TYPE) {
+			if ( $result_type == Multi_Rating::SCORE_RESULT_TYPE) {
 				uasort( $rating_results, array( 'MR_Utils' , 'sort_highest_rated_by_score_result_type' ) );
 			} else {
 				uasort( $rating_results, array( 'MR_Utils' , 'sort_highest_rated_by_percentage_result_type' ) );
@@ -315,7 +359,7 @@ class MR_Utils {
 				
 		} else if ( $sort_by == 'lowest_rated' ) {
 				
-			if ( $result_type == MRP_Multi_Rating::SCORE_RESULT_TYPE) {
+			if ( $result_type == Multi_Rating::SCORE_RESULT_TYPE) {
 				uasort( $rating_results, array( 'MR_Utils' , 'sort_lowest_rated_by_score_result_type' ) );
 			} else {
 				uasort( $rating_results, array( 'MR_Utils' , 'sort_lowest_rated_by_percentage_result_type' ) );

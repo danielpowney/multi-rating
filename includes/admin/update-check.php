@@ -39,7 +39,7 @@ function mr_upgrade_to_4_0() {
 				if ( strpos( $widget_id, 'top_rating_results_widget' ) !== false) {
 						
 					$instance = substr( $widget_id, 26 );
-					$widget_id = 'rating_results_list-' . $instance;
+					$widget_id = 'mr_rating_results_list-' . $instance;
 
 					$widget_options = get_option( 'widget_top_rating_results_widget' );
 					$show_filter = $widget_options[$instance]['show_category_filter'];
@@ -51,7 +51,7 @@ function mr_upgrade_to_4_0() {
 					$widget_options[$instance]['term_id'] = $term_id;
 					$widget_options[$instance]['taxonomy'] = 'category';
 
-					add_option( 'widget_rating_results_list' , $widget_options );
+					add_option( 'widget_mr_rating_results_list' , $widget_options );
 					delete_option( 'widget_top_rating_results_widget' );
 						
 					$widgets[$widget_key] = $widget_id;

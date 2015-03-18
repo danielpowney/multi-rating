@@ -246,7 +246,7 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 		switch( $column_name ) {
 			
 			case MR_Rating_Entry_Table::SHORTCODE_COLUMN :
-				echo '[display_rating_result post_id="' . $item[ MR_Rating_Entry_Table::POST_ID_COLUMN ] . '"]';
+				echo '[mr_rating_result post_id="' . $item[ MR_Rating_Entry_Table::POST_ID_COLUMN ] . '"]';
 				break;
 				
 			case MR_Rating_Entry_Table::ENTRY_DATE_COLUMN :

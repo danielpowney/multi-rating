@@ -107,7 +107,7 @@ function mr_add_new_rating_item_screen() {
 								<option value="radio"><?php _e( 'Radio', 'multi-rating' ); ?></option>
 								<option value="star_rating"><?php _e( 'Star Rating', 'multi-rating' ); ?></option>
 							</select>
-						<label><?php _e( 'Do you want to use a select drop-down list, radio buttons or star rating icons from Font Awesome?', 'multi-rating' );?></label>
+						<label><?php _e( 'Do you want to use a select drop-down list, radio buttons or star ratings?', 'multi-rating' );?></label>
 						</td>
 					</tr>
 				<tr valign="top">

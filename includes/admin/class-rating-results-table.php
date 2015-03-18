@@ -298,7 +298,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 		switch( $column_name ) {
 			case MR_Rating_Results_Table::SHORTCODE_COLUMN : {
 				
-				echo '[display_rating_result post_id="' . $post_id . '"]';
+				echo '[mr_rating_result post_id="' . $post_id . '"]';
 				break;
 			}
 			

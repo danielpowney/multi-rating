@@ -120,6 +120,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 * Important: Deleted template functions from class-rating-form.php.
 * Important: Deleted actions that no longer make sense due to the new template system. If you've used these actions to modify the template, it will no longer work: mr_display_top_rating_results, mr_display_rating_results and mr_display_rating_form
 * Important: Moved common sorting functions from API to utils class.
+* Bug: Fixed security flaw related to name & comment fields. Please update.
+* Bug: Improved escaping of SQL queries and output data sanitization.
+* New: Added dashicons-star-filled as menu icon
+* New: Applied widget_title filter for widget titles
 
 = 3.2.1 =
 * Added loading spinner when saving rating form

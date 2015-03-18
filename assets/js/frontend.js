@@ -162,9 +162,9 @@ jQuery(document).ready(function() {
 				jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star');	
 
 			} else {
-				jQuery(this).not('.mr-minus, .exclude-zero').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full + " mr-star-hover");
-				jQuery(this).prevAll().not('.mr-minus, .exclude-zero').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full + " mr-star-hover");
-				jQuery(this).nextAll().not('.mr-minus, .exclude-zero').removeClass(icon_classes.star_full + " mr-star-hover").addClass(icon_classes.star_empty);	
+				jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full + " mr-star-hover");
+				jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full + " mr-star-hover");
+				jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_full + " mr-star-hover").addClass(icon_classes.star_empty);	
 			}
 		}
 	});
@@ -253,13 +253,6 @@ jQuery(document).ready(function() {
 		    		
 		// update hidden value for storing selected option
 		var hiddenValue = '#rating-item-'+ ratingItemId + '-' + sequence;
-		
-		if (jQuery("#" + elementId).hasClass("exclude-zero") && value == 0) {
-			var newElementId = '#index-1-rating-item-' + ratingItemId + '-' + sequence;
-			jQuery(newElementId).removeClass(icon_classes.star_empty);
-			jQuery(newElementId).addClass(icon_classes.star_full);
-			value = 1;
-		}
 		    		
 		jQuery(hiddenValue).val(value);
 	}

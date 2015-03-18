@@ -118,7 +118,7 @@ Full documentation available here http://danielpowney.com/multi-rating/
 * Tweak: Renamed the following API parameters and shortcode attributes: show_category_filter => show_filter (deprecated show_category_filter) and category_label_text => filter_label_text (deprecated category_label_text)
 * Important: Deleted class-rating-results.php file as it's no longer needed.
 * Important: Deleted template functions from class-rating-form.php.
-* Important: Deleted actions that no longer make sense due to the new template system. If you've used these actions to modify the template, it will no longer work: mrp_display_top_rating_results, mrp_display_rating_results and mrp_display_rating_form
+* Important: Deleted actions that no longer make sense due to the new template system. If you've used these actions to modify the template, it will no longer work: mr_display_top_rating_results, mr_display_rating_results and mr_display_rating_form
 * Important: Moved common sorting functions from API to utils class.
 
 = 3.2.1 =

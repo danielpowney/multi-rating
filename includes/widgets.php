@@ -40,7 +40,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 		$show_filter = empty( $instance['show_filter'] ) ? false : $instance['show_filter'];
 		$show_featured_img = empty( $instance['show_featured_img'] ) ? false : $instance['show_featured_img'];
 		$image_size = empty( $instance['image_size'] ) ? 'thumbnail' : $instance['image_size'];
-		$header = empty( $instance['header'] ) ? 'h2' : $instance['header'];
+		$header = empty( $instance['header'] ) ? 'h3' : $instance['header'];
 		$sort_by =  empty( $instance['sort_by'] ) ? 'highest_rated' : $instance['sort_by'];
 		$filter_label_text =  $instance['filter_label_text'];
 		$show_rank = empty( $instance['show_rank'] ) ? false : $instance['show_rank'];
@@ -124,7 +124,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 				'limit' => 10,
 				'show_featured_img' => true,
 				'image_size' => 'thumbnail',
-				'header' => 'h2',
+				'header' => 'h3',
 				'sort_by' => 'highest_rated',
 				'show_filter' => true,
 				'taxonomy' => '',

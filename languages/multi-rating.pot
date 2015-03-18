@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: multi-rating\n"
-"POT-Creation-Date: 2015-03-16 20:05+1000\n"
-"PO-Revision-Date: 2015-03-16 20:05+1000\n"
+"POT-Creation-Date: 2015-03-19 09:38+1000\n"
+"PO-Revision-Date: 2015-03-19 09:40+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.6\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -386,8 +386,8 @@ msgid "After title"
 msgstr ""
 
 #: ../includes/admin/class-rating-entry-table.php:31
-#: ../includes/admin/class-rating-entry-table.php:119
-#: ../includes/admin/class-rating-results-table.php:107
+#: ../includes/admin/class-rating-entry-table.php:125
+#: ../includes/admin/class-rating-results-table.php:113
 msgid "Rating Result"
 msgstr ""
 
@@ -402,77 +402,77 @@ msgstr ""
 #: ../includes/admin/class-rating-entry-table.php:75
 #: ../includes/admin/class-rating-results-table.php:59
 #: ../includes/admin/reports.php:52 ../includes/admin/tools.php:24
-#: ../includes/admin/tools.php:70 ../includes/admin/tools.php:106
+#: ../includes/admin/tools.php:77 ../includes/admin/tools.php:120
 msgid "All posts / pages"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:95
-#: ../includes/admin/class-rating-results-table.php:88
+#: ../includes/admin/class-rating-entry-table.php:101
+#: ../includes/admin/class-rating-results-table.php:94
 #: ../includes/admin/reports.php:73 ../includes/class-settings.php:80
 msgid "Filter"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:114
-#: ../includes/class-api.php:962
+#: ../includes/admin/class-rating-entry-table.php:120
+#: ../includes/class-api.php:970
 msgid "Entry Id"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:115
-#: ../includes/admin/class-rating-results-table.php:106
+#: ../includes/admin/class-rating-entry-table.php:121
+#: ../includes/admin/class-rating-results-table.php:112
 msgid "Post"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:116
-#: ../includes/class-api.php:963
+#: ../includes/admin/class-rating-entry-table.php:122
+#: ../includes/class-api.php:971
 msgid "Entry Date"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:117
+#: ../includes/admin/class-rating-entry-table.php:123
 #: ../includes/class-settings.php:132
 msgid "IP Address"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:118
+#: ../includes/admin/class-rating-entry-table.php:124
 msgid "User ID"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:120
-#: ../includes/admin/class-rating-results-table.php:109
+#: ../includes/admin/class-rating-entry-table.php:126
+#: ../includes/admin/class-rating-results-table.php:115
 msgid "Action"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:121
-#: ../includes/admin/class-rating-results-table.php:110
+#: ../includes/admin/class-rating-entry-table.php:127
+#: ../includes/admin/class-rating-results-table.php:116
 msgid "Shortcode"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:269
-#: ../includes/admin/class-rating-results-table.php:338
+#: ../includes/admin/class-rating-entry-table.php:282
+#: ../includes/admin/class-rating-results-table.php:351
 msgid "Star: "
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:270
-#: ../includes/admin/class-rating-results-table.php:339
+#: ../includes/admin/class-rating-entry-table.php:283
+#: ../includes/admin/class-rating-results-table.php:352
 msgid "Score: "
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:271
-#: ../includes/admin/class-rating-results-table.php:340
+#: ../includes/admin/class-rating-entry-table.php:284
+#: ../includes/admin/class-rating-results-table.php:353
 msgid "Percentage: "
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:292
+#: ../includes/admin/class-rating-entry-table.php:305
 #: ../includes/admin/edit-rating.php:9 ../multi-rating.php:393
 msgid "Edit Rating"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:323
+#: ../includes/admin/class-rating-entry-table.php:336
 #: ../includes/admin/class-rating-item-table.php:199
-#: ../includes/admin/class-rating-results-table.php:377
+#: ../includes/admin/class-rating-results-table.php:390
 msgid "Delete"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:360
+#: ../includes/admin/class-rating-entry-table.php:373
 msgid "Entries deleted successfully"
 msgstr ""
 
@@ -528,7 +528,7 @@ msgstr ""
 
 #: ../includes/admin/class-rating-item-table.php:133
 #: ../includes/admin/class-rating-item-table.php:307
-#: ../includes/admin/rating-items.php:108 ../includes/widgets.php:164
+#: ../includes/admin/rating-items.php:108 ../includes/widgets.php:166
 msgid "Star Rating"
 msgstr ""
 
@@ -580,44 +580,44 @@ msgstr ""
 msgid "An error occured."
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:79
+#: ../includes/admin/class-rating-results-table.php:85
 msgid "Sort"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:82
-#: ../includes/widgets.php:280
+#: ../includes/admin/class-rating-results-table.php:88
+#: ../includes/widgets.php:282
 msgid "Post Title Ascending"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:83
-#: ../includes/widgets.php:281
+#: ../includes/admin/class-rating-results-table.php:89
+#: ../includes/widgets.php:283
 msgid "Post Title Descending"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:84
+#: ../includes/admin/class-rating-results-table.php:90
 msgid "Top Rating Results"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:85
-#: ../includes/widgets.php:279
+#: ../includes/admin/class-rating-results-table.php:91
+#: ../includes/widgets.php:281
 msgid "Most Entries"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:108
+#: ../includes/admin/class-rating-results-table.php:114
 #: ../includes/admin/rating-results.php:15 ../includes/admin/reports.php:14
 msgid "Entries"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:309
+#: ../includes/admin/class-rating-results-table.php:322
 msgid "View Entries"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:342
+#: ../includes/admin/class-rating-results-table.php:355
 #: ../includes/class-settings.php:279 ../includes/class-settings.php:293
 msgid "None"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:423
+#: ../includes/admin/class-rating-results-table.php:436
 msgid "Rating results deleted successfully."
 msgstr ""
 
@@ -648,8 +648,7 @@ msgstr ""
 
 #: ../includes/admin/rating-items.php:110
 msgid ""
-"Do you want to use a select drop-down list, radio buttons or star rating "
-"icons from Font Awesome?"
+"Do you want to use a select drop-down list, radio buttons or star ratings?"
 msgstr ""
 
 #: ../includes/admin/rating-items.php:116
@@ -700,81 +699,81 @@ msgstr ""
 msgid "Export Rating Results to a CSV file."
 msgstr ""
 
-#: ../includes/admin/tools.php:44
+#: ../includes/admin/tools.php:51
 msgid "Export"
 msgstr ""
 
-#: ../includes/admin/tools.php:59 ../includes/admin/tools.php:89
+#: ../includes/admin/tools.php:66 ../includes/admin/tools.php:103
 msgid "Clear Database"
 msgstr ""
 
-#: ../includes/admin/tools.php:61
+#: ../includes/admin/tools.php:68
 msgid "Delete rating results from the database."
 msgstr ""
 
-#: ../includes/admin/tools.php:99 ../includes/admin/tools.php:126
+#: ../includes/admin/tools.php:113 ../includes/admin/tools.php:147
 msgid "Clear Cache"
 msgstr ""
 
-#: ../includes/admin/tools.php:101
+#: ../includes/admin/tools.php:115
 msgid ""
 "Clear the cached rating results stored in the WordPress post meta table."
 msgstr ""
 
-#: ../includes/admin/tools.php:238
+#: ../includes/admin/tools.php:259
 msgid "Database cleared successfully."
 msgstr ""
 
-#: ../includes/admin/tools.php:240
+#: ../includes/admin/tools.php:261
 #, php-format
 msgid "An error has occured. %s"
 msgstr ""
 
-#: ../includes/admin/tools.php:243
+#: ../includes/admin/tools.php:264
 msgid "No entries found"
 msgstr ""
 
-#: ../includes/admin/tools.php:274
+#: ../includes/admin/tools.php:295
 msgid "Cache cleared successfully."
 msgstr ""
 
-#: ../includes/class-api.php:964
+#: ../includes/class-api.php:972
 msgid "Post Id"
 msgstr ""
 
-#: ../includes/class-api.php:965
+#: ../includes/class-api.php:973
 msgid "Post Title"
 msgstr ""
 
-#: ../includes/class-api.php:966
+#: ../includes/class-api.php:974
 msgid "Score Rating Result"
 msgstr ""
 
-#: ../includes/class-api.php:967
+#: ../includes/class-api.php:975
 msgid "Adjusted Score Rating Result"
 msgstr ""
 
-#: ../includes/class-api.php:968
+#: ../includes/class-api.php:976
 msgid "Total Max Option Value"
 msgstr ""
 
-#: ../includes/class-api.php:969
+#: ../includes/class-api.php:977
 msgid "Percentage Rating Result"
 msgstr ""
 
-#: ../includes/class-api.php:970
+#: ../includes/class-api.php:978
 msgid "Adjusted Percentage Rating Result"
 msgstr ""
 
-#: ../includes/class-api.php:971
+#: ../includes/class-api.php:979
 msgid "Star Rating Result"
 msgstr ""
 
-#: ../includes/class-api.php:972
+#: ../includes/class-api.php:980
 msgid "Adjusted Star Rating Result"
 msgstr ""
 
-#: ../includes/class-api.php:973
+#: ../includes/class-api.php:981
 msgid "User Id"
 msgstr ""
 
@@ -1076,72 +1075,72 @@ msgstr ""
 msgid "Rating Results List Widget"
 msgstr ""
 
-#: ../includes/widgets.php:152
+#: ../includes/widgets.php:154
 msgid "Title"
 msgstr ""
 
-#: ../includes/widgets.php:156
+#: ../includes/widgets.php:158
 msgid "Limit"
 msgstr ""
 
-#: ../includes/widgets.php:160
+#: ../includes/widgets.php:162
 msgid "Result Type"
 msgstr ""
 
-#: ../includes/widgets.php:165
+#: ../includes/widgets.php:167
 msgid "Percentage"
 msgstr ""
 
-#: ../includes/widgets.php:166
+#: ../includes/widgets.php:168
 msgid "Score"
 msgstr ""
 
-#: ../includes/widgets.php:181
+#: ../includes/widgets.php:183
 msgid "Taxonomy"
 msgstr ""
 
-#: ../includes/widgets.php:201
+#: ../includes/widgets.php:203
 msgid "Terms"
 msgstr ""
 
-#: ../includes/widgets.php:211 ../includes/widgets.php:312
+#: ../includes/widgets.php:213 ../includes/widgets.php:314
 #: ../templates/rating-result-list.php:31
 msgid "All"
 msgstr ""
 
-#: ../includes/widgets.php:226
+#: ../includes/widgets.php:228
 msgid "Show Filter"
 msgstr ""
 
-#: ../includes/widgets.php:229
+#: ../includes/widgets.php:231
 msgid "Filter Label"
 msgstr ""
 
-#: ../includes/widgets.php:234
+#: ../includes/widgets.php:236
 msgid "Show Featured Image"
 msgstr ""
 
-#: ../includes/widgets.php:238
+#: ../includes/widgets.php:240
 msgid "Show Rank"
 msgstr ""
 
-#: ../includes/widgets.php:241
+#: ../includes/widgets.php:243
 msgid "Image Size"
 msgstr ""
 
-#: ../includes/widgets.php:257
+#: ../includes/widgets.php:259
 msgid "Header"
 msgstr ""
 
-#: ../includes/widgets.php:273
+#: ../includes/widgets.php:275
 msgid "Sort By"
 msgstr ""
 
-#: ../includes/widgets.php:277
+#: ../includes/widgets.php:279
 msgid "Highest Rated"
 msgstr ""
 
-#: ../includes/widgets.php:278
+#: ../includes/widgets.php:280
 msgid "Lowest Rated"
 msgstr ""
 

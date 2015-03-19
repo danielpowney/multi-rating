@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: multi-rating\n"
-"POT-Creation-Date: 2015-03-19 09:38+1000\n"
-"PO-Revision-Date: 2015-03-19 09:40+1000\n"
+"POT-Creation-Date: 2015-03-19 20:31+1000\n"
+"PO-Revision-Date: 2015-03-19 20:31+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -305,8 +305,8 @@ msgstr ""
 
 #: ../includes/admin/about.php:211
 msgid ""
-"New shortcodes, API functions and widgets (e.g. display user reviews and "
-"individual rating item results)"
+"New shortcodes, API functions and widgets (i.e. reviews and rating item "
+"results)"
 msgstr ""
 
 #: ../includes/admin/about.php:212
@@ -332,11 +332,11 @@ msgid ""
 msgstr ""
 
 #: ../includes/admin/about.php:216
-msgid "Like/dislike or thumbs up/down rating item type"
+msgid "Thumbs up/thumbs down rating item type (e.g. like/dislike)"
 msgstr ""
 
 #: ../includes/admin/about.php:217
-msgid "Display detailed rating item results breakdown in a poll format"
+msgid "Display a breakdown of rating item results in 3 layouts"
 msgstr ""
 
 #: ../includes/admin/about.php:218

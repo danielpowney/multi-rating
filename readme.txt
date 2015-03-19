@@ -76,23 +76,28 @@ Check it out here http://danielpowney.com/downloads/multi-rating-pro/
 == Installation ==
 
 1. Install plugin via the WordPress.org plugin directory. Unzip and place plugin folder in /wp-content/plugins/ directory for manual installation
-1. Activate the plugin through the 'Plugins' menu in WordPress admin
-1. Go to 'Settings' menu 'Multi Rating' option in WordPress admin
+1. Activate the plugin through the 'Plugins' menu in WP-admin
+1. Go to Settings page in the 'Multi Rating' menu in WP-admin. The auto placement settings should be turned on with only the 'post' post type enabled by default.
 
 == Frequently Asked Questions ==
 
 Full documentation available here http://danielpowney.com/multi-rating/
 
 == Screenshots ==
-1. Demo of rating results after page title, rating form and top rating results
-2. View rating results in WP-admin
-3. Edit post page in WP-admin showing Multi Rating meta box and shortcode sample in visual editor
-4. Rating items
-5. Add a new rating item
-6. Top Rating Results widget
-7. Entries tab
-8. Settings page
-9. Reports page
+1. Auto placement of rating results after post title and rating form after post content. Twenty Fifteen theme.	
+2. Rating results in WP-admin for each post.
+3. Rating Results List widget options include displaying the post feature image, a rank, changing the result type (star rating out of 5, score or percentage), different sorting mechanisms (highest rated, lowest rated etc...), set widget title and much more.
+4. Rating items table.
+5. General settings.
+6. Graphical report on the number of entries per day.
+7. Edit post page. Add shortcodes in the editor. The Multi Rating meta-box can set the auto placement settings per post to override the default settings.
+8. Rating Results List Widget. Twenty Fifteen theme
+11. Rating Results List shortcode. [mr_rating_results_list show_filter="true" title="Top Ratings" sort_by="highest_rated"]
+22. Every rating entry can be viewed in WP-admin and edited
+55. Style settings include star rating select and on hover colors, load Font Awesome library CDN, version of Font Awesome and the ability to set custom star rating images to use instead of Font Awesome icons.
+66. The plugin has several tools including exporting rating results to a CSV file, clearing the rating results cache and deleting rating results in bulk
+555. Custom text setting.
+666. WP-admin plugin menu.
 
 == Changelog ==
 
@@ -107,6 +112,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 * New: Added a setting to be able to default hide the Multi Rating meta box.
 * New: Added more sorting options to rating results in the WP-admin.
 * New: Added CSS cursor pointer on hover of star rating icons.
+* New: Added dashicons-star-filled as menu icon
+* New: Applied widget_title filter for widget titles
+* Bug: Fixed security flaw related to name & comment fields. Please update.
+* Bug: Improved escaping of SQL queries and output data sanitization.
 * Bug: Fixed AJAX returning rating result where rating results position for a post is do not show.
 * Tweak: Renamed all shortcodes to have a prefix mr_ (old shortcode names are deprecated but will still work). display_rating_form => mr_rating_form, display_rating_results => mr_rating_results and display_top_rating_results => mr_rating_results_list
 * Tweak: Renamed the Top Rating Results widget to Rating Results List widget which is more generic and supports different sorting mechanisms.
@@ -120,165 +129,161 @@ Full documentation available here http://danielpowney.com/multi-rating/
 * Important: Deleted template functions from class-rating-form.php.
 * Important: Deleted actions that no longer make sense due to the new template system. If you've used these actions to modify the template, it will no longer work: mr_display_top_rating_results, mr_display_rating_results and mr_display_rating_form
 * Important: Moved common sorting functions from API to utils class.
-* Bug: Fixed security flaw related to name & comment fields. Please update.
-* Bug: Improved escaping of SQL queries and output data sanitization.
-* New: Added dashicons-star-filled as menu icon
-* New: Applied widget_title filter for widget titles
 
 = 3.2.1 =
-* Added loading spinner when saving rating form
-* Improved styles in plugin settings page
+* New: Added loading spinner when saving rating form
+* Tweak: Improved styles in plugin settings page
 
 = 3.2 =
-* Refactored save rating restrictions to allow using cookies and or an IP address within a specified time in hours
-* Added edit_ratings capability to allow Editor role to be able to edit ratings
+* New: Refactored save rating restrictions to allow using cookies and or an IP address within a specified time in hours
+* New: Added edit_ratings capability to allow Editor role to be able to edit ratings
 
 = 3.1.5 =
-* Removed undefined PHP variable notice in plugin settings page
+* Bug: Removed undefined PHP variable notice in plugin settings page
 
 = 3.1.4 =
-* Fixed auto placement issue - undefined content in mr_can_apply_filter
+* Bug: Fixed auto placement issue - undefined content in mr_can_apply_filter
 
 = 3.1.3 =
-* Added settings to upload your own star rating images to use instead of Font Awesome star icons
-* Added after_auto_placement action hook
-* Added mr_can_apply_filter and mr_can_do_shortcode filters
-* Modified the Top Rating Results widget, [display_top_rating_results] shortcode and the display_top_rating_results() API function to be able to display the featured image of a post
-* Added more options to show feature image and thumbnail size to the Top Rating Results widget
-* Added Font Awesome 4.2.0 support
+* New: Added settings to upload your own star rating images to use instead of Font Awesome star icons
+* New: Added after_auto_placement action hook
+* New: Added mr_can_apply_filter and mr_can_do_shortcode filters
+* New: Modified the Top Rating Results widget, [display_top_rating_results] shortcode and the display_top_rating_results() API function to be able to display the featured image of a post
+* New: Added more options to show feature image and thumbnail size to the Top Rating Results widget
+* New: Added Font Awesome 4.2.0 support
 
 = 3.1.2 =
-* Fixed show_count parameter not set correctly when displaying the top rating results
-* Fixed filter button text callback defect
+* Bug: Fixed show_count parameter not set correctly when displaying the top rating results
+* Bug: Fixed filter button text callback defect
 
 = 3.1.1 =
-* Fixed rounding of star result to 2 decimals
-* Fixed is_admin() checks to also check AJAX requests to support plugins such as FacetWP
-* added filter button custom text and category label text
-* Added ability to sort rating results in WP-admin by post title asc, post title desc, top rating results and most entries
-* Added to delete all associated rating results and entry data when a post is deleted
-* Added fix to only show published posts in the Top Rating Results and to recalculate the rating results when a post changes status
+* Bug: Fixed rounding of star result to 2 decimals
+* Bug: Fixed is_admin() checks to also check AJAX requests to support plugins such as FacetWP
+* New: Added filter button custom text and category label text
+* New: Added ability to sort rating results in WP-admin by post title asc, post title desc, top rating results and most entries
+* New: Added to delete all associated rating results and entry data when a post is deleted
+* Bug: Added fix to only show published posts in the Top Rating Results and to recalculate the rating results when a post changes status
 
 = 3.1 =
-* Added edit rating feature in WP-admin
-* Replaced storing username with user id
-* Refactored star rating html generation
-* Added WP filter for custom rating form validation
-* Some CSS changes
-* Improved usability of WP-admin tables
+* New: Added edit rating feature in WP-admin
+* Tweak: Replaced storing username with user id
+* Tweak: Refactored star rating html generation
+* New: Added WP filter for custom rating form validation
+* Tweak: Some CSS changes
+* Tweak: Improved usability of WP-admin tables
 
 = 3.0.2 =
-* Fixed weight issue calculting rating results
+* Bug: Fixed weight issue calculting rating results
 
 = 3.0.1 =
-* Performance impovements. Added rating results cache.
+* Tweak: Performance impovements. Added rating results cache.
 
 = 3.0 =
-* Major plugin refactor.
-* Several bug fixes
-* Added more filters in WP-admin tables
-* Added new Tools menu
-* Added rating results table in WP-admin
-* Hide rating form on submit
-* Replaced JS alery after submitting rating form with HTML message
-* Added action hooks
+* New: Major plugin refactor.
+* Bug: Several bug fixes
+* New: Added more filters in WP-admin tables
+* New: Added new Tools menu
+* New: Added rating results table in WP-admin
+* New: Hide rating form on submit
+* New: Replaced JS alert after submitting rating form with HTML message
+* New: Added several action hooks
 
 = 2.3.1 =
-* Fixed bug calculating raitng results if a new rating item is added
-* Modified how rating results are calculated
-* Sorting of rating results by result type
-* Fixed bug missing before_title after_title in display_top_rating_results shortcode
-* Fixed bug in JS where trim is not supported in IE8
-* Added support for custom taxonomies
+* Bug: Fixed bug calculating raitng results if a new rating item is added
+* Tweak: Modified how rating results are calculated
+* Tweak: Sorting of rating results by result type
+* Bug: Fixed bug missing before_title after_title in display_top_rating_results shortcode
+* Bug: Fixed bug in JS where trim is not supported in IE8
+* New: Added support for custom taxonomies
 
 = 2.3 =
-* Support for different versions of Font Awesome added
-* Plugin now i18n translation ready
-* Added About page
+* New: Support for different versions of Font Awesome added
+* New: Plugin now i18n translation ready
+* New: Added About page
 
 = 2.2.4 =
-* New report which shows number of entries per day
-* Ability to export rating results to a CSV file
+* New: New report which shows number of entries per day
+* New: Ability to export rating results to a CSV file
 
 = 2.2.3 (07/07/2014) =
-* Added on hover color for star rating select
+* New: Added on hover color for star rating select
 
 = 2.2.2 (29/05/2014) =
-* Fixed missing category_id attribute to display_top_rating_results shortcode
+* Bug: Fixed missing category_id attribute to display_top_rating_results shortcode
 
 = 2.2.1 (29/05/2014) =
-* Fixed category filter
+* Bug: Fixed category filter
 
 = 2.2 (28/05/2014) =
-* Added Fontawesome star icons instead of using image sprites
-* Added radio options and star ratings along with the select drop down to select rating item values
-* Some template and style changes to improve the layout
-* Fixed a couple of misc bugs
+* Tweak: Added Fontawesome star icons instead of using image sprites
+* New: Added radio options and star ratings along with the select drop down to select rating item values
+* Tweak: Some template and style changes to improve the layout
+* Bug: Fixed a couple of misc bugs
 
 = 2.1 (07/05/2014) =
-* Refactored HTML for rating form and rating results including CSS styles
-* Added Multi Rating meta box in edit page to override default settings for automatic placements of rating form and rating results per post or page
-* Added class shortcode attribute
-* Refactored how rating results are returned in API
+* Tweak: Refactored HTML for rating form and rating results including CSS styles
+* New: Added Multi Rating meta box in edit page to override default settings for automatic placements of rating form and rating results per post or page
+* New: Added class shortcode attribute
+* Tweak: Refactored how rating results are returned in API
 
 = 2.0.4 (12/04/2014) =
-* Fixed rich snippets bug
-* Refactored API functions and added more params that can be used in shortcodes
+* Bug: Fixed rich snippets bug
+* New: Refactored API functions and added more params that can be used in shortcodes
 
 = 2.0.3 =
-* Information on multi-rating-pro plugin features added
+* New: Information on multi-rating-pro plugin features added
 
 = 2.0.2 =
-* Rating results table in WP-admin query updated to order by entry_date desc
+* New: Rating results table in WP-admin query updated to order by entry_date desc
 
 = 2.0.1 =
-* Fixed top rating results widget bug
+* Bug: Fixed top rating results widget bug
 
 = 2.0 =
-* Major refactor of plugin.
-* Old Shortcodes deprecated and replaced with new shortcodes. Old settings and API functions renamed and may not backward compatible.
-* Old settings have been renamed
-* Old rating result will not be migrated. If you wish to keep your rating results, you must continue to use the version 1.1.8.
-* Improved WP admin including view rating result entries and values
+* New: Major refactor of plugin.
+* Important: Old Shortcodes deprecated and replaced with new shortcodes. Old settings and API functions renamed and may not backward compatible.
+* New: Old settings have been renamed
+* Important: Old rating result will not be migrated. If you wish to keep your rating results, you must continue to use the version 1.1.8.
+* New: Improved WP admin including view rating result entries and values
 
 = 1.1.8 (15/01/2014) =
-* Allow removing title from rating form and top rating results
+* New: Allow removing title from rating form and top rating results
 
 = 1.1.7 (13/01/2014) =
-* Added settings for default rating form title and default top rating results title
+* New: Added settings for default rating form title and default top rating results title
 
 = 1.1.6 (7/01/2014) =
-* Fixed bug in displaying top results for multiple post types
+* Bug: Fixed bug in displaying top results for multiple post types
 
 = 1.1.5 (6/01/2014) =
-* Fixed custom title for widgets
+* Bug: Fixed custom title for widgets
 
 = 1.1.4 (19/12/2013) =
-* Added support for character encoding
+* New: Added support for character encoding of rating items in db
 
 = 1.1.3 = (14/12/2013)
-* Fixed post title on top rating results widget
+* Bug: Fixed post title on top rating results widget
 
 = 1.1.2 = (14/12/2013)
-* Removed debugging comment accidentally left behind
+* Bug: Removed debugging comment accidentally left behind
 
 = 1.1.1 (12/12/2013) =
-* Changed shortcode parameter for post id from id to post_id
-* Fixed default values in API functions for themes
-* Fixed bug which caused only 5 top rating results being displayed
+* New: Changed shortcode parameter for post id from id to post_id
+* Tweak: Fixed default values in API functions for themes
+* Bug: Fixed bug which caused only 5 top rating results being displayed
 
 = 1.1 =
-* Added weight rating for multi criteria
+* New: Added weight rating for multi criteria
 
 = 1.0.3=
-* Fixed activation for older versions of PHP
+* Bug: Fixed activation for older versions of PHP
 
 = 1.0.2 =
-* Added option to change rating results stars to small, medium or large size
-* Fixed some CSS issues
+* New: Added option to change rating results stars to small, medium or large size
+* Bug: Fixed some CSS issues
 
 = 1.0.1 =
-* Added check is_singular() to add rich snippets to rating results
+* New: Added check is_singular() to add rich snippets to rating results
 
 = 1.0 =
 * Initial release

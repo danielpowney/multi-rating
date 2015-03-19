@@ -6,46 +6,51 @@ jQuery(document).ready(function() {
 	jQuery(".rating-form :button").click(function(e) {
 	
 		var ratingItems = [];
+		var customFields = [];
 		var btnId = e.currentTarget.id; // btnType-postId-sequence
 		var parts = btnId.split("-"); 
 		var postId = parts[1];
 		var sequence = parts[2];
-
 		
-		// each rating item has a hidden field using the post id and sequence
-		jQuery( '.rating-form input[type="hidden"].rating-form-' + postId + '-' + sequence + '-item').each(function( index ) {			
+		var hiddenRatingEntryId = "#ratingEntryId-" + postId + "-" + sequence;
+		var ratingEntryId = jQuery(hiddenRatingEntryId);
+		
+		// rating items - hidden inputs are used to find all rating items in the rating form
+		jQuery('.rating-form input[type="hidden"].rating-item-' + postId + '-' + sequence).each(function(index) {			
+			
 			var ratingItemId = jQuery(this).val();
 			
-			// get values for 3 types of rating items: select, radio and star rating
-			var element = jQuery('[name=rating-item-' +ratingItemId + '-' + sequence + ']');
-			var selectedValue = null;
+			// get values for rating items
+			var element = jQuery('[name=rating-item-' + ratingItemId + '-' + sequence + ']');
+			var value = null;
 			if (jQuery(element).is(':radio')) {
-				selectedValue = jQuery('input[type="radio"][name=rating-item-' +ratingItemId + '-' + sequence + ']:checked').val(); 
+				value = jQuery('input[type="radio"][name=rating-item-' + ratingItemId + '-' + sequence + ']:checked').val(); 
 			} else if (jQuery(element).is('select')) {
-				selectedValue = jQuery('select[name=rating-item-' +ratingItemId + '-' + sequence + '] :selected').val(); 
+				value = jQuery('select[name=rating-item-' +ratingItemId + '-' + sequence + '] :selected').val(); 
 			} else {
-				selectedValue = jQuery('input[type=hidden][name=rating-item-' +ratingItemId + '-' + sequence + ']').val();
+				value = jQuery('input[type=hidden][name=rating-item-' + ratingItemId + '-' + sequence + ']').val();
 			}
 			
-			var ratingItem = { 'id' : ratingItemId, 'value' : selectedValue };
+			var ratingItem = { 'id' : ratingItemId, 'value' : value };
 			ratingItems[index] = ratingItem;
+			
 		});
-		
+	
 		var data = {
 				action : "save_rating",
 				nonce : mr_frontend_data.ajax_nonce,
 				ratingItems : ratingItems,
 				postId : postId,
 				sequence : sequence
-			};
+		};
 		
-		var spinnerId = 'mr-spinner-' + postId +'-' + sequence;
+		var temp = postId +'-' + sequence;
+		var spinnerId = 'mr-spinner-' + temp;
 		
 		jQuery('<i style="margin-left: 10px;" id="' + spinnerId + '" class="' + icon_classes.spinner + '"></i>').insertAfter('input#' + btnId);
 	
-	
 		jQuery.post(mr_frontend_data.ajax_url, data, function(response) {
-			handle_rating_form_submit_response(response);
+				handle_rating_form_submit_response(response);
 		});
 	});
 	
@@ -100,18 +105,17 @@ jQuery(document).ready(function() {
 		jQuery("#" + spinnerId).remove();
 	}
 	
-	
 	/**
-	 * Selected star rating changes on hover and click
+	 * Selected rating item value on hover and click
 	 */
 	var ratingItemStatus = {};
 	
 	var useCustomStarImages = jQuery.parseJSON(mr_frontend_data.use_custom_star_images);
 	
-	jQuery(".mr-star-rating-select .mr-star-empty, .mr-star-rating-select .mr-star-full").click(function(e) {
+	jQuery(".mr-star-rating-select .mr-star-empty, .mr-star-rating-select .mr-star-full").on("click", function(e) {
 		
-		updateRatingItemStatus(this, 'clicked');
-
+		updateRatingItemStatus(this.id, 'clicked');
+		
 		if (useCustomStarImages == true ) {
 			jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
 			jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
@@ -125,14 +129,15 @@ jQuery(document).ready(function() {
 		updateSelectedHiddenValue(this);
 	});
 	
-	jQuery(".mr-star-rating-select .mr-minus").click(function(e) {
+	jQuery(".mr-star-rating-select .mr-minus").on("click", function(e) {
 		
-		updateRatingItemStatus(this, '');
+		updateRatingItemStatus(this.id, '');
 		
 		if (useCustomStarImages == true) {
 			jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
 			jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
 			jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-full-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star');
+
 		} else {
 			jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty + " mr-star-hover").addClass(icon_classes.star_full);
 			jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty + " mr-star-hover").addClass(icon_classes.star_full);
@@ -142,14 +147,14 @@ jQuery(document).ready(function() {
 		updateSelectedHiddenValue(this);
 	});
 	
-	jQuery(".mr-star-rating-select .mr-minus, .mr-star-rating-select .mr-star-empty, .mr-star-rating-select .mr-star-full").hover(function(e) {
+	jQuery(".mr-star-rating-select .mr-minus, .mr-star-rating-select .mr-star-empty, .mr-star-rating-select .mr-star-full").on("mouseenter mouseleave", function(e) {
 
-		var elementId = getRatingItemElementId(this);
+		var elementId = this.id;
 		var ratingItemIdSequence = getRatingItemIdSequence(elementId);
 		
 		if (ratingItemStatus[ratingItemIdSequence] != 'clicked' && ratingItemStatus[ratingItemIdSequence] != undefined) {
 			
-			updateRatingItemStatus(this, 'hovered');
+			updateRatingItemStatus(this.id, 'hovered');
 			
 			if (useCustomStarImages == true) {
 				jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star').addClass('mr-custom-hover-star mr-star-hover');
@@ -182,116 +187,74 @@ jQuery(document).ready(function() {
 		touchData.touch = touch;
 	});
 	
-	jQuery(".mr-star-rating-select .mr-star-empty, .mr-star-rating-select .mr-star-full, .mr-star-rating-select .mr-minus").on(
-			"touchend touchcancel",
-			function(e) {
-				var now = new Date().getTime();
-				// Detecting if after 200ms if in the same position.
-				if ((touchData.started !== null)
-						&& ((now - touchData.started) < 200)
-						&& (touchData.touch !== null)) {
-					var touch = touchData.touch;
-					var xCoord = touch.pageX;
-					var yCoord = touch.pageY;
-					if ((touchData.previousXCoord === xCoord)
-							&& (touchData.previousYCoord === yCoord)) {
-						
-						if (useCustomStarImages == true) {
-							jQuery(this).removeClass('mr-custom-empty-star').addClass('mr-custom-full-star');
-							jQuery(this).prevAll().removeClass('mr-custom-empty-star').addClass('mr-custom-full-star');
-							jQuery(this).nextAll().removeClass('mr-custom-full-star').addClass('mr-custom-empty-star');
-						} else {
-							jQuery(this).removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
-							jQuery(this).prevAll().removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
-							jQuery(this).nextAll().removeClass(icon_classes.star_full).addClass(icon_classes.star_empty);
-						}
-						updateSelectedHiddenValue(this);
+	jQuery(".mr-star-rating-select .mr-star-empty, .mr-star-rating-select .mr-star-full, .mr-star-rating-select .mr-minus").on("touchend touchcancel", function(e) {
+			var now = new Date().getTime();
+			// Detecting if after 200ms if in the same position.
+			if ((touchData.started !== null)
+					&& ((now - touchData.started) < 200)
+					&& (touchData.touch !== null)) {
+				var touch = touchData.touch;
+				var xCoord = touch.pageX;
+				var yCoord = touch.pageY;
+				if ((touchData.previousXCoord === xCoord)
+						&& (touchData.previousYCoord === yCoord)) {
+					
+					if (useCustomStarImages == true) {
+						jQuery(this).removeClass('mr-custom-empty-star').addClass('mr-custom-full-star');
+						jQuery(this).prevAll().removeClass('mr-custom-empty-star').addClass('mr-custom-full-star');
+						jQuery(this).nextAll().removeClass('mr-custom-full-star').addClass('mr-custom-empty-star');
+					} else {
+						jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
+						jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
+						jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_full).addClass(icon_classes.star_empty);
 					}
+					updateSelectedHiddenValue(this);
 				}
-				touchData.started = null;
-				touchData.touch = null;
-			});
+			}
+			touchData.started = null;
+			touchData.touch = null;
+	});
 	
 	/**
 	 * Updates the rating item status to either hovered or clicked
 	 */
-	function updateRatingItemStatus(element, status) {
-		var elementId = getRatingItemElementId(element);
+	function updateRatingItemStatus(elementId, status) {
 		var ratingItemIdSequence = getRatingItemIdSequence(elementId);
 		if (ratingItemIdSequence != null) {
 			ratingItemStatus[ratingItemIdSequence] = status;
 		}
 	}
 	
+	/**
+	 * Retrieves the rating item id sequence used to store the status of a rating item option
+	 */
 	function getRatingItemIdSequence(elementId) {
 		var parts = elementId.split("-"); 
 		
-		var ratingItemId = parts[4]; /// skipt 2: rating-item-
+		var ratingItemId = parts[4]; /// skip 2: rating-item-
 		var sequence = parts[5];
 		
 		var ratingItemIdSequence = 'rating-item-' + ratingItemId + '-' + sequence;
 		return ratingItemIdSequence;
 	}
 	
-	function getRatingItemElementId(element) {
-		var clazz = jQuery(element).attr("class");
-		
-		if (clazz && clazz.length && clazz.split) {
-			clazz = jQuery.trim(clazz);
-			clazz = clazz.replace(/\s+/g, ' ');
-			var classes = clazz.split(' ');
-			var index=0;
-			for (index; index<classes.length; index++) {
-				var currentClass = classes[index];
-		        if (currentClass !== '' && currentClass.indexOf('index-') == 0) {
-		        	
-		        	// index-X-ratingItemId-sequence
-		        	var parts = currentClass.split("-"); 
-		    		var value = parts[1]; // this is the index
-		    		var ratingItemId = parts[4]; /// skipt 2: rating-item-
-		    		var sequence = parts[5];
-		    		
-		    		var elementId = 'index-' + value + '-rating-item-' + ratingItemId + '-' + sequence;
-		    		//index-1-rating-item-1-1
-		    		return elementId;
-		        }
-			}
-		}
-		
-		return null;
-	}
-	
 	/**
-	 * Updates the selected star rating value
+	 * Updates the selected hidden value for a rating item
 	 */
 	function updateSelectedHiddenValue(element) {
-		var clazz = jQuery(element).attr("class");
 		
-		if (clazz && clazz.length && clazz.split) {
-			clazz = jQuery.trim(clazz);
-			clazz = clazz.replace(/\s+/g, ' ');
-			var classes = clazz.split(' ');
-			var index=0;
-			for (index; index<classes.length; index++) {
-				var currentClass = classes[index];
-		        if (currentClass !== '' && currentClass.indexOf('index-') == 0) {
-		        	
-		        	// FIXME this should use a unique element Id - not a class
-		        	
-		        	// index-X-ratingItemId-sequence
-		        	var parts = currentClass.split("-"); 
-		    		var value = parts[1]; // this is the star index
-		    		var ratingItemId = parts[4]; /// skipt 2: rating-item-
-		    		var sequence = parts[5];
+		// id is in format "index-3-rating-item-2-1"
+		var elementId = element.id;
+		
+		var parts = elementId.split("-"); 
+		var value = parts[1]; // this is the star index
+		var ratingItemId = parts[4]; /// skipt 2: rating-item-
+		var sequence = parts[5];
 		    		
-		    		var elementId = '#rating-item-'+ ratingItemId + '-' + sequence;
+		// update hidden value for storing selected option
+		var hiddenValue = '#rating-item-'+ ratingItemId + '-' + sequence;
 		    		
-		    		jQuery(elementId).val(value);
-		    		return;
-		        }
-			}
-
-		}
+		jQuery(hiddenValue).val(value);
 	}
 
 });

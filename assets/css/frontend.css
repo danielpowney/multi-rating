@@ -67,15 +67,6 @@ div.rating-form form table .action {
 .rating-item .radio-option label {
 	display: inline-block !important;
 }
-
-p.mr {
-	margin: 0 0 10px !important;
-	display: block;
-}
-/*
-.rating-item label + .radio-option, .rating-item label + select {
-	margin-top: 5px;
-}*/
 .rating-item .radio-option {
 	margin-right: 10px;
 	display: inline-block;
@@ -96,11 +87,11 @@ label.description {
 .mr-star-rating-select .mr-minus {
 	margin-right: 5px;
 }
-.mr-star-rating-select i {
+.mr-star-rating-select i,  .mr-star-rating-select span  {
 	cursor: pointer;
 }
 
-.rating-result > .count, .rating-result a + *, .mr-star-rating + .star-result {
+.mr-star-rating + .stat-result, .rating-result > .count, .rating-result a + *, .mr-star-rating + .star-result {
 	margin-left: 3px;
 }
 
@@ -130,59 +121,77 @@ label.description {
 	vertical-align: top;
 }
 
-p.mr label, .top-rating-results tr td label { 
+p.mr label, .rating-results-list tr td label { 
 	margin-bottom: 0px;
 }
-.top-rating-results tr td {
+
+.rating-results-list tr td {
 	padding: 0 0 10px !important;
 }
-.top-rating-results table {
+.rating-results-list table {
 	margin-top: 10px !important;
 }
 
-
-
-/* Top Rating Results */
-.top-rating-results table {
+/* Rating Results List */
+.rating-results-list table {
 	width: auto !important;
 }
-.top-rating-results table tbody tr td {
-	vertical-align: center;
+.rating-results-list table tbody tr td {
+	vertical-align: middle;
+	display: inline-block;
 }
-.top-rating-results table tbody tr + tr td {
+.rating-results-list table tbody tr td, .rating-results-list-widget .rating-results-list table tbody tr td {
+	display: table-cell;
+}
+.rating-results-list table tbody tr + tr td {
 	margin-top: 2px;
 }
-.top-rating-results .rank, .top-rating-results .rating-result {
+.rating-results-list .rank, .rating-results-list .rating-result {
 	margin-right: 10px;
 	line-height: 1.4em;
 }
-.top-rating-results .title {
+.rating-results-list .title {
 	margin-right: 3px;
 }
-.top-rating-results .mr-featured-img { 
+.rating-results-list .mr-featured-img { 
 	text-align: center;
 	padding-right: 10px !important;
 }
-.top-rating-results .star-result, .top-rating-results .count {
-	vertical-align: center;
+.rating-results-list .star-result, .rating-results-list .count {
+	vertical-align: middle;
 }
-.top-rating-results .rating-result-row + .star-result {
+.rating-results-list .rating-result-row + .star-result {
 	margin-left: 5px;
 }
-
-
 
 /** 
  * Common
  */
-.rating-item label.description {
+div.rating-results-list {
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+form.mr-filter {
+	display: block;
+	margin-bottom: 10px;
+}
+form.mr-filter label {
+	font-weight: normal;
+}
+form.mr-filter select {
+	margin-left: 5px;
+}
+form.mr-filter select {
 	margin-right: 5px;
 }
+form.mr-filter input[type=submit] { margin-top: 5px; }
 
-
+p.mr label.description {
+	margin-right: 10px; /* changed from 5px */
+}
 
 /* Table styles */
-.top-rating-results table, .top-rating-results td, .top-rating-results th, .top-rating-results tr {
+.rating-results-list table, .rating-results-list td, .rating-results-list th, .rating-results-list tr {
 	border: none;
 	border-width: 0px;
 	border-spacing: 0px;

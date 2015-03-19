@@ -165,7 +165,15 @@ class MR_Rating_Item_Table extends WP_List_Table {
 	function column_actions( $item, $column_name ) {
 	
 		$row_id = $item[MR_Rating_Item_Table::RATING_ITEM_ID_COLUMN];
+		
 		$row_value = stripslashes( $item[$column_name] );
+		
+		// WPML translate string
+		if ( $column_name == MR_Rating_Item_Table::DESCRIPTION_COLUMN 
+				&& function_exists( 'icl_translate' ) && strlen( $row_value ) > 0 ) {
+			$row_value = icl_translate( 'multi-rating', 'rating-item-' . $row_id . '-description', $row_value );
+		}
+		
 		$edit_btn_id = 'edit-'.$column_name.'-'.$row_id;
 		$save_btn_id = 'save-'.$column_name.'-'.$row_id;
 		$view_section_id = 'view-section-'. $column_name . '-'. $row_id;
@@ -285,6 +293,11 @@ class MR_Rating_Item_Table extends WP_List_Table {
 				
 				if ( $result === FALSE ) {
 					$error_message = __('An error occured.', 'multi-rating' );
+				}
+				
+				// WPML update string
+				if ( function_exists( 'icl_register_string' ) && $column == MR_Rating_Item_Table::DESCRIPTION_COLUMN ) {
+					icl_register_string( 'multi-rating', 'rating-item-' . $rating_item_id . '-description', $value );
 				}
 			}
 			

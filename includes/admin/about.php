@@ -119,7 +119,7 @@ function mr_about_screen() {
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'shortcodes.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'Shortcodes', 'multi-rating' ); ?></h4>
 						<p><?php _e( '[mr_rating_form] - displays the rating form</i>.', 'multi-rating' ); ?><br />
-						<?php _e( '[mr_top_rating_results] - displays the top rating results and includes an optional category filter', 'multi-rating' ); ?><br />
+						<?php _e( '[mr_rating_results_list] - displays a list of rating results.', 'multi-rating' ); ?><br />
 						<?php _e( '[mr_rating_result] - displays the rating result', 'multi-rating' ); ?></p>
 						<p><?php printf( __( 'Refer to the <a href="%s">documentation</a> for more information on the attributes available.', 'multi-rating' ), 'http://danielpowney.com/multi-rating/' ); ?></p>
 					</div>
@@ -143,20 +143,23 @@ function mr_about_screen() {
 						<p><?php _e( 'Shortcodes and API support custom taxonomies e.g. [mr_rating_resultlist taxonomy="post_tag" term_id="1"]. The category_id attribute is a shortcut to taxonomy="category" and term_id="category_id".', 'multi-rating' ); ?></p>
 					
 						<h4><?php _e( 'I18n, WPML & Custom Text', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'The plugin has been internationalized and is translation ready (.pot file in the languages directory). There\'s a WPML configuration file located in the languages directory for translating the custom text stored in the WP options table. You can also modify the default text and messages.', 'multi-rating' ); ?></p>
-			
+						<p><?php _e( 'The plugin has been internationalized and is translation ready (.pot file in the languages directory). The plugin is fully WPML compatible. You can also modify the default text and messages.', 'multi-rating' ); ?></p>
+
+						<h4><?php _e( 'Template System', 'multi-rating' ); ?></h4>
+						<p><?php _e( 'The plugin has an in-built template system.', 'multi-rating' ); ?></p>
+						
 					</div>
 					<div>
 					
 						<h4><?php _e( 'Rich Snippets', 'multi-rating' ); ?></h4>
-						<p><?php _e( '<a href="http://schema.org">schema.org</a> structured markup is be added to every page that allow search engines to display the aggregated rating results as rich snippets.', 'multi-rating' ); ?></p>															
+						<p><?php _e( '<a href="http://schema.org">schema.org</a> structured markup can be be added to every page which allows search engines to display the aggregated rating results as rich snippets.', 'multi-rating' ); ?></p>															
 						
 						
 						<h4><?php _e( 'Font Awesome', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'Font Awesome versions 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by the plugin.', 'multi-rating' ); ?></p>	
+						<p><?php _e( 'Font Awesome versions 4.3.0, 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by the plugin.', 'multi-rating' ); ?></p>	
 						
 						<h4><?php _e( 'Upload Custom Star Images', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'You can upload your own star images to use instead of the using the default Font Awesome star icons.', 'multi-rating' ); ?></p>				
+						<p><?php _e( 'You can <a href="http://danielpowney.com/docs/add-custom-star-rating-images/">upload your own custom star images</a> to use instead of the using the default Font Awesome star icons. ', 'multi-rating' ); ?></p>				
 					
 						<h4><?php _e( 'Export Rating Results', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'You can export the rating results to a CSV file.', 'multi-rating' ); ?></p>
@@ -172,13 +175,16 @@ function mr_about_screen() {
 						
 										
 						<h4><?php _e( 'Meta-box', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'There\'s a meta-box on the edit post page so that you can override the default settings (e.g. autu placement settings).', 'multi-rating' ); ?></p>
+						<p><?php _e( 'There\'s a meta-box on the edit post page so that you can override the default settings (e.g. auto placement settings).', 'multi-rating' ); ?></p>
 					
 						<h4><?php _e( 'Developer API', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'The API functions are located in the class-api.php file which contains a static class called Multi_Rating_API.', 'multi-rating' ); ?></p>
+						<p><?php _e( 'The <a href="http://danielpowney.com/docs/api/">API functions</a> are located in the class-api.php file which contains a static class called Multi_Rating_API.', 'multi-rating' ); ?></p>
 						
 						<h4><?php _e( 'Action Hooks & Filters', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'Developers can customize the default templates through action hooks and filters are availale for adding custom validation on rating form submit.', 'multi-rating' ); ?></p>										
+						<p><?php _e( 'Developers can extend the plugin functionality using action hooks and filters.', 'multi-rating' ); ?></p>		
+						
+							<h4><?php _e( 'GitHub', 'multi-rating' ); ?></h4>
+						<p><?php printf( __( 'We\'re on <a href="%s">GitHub</a>. Contributions welcome.', 'multi-rating' ), 'https://github.com/danielpowney/multi-rating' ); ?></p>										
 					
 					</div>
 			</div>
@@ -202,13 +208,13 @@ function mr_about_screen() {
 		    <li><?php _e( 'Add custom fields to collect additional information', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
 		    <li><?php _e( 'Ratings moderation (approve or unapprove rating entries)', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
 			<li><?php _e( 'Logged in users can update or delete their existing ratings', 'multi-rating' ); ?></li>
-		    <li><?php _e( 'New shortcodes, API functions and widgets (e.g. display user reviews and individual rating item results)', 'multi-rating' ); ?></li>
+		    <li><?php _e( 'New shortcodes, API functions and widgets (i.e. reviews and rating item results)', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Rating forms can optionally include a name, e-mail and comment fields', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Ability to use text descriptions for select and radio options instead of numbers', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Post, category and specific page filters to include (whitelist) or exclude (blacklist) automatic placement of the rating form and rating results' ); ?></li>
 		    <li><?php _e( 'Options to exclude the home page and archive pages (i.e. Category, Tag, Author or a Date based pages)', 'multi-rating' ); ?></li>
-		    <li><?php _e( 'Like/dislike or thumbs up/down rating item type', 'multi-rating' ); ?></li>
-		    <li><?php _e( 'Display detailed rating item results breakdown in a poll format', 'multi-rating' ); ?></li>
+		    <li><?php _e( 'Thumbs up/thumbs down rating item type (e.g. like/dislike)', 'multi-rating' ); ?></li>
+		    <li><?php _e( 'Display a breakdown of rating item results in 3 layouts', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Allow/disallow anonymous user ratings option', 'multi-rating' ); ?></li>
 		</ol>
 		<?php

@@ -2,8 +2,8 @@
 Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
 Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, multi rating, feedback, user rating, wpml, feedback, question, star rating, 5 star, font awesome
-Requires at least: 3.0.1
-Tested up to: 4.1
+Requires at least: 3.8
+Tested up to: 4.1.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -49,9 +49,9 @@ The plugin is i18n translation ready. Different versions of Font Awesome are sup
 * [mr_rating_result post_id="100" no_rating_results_text="No rating result yet" show_rich_snippets="false"]
 * [mr_rating_results_list]
 * [mr_rating_results_list title="Top Ratings" sort_by="highest_rated" limit="10"]
-* [mr_rating_results_list title="Ratings" sort_by="most_entries" limit="5" before_title="<h3>" after_title="</h3>" ]
+* [mr_rating_results_list title="Ratings" sort_by="most_entries" limit="5"]
 
-Github Repositpory: http://github.com/danielpowney/multi-rating
+Github: http://github.com/danielpowney/multi-rating
 
 = Multi Rating Pro =
 
@@ -84,20 +84,22 @@ Check it out here http://danielpowney.com/downloads/multi-rating-pro/
 Full documentation available here http://danielpowney.com/multi-rating/
 
 == Screenshots ==
-1. Auto placement of rating results after post title and rating form after post content. Twenty Fifteen theme.	
-2. Rating results in WP-admin for each post.
-3. Rating Results List widget options include displaying the post feature image, a rank, changing the result type (star rating out of 5, score or percentage), different sorting mechanisms (highest rated, lowest rated etc...), set widget title and much more.
-4. Rating items table.
-5. General settings.
-6. Graphical report on the number of entries per day.
-7. Edit post page. Add shortcodes in the editor. The Multi Rating meta-box can set the auto placement settings per post to override the default settings.
-8. Rating Results List Widget. Twenty Fifteen theme
-11. Rating Results List shortcode. [mr_rating_results_list show_filter="true" title="Top Ratings" sort_by="highest_rated"]
-22. Every rating entry can be viewed in WP-admin and edited
-55. Style settings include star rating select and on hover colors, load Font Awesome library CDN, version of Font Awesome and the ability to set custom star rating images to use instead of Font Awesome icons.
-66. The plugin has several tools including exporting rating results to a CSV file, clearing the rating results cache and deleting rating results in bulk
-555. Custom text setting.
-666. WP-admin plugin menu.
+1. Auto placement of rating results after post title and rating form after post content. Twenty Fifteen theme.
+2. Rating Results List shortcode. [mr_rating_results_list show_filter="true" title="Top Ratings" sort_by="highest_rated"]
+3. Rating results in WP-admin for each post.
+4. Every rating entry can be viewed in WP-admin and edited
+5. Rating Results List widget options include displaying the post feature image, a rank, changing the result type (star rating out of 5, score or percentage), different sorting mechanisms (highest rated, lowest rated etc...), set widget title and much more.
+6. Rating items table.
+7. General settings.
+8. Style settings include star rating select and on hover colors, load Font Awesome library CDN, version of Font Awesome and the ability to set custom star rating images to use instead of Font Awesome icons.
+9. Custom text setting.
+10. Graphical report on the number of entries per day.
+11. The plugin has several tools including exporting rating results to a CSV file, clearing the rating results cache and deleting rating results in bulk.
+12. WP-admin plugin menu.
+13. Edit post page. Add shortcodes in the editor. The Multi Rating meta-box can set the auto placement settings per post to override the default settings.
+14. Rating Results List Widget. Twenty Fifteen theme.
+
+== Upgrade Notice ==
 
 == Changelog ==
 
@@ -261,10 +263,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 = 1.1.4 (19/12/2013) =
 * New: Added support for character encoding of rating items in db
 
-= 1.1.3 = (14/12/2013)
+= 1.1.3 (14/12/2013) =
 * Bug: Fixed post title on top rating results widget
 
-= 1.1.2 = (14/12/2013)
+= 1.1.2 = (14/12/2013) =
 * Bug: Removed debugging comment accidentally left behind
 
 = 1.1.1 (12/12/2013) =

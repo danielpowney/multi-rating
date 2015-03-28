@@ -41,5 +41,23 @@ function mr_footer_version ( $default ) {
 	return $default;
 }
 add_filter ('update_footer', 'mr_footer_version', 999);
+
+/**
+ * Strip newlines from template HTML
+ *
+ * @param unknown $html
+ * @return mixed
+ */
+function mr_template_html_strip_newlines( $html ) {
+
+	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
+
+	if ( $general_settings[Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION ] == true ) {
+		$html = str_replace( array( "\r", "\n"), '', $html );
+	}
+
+	return $html;
+}
+add_filter( 'mr_template_html', 'mr_template_html_strip_newlines', 10, 1 );
  
  ?>

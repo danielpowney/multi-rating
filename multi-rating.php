@@ -86,6 +86,7 @@ class Multi_Rating {
 	SAVE_RATING_RESTRICTION_HOURS_OPTION		= 'mr_save_rating_restriction_hours',
 	SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION = 'mr_save_rating_restriction_error_message',
 	DEFAULT_HIDE_POST_META_BOX_OPTION			= 'mr_default_hide_post_meta_box',
+	TEMPLATE_STRIP_NEWLINES_OPTION				= 'mr_template_strip_newlines',
 	
 	//values
 	SCORE_RESULT_TYPE							= 'score',

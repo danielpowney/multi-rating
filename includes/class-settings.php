@@ -92,6 +92,7 @@ class MR_Settings {
 				Multi_Rating::RATING_RESULTS_CACHE_OPTION				=> true,
 				Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION 		=> true,
 				Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION			=> false,
+				Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION			=> false
 		), $this->general_settings );
 	
 	
@@ -115,6 +116,8 @@ class MR_Settings {
 		add_settings_field( Multi_Rating::RATING_RESULTS_CACHE_OPTION, __( 'Rating Results Cache', 'multi-rating' ), array( &$this, 'field_rating_results_cache' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
 		add_settings_field( Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION, __( 'Hide Rating Form', 'multi-rating' ), array( &$this, 'field_hide_rating_form_after_submit' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
 		add_settings_field( Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION, __( 'Hide Multi Rating Post Meta Box?', 'multi-rating' ), array( &$this, 'field_hide_post_meta_box' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
+		add_settings_field( Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION, __( 'Template Strip Newlines?', 'multi-rating' ), array( &$this, 'field_template_strip_newlines' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
+		
 	}
 	
 	/**
@@ -179,12 +182,23 @@ class MR_Settings {
 		<label><?php printf( __( 'Enable the rating results to be cached in the WordPress post meta table. The cache is refreshed whenever the rating form is submitted. You can also use the <a href="admin.php?page=%s">Tools</a> to clear the rating results cache.', 'multi-rating' ), Multi_Rating::TOOLS_PAGE_SLUG ); ?></label>
 		<?php 
 	}
+	
 	/**
 	 * Hide rating form after submit
 	 */
 	function field_hide_rating_form_after_submit() {
 		?>
 		<input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS;?>[<?php echo Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION; ?>]" value="true" <?php checked( true, $this->general_settings[Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION], true ); ?> />
+		<?php 
+	}
+	
+	/**
+	 * Template strip newlines
+	 */
+	function field_template_strip_newlines() {
+		?>
+		<input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS;?>[<?php echo Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION; ?>]" value="true" <?php checked(true, $this->general_settings[Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION], true); ?> />
+		<label><?php printf( __( 'Some plugins convert newlines to HTML paragraphs similar to <a href="%s">wpautop</a> (e.g. Visual Composer). Turn this option on if you want to prevent this from happening by stripping the newlines from the Multi Rating templates prior to display. This has no effect on the presentation.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/wpautop' ); ?></label>
 		<?php 
 	}
 	
@@ -228,6 +242,14 @@ class MR_Settings {
 			$input[Multi_Rating::RATING_RESULTS_CACHE_OPTION] = true;
 		} else {
 			$input[Multi_Rating::RATING_RESULTS_CACHE_OPTION] = false;
+		}
+		
+		// shortcode strip newlines
+		if ( isset( $input[Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION] )
+				&& $input[Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION] == 'true' ) {
+			$input[Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION] = true;
+		} else {
+			$input[Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION] = false;
 		}
 		
 		// hide rating form after submit

@@ -741,6 +741,8 @@ class Multi_Rating_API {
 		$html = ob_get_contents();
 		ob_end_clean();
 		
+		$html = apply_filters( 'mr_template_html', $html );
+		
 		if ( $echo == true ) {
 			echo $html;
 		}
@@ -807,6 +809,8 @@ class Multi_Rating_API {
 		) );
 		$html = ob_get_contents();
 		ob_end_clean();
+		
+		$html = apply_filters( 'mr_template_html', $html );
 		
 		if ( $echo == true ) {
 			echo $html;
@@ -948,6 +952,8 @@ class Multi_Rating_API {
 		) );
 		$html = ob_get_contents();
 		ob_end_clean();
+		
+		$html = apply_filters( 'mr_template_html', $html );
 		
 		if ( $echo == true ) {
 			echo $html;

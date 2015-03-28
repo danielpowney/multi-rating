@@ -16,6 +16,56 @@ jQuery(document).ready(function() {
 		jQuery("#clear-cache").val("true");
 	});
 	
+	jQuery(document).on('widget-updated', function(e, widget) { // save widget unbinds events...
+		jQuery(".widget .mr-rating-results-widget-taxonomy, .widget .mr-user-rating-results-widget-taxonomy").change(function(e) {
+			handle_taxonomy_change(this.id);
+		});
+	});
+	jQuery(".widget .mr-rating-results-widget-taxonomy, .widget .mr-user-rating-results-widget-taxonomy").change(function(e) {
+		handle_taxonomy_change(this.id);
+	});
+	
+	/**
+	 * Handles taxonomy change in the Rating Results List Widget
+	 * 
+	 * @returns
+	 */
+	function handle_taxonomy_change(elementId) {
+		// retrieve widget instance
+		var parts = elementId.split("-"); 
+		var instance = parts[2];
+		var name =  parts[1];
+		
+		// retrieve selected taxonomy
+		var taxonomy = jQuery("#" + elementId).val();
+		
+		if (taxonomy == "") {
+			var termSelect = jQuery("#widget-" + name + "-" + instance + "-term_id");
+			termSelect.empty();
+			termSelect.prepend("<option value=\"\"></option>");
+			return;
+		}
+		
+		// ajax call to retrieve new terms		
+		var data = {
+				action : "retrieve_terms_by_taxonomy",
+				nonce : mr_admin_data.ajax_nonce, // tbc
+				taxonomy : taxonomy
+		};
+
+		jQuery.post(mr_admin_data.ajax_url, data, function(response) {
+				var jsonResponse = jQuery.parseJSON(response);
+			
+				var termSelect = jQuery("#widget-" + name + "-" + instance + "-term_id");
+				termSelect.empty();
+				
+				var index = jsonResponse.length-1;
+				for (index; index>=0; index--) {
+					termSelect.prepend("<option value=\"" + jsonResponse[index]["term_id"] + "\">" + jsonResponse[index]["name"] + "</option>");
+				}
+		});
+	}
+	
 	var rowActions = jQuery("#rating-item-table-form .row-actions > a");
 	jQuery.each(rowActions, function(index, element) {
 		jQuery(element).click(function(event) { 

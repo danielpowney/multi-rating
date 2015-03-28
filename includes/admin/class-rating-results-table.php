@@ -63,15 +63,21 @@ class MR_Rating_Results_Table extends WP_List_Table {
 					
 					$rows = $wpdb->get_results( $query, ARRAY_A );
 					foreach ( $rows as $row ) {
-						$post = get_post( $row['post_id'] );
+						$temp_post_id = $row['post_id'];
 						
 						$selected = '';
 						if ( intval( $row['post_id'] ) == intval( $post_id ) ) {
 							$selected = ' selected="selected"';
 						}
+						
+						// WPML get adjusted post id for active language, we need to use the default language though as the selected value
+						if ( function_exists( 'icl_object_id' ) ) {
+							$temp_post_id = icl_object_id ( $temp_post_id , get_post_type( $temp_post_id ), true, ICL_LANGUAGE_CODE );
+						}
+						
 						?>
-						<option value="<?php echo $post->ID; ?>" <?php echo $selected; ?>>
-							<?php echo get_the_title( $post->ID ); ?>
+						<option value="<?php echo $row['post_id']; ?>" <?php echo $selected; ?>>
+							<?php echo get_the_title( $temp_post_id ); ?>
 						</option>
 					<?php } ?>
 				</select>
@@ -292,12 +298,19 @@ class MR_Rating_Results_Table extends WP_List_Table {
 		switch( $column_name ) {
 			case MR_Rating_Results_Table::SHORTCODE_COLUMN : {
 				
-				echo '[display_rating_result post_id="' . $post_id . '"]';
+				echo '[mr_rating_result post_id="' . $post_id . '"]';
 				break;
 			}
 			
 			case MR_Rating_Results_Table::POST_ID_COLUMN : {
-				echo '<a href="' . get_permalink( $post_id ) . '">' . get_the_title( $post_id ) . '</a> (Id=' . $post_id . ')';
+				$temp_post_id = $post_id;
+				
+				// WPML get adjusted post id for active language, just for the string translation
+				if ( function_exists( 'icl_object_id' ) ) {
+					$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
+				}	
+			
+				echo '<a href="' . get_permalink( $temp_post_id ) . '">' . get_the_title( $temp_post_id ) . '</a> (Id=' . $post_id . ')';
 				break;
 			}
 			

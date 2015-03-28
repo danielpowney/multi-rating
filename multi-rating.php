@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: The best rating system plugin for WordPress. Multi Rating allows visitors to rate a post based on multiple criteria and questions.
-Version: 3.2.1
+Version: 4.0
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '3.2.1',
+	VERSION = '4.0',
 	ID = 'multi-rating',
 
 	// tables
@@ -61,11 +61,11 @@ class Multi_Rating {
 	RATING_FORM_POSITION_OPTION 				= 'mr_rating_form',
 	CHAR_ENCODING_OPTION 						= 'mr_char_encoding',
 	RATING_FORM_TITLE_TEXT_OPTION 				= 'mr_rating_form_title_text',
-	TOP_RATING_RESULTS_TITLE_TEXT_OPTION 		= 'mr_top_rating_results_title_text',
+	RATING_RESULTS_LIST_TITLE_TEXT_OPTION 		= 'mr_rating_results_list_title_text',
 	POST_TYPES_OPTION							= 'mr_post_types',
 	SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION		= 'mr_rating_form_button_text',
 	FILTER_BUTTON_TEXT_OPTION					= 'mr_filter_button_text',
-	CATEGORY_LABEL_TEXT_OPTION					= 'mr_category_label_text',
+	FILTER_LABEL_TEXT_OPTION					= 'mr_filter_label_text',
 	RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION 	= 'mr_rating_form_submit_success_message',
 	DATE_VALIDATION_FAIL_MESSAGE_OPTION			= 'mr_date_validation_fail_message',
 	NO_RATING_RESULTS_TEXT_OPTION				= 'mr_no_rating_results_text',
@@ -85,6 +85,7 @@ class Multi_Rating {
 	SAVE_RATING_RESTRICTION_TYPES_OPTION		= 'mr_save_rating_restriction_types',
 	SAVE_RATING_RESTRICTION_HOURS_OPTION		= 'mr_save_rating_restriction_hours',
 	SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION = 'mr_save_rating_restriction_error_message',
+	DEFAULT_HIDE_POST_META_BOX_OPTION			= 'mr_default_hide_post_meta_box',
 	
 	//values
 	SCORE_RESULT_TYPE							= 'score',
@@ -115,7 +116,7 @@ class Multi_Rating {
 	RATING_RESULTS_POST_META_KEY				= 'mr_rating_results',
 	
 	// cookies
-	POST_SAVE_RATING_COOKIE						= 'mrp_post_save_rating';
+	POST_SAVE_RATING_COOKIE						= 'mr_post_save_rating';
 	
 	/**
 	 *
@@ -147,7 +148,9 @@ class Multi_Rating {
 			self::$instance->settings = new MR_Settings();
 	
 			if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+				
 				self::$instance->post_metabox = new MR_Post_Metabox();
+				add_filter( 'hidden_meta_boxes', array( self::$instance, 'default_hidden_meta_boxes' ), 10, 2);
 				
 				add_action( 'delete_user', array( self::$instance, 'delete_user' ), 11, 2 );
 				add_action( 'deleted_post', array( self::$instance, 'deleted_post' ) );
@@ -175,6 +178,37 @@ class Multi_Rating {
 		} else { // reassign ratings to a user
 			$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, array( 'user_id' => $reassign ), array( 'user_id' => $user_id ), array( '%d' ), array( '%d' ) );
 		}
+	}
+	
+	/**
+	 * Checks whether the Multi Rating post meta box needs to be hidden by default
+	 *
+	 * @param unknown $hidden
+	 * @param unknown $screen
+	 * @return unknown
+	 */
+	public function default_hidden_meta_boxes( $hidden, $screen ) {
+	
+		$post_type = $screen->post_type;
+	
+		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
+		$post_types = $general_settings[Multi_Rating::POST_TYPES_OPTION];
+		
+		if ( ! is_array( $post_types ) && is_string( $post_types ) ) {
+			$post_types = array( $post_types );
+		}
+		
+		if ( $post_types != null && in_array( $post_type, $post_types ) ) {
+		
+			// check option if we're hiding by default
+			if ( $general_settings[Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION] ) {
+				if ( ! isset( $hidden['mr_meta_box'] ) ) {
+					array_push( $hidden, 'mr_meta_box' );
+				}
+			}
+		}
+	
+		return $hidden;
 	}
 	
 	/**
@@ -224,11 +258,12 @@ class Multi_Rating {
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-utils.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-api.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-rating-form.php';
-		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-rating-result.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'auto-placement.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'misc-functions.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-settings.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'actions.php';
+		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'legacy.php';
+		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'template-functions.php';
 	
 		if ( is_admin() ) {
 			
@@ -346,7 +381,7 @@ class Multi_Rating {
 	 */
 	public function add_admin_menus() {
 		
-		add_menu_page( __( 'Multi Rating', 'multi-rating' ), __( 'Multi Rating', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::RATING_RESULTS_PAGE_SLUG, 'mr_rating_results_screen', '', null );
+		add_menu_page( __( 'Multi Rating', 'multi-rating' ), __( 'Multi Rating', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::RATING_RESULTS_PAGE_SLUG, 'mr_rating_results_screen', 'dashicons-star-filled', null );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, '', '', 'mr_edit_ratings', Multi_Rating::RATING_RESULTS_PAGE_SLUG, 'mr_rating_results_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Rating Results', 'multi-rating' ), __( 'Rating Results', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::RATING_RESULTS_PAGE_SLUG, 'mr_rating_results_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Rating Items', 'multi-rating' ), __( 'Rating Items', 'multi-rating' ), 'manage_options', Multi_Rating::RATING_ITEMS_PAGE_SLUG, 'mr_rating_items_screen' );
@@ -418,15 +453,19 @@ class Multi_Rating {
 		
 		$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
 		
+		$protocol = ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) ? 'https' : 'http';
+		
 		if ( $include_font_awesome ) {
 			if ( $font_awesome_version == '4.0.3' ) {
-				wp_enqueue_style( 'fontawesome', 'http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' );
+				wp_enqueue_style( 'fontawesome', $protocol . '://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' );
 			} else if ( $font_awesome_version == '3.2.1' ) {
-				wp_enqueue_style( 'fontawesome', 'http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css' );
+				wp_enqueue_style( 'fontawesome',  $protocol . '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css' );
 			} else if ( $font_awesome_version == '4.1.0' ) {
-				wp_enqueue_style( 'fontawesome', 'http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' );
+				wp_enqueue_style( 'fontawesome',  $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' );
 			} else if ( $font_awesome_version == '4.2.0' ) {
-				wp_enqueue_style( 'fontawesome', 'http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
+				wp_enqueue_style( 'fontawesome',  $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
+			} else if ( $font_awesome_version == '4.3.0' ) {
+				wp_enqueue_style( 'fontawesome',  $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' );
 			}
 		}
 		
@@ -450,6 +489,9 @@ class Multi_Rating {
 		add_action( 'wp_ajax_save_rating', array( 'MR_Rating_Form', 'save_rating' ) );
 		add_action( 'wp_ajax_nopriv_save_rating', array( 'MR_Rating_Form', 'save_rating' ) );
 		add_action( 'wp_ajax_save_rating_item_table_column', array( 'MR_Rating_Item_Table', 'save_rating_item_table_column' ) );
+		
+		add_action( 'wp_ajax_nopriv_retrieve_terms_by_taxonomy', 'mr_retrieve_terms_by_taxonomy' );
+		add_action( 'wp_ajax_retrieve_terms_by_taxonomy', 'mr_retrieve_terms_by_taxonomy' );
 		
 	}
 		

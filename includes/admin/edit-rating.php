@@ -34,7 +34,7 @@ function mr_edit_rating_screen() {
 		if ( $entry_id != null ) {
 			$entry_values_query = 'SELECT riev.value AS value, riev.rating_item_entry_id AS rating_item_entry_id, riev.rating_item_id AS rating_item_id'
 					. ' FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' AS riev'
-					. ' WHERE riev.rating_item_entry_id = "' . $entry_id . '"';				
+					. ' WHERE riev.rating_item_entry_id = ' . intval($entry_id);				
 			$entry_values = $wpdb->get_results( $entry_values_query );
 		}
 		
@@ -55,17 +55,27 @@ function mr_edit_rating_screen() {
 					<?php 
 					
 					// rating items
-					foreach ( $rating_items as $rating_item ) { ?>
+					foreach ( $rating_items as $rating_item ) { 
+					
+						$description = $rating_item['description'];
+						$rating_item_id = $rating_item['rating_item_id'];
+						
+						// WPML translate string
+						if ( function_exists( 'icl_translate' ) && strlen( $description ) > 0 ) {
+							$description = icl_translate( 'multi-rating', 'rating-item-' . $rating_item_id . '-description', $description );
+						}
+						
+						?>
 						<tr class="form-field">
-							<th scope="row"><label for="sss"><?php echo $rating_item['description']; ?></label></td>
+							<th scope="row"><label for="rating-item-<?php echo $rating_item_id; ?>"><?php echo $description; ?></label></td>
 							<td>
 								<?php 
-								echo '<select name="rating-item-' . $rating_item['rating_item_id'] . '" id="rating-item-' . $rating_item['rating_item_id'] . '">';
+								echo '<select name="rating-item-' . $rating_item_id . '" id="rating-item-' . $rating_item_id . '">';
 								
 								$index = 0;				
 								for ( $index; $index <= $rating_item['max_option_value']; $index++ ) {
 									$is_selected = false;
-									if ( $selected_option_lookup[$rating_item['rating_item_id']] == $index ) {
+									if ( $selected_option_lookup[$rating_item_id] == $index ) {
 										$is_selected = true;
 									}
 

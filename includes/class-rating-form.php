@@ -11,165 +11,7 @@ class MR_Rating_Form {
 	/**
 	 * Used to uniquely identify a rating form
 	 */
-	private static $sequence = 0;
-	
-	/**
-	 * Generates the rating form html
-	 * 
-	 * @param $rating_items
-	 * @param $post_id
-	 * @param $params
-	 * @return html
-	 */
-	public static function do_rating_form_html( $rating_items, $post_id, $params = array() ) {
-		
-		extract( wp_parse_args( $params, array(
-				'title' => '',
-				'before_title' => '<h4>',
-				'after_title' => '</h4>',
-				'submit_button_text' => '',
-				'class' => ''
-		)));
-		
-		MR_Rating_Form::$sequence++;
-
-		$html = '<div class="rating-form ' . $class . '">';
-		
-		if ( !empty( $title ) ) {
-			$html .=  "$before_title" . $title . "$after_title";
-		}
-		
-		$html .= '<form name="rating-form-' . $post_id . '-' . MR_Rating_Form::$sequence . '" action="#">';
-		
-		// add the rating items
-		foreach ( $rating_items as $rating_item ) {
-			
-			$rating_item_id = $rating_item['rating_item_id'];
-			$element_id = 'rating-item-' . $rating_item_id . '-' . MR_Rating_Form::$sequence ;
-				
-			$html .= MR_Rating_Form::get_rating_item_html( $rating_item, $element_id );
-				
-			// hidden field to identify the rating item
-			// this is used in the JavaScript to construct the AJAX call when submitting the rating form
-			$html .= '<input type="hidden" value="' . $rating_item_id . '" class="rating-form-' . $post_id . '-' . MR_Rating_Form::$sequence . '-item" id="hidden-rating-item-id-' . $rating_item_id .'" />';
-		}
-
-		$html .= '<input type="button" class="btn btn-default save-rating" id="saveBtn-' . $post_id . '-' . MR_Rating_Form::$sequence . '" value="' . $submit_button_text . '"></input>';
-		
-		$html .= '</form>';
-		
-		$html .= '</div>';
-		
-		echo $html;
-	}
-	
-	/**
-	 * Returns HTML for the rating items in the rating form
-	 *
-	 * @param unknown_type $rating_item
-	 * @param unknown_type $element_id
-	 */
-	public static function get_rating_item_html( $rating_item, $element_id ) {
-		
-		$rating_item_id = $rating_item['rating_item_id'];
-		$description = stripslashes($rating_item['description']);
-		$default_option_value = $rating_item['default_option_value'];
-		$max_option_value = $rating_item['max_option_value'];
-		$rating_item_type = $rating_item['type'];
-	
-		$html = '<p class="rating-item mr"><label class="description" for="' . $element_id . '">' . $description . '</label>';
-	
-		if ( $rating_item_type == "star_rating" ) {
-			
-			$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
-			$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
-			
-			$star_rating_colour = $style_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
-			$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
-			$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
-				
-			$html .= '<span class="mr-star-rating mr-star-rating-select">';
-	
-			// add star icons
-			$index = 0;
-			for ( $index; $index <= $max_option_value; $index++ ) {
-				
-				if ( $index == 0 ) {
-					$html .= '<i class="' .  $icon_classes['minus'] . ' index-' . $index . '-' . $element_id . '"></i>';
-					continue;
-				}
-				
-				// use either custom star images or Font Awesome icons
-				if ( $use_custom_star_images == true ) {
-					$class = 'mr-star-full mr-custom-full-star';
-					// if default is less than current index, it must be empty
-					if ( $default_option_value < $index ) {
-						$class = 'mr-star-empty mr-custom-empty-star';
-					}
-					
-					$html .= '<span class="' . $class . ' index-' . $index . '-' . $element_id . '" style="text-align: left; display: inline-block;"></span>';
-				
-				} else {
-					$class = $icon_classes['star_full'];
-					// if default is less than current index, it must be empty
-					if ( $default_option_value < $index ) {
-						$class = $icon_classes['star_empty'];
-					}
-					
-					$html .= '<i class="' . $class . ' index-' . $index . '-' . $element_id . '"></i>';
-				}
-				
-			}
-			
-			$html .= '</span>';
-	
-			// hidden field for storing selected star rating value
-			$html .= '<input type="hidden" name="' . $element_id . '" id="' . $element_id . '" value="' . $default_option_value . '">';
-				
-		} else {
-			
-			if ( $rating_item_type == 'select' ) {
-				$html .= '<select name="' . $element_id . '" id="' . $element_id . '">';
-			}
-	
-			// option values
-			for ($index=0; $index <= $max_option_value; $index++) {
-	
-				$is_selected = false;
-				if ( $default_option_value == $index ) {
-					$is_selected = true;
-				}
-	
-				$text = $index;
-				if ( $rating_item_type == 'select' ) {
-					$html .= '<option value="' . $index . '"';
-					
-					if ( $is_selected ) {
-						$html .= ' selected="selected"';
-					}
-					
-					$html .= '>' . $text . '</option>';
-				} else {
-					$html .= '<span class="radio-option">';
-					$html .= '<input type="radio" name="' . $element_id . '" id="' . $element_id . '-' . $index . '" value="' . $index . '"';
-					
-					if ( $is_selected ) {
-						$html .= ' checked="checked"';
-					}
-					
-					$html .= '>' . $text . '</input></span>';
-				}
-			}
-	
-			if ($rating_item_type == 'select') {
-				$html .= '</select>';
-			}
-		}
-	
-		$html .= '</p>';
-		return $html;
-	}
-	
+	public static $sequence = 0;
 	
 	/**
 	 * Saves a rating form entry.
@@ -186,6 +28,12 @@ class MR_Rating_Form {
 			$ip_address = MR_Utils::get_ip_address();
 			$entry_date_mysql = current_time( 'mysql' );
 			$sequence = isset($_POST['sequence']) ? $_POST['sequence'] : '';
+			
+			// WPML get original pst id for default language
+			if ( function_exists( 'icl_object_id' ) ) {
+				global $sitepress;
+				$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
+			}
 	
 			$data = array(
 					'sequence' => $sequence,
@@ -264,9 +112,47 @@ class MR_Rating_Form {
 				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, $rating_result );
 			}
 			
-			$data['html'] = stripslashes( MR_Rating_Result::get_rating_result_type_html( $rating_result, array(
-					'class' => 'rating-result-' . $post_id . ' mr-filter'
-			) ) );
+			$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+			$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+			$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
+			$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
+			$image_width = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
+			$image_height = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
+			
+			$rating_results_position = get_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POSITION_POST_META, true );
+			
+			$position_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );
+			// use default rating results position
+			if ( $rating_results_position == '' ) {
+				$rating_results_position = $position_settings[Multi_Rating::RATING_RESULTS_POSITION_OPTION ];
+			}
+			
+			ob_start();
+			mr_get_template_part( 'rating-result', null, true, array(
+				'no_rating_results_text' => '',
+				'show_rich_snippets' => false,
+				'show_title' => false,
+				'show_date' => false,
+				'show_count' => true,
+				'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
+				'class' =>  'rating-result-' . $post_id . ' ' . $rating_results_position . ' mr-filter',
+				'rating_result' => $rating_result,
+				'before_count' => '(',
+				'after_count' => ')',
+				'post_id' => $post_id,
+				'ignore_count' => false,
+				'preserve_max_option' => false,
+				'before_date' => '',
+				'after_date' => '',
+				'icon_classes' => $icon_classes,
+				'use_custom_star_images' => $use_custom_star_images,
+				'image_width' => $image_width,
+				'image_height' => $image_height
+			) );
+			$html = ob_get_contents();
+			ob_end_clean();
+			
+			$data['html'] = $html;
 	
 			// if the custom text does not contain %, then there's no need to substitute the message
 			$message = $custom_text_settings[ Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION];

@@ -63,6 +63,7 @@ The following key features are available in the Pro version:
 * Ratings moderation (approve or unapprove rating entries)
 * Logged in users can update or delete their existing ratings
 * New shortcodes, API functions and widgets (i.e. reviews and rating item results)
+* A user ratings dashboard shortcode
 * Rating forms can optionally include a name, e-mail and comment fields
 * Ability to use text descriptions for select and radio options instead of numbers
 * Post, category and specific page filters to include (whitelist) or exclude (blacklist) automatic placement of the rating form and rating results
@@ -102,6 +103,9 @@ Full documentation available here http://danielpowney.com/multi-rating/
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.0.1 =
+* New: Added option to strip newlines from templates prior to display to support plugins such as Visual Composer
 
 = 4.0 =
 * New: Fully WPML compatible

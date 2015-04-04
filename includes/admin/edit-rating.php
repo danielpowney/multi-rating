@@ -34,7 +34,7 @@ function mr_edit_rating_screen() {
 		if ( $entry_id != null ) {
 			$entry_values_query = 'SELECT riev.value AS value, riev.rating_item_entry_id AS rating_item_entry_id, riev.rating_item_id AS rating_item_id'
 					. ' FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' AS riev'
-					. ' WHERE riev.rating_item_entry_id = "' . $entry_id . '"';				
+					. ' WHERE riev.rating_item_entry_id = ' . intval($entry_id);				
 			$entry_values = $wpdb->get_results( $entry_values_query );
 		}
 		

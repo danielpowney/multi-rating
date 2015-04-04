@@ -197,7 +197,7 @@ function mr_export_rating_results() {
 		}
 	}
 		
-	if ( Multi_Rating_API::generate_rating_results_csv_file( $file_name, $filters ) ) {
+	if ( mr_generare_csv_report( $file_name, $filters ) ) {
 			
 		header('Content-type: text/csv');
 		header('Content-Disposition: attachment; filename="' . $file_name . '"');
@@ -207,6 +207,77 @@ function mr_export_rating_results() {
 	}
 		
 	die();
+}
+
+/**
+ * Generates rating results in CSV format.
+ *
+ * @param $file_name the file_name to save
+ * @param $filters used to filter the report e.g. from_date, to_date, user_id etc...
+ * @returns true if report successfully generated and written to file
+ */
+function mr_generare_csv_report( $file_name, $filters ) {
+
+	$rating_item_entries = Multi_Rating_API::get_rating_item_entries( $filters );
+		
+	$header_row = __('Entry Id', 'multi-rating') . ', '
+			. __('Entry Date', 'multi-rating') . ', '
+					. __('Post Id', 'multi-rating') . ', '
+							. __('Post Title', 'multi-rating') . ', '
+									. __('Score Rating Result', 'multi-rating') . ', '
+											. __('Adjusted Score Rating Result', 'multi-rating') . ', '
+													. __('Total Max Option Value', 'multi-rating') . ', '
+															. __('Percentage Rating Result', 'multi-rating') . ', '
+																	. __('Adjusted Percentage Rating Result', 'multi-rating') . ', '
+																			. __('Star Rating Result', 'multi-rating') . ', '
+																					. __('Adjusted Star Rating Result', 'multi-rating') . ', '
+																							. __('User Id', 'multi-rating' );
+
+	$export_data_rows = array( $header_row );
+
+	// iterate all found rating item entries and create row in report
+	if ( count( $rating_item_entries ) > 0 ) {
+			
+		foreach ( $rating_item_entries as $rating_item_entry ) {
+
+			$post_id = $rating_item_entry['post_id'];
+			$rating_item_entry_id = $rating_item_entry['rating_item_entry_id'];
+
+			$rating_items = Multi_Rating_API::get_rating_items( array(
+					'post' => $post_id,
+					'rating_item_entry_id' => $rating_item_entry_id
+			) );
+
+			$rating_result = Multi_Rating_API::calculate_rating_item_entry_result( $rating_item_entry_id,  $rating_items );
+
+			// FIXME some fields may have a comma (e.g. post title, comment etc..) causing formatting issues
+
+			$current_row = $rating_item_entry_id .', ' . $rating_item_entry['entry_date'] . ', '
+					. $post_id . ', ' . get_the_title($post_id) . ', ' . $rating_result['score_result'] . ', '
+							. $rating_result['adjusted_score_result'] . ', ' . $rating_result['total_max_option_value'] . ', '
+									. $rating_result['percentage_result'] . ', ' . $rating_result['adjusted_percentage_result'] . ', '
+											. $rating_result['star_result'] . ', ' . $rating_result['adjusted_star_result'] . ', '
+													. $rating_item_entry['user_id'];
+
+			array_push( $export_data_rows, $current_row );
+		}
+	}
+
+	// write to file
+	$file = null;
+	try {
+		$file = fopen( $file_name, 'w' );
+			
+		foreach ( $export_data_rows as $row ) {
+			fputcsv( $file, explode(',', $row ) );
+		}
+
+		fclose($file);
+	} catch (Exception $e) {
+		return false;
+	}
+
+	return true;
 }
 
 /**

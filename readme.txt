@@ -104,6 +104,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
+= 4.0.2 =
+* Tweak: Improved data sanitization
+* Bug: Added template strip newlines option
+
 = 4.0.1 =
 * New: Added option to strip newlines from templates prior to display to support plugins such as Visual Composer
 

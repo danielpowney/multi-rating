@@ -60,8 +60,9 @@ jQuery(document).ready(function() {
 	function handle_rating_form_submit_response(response) {
 		
 		var jsonResponse = jQuery.parseJSON(response);
+		var id = jsonResponse.data.post_id + "-" + jsonResponse.data.sequence;
 		
-		var ratingForm = jQuery("form[name=rating-form-" + jsonResponse.data.post_id + "-" + jsonResponse.data.sequence + "]");
+		var ratingForm = jQuery("#rating-form-" + id);
 		
 		// update rating results if success
 		if (jsonResponse.status == 'success') {
@@ -72,14 +73,25 @@ jQuery(document).ready(function() {
 			}
 		}
 		
+		// remove existing errors for rating items, optional fields and custom fields
+		jQuery("#rating-form-" + id + " .rating-item .mr-error").html("");
+		
 		// update messages
-		if (jsonResponse.validation_results.length > 0 || jsonResponse.message ) {
+		if ((jsonResponse.validation_results && jsonResponse.validation_results.length > 0) || jsonResponse.message ) {
 			var messages = '';
-			var $index = 0;
 			
-			for ($index; $index< jsonResponse.validation_results.length; $index++) {
-				messages += '<p class="message ' + jsonResponse.validation_results[$index].severity + '">' 
-						+ jsonResponse.validation_results[$index].message + '</p>';
+			if ( jsonResponse.validation_results ) {
+				var $index = 0;
+				for ($index; $index< jsonResponse.validation_results.length; $index++) {
+					
+					if ( jsonResponse.validation_results[$index].field && jQuery("#" + jsonResponse.validation_results[$index].field + "-" + jsonResponse.data.sequence + "-error").length ) {
+						jQuery("#" + jsonResponse.validation_results[$index].field + "-" + jsonResponse.data.sequence + "-error")
+								.html(jsonResponse.validation_results[$index].message);
+					} else {
+						messages += '<p class="mr message mr-' + jsonResponse.validation_results[$index].severity + '">' 
+								+ jsonResponse.validation_results[$index].message + '</p>';
+					}
+				}
 			}
 			
 			if (jsonResponse.message) {
@@ -101,7 +113,7 @@ jQuery(document).ready(function() {
 			ratingForm.remove();
 		}
 
-		var spinnerId = 'mr-spinner-' + jsonResponse.data.post_id + "-" + jsonResponse.data.sequence;;
+		var spinnerId = 'mr-spinner-' + id;
 		jQuery("#" + spinnerId).remove();
 	}
 	
@@ -152,7 +164,8 @@ jQuery(document).ready(function() {
 		var elementId = this.id;
 		var ratingItemIdSequence = getRatingItemIdSequence(elementId);
 		
-		if (ratingItemStatus[ratingItemIdSequence] != 'clicked' && ratingItemStatus[ratingItemIdSequence] != undefined) {
+		if (jQuery("#" + ratingItemIdSequence).val() == 0 || (ratingItemStatus[ratingItemIdSequence] != 'clicked' 
+				&& ratingItemStatus[ratingItemIdSequence] != undefined)) {
 			
 			updateRatingItemStatus(this.id, 'hovered');
 			

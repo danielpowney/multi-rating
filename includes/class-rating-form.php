@@ -51,8 +51,9 @@ class MR_Rating_Form {
 			// stores any validation results, custom validation results can be added through filters
 			$validation_results = array();
 			
-			// FIXME if I'm a logged in user, I can't update
 			$validation_results = MR_Utils::validate_save_rating_restricton( $validation_results, $post_id );
+			
+			$validation_results = MR_Utils::validate_rating_item_required( $validation_results, $rating_items );
 			
 			$validation_results = apply_filters( 'mr_after_rating_form_validation_save', $validation_results, $data );
 			

@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: The best rating system plugin for WordPress. Multi Rating allows visitors to rate a post based on multiple criteria and questions.
-Version: 4.0.2
+Version: 4.1
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '4.0.2',
+	VERSION = '4.1',
 	ID = 'multi-rating',
 
 	// tables
@@ -69,6 +69,7 @@ class Multi_Rating {
 	RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION 	= 'mr_rating_form_submit_success_message',
 	DATE_VALIDATION_FAIL_MESSAGE_OPTION			= 'mr_date_validation_fail_message',
 	NO_RATING_RESULTS_TEXT_OPTION				= 'mr_no_rating_results_text',
+	FIELD_REQUIRED_ERROR_MESSAGE_OPTION			= 'mrp_field_required_error',
 	INCLUDE_FONT_AWESOME_OPTION					= 'mr_include_font_awesome',
 	FONT_AWESOME_VERSION_OPTION					= 'mr_font_awesome_version',
 	VERSION_OPTION								= 'mr_version_option',
@@ -87,6 +88,7 @@ class Multi_Rating {
 	SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION = 'mr_save_rating_restriction_error_message',
 	DEFAULT_HIDE_POST_META_BOX_OPTION			= 'mr_default_hide_post_meta_box',
 	TEMPLATE_STRIP_NEWLINES_OPTION				= 'mr_template_strip_newlines',
+	ERROR_MESSAGE_COLOUR_OPTION					= 'mr_error_message_colour',
 	
 	//values
 	SCORE_RESULT_TYPE							= 'score',
@@ -305,6 +307,7 @@ class Multi_Rating {
 				description varchar(255) NOT NULL,
 				default_option_value int(11),
 				max_option_value int(11),
+				required tinyint(1) DEFAULT 0,
 				active tinyint(1) DEFAULT 1,
 				weight double precision DEFAULT 1.0,
 				type varchar(20) NOT NULL DEFAULT "select",
@@ -411,11 +414,11 @@ class Multi_Rating {
 		wp_enqueue_script( 'mr-admin-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
 		wp_localize_script( 'mr-admin-script', 'mr_admin_data', $config_array );
 
-		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
+		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend-min.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
 		wp_localize_script( 'mr-frontend-script', 'mr_frontend_data', $config_array );
 		
 		// Add simple table CSS for rating form
-		wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend.css', __FILE__ ) );
+		wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend-min.css', __FILE__ ) );
 		wp_enqueue_style( 'mr-admin-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'admin.css', __FILE__ ) );
 		
 		// flot
@@ -445,7 +448,7 @@ class Multi_Rating {
 		wp_enqueue_script('jquery');
 		
 		// Add simple table CSS for rating form
-		wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend.css', __FILE__ ) );
+		wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend-min.css', __FILE__ ) );
 		
 		// Allow support for other versions of Font Awesome
 		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
@@ -477,7 +480,7 @@ class Multi_Rating {
 				'use_custom_star_images' => ( $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES] == true ) ? "true" : "false"
 		);
 		
-		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
+		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend-min.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
 		wp_localize_script( 'mr-frontend-script', 'mr_frontend_data', $config_array );
 	}
 	
@@ -505,6 +508,7 @@ class Multi_Rating {
 			
 			$star_rating_colour = $style_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
 			$star_rating_hover_colour = $style_settings[Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION];
+			$error_message_colour = $style_settings[Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION];
 			
 			$this->get_custom_star_images_css();
 			?>
@@ -514,6 +518,9 @@ class Multi_Rating {
 			}
 			.mr-star-full, .mr-star-half, .mr-star-empty {
 				color: <?php echo $star_rating_colour; ?>;
+			}
+			.mr-error {
+				color: <?php echo $error_message_colour; ?>;
 			}
 		</style>
 		<?php 

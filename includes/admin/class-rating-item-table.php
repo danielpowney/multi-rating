@@ -17,6 +17,7 @@ class MR_Rating_Item_Table extends WP_List_Table {
 	RATING_ITEM_ID_COLUMN = 'rating_item_id',
 	RATING_ID_COLUMN = 'rating_id',
 	DEFAULT_OPTION_VALUE_COLUMN = 'default_option_value',
+	FIELD_REQUIRED_COLUMN = 'required',
 	WEIGHT_COLUMN = 'weight',
 	TYPE_COLUMN = 'type',
 	DELETE_CHECKBOX = 'delete[]';
@@ -62,6 +63,7 @@ class MR_Rating_Item_Table extends WP_List_Table {
 				MR_Rating_Item_Table::TYPE_COLUMN => __( 'Type', 'multi-rating' ),
 				MR_Rating_Item_Table::WEIGHT_COLUMN	=>__( 'Weight', 'multi-rating' ),
 				MR_Rating_Item_Table::DEFAULT_OPTION_VALUE_COLUMN => __( 'Default Option Value', 'multi-rating' ),
+				MR_Rating_Item_Table::FIELD_REQUIRED_COLUMN => __( 'Required', 'multi-rating' ),
 				MR_Rating_Item_Table::MAX_OPTION_VALUE_COLUMN => __( 'Max Option Value', 'multi-rating' )
 		);
 	}
@@ -111,6 +113,10 @@ class MR_Rating_Item_Table extends WP_List_Table {
 				$this->column_actions( $item, $column_name );
 				break;
 				
+			case MR_Rating_Item_Table::FIELD_REQUIRED_COLUMN:
+				$this->column_checkbox( $item, $column_name );
+				break;
+					
 			default:
 				return print_r( $item, true ) ;
 		}
@@ -183,10 +189,40 @@ class MR_Rating_Item_Table extends WP_List_Table {
 		$field_id = 'field-'. $column_name . '-'. $row_id;
 		$text_id = 'text-'. $column_name . '-'. $row_id;
 		
-		echo '<div id="' .$view_section_id.'"><div id="'.$text_id.'">' . $row_value . '</div><div class="row-actions"><a href="#" id="'.$edit_btn_id.'">Edit</a></div></div>';
+		echo '<div id="' .$view_section_id.'"><div id="'.$text_id.'">' . $row_value . '</div><div class="row-actions"><a href="#" id="'.$edit_btn_id.'">' . __( 'Edit', 'multi-rating' ) . '</a></div></div>';
 		echo '<div id="'.$edit_section_id.'" style="display: none;">';
 		echo '<input type="text" name="' . $field_id . '" id="'. $field_id . '" value="'. $row_value . '" style="width: 100%;" />';
-		echo '<div class="row-actions"><a href="#" id="'.$save_btn_id.'">Save</a></div></div>';	
+		echo '<div class="row-actions"><a href="#" id="'.$save_btn_id.'">' . __( 'Save', 'multi-rating' ) . '</a></div></div>';	
+	}
+	
+	/**
+	 * Checkbox column
+	 * @param $item
+	 * @param $column_name
+	 */
+	function column_checkbox( $item, $column_name ) {
+	
+		$row_id = $item[MR_Rating_Item_Table::RATING_ITEM_ID_COLUMN];
+		$row_value = stripslashes( $item[$column_name] );
+		$edit_btn_id = 'edit-' . $column_name . '-' . $row_id;
+		$save_btn_id = 'save-' . $column_name . '-' . $row_id;
+		$view_section_id = 'view-section-' . $column_name . '-' . $row_id;
+		$edit_section_id = 'edit-section-' . $column_name . '-' . $row_id;
+	
+		// if column is type, use a select
+		$field_id = 'field-' . $column_name . '-' . $row_id;
+		$text_id = 'text-' . $column_name . '-'.  $row_id;
+	
+		echo '<div id="' . $view_section_id.'"><div id="'.$text_id.'">' . ($row_value == true ? __( 'Yes', 'multi-rating' ) : __( 'No', 'multi-rating' ) ) . '</div><div class="row-actions"><a href="#" id="'.$edit_btn_id.'">' . __( 'Edit', 'multi-rating' ) . '</a></div></div>';
+		echo '<div id="'. $edit_section_id.'" style="display: none;">';
+		echo '<input type="checkbox" name="' . $field_id . '" id="'. $field_id . '"';
+	
+		if ( $row_value == true ) {
+			echo ' checked="checked"';
+		}
+		echo ' value="true" />';
+	
+		echo '<div class="row-actions"><a href="#" id="' . $save_btn_id . '">' . __( 'Save', 'multi-rating' ) . '</a></div></div>';
 	}
 	
 	/**
@@ -241,7 +277,7 @@ class MR_Rating_Item_Table extends WP_List_Table {
 			// prevent SQL injection
 			if (! ( $column == MR_Rating_Item_Table::DESCRIPTION_COLUMN || $column == MR_Rating_Item_Table::MAX_OPTION_VALUE_COLUMN
 					|| $column == MR_Rating_Item_Table::DEFAULT_OPTION_VALUE_COLUMN || $column == MR_Rating_Item_Table::WEIGHT_COLUMN 
-					|| $column == MR_Rating_Item_Table::TYPE_COLUMN) ) {
+					|| $column == MR_Rating_Item_Table::FIELD_REQUIRED_COLUMN || $column == MR_Rating_Item_Table::TYPE_COLUMN ) ) {
 				
 				echo __( 'An error occured', 'multi-rating' );
 				
@@ -254,8 +290,15 @@ class MR_Rating_Item_Table extends WP_List_Table {
 			$value = isset( $_POST['value'] ) ? addslashes( $_POST['value'] ) : '';
 			$rating_item_id = isset( $_POST['ratingItemId'] ) ? $_POST['ratingItemId'] : '';
 			
+			if ( $column == MR_Rating_Item_Table::FIELD_REQUIRED_COLUMN ) {
+				$value = false;
+				if ( isset($_POST['value'] ) && $_POST['value'] == 'true' ) {
+					$value = true;
+				}
+			}
+			
 			// get current values for validation
-			$query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE rating_item_id = "' . $rating_item_id . '"';
+			$query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE rating_item_id = ' . intval( $rating_item_id );
 			$row = $wpdb->get_row( $query, ARRAY_A, 0 );
 			
 			$max_option_value = intval($row['max_option_value']);
@@ -300,15 +343,15 @@ class MR_Rating_Item_Table extends WP_List_Table {
 					icl_register_string( 'multi-rating', 'rating-item-' . $rating_item_id . '-description', $value );
 				}
 			}
-			
-			$text_value = $value;
-			
+
 			if ($column == MR_Rating_Item_Table::TYPE_COLUMN) {
 				$type_options = array( 'select' => __( 'Select', 'multi-rating' ), 'radio' => __( 'Radio', 'multi-rating' ), 'star_rating' => __( 'Star Rating', 'multi-rating' ) );
-				$text_value = isset( $type_options[$value] ) ? $type_options[$value] : $value;
+				$value = isset( $type_options[$value] ) ? $type_options[$value] : $value;
+			} else if ( $column == MR_Rating_Item_Table::FIELD_REQUIRED_COLUMN ) {
+				$value = ( $value == true ) ? __( 'Yes', 'multi-rating' ) : __( 'No', 'multi-rating' );
 			}
 			
-			echo json_encode( array ('value' => $text_value, 'error_message' => $error_message ) );
+			echo json_encode( array ('value' => $value, 'error_message' => $error_message ) );
 		}
 		
 		die();

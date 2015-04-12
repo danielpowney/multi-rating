@@ -104,6 +104,12 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
+= 4.1 =
+* Tweak: Added option for rating form error message color
+* New: Added required option for rating items. If enabled and 0 is selected as the rating item value, a field is required error message is displayed
+* Tweak: Now using minified JS and CSS files
+* Tweak: Improved usability of star ratings by not setting a default value. Star ratings are now more interactive as the on hover state works straight away.
+
 = 4.0.2 =
 * Tweak: Improved data sanitization
 * Bug: Added template strip newlines option

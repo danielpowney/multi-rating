@@ -63,6 +63,7 @@ class MR_Settings {
 				Multi_Rating::CUSTOM_HOVER_STAR_IMAGE			=> '',
 				Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH			=> 32,
 				Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT			=> 32,
+				Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION		=> '#EC6464'
 		), $this->style_settings );
 	
 	
@@ -81,7 +82,8 @@ class MR_Settings {
 				Multi_Rating::FILTER_LABEL_TEXT_OPTION					=> __( 'Category', 'multi-rating' ),
 				Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION => __( 'Your rating was %adjusted_star_result%/5.', 'multi-rating'),
 				Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION => __( 'You cannot submit a rating form for the same post multiple times.', 'multi-rating' ),
-				Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION 			=> __( 'No rating results yet', 'multi-rating' )
+				Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION 			=> __( 'No ratings yet.', 'multi-rating' ),
+				Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION		=> __( 'Field is required.', 'multi-rating' )
 		), $this->custom_text_settings );
 	
 	
@@ -343,7 +345,8 @@ class MR_Settings {
 
 		add_settings_field( Multi_Rating::CUSTOM_CSS_OPTION, __( 'Custom CSS', 'multi-rating' ), array( &$this, 'field_custom_css' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
 		add_settings_field( Multi_Rating::STAR_RATING_COLOUR_OPTION, __( 'Star Rating Color', 'multi-rating' ), array( &$this, 'field_star_rating_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
-		add_settings_field( Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION, __( 'Star Rating On Hover Color', 'multi-rating' ), array( &$this, 'field_star_rating_hover_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
+		add_settings_field( Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION, __( 'Star Rating Hover Color', 'multi-rating' ), array( &$this, 'field_star_rating_hover_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
+		add_settings_field( Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION, __( 'Error Message Color', 'multi-rating' ), array( &$this, 'field_error_message_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
 		add_settings_field( Multi_Rating::INCLUDE_FONT_AWESOME_OPTION, __( 'Load Font Awesome Library?', 'multi-rating' ), array( &$this, 'field_include_font_awesome' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
 		add_settings_field( Multi_Rating::FONT_AWESOME_VERSION_OPTION, __( 'Font Awesome Version', 'multi-rating' ), array( &$this, 'field_font_awesome_version' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
 		add_settings_field( Multi_Rating::USE_CUSTOM_STAR_IMAGES, __( 'Use Custom Star Images', 'multi-rating' ), array( &$this, 'field_use_custom_star_images' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
@@ -482,6 +485,16 @@ class MR_Settings {
 	}
 	
 	/**
+	 * Error message colour
+	 */
+	function field_error_message_colour() {
+		$error_message_colour = $this->style_settings[Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION];
+		?>
+		<input class="color-picker" type="text" id="mr-error-message-colour" name="<?php echo Multi_Rating::STYLE_SETTINGS; ?>[<?php echo Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION; ?>]; ?>" value="<?php echo $error_message_colour; ?>" />
+		<?php 
+	}
+	
+	/**
 	 * Sanitize style settings
 	 * 
 	 * @param $input
@@ -566,6 +579,7 @@ class MR_Settings {
 		add_settings_field( Multi_Rating::FILTER_LABEL_TEXT_OPTION, __( 'Filter Label Text', 'multi-rating' ), array( &$this, 'field_filter_label_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION, __( 'Rating Form Submit Success Message', 'multi-rating' ), array( &$this, 'field_rating_form_submit_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION, __( 'Rating Restriction Error Message', 'multi-rating' ), array( &$this, 'field_save_rating_restriction_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
+		add_settings_field( Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION, __( 'Field Required Error Message', 'multi-rating' ), array( &$this, 'field_required_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_messages' );
 		add_settings_field( Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION, __( 'No Rating Results Text' , 'multi-rating' ), array( &$this, 'field_no_rating_results_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::CHAR_ENCODING_OPTION, __( 'Character Encoding', 'multi-rating' ), array( &$this, 'field_char_encoding' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		
@@ -624,6 +638,16 @@ class MR_Settings {
 		<?php
 	}
 	
+	/**
+	 * Field required error message
+	 */
+	function field_required_error_message() {
+		?>
+		<input type="text" name="<?php echo Multi_Rating::CUSTOM_TEXT_SETTINGS; ?>[<?php echo Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION; ?>]" class="large-text" value="<?php echo $this->custom_text_settings[Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION]; ?>" />
+		<p><?php _e( 'Applies to rating items if zero is selected.', 'multi-rating' ); ?></p>
+		<?php
+	}
+		
 	/**
 	 * Rating form title text setting
 	 */

@@ -10,7 +10,7 @@
 	}
 	
 	?>
-	<form name="rating-form-<?php echo $post_id; ?>-<?php echo MR_Rating_Form::$sequence; ?>" action="#">
+	<form id="rating-form-<?php echo $post_id; ?>-<?php echo MR_Rating_Form::$sequence; ?>" action="#">
 	<?php
 	
 		do_action( 'mr_rating_form_before_rating_items', $post_id, $rating_items );

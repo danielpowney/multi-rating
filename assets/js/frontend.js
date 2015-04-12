@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
 		var jsonResponse = jQuery.parseJSON(response);
 		var id = jsonResponse.data.post_id + "-" + jsonResponse.data.sequence;
 		
-		var ratingForm = jQuery("form[name=rating-form-" + id + "]");
+		var ratingForm = jQuery("#rating-form-" + id);
 		
 		// update rating results if success
 		if (jsonResponse.status == 'success') {

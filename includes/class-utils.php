@@ -124,7 +124,7 @@ class MR_Utils {
 	 * @param $post_id
 	 */
 	public static function cookie_validation_check( $post_id ) {
-		return isset($_COOKIE[Multi_Rating::POST_SAVE_RATING_COOKIE . '-' . $post_id]);
+		return isset( $_COOKIE[Multi_Rating::POST_SAVE_RATING_COOKIE . '-' . $post_id] );
 	}
 
 	/**
@@ -143,6 +143,37 @@ class MR_Utils {
 		$rows = $wpdb->get_results( $ip_address_check_query );
 		
 		return ( count( $rows ) > 0 );
+	}
+	
+	/**
+	 * Checks if any ratings items are required which means zero cannot be selected
+	 */
+	public static function validate_rating_item_required( $validation_results, $rating_items ) {
+	
+		foreach ( $rating_items as $rating_item ) {
+			$rating_item_id = $rating_item['id'];
+			$rating_item_value = $rating_item['value'];
+	
+			if ( $rating_item_value == 0 ) {
+				global $wpdb;
+	
+				$query = 'SELECT required FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE rating_item_id = ' . intval( $rating_item_id );
+				$required = $wpdb->get_col( $query, 0 );
+	
+				if ( $required[0] == true ) {
+					$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+	
+					array_push( $validation_results, array(
+							'severity' => 'error',
+							'name' => 'rating_item_required_error',
+							'field' => 'rating-item-' . $rating_item_id,
+							'message' => $custom_text_settings[ Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION ]
+					) );
+				}
+			}
+		}
+	
+		return $validation_results;
 	}
 	
 	/**

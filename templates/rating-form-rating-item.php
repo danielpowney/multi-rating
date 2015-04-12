@@ -15,6 +15,8 @@
 			$template_part_name = 'custom-star-images';
 		}
 		
+		$default_option_value = 0;
+		
 		mr_get_template_part( 'rating-form', $template_part_name, true, array(
 			'max_option_value' => $max_option_value,
 			'default_option_value' => $default_option_value,
@@ -42,5 +44,6 @@
 		) );
 		
 	}	
-?>
+	?>
+	<span id="<?php echo $element_id; ?>-error" class="mr-error"></span>
 </p>

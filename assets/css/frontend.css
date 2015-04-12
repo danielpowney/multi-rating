@@ -200,3 +200,7 @@ p.mr label.description {
 	padding-right: 0px;
 	max-width: 100%;
 }
+
+.rating-form .rating-item .mrp-star-rating-select {
+	margin-right: 5px;
+}

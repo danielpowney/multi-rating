@@ -104,6 +104,9 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
+= 4.1.1 =
+* Bug: Fixed several WPML issues (i.e. unable to submit ratings) where the original post in the default language was not always returned calling icl_object_id.
+
 = 4.1 =
 * Tweak: Added option for rating form error message color
 * New: Added required option for rating items. If enabled and 0 is selected as the rating item value, a field is required error message is displayed

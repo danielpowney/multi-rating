@@ -32,7 +32,7 @@ class MR_Rating_Form {
 			// WPML get original pst id for default language
 			if ( function_exists( 'icl_object_id' ) ) {
 				global $sitepress;
-				$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
+				$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, $sitepress->get_default_language() );
 			}
 	
 			$data = array(

@@ -45,8 +45,8 @@ function mr_reports_screen() {
 				}
 				?>
 				<p>
-					<input type="text" class="date-picker" autocomplete="off" name="from-date" placeholder="From - dd/MM/yyyy" id="from-date" value="<?php echo $from_date; ?>" />
-					<input type="text" class="date-picker" autocomplete="off" name="to-date" placeholder="To - dd/MM/yyyy" id="to-date" value="<?php echo $to_date; ?>" />
+					<input type="text" class="date-picker" autocomplete="off" name="from-date" placeholder="From - yyyy-MM-dd" id="from-date" value="<?php echo $from_date; ?>" />
+					<input type="text" class="date-picker" autocomplete="off" name="to-date" placeholder="To - yyyy-MM-dd" id="to-date" value="<?php echo $to_date; ?>" />
 								
 					<select name="post-id" id="post-id">
 						<option value=""><?php _e( 'All posts / pages', 'multi-rating' ); ?></option>
@@ -83,14 +83,14 @@ function mr_reports_screen() {
 			$post_id = isset( $_REQUEST['post-id'] ) ? $_REQUEST['post-id'] : null;
 				
 			if ( $from_date != null && strlen( $from_date ) > 0 ) {
-				list( $year, $month, $day ) = explode( '/', $from_date ); // default yyyy/mm/dd format
+				list( $year, $month, $day ) = explode( '-', $from_date ); // default yyyy-mm-dd format
 				if ( ! checkdate( $month , $day , $year )) {
 					$from_date = null;
 				}
 			}
 				
 			if ( $to_date != null && strlen($to_date) > 0 ) {
-				list( $year, $month, $day ) = explode( '/', $to_date );// default yyyy/mm/dd format
+				list( $year, $month, $day ) = explode( '-', $to_date );// default yyyy-mm-dd format
 				if ( ! checkdate( $month , $day , $year )) {
 					$to_date = null;
 				}

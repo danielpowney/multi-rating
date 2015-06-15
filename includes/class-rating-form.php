@@ -74,7 +74,7 @@ class MR_Rating_Form {
 					'user_id' => $user_id,
 			), array('%d', '%s', '%s', '%d') );
 	
-			$rating_item_entry_id = $wpdb->insert_id;
+			$rating_entry_id = $wpdb->insert_id;
 	
 			foreach ( $rating_items as $rating_item ) {
 	
@@ -82,7 +82,7 @@ class MR_Rating_Form {
 				$rating_item_value = $rating_item['value'];
 	
 				$wpdb->insert( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME, array(
-						'rating_item_entry_id' => $rating_item_entry_id,
+						'rating_item_entry_id' => $rating_entry_id,
 						'rating_item_id' => $rating_item_id,
 						'value' => $rating_item_value
 				), array('%d', '%d', '%d') );
@@ -159,7 +159,7 @@ class MR_Rating_Form {
 			$message = $custom_text_settings[ Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION];
 			if (strpos($message, '%') !== false) {
 				$message = MR_Utils::substitute_message( $message, $user, 
-						Multi_Rating_API::calculate_rating_item_entry_result( $rating_item_entry_id, $rating_items ) );
+						Multi_Rating_API::calculate_rating_item_entry_result( $rating_entry_id, $rating_items ) );
 			}
 	
 			$data['rating_result'] = $rating_result;

@@ -3,7 +3,7 @@ Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
 Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, multi rating, feedback, user rating, wpml, feedback, question, star rating, 5 star, font awesome
 Requires at least: 3.8
-Tested up to: 4.1.1
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -59,6 +59,7 @@ The following key features are available in the Pro version:
 
 * Multiple rating forms with different rating items
 * WordPress comments system integration
+* Bayesian average ratings
 * Add custom fields to collect additional information
 * Ratings moderation (approve or unapprove rating entries)
 * Logged in users can update or delete their existing ratings
@@ -106,6 +107,8 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 = 4.1.1 =
 * Bug: Fixed several WPML issues (i.e. unable to submit ratings) where the original post in the default language was not always returned calling icl_object_id.
+* Bug: Fixed preserve max option value in rating-result.php template
+* Bug: Added number_format() to rating-result.php template for showing count of entries
 
 = 4.1 =
 * Tweak: Added option for rating form error message color

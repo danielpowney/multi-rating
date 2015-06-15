@@ -47,7 +47,7 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 			$star_result = $rating_result['adjusted_star_result'];
 			
 			if ( $preserve_max_option ) {
-				$max_stars = $rating_result['max_option_value'];
+				$max_stars = $rating_result['total_max_option_value'];
 				$star_result = $rating_result['adjusted_score_result'];
 			}
 			
@@ -74,7 +74,7 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 			$after_count = apply_filters( 'mr_rating_result_after_count', $after_count, $count );
 			
 			?>
-			<span class="count"><?php echo $before_count . $count . $after_count; ?></span>
+			<span class="count"><?php echo $before_count . number_format( $count ) . $after_count; ?></span>
 			<?php
 		}
 			

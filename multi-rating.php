@@ -322,7 +322,8 @@ class Multi_Rating {
 				entry_date datetime NOT NULL,
 				ip_address varchar(100),
 				user_id bigint(20) DEFAULT 0,
-				PRIMARY KEY  (rating_item_entry_id)
+				PRIMARY KEY  (rating_item_entry_id),
+				KEY  ix_rating_entry (rating_item_entry_id,post_id),
 		) ENGINE=InnoDB AUTO_INCREMENT=1;';
 		dbDelta( $sql_create_rating_item_entry_tbl );
 
@@ -331,7 +332,8 @@ class Multi_Rating {
 				rating_item_entry_id bigint(20) NOT NULL,
 				rating_item_id bigint(20) NOT NULL,
 				value int(11) NOT NULL,
-				PRIMARY KEY  (rating_item_entry_value_id)
+				PRIMARY KEY  (rating_item_entry_value_id),
+				KEY  ix_rating_entry (rating_item_entry_id)
 		) ENGINE=InnoDB AUTO_INCREMENT=1;';
 		dbDelta( $sql_create_rating_item_entry_value_tbl );
 		
@@ -408,7 +410,8 @@ class Multi_Rating {
 		
 		$config_array = array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'ajax_nonce' => wp_create_nonce( Multi_Rating::ID.'-nonce' )
+				'ajax_nonce' => wp_create_nonce( Multi_Rating::ID.'-nonce' ),
+				'confirm_clear_db_message' => __( 'Are you sure you want to permanently delete ratings?', 'multi-rating' )
 		);
 
 		wp_enqueue_script( 'mr-admin-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );

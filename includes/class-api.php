@@ -135,7 +135,7 @@ class Multi_Rating_API {
 		}
 			
 		if ( $rating_result == null ) {
-			$rating_items = Multi_Rating_API::get_rating_items( array() );
+			$rating_items = Multi_Rating_API::get_rating_items( );
 		
 			$rating_result = Multi_Rating_API::calculate_rating_result( array(
 					'post_id' => $post_id,

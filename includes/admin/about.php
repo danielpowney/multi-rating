@@ -205,6 +205,7 @@ function mr_about_screen() {
 		<ol style="list-style-type:disc; margin-left: 2.5em;">
 		    <li><?php _e( 'Multiple rating forms with different rating items', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'WordPress comments system integration', 'multi-rating' ); ?></li>
+		    <li><?php _e( 'Bayesian average ratings', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
 		    <li><?php _e( 'Add custom fields to collect additional information', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
 		    <li><?php _e( 'Ratings moderation (approve or unapprove rating entries)', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
 			<li><?php _e( 'Logged in users can update or delete their existing ratings', 'multi-rating' ); ?></li>

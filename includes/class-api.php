@@ -135,7 +135,7 @@ class Multi_Rating_API {
 		}
 			
 		if ( $rating_result == null ) {
-			$rating_items = Multi_Rating_API::get_rating_items( array() );
+			$rating_items = Multi_Rating_API::get_rating_items( );
 		
 			$rating_result = Multi_Rating_API::calculate_rating_result( array(
 					'post_id' => $post_id,
@@ -711,7 +711,7 @@ class Multi_Rating_API {
 		$temp_post_id = $post_id;
 		if ( function_exists( 'icl_object_id' ) ) {
 			global $sitepress;
-			$temp_post_id = icl_object_id( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
+			$temp_post_id = icl_object_id( $post_id , get_post_type( $post_id ), true, $sitepress->get_default_language() );
 		}
 		
 		$rating_result = Multi_Rating_API::get_rating_result( $temp_post_id );
@@ -788,7 +788,7 @@ class Multi_Rating_API {
 		// WPML get original post id for default language
 		if ( function_exists( 'icl_object_id' ) ) {
 			global $sitepress;
-			$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), false, $sitepress->get_default_language() );
+			$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, $sitepress->get_default_language() );
 		}
 		
 		MR_Rating_Form::$sequence++;

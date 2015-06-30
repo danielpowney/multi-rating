@@ -17,8 +17,8 @@ function mr_tools_screen() {
 					<form method="post" id="export-rating-results-form">
 						<p>
 							<input type="text" name="username" id="username" class="" autocomplete="off" placeholder="Username">
-							<input type="text" class="date-picker" autocomplete="off" name="from-date1" placeholder="From - dd/MM/yyyy" id="from-date1">
-							<input type="text" class="date-picker" autocomplete="off" name="to-date1" placeholder="To - dd/MM/yyyy" id="to-date1">
+							<input type="text" class="date-picker" autocomplete="off" name="from-date1" placeholder="From - yyyy-MM-dd" id="from-date1">
+							<input type="text" class="date-picker" autocomplete="off" name="to-date1" placeholder="To - yyyy-MM-dd" id="to-date1">
 							
 							<select name="post-id" id="post-id">
 								<option value=""><?php _e( 'All posts / pages', 'multi-rating' ); ?></option>
@@ -70,8 +70,8 @@ function mr_tools_screen() {
 						<form method="post" id="clear-database-form">
 							<p>
 								<input type="text" name="username" id="username" class="" autocomplete="off" placeholder="Username">
-								<input type="text" class="date-picker" autocomplete="off" name="from-date2" placeholder="From - dd/MM/yyyy" id="from-date2">
-								<input type="text" class="date-picker" autocomplete="off" name="to-date2" placeholder="To - dd/MM/yyyy" id="to-date2">
+								<input type="text" class="date-picker" autocomplete="off" name="from-date2" placeholder="From - yyyy-MM-dd" id="from-date2">
+								<input type="text" class="date-picker" autocomplete="off" name="to-date2" placeholder="To - yyyy-MM-dd" id="to-date2">
 								
 								<select name="post-id" id="post-id">
 									<option value=""><?php _e( 'All posts / pages', 'multi-rating' ); ?></option>
@@ -184,14 +184,14 @@ function mr_export_rating_results() {
 	}
 	
 	if ( $from_date != null && strlen( $from_date ) > 0 ) {
-		list( $year, $month, $day ) = explode( '/', $from_date ); // default yyyy/mm/dd format
+		list( $year, $month, $day ) = explode( '-', $from_date ); // default yyyy-mm-dd format
 			if ( checkdate( $month , $day , $year )) {
 			$filters['from_date'] = $from_date;
 		}
 	}
 	
 	if ( $to_date != null && strlen($to_date) > 0 ) {
-		list( $year, $month, $day ) = explode( '/', $to_date );// default yyyy/mm/dd format
+		list( $year, $month, $day ) = explode( '-', $to_date );// default yyyy-mm-dd format
 			if ( checkdate( $month , $day , $year )) {
 			$filters['to_date'] = $to_date;
 		}

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: multi-rating\n"
-"POT-Creation-Date: 2015-04-12 19:36+1000\n"
-"PO-Revision-Date: 2015-04-12 19:36+1000\n"
+"POT-Creation-Date: 2015-06-29 21:14+1000\n"
+"PO-Revision-Date: 2015-06-29 21:14+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -199,7 +199,7 @@ msgid ""
 "Administrator and Editor user roles have the capability to edit ratings."
 msgstr ""
 
-#: ../includes/admin/about.php:173 ../multi-rating.php:394
+#: ../includes/admin/about.php:173 ../multi-rating.php:396
 msgid "Reports"
 msgstr ""
 
@@ -288,67 +288,71 @@ msgid "WordPress comments system integration"
 msgstr ""
 
 #: ../includes/admin/about.php:208
-msgid "Add custom fields to collect additional information"
+msgid "Bayesian average ratings"
 msgstr ""
 
 #: ../includes/admin/about.php:208 ../includes/admin/about.php:209
-#: ../includes/admin/about.php:212
+#: ../includes/admin/about.php:210 ../includes/admin/about.php:213
 msgid "New"
 msgstr ""
 
 #: ../includes/admin/about.php:209
-msgid "Ratings moderation (approve or unapprove rating entries)"
+msgid "Add custom fields to collect additional information"
 msgstr ""
 
 #: ../includes/admin/about.php:210
-msgid "Logged in users can update or delete their existing ratings"
+msgid "Ratings moderation (approve or unapprove rating entries)"
 msgstr ""
 
 #: ../includes/admin/about.php:211
+msgid "Logged in users can update or delete their existing ratings"
+msgstr ""
+
+#: ../includes/admin/about.php:212
 msgid ""
 "New shortcodes, API functions and widgets (i.e. reviews and rating item "
 "results)"
 msgstr ""
 
-#: ../includes/admin/about.php:212
+#: ../includes/admin/about.php:213
 msgid "A user ratings dashboard shortcode"
 msgstr ""
 
-#: ../includes/admin/about.php:213
+#: ../includes/admin/about.php:214
 msgid "Rating forms can optionally include a name, e-mail and comment fields"
 msgstr ""
 
-#: ../includes/admin/about.php:214
+#: ../includes/admin/about.php:215
 msgid ""
 "Ability to use text descriptions for select and radio options instead of "
 "numbers"
 msgstr ""
 
-#: ../includes/admin/about.php:215
+#: ../includes/admin/about.php:216
 msgid ""
 "Post, category and specific page filters to include (whitelist) or exclude "
 "(blacklist) automatic placement of the rating form and rating results"
 msgstr ""
 
-#: ../includes/admin/about.php:216
+#: ../includes/admin/about.php:217
 msgid ""
 "Options to exclude the home page and archive pages (i.e. Category, Tag, "
 "Author or a Date based pages)"
 msgstr ""
 
-#: ../includes/admin/about.php:217
+#: ../includes/admin/about.php:218
 msgid "Thumbs up/thumbs down rating item type (e.g. like/dislike)"
 msgstr ""
 
-#: ../includes/admin/about.php:218
+#: ../includes/admin/about.php:219
 msgid "Display a breakdown of rating item results in 3 layouts"
 msgstr ""
 
-#: ../includes/admin/about.php:219
+#: ../includes/admin/about.php:220
 msgid "Allow/disallow anonymous user ratings option"
 msgstr ""
 
-#: ../includes/admin/class-post-metabox.php:31 ../multi-rating.php:388
+#: ../includes/admin/class-post-metabox.php:31 ../multi-rating.php:390
 msgid "Multi Rating"
 msgstr ""
 
@@ -400,7 +404,7 @@ msgstr ""
 #: ../includes/admin/class-rating-results-table.php:30
 #: ../includes/admin/class-rating-results-table.php:31
 #: ../includes/admin/rating-results.php:14 ../includes/class-settings.php:79
-#: ../multi-rating.php:390
+#: ../multi-rating.php:392
 msgid "Rating Results"
 msgstr ""
 
@@ -467,7 +471,7 @@ msgid "Percentage: "
 msgstr ""
 
 #: ../includes/admin/class-rating-entry-table.php:305
-#: ../includes/admin/edit-rating.php:9 ../multi-rating.php:397
+#: ../includes/admin/edit-rating.php:9 ../multi-rating.php:399
 msgid "Edit Rating"
 msgstr ""
 
@@ -486,7 +490,7 @@ msgid "Rating Item"
 msgstr ""
 
 #: ../includes/admin/class-rating-item-table.php:32
-#: ../includes/admin/rating-items.php:9 ../multi-rating.php:391
+#: ../includes/admin/rating-items.php:9 ../multi-rating.php:393
 msgid "Rating Items"
 msgstr ""
 
@@ -661,7 +665,7 @@ msgid "An error occured. Rating item could not be added."
 msgstr ""
 
 #: ../includes/admin/rating-items.php:91
-#: ../includes/admin/rating-items.php:138 ../multi-rating.php:392
+#: ../includes/admin/rating-items.php:138 ../multi-rating.php:394
 msgid "Add New Rating Item"
 msgstr ""
 
@@ -706,7 +710,7 @@ msgstr ""
 msgid "Number of entries per day"
 msgstr ""
 
-#: ../includes/admin/settings.php:10 ../multi-rating.php:393
+#: ../includes/admin/settings.php:10 ../multi-rating.php:395
 msgid "Settings"
 msgstr ""
 
@@ -714,7 +718,7 @@ msgstr ""
 msgid "Settings saved."
 msgstr ""
 
-#: ../includes/admin/tools.php:9 ../multi-rating.php:395
+#: ../includes/admin/tools.php:9 ../multi-rating.php:397
 msgid "Tools"
 msgstr ""
 
@@ -1196,6 +1200,10 @@ msgstr ""
 msgid "Lowest Rated"
 msgstr ""
 
-#: ../multi-rating.php:396
+#: ../multi-rating.php:398
 msgid "About"
+msgstr ""
+
+#: ../multi-rating.php:414
+msgid "Are you sure you want to permanently delete ratings?"
 msgstr ""

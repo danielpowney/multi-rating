@@ -5,7 +5,14 @@ jQuery(document).ready(function() {
 	});
 
 	jQuery("#clear-database-btn").live('click',function(e) {
-		jQuery("#clear-database").val("true");
+		
+		var result = confirm(mr_admin_data.confirm_clear_db_message);
+		if (result == true) {
+			jQuery("#clear-database").val("true");
+		} else {
+			event.preventDefault();
+		}
+		
 	});
 	
 	jQuery("#export-btn").click(function(event) {
@@ -49,7 +56,7 @@ jQuery(document).ready(function() {
 		// ajax call to retrieve new terms		
 		var data = {
 				action : "retrieve_terms_by_taxonomy",
-				nonce : mr_admin_data.ajax_nonce, // tbc
+				nonce : mr_admin_data.ajax_nonce,
 				taxonomy : taxonomy
 		};
 
@@ -124,7 +131,7 @@ jQuery(document).ready(function() {
 		});
 	    
 	    jQuery('.date-picker').datepicker({
-	        dateFormat : 'yy/mm/dd'
+	        dateFormat : 'yy-mm-dd'
 	    });
 	    
 	});

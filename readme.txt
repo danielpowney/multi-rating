@@ -105,7 +105,7 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
-= 4.1.1 =
+= 4.1.1 (30/06/2015) =
 * New: Added JS dialog to confirm clearing rating entries in the Tools
 * Bug: Fixed several WPML issues (i.e. unable to submit ratings) where the original post in the default language was not always returned calling icl_object_id.
 * Bug: Fixed preserve max option value in rating-result.php template

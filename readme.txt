@@ -105,6 +105,9 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
+= 4.1.2 (03/06/2015) =
+* Bug: Fixed error creating db tables on activation caused by stray comma in SQL statement
+
 = 4.1.1 (30/06/2015) =
 * New: Added JS dialog to confirm clearing rating entries in the Tools
 * Bug: Fixed several WPML issues (i.e. unable to submit ratings) where the original post in the default language was not always returned calling icl_object_id.

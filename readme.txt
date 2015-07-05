@@ -105,6 +105,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
+= 4.1.3 (06/06/2015) =
+* Tweak: Changed post link in rating results and rating entries tables to the edit post page
+* Bug: Fixed touch event on minus icon with custom star images in rating form not working properly 
+
 = 4.1.2 (03/06/2015) =
 * Bug: Fixed error creating db tables on activation caused by stray comma in SQL statement
 

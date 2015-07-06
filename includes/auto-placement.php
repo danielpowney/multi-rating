@@ -8,13 +8,6 @@
  */
 function mr_filter_the_content( $content ) {
 
-	$general_settings = ( array ) get_option( Multi_Rating::GENERAL_SETTINGS );
-
-	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
-	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_content', $content ) ) {
-		return $content;
-	}
-
 	// get the post id
 	global $post;
 	
@@ -22,7 +15,12 @@ function mr_filter_the_content( $content ) {
 	if ( !isset( $post_id ) && isset( $post ) ) {
 		$post_id = $post->ID;
 	} else if ( !isset($post) && !isset( $post_id ) ) {
-		return; // No post id available to display rating form
+		return $content; // No post id available to display rating form
+	}
+	
+	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
+	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_content', $content, $post_id ) ) {
+		return $content;
 	}
 	
 	// check if post type is enabled
@@ -83,14 +81,7 @@ add_filter( 'the_content', 'mr_filter_the_content' );
  * @return filtered title
  */
 function mr_filter_the_title( $title ) {
-
-	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-
-	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
-	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_title', $title ) ) {
-		return $title;
-	}
-
+	
 	// get the post id
 	global $post;
 	
@@ -98,7 +89,12 @@ function mr_filter_the_title( $title ) {
 	if ( ! isset( $post_id ) && isset( $post ) ) {
 		$post_id = $post->ID;
 	} else if ( !isset( $post ) && ! isset( $post_id ) ) {
-		return; // No post id available to display rating form
+		return $title; // No post id available to display rating result
+	}
+	
+	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
+	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_title', $title, $post_id ) ) {
+		return $title;
 	}
 	
 	// check if post type is enabled

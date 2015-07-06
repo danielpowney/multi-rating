@@ -129,13 +129,13 @@ jQuery(document).ready(function() {
 		updateRatingItemStatus(this.id, 'clicked');
 		
 		if (useCustomStarImages == true ) {
-			jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
-			jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
-			jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-full-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star');
+			jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star mr-star-full');
+			jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star mr-star-full');
+			jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-full-star mr-star-full mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star mr-star-empty');
 		} else {
-			jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty + " mr-star-hover").addClass(icon_classes.star_full);
-			jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty + " mr-star-hover").addClass(icon_classes.star_full);
-			jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_full + " mr-star-hover").addClass(icon_classes.star_empty);
+			jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty + " " + icon_classes.star_hover).addClass(icon_classes.star_full);
+			jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty + " " + icon_classes.star_hover).addClass(icon_classes.star_full);
+			jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_full + " " + icon_classes.star_hover).addClass(icon_classes.star_empty);
 		}
 		
 		updateSelectedHiddenValue(this);
@@ -146,14 +146,13 @@ jQuery(document).ready(function() {
 		updateRatingItemStatus(this.id, '');
 		
 		if (useCustomStarImages == true) {
-			jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
-			jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star');
-			jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-full-star mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star');
-
+			jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star mr-star-full');
+			jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star mr-star-full');
+			jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-full-star mr-star-full mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star mr-star-empty');
 		} else {
-			jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty + " mr-star-hover").addClass(icon_classes.star_full);
-			jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty + " mr-star-hover").addClass(icon_classes.star_full);
-			jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_full + " mr-star-hover").addClass(icon_classes.star_empty);
+			jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty + " " + icon_classes.star_hover).addClass(icon_classes.star_full);
+			jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty + " " + icon_classes.star_hover).addClass(icon_classes.star_full);
+			jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_full + " " + icon_classes.star_hover).addClass(icon_classes.star_empty);
 		}
 		
 		updateSelectedHiddenValue(this);
@@ -170,14 +169,14 @@ jQuery(document).ready(function() {
 			updateRatingItemStatus(this.id, 'hovered');
 			
 			if (useCustomStarImages == true) {
-				jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star').addClass('mr-custom-hover-star mr-star-hover');
-				jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star').addClass('mr-custom-hover-star mr-star-hover');
-				jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star');	
+				jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty').addClass('mr-custom-hover-star mr-star-hover');
+				jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty').addClass('mr-custom-hover-star mr-star-hover');
+				jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-hover-star mr-star-hover mr-custom-full-star mr-star-full').addClass('mr-custom-empty-star mr-star-empty');	
 
 			} else {
-				jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full + " mr-star-hover");
-				jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full + " mr-star-hover");
-				jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_full + " mr-star-hover").addClass(icon_classes.star_empty);	
+				jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
+				jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
+				jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_hover + " " + icon_classes.star_full).addClass(icon_classes.star_empty);	
 			}
 		}
 	});
@@ -213,9 +212,9 @@ jQuery(document).ready(function() {
 						&& (touchData.previousYCoord === yCoord)) {
 					
 					if (useCustomStarImages == true) {
-						jQuery(this).removeClass('mr-custom-empty-star').addClass('mr-custom-full-star');
-						jQuery(this).prevAll().removeClass('mr-custom-empty-star').addClass('mr-custom-full-star');
-						jQuery(this).nextAll().removeClass('mr-custom-full-star').addClass('mr-custom-empty-star');
+						jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty').addClass('mr-custom-full-star mr-star-full');
+						jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty').addClass('mr-custom-full-star mr-star-full');
+						jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-full-star mr-star-full').addClass('mr-custom-empty-star mr-star-empty');
 					} else {
 						jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
 						jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);

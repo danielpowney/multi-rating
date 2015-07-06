@@ -266,7 +266,12 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 					$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
 				}
 				
-				echo '<a href="' . get_permalink( $temp_post_id ) . '">' . get_the_title( $temp_post_id ) . '</a> (Id=' . $post_id . ')';				
+				$post_link = esc_html( get_the_title( $temp_post_id ) );
+				if ( current_user_can( 'edit_post', $temp_post_id ) ) {
+					$post_link = "<a href='" . esc_url( get_edit_post_link( $temp_post_id ) ) . "'>";
+					$post_link .= esc_html( get_the_title( $temp_post_id ) ) . '</a>';
+				}
+				echo $post_link .' (Id=' . $post_id . ')';
 				break;
 			}
 				

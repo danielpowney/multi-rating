@@ -69,7 +69,7 @@ class Multi_Rating {
 	RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION 	= 'mr_rating_form_submit_success_message',
 	DATE_VALIDATION_FAIL_MESSAGE_OPTION			= 'mr_date_validation_fail_message',
 	NO_RATING_RESULTS_TEXT_OPTION				= 'mr_no_rating_results_text',
-	FIELD_REQUIRED_ERROR_MESSAGE_OPTION			= 'mrp_field_required_error',
+	FIELD_REQUIRED_ERROR_MESSAGE_OPTION			= 'mrp_field_required_error', // FIXME
 	INCLUDE_FONT_AWESOME_OPTION					= 'mr_include_font_awesome',
 	FONT_AWESOME_VERSION_OPTION					= 'mr_font_awesome_version',
 	VERSION_OPTION								= 'mr_version_option',

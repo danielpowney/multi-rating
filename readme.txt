@@ -105,7 +105,7 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
-= 4.1.4 (10/07/2015) =
+= 4.1.4 (15/07/2015) =
 * New: Added auto placement of rating results options before_content and after_content
 * New: Added rating form widget
 * New: Added rating results widget

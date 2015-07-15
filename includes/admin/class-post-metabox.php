@@ -98,6 +98,8 @@ class MR_Post_Metabox {
 				<option value="" <?php selected('', $rating_results_position, true );?>><?php _e( 'Use default settings', 'multi-rating' ); ?></option>
 				<option value="before_title" <?php selected('before_title', $rating_results_position, true );?>><?php _e( 'Before title', 'multi-rating' ); ?></option>
 				<option value="after_title" <?php selected('after_title', $rating_results_position, true );?>><?php _e( 'After title', 'multi-rating' ); ?></option>
+				<option value="before_content" <?php selected('before_content', $rating_results_position, true );?>><?php _e( 'Before content', 'multi-rating' ); ?></option>
+				<option value="after_content" <?php selected('after_content', $rating_results_position, true );?>><?php _e( 'After content', 'multi-rating' ); ?></option>
 			</select>
 		</p>
 		<?php

@@ -8,14 +8,13 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 	/**
 	 * Constructor
 	 */
-	
 	function __construct( ) {
 	
 		$id_base = 'mr_rating_results_list';
-		$name = __( 'Rating Results List Widget', 'multi-rating' );
+		$name = __( 'Rating Results List', 'multi-rating' );
 		$widget_opts = array(
 				'classname' => 'rating-results-list-widget',
-				'description' => __('Rating Results List Widget', 'multi-rating' )
+				'description' => __('Displays a list of rating results.', 'multi-rating' )
 		);
 		$control_ops = array( 'width' => 400, 'height' => 350 );
 	
@@ -297,11 +296,225 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 	}
 }
 
+/**
+ * Rating Result Widget
+ */
+class MR_Rating_Result_Widget extends WP_Widget {
+
+	/**
+	 * Constructor
+	 */
+
+	function __construct( ) {
+
+		$id_base = 'rating_result';
+		$name = __( 'Rating Result', 'multi-rating' );
+		$widget_opts = array(
+				'classname' => 'rating-result-widget',
+				'description' => __( 'Displays a rating result.', 'multi-rating' )
+		);
+		$control_ops = array( 'width' => 400, 'height' => 350 );
+
+		parent::__construct( $id_base, $name, $widget_opts, $control_ops );
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see WP_Widget::widget()
+	 */
+	function widget( $args, $instance ) {
+
+		// https://codex.wordpress.org/Function_Reference/url_to_postid
+		// FIXME may not work with attachments. See here: https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
+		$post_id = url_to_postid( MR_Utils::get_current_url() );
+
+		if ( $post_id == 0 || $post_id == null ) {
+			return; // Nothing to do.
+		}
+
+		if ( ! apply_filters( 'mr_can_apply_widget', true, $post_id, $args, $instance ) ) {
+			return; // do nothing
+		}
+
+		extract( $args );
+
+		echo $before_widget;
+
+		Multi_Rating_API::display_rating_result( array(
+				'class' => 'mr-widget',
+				'post_id' => $post_id
+		) );
+
+		echo $after_widget;
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see WP_Widget::update()
+	 */
+	function update( $new_instance, $old_instance ) {
+
+		$instance = $old_instance;
+
+		return $instance;
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see WP_Widget::form()
+	 */
+	function form( $instance ) {
+
+		//$instance = wp_parse_args( (array) $instance, array() );
+
+	}
+}
+
+
 
 /**
- * AJAX function for retrieving terms by taxonomy
+ * Rating Form Widget
  */
-function mr_retrieve_terms_by_taxonomy() {
+class MR_Rating_Form_Widget extends WP_Widget {
+
+	/**
+	 * Constructor
+	 */
+	function __construct( ) {
+
+		$id_base = 'rating_form';
+		$name = __( 'Rating Form', 'multi-rating' );
+		$widget_opts = array(
+				'classname' => 'rating-form-widget',
+				'description' => __( 'Displays the rating form.', 'multi-rating' )
+		);
+		$control_ops = array( 'width' => 400, 'height' => 350 );
+
+		parent::__construct( $id_base, $name, $widget_opts, $control_ops );
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see WP_Widget::widget()
+	 */
+	function widget( $args, $instance ) {
+		
+		// https://codex.wordpress.org/Function_Reference/url_to_postid
+		// FIXME may not work with attachments. See here: https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
+		$post_id = url_to_postid( MR_Utils::get_current_url() );
+		
+		if ( $post_id == 0 || $post_id == null ) {
+			return; // Nothing to do.
+		}
+		
+		if ( ! apply_filters( 'mr_can_apply_widget', true, $post_id, $args, $instance ) ) {
+			return; // do nothing
+		}
+
+		extract( $args );
+
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+		
+		$header = empty( $instance['header'] ) ? 'h3' : $instance['header'];
+
+		$before_title = '<' . $header . ' class="widget-title">';
+		$after_title = '</' . $header . '>';
+		$title = apply_filters( 'widget_title', $title );
+
+		echo $before_widget;
+
+		Multi_Rating_API::display_rating_form( array(
+				'class' => 'mr-widget',
+				'before_title' => $before_title,
+				'after_title' => $after_title,
+				'title' => $title,
+				'post_id' => $post_id
+		) );
+
+		echo $after_widget;
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see WP_Widget::update()
+	 */
+	function update( $new_instance, $old_instance ) {
+
+		$instance = $old_instance;
+
+		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['header'] = $new_instance['header'];
+
+		return $instance;
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see WP_Widget::form()
+	 */
+	function form( $instance ) {
+
+		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+			
+		$instance = wp_parse_args( (array) $instance, array(
+				'title' => $custom_text_settings[Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION],
+				'header' => 'h3'
+		) );
+
+		$title = strip_tags( $instance['title'] );
+		$header = $instance['header'];
+
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'multi-rating' ); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'header' ); ?>"><?php _e( 'Header', 'multi-rating' ); ?></label>
+			<select class="widefat" name="<?php echo $this->get_field_name( 'header' ); ?>" id="<?php echo $this->get_field_id( 'header' ); ?>">
+				<?php 
+				$header_options = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+				
+				foreach ( $header_options as $header_option ) {
+					$selected = '';
+					if ( $header_option == $header ) {
+						$selected = ' selected="selected"';
+					}
+					echo '<option value="' . $header_option . '" ' . $selected . '>' . strtoupper( $header_option ) . '</option>';
+				}
+				?>
+			</select>
+		</p>
+		<?php	
+	}
+}
+
+
+/**
+ * Checks filters settings to determine whether rating form or rating results widget can be applied
+ *
+ * @param boolean $can_apply_widget
+ * @param string $filter_name
+ * @param string $value
+ * @param int $post_id
+ * @return $can_apply_widget
+ */
+function mr_can_apply_widget( $can_apply_widget, $post_id, $args, $instance ) {
+
+	if ( $can_apply_widget ) {
+		$can_apply_widget = MR_Utils::check_post_type_enabled( $post_id );
+	}
+
+	return $can_apply_widget;
+}
+add_filter( 'mr_can_apply_widget', 'mr_can_apply_widget', 10, 4 );
+
+
+/**
+ * Gets terms by taxonomy and returns a JSON response
+ */
+function mr_get_terms_by_taxonomy() {
 	$ajax_nonce = $_POST['nonce'];
 
 	$response = array();
@@ -328,6 +541,8 @@ function mr_retrieve_terms_by_taxonomy() {
  */
 function mr_register_widgets() {
 	register_widget( 'MR_Rating_Results_List_Widget' );
+	register_widget( 'MR_Rating_Form_Widget' );
+	register_widget( 'MR_Rating_Result_Widget' );
 }
 add_action( 'widgets_init', 'mr_register_widgets' );
 ?>

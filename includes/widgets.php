@@ -364,9 +364,9 @@ class MR_Rating_Result_Widget extends WP_Widget {
 	 * @see WP_Widget::form()
 	 */
 	function form( $instance ) {
-
-		//$instance = wp_parse_args( (array) $instance, array() );
-
+		?>
+		<p><?php printf( __( 'Note: Widget will only display in templates for a single post or page. See <a href="%s">is_single()</a>.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/is_single' );?></p>
+		<?php
 	}
 }
 
@@ -486,6 +486,8 @@ class MR_Rating_Form_Widget extends WP_Widget {
 				?>
 			</select>
 		</p>
+		
+		<p><?php printf( __( 'Note: Widget will only display in templates for a single post or page. See <a href="%s">is_single()</a>.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/is_single' );?></p>
 		<?php	
 	}
 }

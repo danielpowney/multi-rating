@@ -94,7 +94,7 @@ class MR_Settings {
 				Multi_Rating::RATING_RESULTS_CACHE_OPTION				=> true,
 				Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION 		=> true,
 				Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION			=> false,
-				Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION			=> false
+				Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION			=> true
 		), $this->general_settings );
 	
 	
@@ -102,6 +102,34 @@ class MR_Settings {
 		update_option( Multi_Rating::POSITION_SETTINGS, $this->position_settings);
 		update_option( Multi_Rating::CUSTOM_TEXT_SETTINGS, $this->custom_text_settings);
 		update_option( Multi_Rating::GENERAL_SETTINGS, $this->general_settings);
+		
+		global $wpdb;
+
+		$query = 'SELECT COUNT(rating_item_id) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME;
+	
+		$count_rating_items = $wpdb->get_var( $query );
+		
+		if ( $count_rating_items == 0 ) {
+			$this->generate_sample_rating_item();
+		}
+	}
+	
+	/**
+	 * Generates a sample rating item
+	 */
+	function generate_sample_rating_item() {
+		
+		global $wpdb;
+		
+		$results = $wpdb->insert(  $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME, array(
+				'description' => __( 'Sample rating item', 'multi-rating' ),
+				'max_option_value' => 5,
+				'default_option_value' => 5,
+				'weight' => 1,
+				'type' => 'star_rating',
+				'required' => true
+		) );
+
 	}
 
 	/**
@@ -429,7 +457,7 @@ class MR_Settings {
 			</table>
 			
 			<br />
-			<p><?php _e( 'Each image must be one star of the same size. Valid mime types are image/jpeg, image/png, image/bmp, image/tiff and image/x-icon.', 'multi-rating-pro' ); ?><br />
+			<p><?php _e( 'Each image must be one star of the same size. Valid mime types are image/jpeg, image/png, image/bmp, image/tiff and image/x-icon.', 'multi-rating' ); ?><br />
 			<?php _e('Preview e.g. 2.5/5:', 'multi-rating'); ?>
 				<img src="<?php echo $this->style_settings[Multi_Rating::CUSTOM_FULL_STAR_IMAGE]; ?>" width="<?php echo $this->style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH]; ?>px" height="<?php echo $this->style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT]; ?>px"/>
 				<img src="<?php echo $this->style_settings[Multi_Rating::CUSTOM_FULL_STAR_IMAGE]; ?>" width="<?php echo $this->style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH]; ?>px" height="<?php echo $this->style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT]; ?>px"/>

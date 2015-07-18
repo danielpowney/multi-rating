@@ -3,7 +3,7 @@ Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
 Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, multi rating, feedback, user rating, wpml, feedback, question, star rating, 5 star, font awesome
 Requires at least: 4.0
-Tested up to: 4.3
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -70,6 +70,7 @@ The following key features are available in the Pro version:
 * Thumbs up/thumbs down rating item type (e.g. like/dislike)
 * Display a breakdown of rating item results in 3 layouts
 * Allow/disallow anonymous user ratings option
+* Embed CAPTCHA in the rating form and Wordpress comment form
 
 Check it out here http://danielpowney.com/downloads/multi-rating-pro/
 
@@ -104,6 +105,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.1.5 (16/07/2015) =
+* Tweak: Set template strip newlines option to on by default
+* New: Create a sample rating item if none exists
 
 = 4.1.4 (15/07/2015) =
 * New: Added auto placement of rating results options before_content and after_content

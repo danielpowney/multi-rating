@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: The best rating system plugin for WordPress. Multi Rating allows visitors to rate a post based on multiple criteria and questions.
-Version: 4.1.5
+Version: 4.1.6
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '4.1.5',
+	VERSION = '4.1.6',
 	ID = 'multi-rating',
 
 	// tables
@@ -323,7 +323,7 @@ class Multi_Rating {
 				ip_address varchar(100),
 				user_id bigint(20) DEFAULT 0,
 				PRIMARY KEY  (rating_item_entry_id),
-				KEY  ix_rating_entry (rating_item_entry_id,post_id)
+				KEY ix_rating_entry (rating_item_entry_id,post_id)
 		) ENGINE=InnoDB AUTO_INCREMENT=1;';
 		dbDelta( $sql_create_rating_item_entry_tbl );
 
@@ -333,7 +333,7 @@ class Multi_Rating {
 				rating_item_id bigint(20) NOT NULL,
 				value int(11) NOT NULL,
 				PRIMARY KEY  (rating_item_entry_value_id),
-				KEY  ix_rating_entry (rating_item_entry_id)
+				KEY ix_rating_entry (rating_item_entry_id)
 		) ENGINE=InnoDB AUTO_INCREMENT=1;';
 		dbDelta( $sql_create_rating_item_entry_value_tbl );
 		

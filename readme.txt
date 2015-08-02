@@ -70,7 +70,7 @@ The following key features are available in the Pro version:
 * Thumbs up/thumbs down rating item type (e.g. like/dislike)
 * Display a breakdown of rating item results in 3 layouts
 * Allow/disallow anonymous user ratings option
-* Embed CAPTCHA in the rating form and Wordpress comment form
+* Embed CAPTCHA in the rating form and WordPress comment form (add-on)
 
 Check it out here http://danielpowney.com/downloads/multi-rating-pro/
 
@@ -105,6 +105,9 @@ Full documentation available here http://danielpowney.com/multi-rating/
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.1.6 =
+* Bug: Fixed dbdelta key spacing as per https://core.trac.wordpress.org/ticket/32314
 
 = 4.1.5 (16/07/2015) =
 * Tweak: Set template strip newlines option to on by default

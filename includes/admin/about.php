@@ -214,7 +214,7 @@ function mr_about_screen() {
 		    <li><?php _e( 'Thumbs up/thumbs down rating item type (e.g. like/dislike)', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Display a breakdown of rating item results in 3 layouts', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Allow/disallow anonymous user ratings option', 'multi-rating' ); ?></li>
-		     <li><?php _e( 'Embed CAPTCHA in the rating form and Wordpress comment form.', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
+		     <li><?php _e( 'Embed CAPTCHA in the rating form and WordPress comment form (add-on).', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
 		</ol>
 		<?php
 	}

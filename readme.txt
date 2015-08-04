@@ -106,7 +106,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
-= 4.1.6 =
+= 4.1.7 (08/07/2015) =
+* Bug: Fixed schema.org microdata for itemtype Article (the post) in rating-result.php template file missing required itemprops publishedDate, headline and image 
+
+= 4.1.6 (02/08/2015) =
 * Bug: Fixed dbdelta key spacing as per https://core.trac.wordpress.org/ticket/32314
 
 = 4.1.5 (16/07/2015) =

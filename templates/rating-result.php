@@ -90,11 +90,11 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 			
 		if ( is_singular() && $show_rich_snippets == true ) {			
 			$post_obj = get_post( $post_id );	
-			$image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ) );
+			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ) );
 			?>
-			<meta itemprop="datePublished" content="<?php echo $post_obj->post_date; ?>" />
+			<meta itemprop="datePublished" content="<?php echo date( 'Y-m-d', strtotime( $post_obj->post_date ) ); ?>" />
 			<meta itemprop="headline" content="<?php echo $post_obj->post_title; ?>" />
-			<meta itemprop="image" content="<?php echo $image_url; ?>" />
+			<meta itemprop="image" content="<?php if ( isset( $image[0] ) ) { echo $image[0]; } ?>" />
 			<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="rating-result-summary" style="display: none;">
 			<span itemprop="ratingValue"><?php echo $rating_result['adjusted_star_result']; ?></span>/<span itemprop="bestRating">5</span>
 			<span itemprop="ratingCount" style="display:none;"><?php echo $count; ?></span>

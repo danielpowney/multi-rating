@@ -55,7 +55,7 @@ jQuery(document).ready(function() {
 		
 		// ajax call to retrieve new terms		
 		var data = {
-				action : "retrieve_terms_by_taxonomy",
+				action : "get_terms_by_taxonomy",
 				nonce : mr_admin_data.ajax_nonce,
 				taxonomy : taxonomy
 		};

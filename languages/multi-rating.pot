@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: multi-rating\n"
-"POT-Creation-Date: 2015-06-29 21:14+1000\n"
-"PO-Revision-Date: 2015-06-29 21:14+1000\n"
+"POT-Creation-Date: 2015-07-24 22:20+1000\n"
+"PO-Revision-Date: 2015-07-24 22:20+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -54,7 +54,7 @@ msgid ""
 "new rating items</a>."
 msgstr ""
 
-#: ../includes/admin/about.php:105 ../includes/class-settings.php:282
+#: ../includes/admin/about.php:105 ../includes/class-settings.php:310
 msgid "Auto Placement Settings"
 msgstr ""
 
@@ -76,280 +76,285 @@ msgid ""
 "appear on your website!"
 msgstr ""
 
-#: ../includes/admin/about.php:120
+#: ../includes/admin/about.php:118
 msgid "Shortcodes"
 msgstr ""
 
-#: ../includes/admin/about.php:121
+#: ../includes/admin/about.php:119
 msgid "[mr_rating_form] - displays the rating form</i>."
 msgstr ""
 
-#: ../includes/admin/about.php:122
+#: ../includes/admin/about.php:120
 msgid "[mr_rating_results_list] - displays a list of rating results."
 msgstr ""
 
-#: ../includes/admin/about.php:123
+#: ../includes/admin/about.php:121
 msgid "[mr_rating_result] - displays the rating result"
 msgstr ""
 
-#: ../includes/admin/about.php:124
+#: ../includes/admin/about.php:122
 #, php-format
 msgid ""
 "Refer to the <a href=\"%s\">documentation</a> for more information on the "
 "attributes available."
 msgstr ""
 
-#: ../includes/admin/about.php:128
+#: ../includes/admin/about.php:126
 msgid "View Rating Results"
 msgstr ""
 
-#: ../includes/admin/about.php:129
+#: ../includes/admin/about.php:127
 #, php-format
 msgid ""
 "View all <a href=\"admin.php?page=%s\">rating results</a> and entries from "
 "the WP-admin."
 msgstr ""
 
-#: ../includes/admin/about.php:139
+#: ../includes/admin/about.php:135
 msgid "Custom Post Types"
 msgstr ""
 
-#: ../includes/admin/about.php:140
+#: ../includes/admin/about.php:136
 msgid ""
 "If you want to use the plugin for pages and other post types you'll need to "
 "be enable them in the plugin settings."
 msgstr ""
 
-#: ../includes/admin/about.php:142
+#: ../includes/admin/about.php:138
 msgid "Custom Taxonomy"
 msgstr ""
 
-#: ../includes/admin/about.php:143
+#: ../includes/admin/about.php:139
 msgid ""
 "Shortcodes and API support custom taxonomies e.g. [mr_rating_resultlist "
 "taxonomy=\"post_tag\" term_id=\"1\"]. The category_id attribute is a "
 "shortcut to taxonomy=\"category\" and term_id=\"category_id\"."
 msgstr ""
 
-#: ../includes/admin/about.php:145
+#: ../includes/admin/about.php:141
 msgid "I18n, WPML & Custom Text"
 msgstr ""
 
-#: ../includes/admin/about.php:146
+#: ../includes/admin/about.php:142
 msgid ""
 "The plugin has been internationalized and is translation ready (.pot file in "
 "the languages directory). The plugin is fully WPML compatible. You can also "
 "modify the default text and messages."
 msgstr ""
 
-#: ../includes/admin/about.php:148
+#: ../includes/admin/about.php:144
 msgid "Template System"
 msgstr ""
 
-#: ../includes/admin/about.php:149
+#: ../includes/admin/about.php:145
 msgid "The plugin has an in-built template system."
 msgstr ""
 
-#: ../includes/admin/about.php:154
+#: ../includes/admin/about.php:150
 msgid "Rich Snippets"
 msgstr ""
 
-#: ../includes/admin/about.php:155
+#: ../includes/admin/about.php:151
 msgid ""
 "<a href=\"http://schema.org\">schema.org</a> structured markup can be be "
 "added to every page which allows search engines to display the aggregated "
 "rating results as rich snippets."
 msgstr ""
 
-#: ../includes/admin/about.php:158
+#: ../includes/admin/about.php:154
 msgid "Font Awesome"
 msgstr ""
 
-#: ../includes/admin/about.php:159
+#: ../includes/admin/about.php:155
 msgid ""
 "Font Awesome versions 4.3.0, 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by "
 "the plugin."
 msgstr ""
 
-#: ../includes/admin/about.php:161
+#: ../includes/admin/about.php:157
 msgid "Upload Custom Star Images"
 msgstr ""
 
-#: ../includes/admin/about.php:162
+#: ../includes/admin/about.php:158
 msgid ""
 "You can <a href=\"http://danielpowney.com/docs/add-custom-star-rating-images/"
 "\">upload your own custom star images</a> to use instead of the using the "
 "default Font Awesome star icons. "
 msgstr ""
 
-#: ../includes/admin/about.php:164 ../includes/admin/tools.php:13
+#: ../includes/admin/about.php:160 ../includes/admin/tools.php:13
 msgid "Export Rating Results"
 msgstr ""
 
-#: ../includes/admin/about.php:165
+#: ../includes/admin/about.php:161
 msgid "You can export the rating results to a CSV file."
 msgstr ""
 
-#: ../includes/admin/about.php:167
+#: ../includes/admin/about.php:163
 msgid "Edit Ratings"
 msgstr ""
 
-#: ../includes/admin/about.php:168
+#: ../includes/admin/about.php:164
 msgid ""
 "Administrator and Editor user roles have the capability to edit ratings."
 msgstr ""
 
-#: ../includes/admin/about.php:173 ../multi-rating.php:396
+#: ../includes/admin/about.php:169 ../multi-rating.php:396
 msgid "Reports"
 msgstr ""
 
-#: ../includes/admin/about.php:174
+#: ../includes/admin/about.php:170
 msgid "You can view the number of rating entries per day over time."
 msgstr ""
 
-#: ../includes/admin/about.php:177
+#: ../includes/admin/about.php:173
 msgid "Meta-box"
 msgstr ""
 
-#: ../includes/admin/about.php:178
+#: ../includes/admin/about.php:174
 msgid ""
 "There's a meta-box on the edit post page so that you can override the "
 "default settings (e.g. auto placement settings)."
 msgstr ""
 
-#: ../includes/admin/about.php:180
+#: ../includes/admin/about.php:176
 msgid "Developer API"
 msgstr ""
 
-#: ../includes/admin/about.php:181
+#: ../includes/admin/about.php:177
 msgid ""
 "The <a href=\"http://danielpowney.com/docs/api/\">API functions</a> are "
 "located in the class-api.php file which contains a static class called "
 "Multi_Rating_API."
 msgstr ""
 
-#: ../includes/admin/about.php:183
+#: ../includes/admin/about.php:179
 msgid "Action Hooks & Filters"
 msgstr ""
 
-#: ../includes/admin/about.php:184
+#: ../includes/admin/about.php:180
 msgid ""
 "Developers can extend the plugin functionality using action hooks and "
 "filters."
 msgstr ""
 
-#: ../includes/admin/about.php:186
+#: ../includes/admin/about.php:182
 msgid "GitHub"
 msgstr ""
 
-#: ../includes/admin/about.php:187
+#: ../includes/admin/about.php:183
 #, php-format
 msgid "We're on <a href=\"%s\">GitHub</a>. Contributions welcome."
 msgstr ""
 
-#: ../includes/admin/about.php:195
+#: ../includes/admin/about.php:191
 #, php-format
 msgid ""
 "All support for the free Multi Rating plugin should use the <a href=\"%s"
 "\">WordPress.org support forum</a>."
 msgstr ""
 
-#: ../includes/admin/about.php:196
+#: ../includes/admin/about.php:192
 #, php-format
 msgid ""
 "Please use the <a href=\"%s\">contact form</a> to send translation files or "
 "to contact me directly."
 msgstr ""
 
-#: ../includes/admin/about.php:197
+#: ../includes/admin/about.php:193
 #, php-format
 msgid ""
 "Please <a href=\"%1$s\" target=\"_blank\">rate this plugin</a> on WordPress."
 "org"
 msgstr ""
 
-#: ../includes/admin/about.php:202
+#: ../includes/admin/about.php:198
 #, php-format
 msgid ""
 "<a href=\"%s\">Multi Rating Pro</a> provides advanced features to the free "
 "Multi Rating plugin."
 msgstr ""
 
-#: ../includes/admin/about.php:204
+#: ../includes/admin/about.php:200
 msgid "The following key features are available in the Pro version:"
 msgstr ""
 
-#: ../includes/admin/about.php:206
+#: ../includes/admin/about.php:202
 msgid "Multiple rating forms with different rating items"
 msgstr ""
 
-#: ../includes/admin/about.php:207
+#: ../includes/admin/about.php:203
 msgid "WordPress comments system integration"
 msgstr ""
 
-#: ../includes/admin/about.php:208
+#: ../includes/admin/about.php:204
 msgid "Bayesian average ratings"
 msgstr ""
 
-#: ../includes/admin/about.php:208 ../includes/admin/about.php:209
-#: ../includes/admin/about.php:210 ../includes/admin/about.php:213
+#: ../includes/admin/about.php:204 ../includes/admin/about.php:205
+#: ../includes/admin/about.php:206 ../includes/admin/about.php:209
+#: ../includes/admin/about.php:217
 msgid "New"
 msgstr ""
 
-#: ../includes/admin/about.php:209
+#: ../includes/admin/about.php:205
 msgid "Add custom fields to collect additional information"
 msgstr ""
 
-#: ../includes/admin/about.php:210
+#: ../includes/admin/about.php:206
 msgid "Ratings moderation (approve or unapprove rating entries)"
 msgstr ""
 
-#: ../includes/admin/about.php:211
+#: ../includes/admin/about.php:207
 msgid "Logged in users can update or delete their existing ratings"
 msgstr ""
 
-#: ../includes/admin/about.php:212
+#: ../includes/admin/about.php:208
 msgid ""
 "New shortcodes, API functions and widgets (i.e. reviews and rating item "
 "results)"
 msgstr ""
 
-#: ../includes/admin/about.php:213
+#: ../includes/admin/about.php:209
 msgid "A user ratings dashboard shortcode"
 msgstr ""
 
-#: ../includes/admin/about.php:214
+#: ../includes/admin/about.php:210
 msgid "Rating forms can optionally include a name, e-mail and comment fields"
 msgstr ""
 
-#: ../includes/admin/about.php:215
+#: ../includes/admin/about.php:211
 msgid ""
 "Ability to use text descriptions for select and radio options instead of "
 "numbers"
 msgstr ""
 
-#: ../includes/admin/about.php:216
+#: ../includes/admin/about.php:212
 msgid ""
 "Post, category and specific page filters to include (whitelist) or exclude "
 "(blacklist) automatic placement of the rating form and rating results"
 msgstr ""
 
-#: ../includes/admin/about.php:217
+#: ../includes/admin/about.php:213
 msgid ""
 "Options to exclude the home page and archive pages (i.e. Category, Tag, "
 "Author or a Date based pages)"
 msgstr ""
 
-#: ../includes/admin/about.php:218
+#: ../includes/admin/about.php:214
 msgid "Thumbs up/thumbs down rating item type (e.g. like/dislike)"
 msgstr ""
 
-#: ../includes/admin/about.php:219
+#: ../includes/admin/about.php:215
 msgid "Display a breakdown of rating item results in 3 layouts"
 msgstr ""
 
-#: ../includes/admin/about.php:220
+#: ../includes/admin/about.php:216
 msgid "Allow/disallow anonymous user ratings option"
+msgstr ""
+
+#: ../includes/admin/about.php:217
+msgid "Embed CAPTCHA in the rating form and Wordpress comment form."
 msgstr ""
 
 #: ../includes/admin/class-post-metabox.php:31 ../multi-rating.php:390
@@ -371,12 +376,14 @@ msgid "Use default settings"
 msgstr ""
 
 #: ../includes/admin/class-post-metabox.php:89
-#: ../includes/class-settings.php:318
+#: ../includes/admin/class-post-metabox.php:101
+#: ../includes/class-settings.php:334 ../includes/class-settings.php:348
 msgid "Before content"
 msgstr ""
 
 #: ../includes/admin/class-post-metabox.php:90
-#: ../includes/class-settings.php:319
+#: ../includes/admin/class-post-metabox.php:102
+#: ../includes/class-settings.php:335 ../includes/class-settings.php:349
 msgid "After content"
 msgstr ""
 
@@ -385,18 +392,19 @@ msgid "Rating result position"
 msgstr ""
 
 #: ../includes/admin/class-post-metabox.php:99
-#: ../includes/class-settings.php:304
+#: ../includes/class-settings.php:332
 msgid "Before title"
 msgstr ""
 
 #: ../includes/admin/class-post-metabox.php:100
-#: ../includes/class-settings.php:305
+#: ../includes/class-settings.php:333
 msgid "After title"
 msgstr ""
 
 #: ../includes/admin/class-rating-entry-table.php:31
 #: ../includes/admin/class-rating-entry-table.php:125
 #: ../includes/admin/class-rating-results-table.php:113
+#: ../includes/widgets.php:311
 msgid "Rating Result"
 msgstr ""
 
@@ -437,7 +445,7 @@ msgid "Entry Date"
 msgstr ""
 
 #: ../includes/admin/class-rating-entry-table.php:123
-#: ../includes/class-settings.php:137
+#: ../includes/class-settings.php:165
 msgid "IP Address"
 msgstr ""
 
@@ -455,33 +463,33 @@ msgstr ""
 msgid "Shortcode"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:282
-#: ../includes/admin/class-rating-results-table.php:351
+#: ../includes/admin/class-rating-entry-table.php:287
+#: ../includes/admin/class-rating-results-table.php:356
 msgid "Star: "
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:283
-#: ../includes/admin/class-rating-results-table.php:352
+#: ../includes/admin/class-rating-entry-table.php:288
+#: ../includes/admin/class-rating-results-table.php:357
 msgid "Score: "
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:284
-#: ../includes/admin/class-rating-results-table.php:353
+#: ../includes/admin/class-rating-entry-table.php:289
+#: ../includes/admin/class-rating-results-table.php:358
 msgid "Percentage: "
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:305
+#: ../includes/admin/class-rating-entry-table.php:310
 #: ../includes/admin/edit-rating.php:9 ../multi-rating.php:399
 msgid "Edit Rating"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:336
+#: ../includes/admin/class-rating-entry-table.php:341
 #: ../includes/admin/class-rating-item-table.php:235
-#: ../includes/admin/class-rating-results-table.php:390
+#: ../includes/admin/class-rating-results-table.php:395
 msgid "Delete"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:373
+#: ../includes/admin/class-rating-entry-table.php:378
 msgid "Entries deleted successfully"
 msgstr ""
 
@@ -541,7 +549,7 @@ msgstr ""
 
 #: ../includes/admin/class-rating-item-table.php:139
 #: ../includes/admin/class-rating-item-table.php:348
-#: ../includes/admin/rating-items.php:108 ../includes/widgets.php:166
+#: ../includes/admin/rating-items.php:108 ../includes/widgets.php:165
 msgid "Star Rating"
 msgstr ""
 
@@ -612,12 +620,12 @@ msgid "Sort"
 msgstr ""
 
 #: ../includes/admin/class-rating-results-table.php:88
-#: ../includes/widgets.php:282
+#: ../includes/widgets.php:281
 msgid "Post Title Ascending"
 msgstr ""
 
 #: ../includes/admin/class-rating-results-table.php:89
-#: ../includes/widgets.php:283
+#: ../includes/widgets.php:282
 msgid "Post Title Descending"
 msgstr ""
 
@@ -626,7 +634,7 @@ msgid "Top Rating Results"
 msgstr ""
 
 #: ../includes/admin/class-rating-results-table.php:91
-#: ../includes/widgets.php:281
+#: ../includes/widgets.php:280
 msgid "Most Entries"
 msgstr ""
 
@@ -635,16 +643,16 @@ msgstr ""
 msgid "Entries"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:322
+#: ../includes/admin/class-rating-results-table.php:327
 msgid "View Entries"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:355
-#: ../includes/class-settings.php:303 ../includes/class-settings.php:317
+#: ../includes/admin/class-rating-results-table.php:360
+#: ../includes/class-settings.php:331 ../includes/class-settings.php:347
 msgid "None"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:436
+#: ../includes/admin/class-rating-results-table.php:441
 msgid "Rating results deleted successfully."
 msgstr ""
 
@@ -832,47 +840,51 @@ msgstr ""
 msgid "Field is required."
 msgstr ""
 
-#: ../includes/class-settings.php:114
+#: ../includes/class-settings.php:125
+msgid "Sample rating item"
+msgstr ""
+
+#: ../includes/class-settings.php:142
 msgid "General Settings"
 msgstr ""
 
-#: ../includes/class-settings.php:116
+#: ../includes/class-settings.php:144
 msgid "Enabled Post Types"
 msgstr ""
 
-#: ../includes/class-settings.php:117
+#: ../includes/class-settings.php:145
 msgid "Rating Restriction"
 msgstr ""
 
-#: ../includes/class-settings.php:118
+#: ../includes/class-settings.php:146
 msgid "Rating Results Cache"
 msgstr ""
 
-#: ../includes/class-settings.php:119
+#: ../includes/class-settings.php:147
 msgid "Hide Rating Form"
 msgstr ""
 
-#: ../includes/class-settings.php:120
+#: ../includes/class-settings.php:148
 msgid "Hide Multi Rating Post Meta Box?"
 msgstr ""
 
-#: ../includes/class-settings.php:121
+#: ../includes/class-settings.php:149
 msgid "Template Strip Newlines?"
 msgstr ""
 
-#: ../includes/class-settings.php:138
+#: ../includes/class-settings.php:166
 msgid "Cookie"
 msgstr ""
 
-#: ../includes/class-settings.php:154
+#: ../includes/class-settings.php:182
 msgid "Hours"
 msgstr ""
 
-#: ../includes/class-settings.php:155
+#: ../includes/class-settings.php:183
 msgid "Restrict saving a rating form for the same post multiple times."
 msgstr ""
 
-#: ../includes/class-settings.php:184
+#: ../includes/class-settings.php:212
 #, php-format
 msgid ""
 "Enable the rating results to be cached in the WordPress post meta table. The "
@@ -881,7 +893,7 @@ msgid ""
 "cache."
 msgstr ""
 
-#: ../includes/class-settings.php:203
+#: ../includes/class-settings.php:231
 #, php-format
 msgid ""
 "Some plugins convert newlines to HTML paragraphs similar to <a href=\"%s"
@@ -890,213 +902,213 @@ msgid ""
 "templates prior to display. This has no effect on the presentation."
 msgstr ""
 
-#: ../includes/class-settings.php:213
+#: ../includes/class-settings.php:241
 msgid ""
 "Do you want the Multi Rating post meta box to be hidden by default. You can "
 "set the meta box to visible in the Screen Options."
 msgstr ""
 
-#: ../includes/class-settings.php:231
+#: ../includes/class-settings.php:259
 msgid "Save rating restriction hours must be numeric."
 msgstr ""
 
-#: ../includes/class-settings.php:233
+#: ../includes/class-settings.php:261
 msgid "Save rating restriction hours must be greater than 0."
 msgstr ""
 
-#: ../includes/class-settings.php:284
+#: ../includes/class-settings.php:312
 msgid "Rating Results Position"
 msgstr ""
 
-#: ../includes/class-settings.php:285
+#: ../includes/class-settings.php:313
 msgid "Rating Form Position"
 msgstr ""
 
-#: ../includes/class-settings.php:293
+#: ../includes/class-settings.php:321
 msgid ""
 "These settings allow you to automatically place the rating form and rating "
 "results on every post or page in default positions."
 msgstr ""
 
-#: ../includes/class-settings.php:307
+#: ../includes/class-settings.php:337
 msgid ""
 "Choose to automatically display the rating result before or after the post "
 "title for all enabled post types."
 msgstr ""
 
-#: ../includes/class-settings.php:321
+#: ../includes/class-settings.php:351
 msgid ""
 "Choose to automatically display the rating form before or after the post "
 "content for all enabled post types."
 msgstr ""
 
-#: ../includes/class-settings.php:344
+#: ../includes/class-settings.php:374
 msgid "Style Settings"
 msgstr ""
 
-#: ../includes/class-settings.php:346
+#: ../includes/class-settings.php:376
 msgid "Custom CSS"
 msgstr ""
 
-#: ../includes/class-settings.php:347
+#: ../includes/class-settings.php:377
 msgid "Star Rating Color"
 msgstr ""
 
-#: ../includes/class-settings.php:348
+#: ../includes/class-settings.php:378
 msgid "Star Rating Hover Color"
 msgstr ""
 
-#: ../includes/class-settings.php:349
+#: ../includes/class-settings.php:379
 msgid "Error Message Color"
 msgstr ""
 
-#: ../includes/class-settings.php:350
+#: ../includes/class-settings.php:380
 msgid "Load Font Awesome Library?"
 msgstr ""
 
-#: ../includes/class-settings.php:351
+#: ../includes/class-settings.php:381
 msgid "Font Awesome Version"
 msgstr ""
 
-#: ../includes/class-settings.php:352
+#: ../includes/class-settings.php:382
 msgid "Use Custom Star Images"
 msgstr ""
 
-#: ../includes/class-settings.php:367
+#: ../includes/class-settings.php:397
 msgid "Do you want the plugin to include loading of the Font Awesome CSS?"
 msgstr ""
 
-#: ../includes/class-settings.php:377
+#: ../includes/class-settings.php:407
 msgid ""
 "You can upload your own star images to use instead of the using the default "
 "Font Awesome star icons."
 msgstr ""
 
-#: ../includes/class-settings.php:388
+#: ../includes/class-settings.php:418
 msgid "Full Star"
 msgstr ""
 
-#: ../includes/class-settings.php:390 ../includes/class-settings.php:397
-#: ../includes/class-settings.php:404 ../includes/class-settings.php:411
+#: ../includes/class-settings.php:420 ../includes/class-settings.php:427
+#: ../includes/class-settings.php:434 ../includes/class-settings.php:441
 msgid "Upload"
 msgstr ""
 
-#: ../includes/class-settings.php:395
+#: ../includes/class-settings.php:425
 msgid "Half Star"
 msgstr ""
 
-#: ../includes/class-settings.php:402
+#: ../includes/class-settings.php:432
 msgid "Empty Star"
 msgstr ""
 
-#: ../includes/class-settings.php:409
+#: ../includes/class-settings.php:439
 msgid "Hover Star"
 msgstr ""
 
-#: ../includes/class-settings.php:421
+#: ../includes/class-settings.php:451
 msgid "Image width"
 msgstr ""
 
-#: ../includes/class-settings.php:422 ../includes/class-settings.php:424
+#: ../includes/class-settings.php:452 ../includes/class-settings.php:454
 msgid "pixels"
 msgstr ""
 
-#: ../includes/class-settings.php:423
+#: ../includes/class-settings.php:453
 msgid "Image height"
 msgstr ""
 
-#: ../includes/class-settings.php:430
+#: ../includes/class-settings.php:460
 msgid ""
 "Each image must be one star of the same size. Valid mime types are image/"
 "jpeg, image/png, image/bmp, image/tiff and image/x-icon."
 msgstr ""
 
-#: ../includes/class-settings.php:431
+#: ../includes/class-settings.php:461
 msgid "Preview e.g. 2.5/5:"
 msgstr ""
 
-#: ../includes/class-settings.php:439
+#: ../includes/class-settings.php:469
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Learn how to setup your own Custom Star "
 "Rating images.</a>"
 msgstr ""
 
-#: ../includes/class-settings.php:527
+#: ../includes/class-settings.php:557
 msgid "Full star, half star and empty star custom images are required."
 msgstr ""
 
-#: ../includes/class-settings.php:542
+#: ../includes/class-settings.php:572
 msgid ""
 "Invalid image format. Valid mime types: image/jpeg, image/png, image/bmp, "
 "image/tiff and image/x-icon"
 msgstr ""
 
-#: ../includes/class-settings.php:551
+#: ../includes/class-settings.php:581
 msgid "Custom image height must be numeric."
 msgstr ""
 
-#: ../includes/class-settings.php:553
+#: ../includes/class-settings.php:583
 msgid "Custom image height cannot be less than 1 or greater than 128."
 msgstr ""
 
-#: ../includes/class-settings.php:557
+#: ../includes/class-settings.php:587
 msgid "Custom image width must be numeric."
 msgstr ""
 
-#: ../includes/class-settings.php:559
+#: ../includes/class-settings.php:589
 msgid "Custom image width cannot be less than 1 or greater than 128."
 msgstr ""
 
-#: ../includes/class-settings.php:573
+#: ../includes/class-settings.php:603
 msgid "Custom Text Settings"
 msgstr ""
 
-#: ../includes/class-settings.php:575
+#: ../includes/class-settings.php:605
 msgid "Rating Form Title"
 msgstr ""
 
-#: ../includes/class-settings.php:576
+#: ../includes/class-settings.php:606
 msgid "Rating Results List Title"
 msgstr ""
 
-#: ../includes/class-settings.php:577
+#: ../includes/class-settings.php:607
 msgid "Rating Form Submit Button Text"
 msgstr ""
 
-#: ../includes/class-settings.php:578
+#: ../includes/class-settings.php:608
 msgid "Filter Button Text"
 msgstr ""
 
-#: ../includes/class-settings.php:579
+#: ../includes/class-settings.php:609
 msgid "Filter Label Text"
 msgstr ""
 
-#: ../includes/class-settings.php:580
+#: ../includes/class-settings.php:610
 msgid "Rating Form Submit Success Message"
 msgstr ""
 
-#: ../includes/class-settings.php:581
+#: ../includes/class-settings.php:611
 msgid "Rating Restriction Error Message"
 msgstr ""
 
-#: ../includes/class-settings.php:582
+#: ../includes/class-settings.php:612
 msgid "Field Required Error Message"
 msgstr ""
 
-#: ../includes/class-settings.php:583
+#: ../includes/class-settings.php:613
 msgid "No Rating Results Text"
 msgstr ""
 
-#: ../includes/class-settings.php:584
+#: ../includes/class-settings.php:614
 msgid "Character Encoding"
 msgstr ""
 
-#: ../includes/class-settings.php:592
+#: ../includes/class-settings.php:622
 msgid "Modify the default text and messages."
 msgstr ""
 
-#: ../includes/class-settings.php:628
+#: ../includes/class-settings.php:658
 msgid ""
 "Substitutions: %star_result%, %adjusted_star_result%, %score_result%, "
 "%adjusted_score_result%, %percentage_result%, %adjusted_percentage_result% "
@@ -1104,19 +1116,19 @@ msgid ""
 "%/5\"."
 msgstr ""
 
-#: ../includes/class-settings.php:647
+#: ../includes/class-settings.php:677
 msgid "Applies to rating items if zero is selected."
 msgstr ""
 
-#: ../includes/class-settings.php:684
+#: ../includes/class-settings.php:714
 msgid "Keep current charset (Recommended)"
 msgstr ""
 
-#: ../includes/class-settings.php:685
+#: ../includes/class-settings.php:715
 msgid "UTF-8 (try this first)"
 msgstr ""
 
-#: ../includes/class-settings.php:686
+#: ../includes/class-settings.php:716
 msgid "latin1_swedish_ci"
 msgstr ""
 
@@ -1127,77 +1139,100 @@ msgid ""
 "org | Check out <a href=\"%2$s\" target=\"_blank\">Multi Rating Pro</a>!"
 msgstr ""
 
-#: ../includes/widgets.php:15 ../includes/widgets.php:18
-msgid "Rating Results List Widget"
+#: ../includes/widgets.php:14
+msgid "Rating Results List"
 msgstr ""
 
-#: ../includes/widgets.php:154
+#: ../includes/widgets.php:17
+msgid "Displays a list of rating results."
+msgstr ""
+
+#: ../includes/widgets.php:153 ../includes/widgets.php:469
 msgid "Title"
 msgstr ""
 
-#: ../includes/widgets.php:158
+#: ../includes/widgets.php:157
 msgid "Limit"
 msgstr ""
 
-#: ../includes/widgets.php:162
+#: ../includes/widgets.php:161
 msgid "Result Type"
 msgstr ""
 
-#: ../includes/widgets.php:167
+#: ../includes/widgets.php:166
 msgid "Percentage"
 msgstr ""
 
-#: ../includes/widgets.php:168
+#: ../includes/widgets.php:167
 msgid "Score"
 msgstr ""
 
-#: ../includes/widgets.php:183
+#: ../includes/widgets.php:182
 msgid "Taxonomy"
 msgstr ""
 
-#: ../includes/widgets.php:203
+#: ../includes/widgets.php:202
 msgid "Terms"
 msgstr ""
 
-#: ../includes/widgets.php:213 ../includes/widgets.php:314
+#: ../includes/widgets.php:212 ../includes/widgets.php:529
 #: ../templates/rating-result-list.php:31
 msgid "All"
 msgstr ""
 
-#: ../includes/widgets.php:228
+#: ../includes/widgets.php:227
 msgid "Show Filter"
 msgstr ""
 
-#: ../includes/widgets.php:231
+#: ../includes/widgets.php:230
 msgid "Filter Label"
 msgstr ""
 
-#: ../includes/widgets.php:236
+#: ../includes/widgets.php:235
 msgid "Show Featured Image"
 msgstr ""
 
-#: ../includes/widgets.php:240
+#: ../includes/widgets.php:239
 msgid "Show Rank"
 msgstr ""
 
-#: ../includes/widgets.php:243
+#: ../includes/widgets.php:242
 msgid "Image Size"
 msgstr ""
 
-#: ../includes/widgets.php:259
+#: ../includes/widgets.php:258 ../includes/widgets.php:474
 msgid "Header"
 msgstr ""
 
-#: ../includes/widgets.php:275
+#: ../includes/widgets.php:274
 msgid "Sort By"
 msgstr ""
 
-#: ../includes/widgets.php:279
+#: ../includes/widgets.php:278
 msgid "Highest Rated"
 msgstr ""
 
-#: ../includes/widgets.php:280
+#: ../includes/widgets.php:279
 msgid "Lowest Rated"
+msgstr ""
+
+#: ../includes/widgets.php:314
+msgid "Displays a rating result."
+msgstr ""
+
+#: ../includes/widgets.php:368 ../includes/widgets.php:490
+#, php-format
+msgid ""
+"Note: Widget will only display in templates for a single post or page. See "
+"<a href=\"%s\">is_single()</a>."
+msgstr ""
+
+#: ../includes/widgets.php:386
+msgid "Rating Form"
+msgstr ""
+
+#: ../includes/widgets.php:389
+msgid "Displays the rating form."
 msgstr ""
 
 #: ../multi-rating.php:398

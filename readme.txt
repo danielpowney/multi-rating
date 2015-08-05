@@ -2,7 +2,7 @@
 Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
 Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, multi rating, feedback, user rating, wpml, feedback, question, star rating, 5 star, font awesome
-Requires at least: 3.8
+Requires at least: 4.0
 Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
@@ -19,7 +19,7 @@ The best rating system plugin for WordPress. Multi Rating allows visitors to rat
 * 5 star ratings, percentage and score results
 * Multiple rating criteria and questions using star ratings, select drop-down lists and radio buttons to choose answers from
 * Font Awesome used for star rating icons or upload your own star rating images to use instead
-* Shortcodes to display the rating form and rating results
+* Shortcodes and widgets to display the rating form and rating results
 * Shortcode and widget to display a list of rating results (sort by highest rated, lowest rated, most entries, post title ascending or post title descending)
 * Ability to add schema.org microdata to show the aggregate ratings in search engine results as rich snippets
 * View the rating results, entries and selected values in the WP-admin
@@ -35,7 +35,7 @@ The best rating system plugin for WordPress. Multi Rating allows visitors to rat
 * Edit ratings in WP-admin (Editor & Administrator user roles only)
 * In-built template system for customization
 * All data stoted in your own WordPress database - no signup required!
-* Fully WPML compatible 
+* Fully WPML compatible
 
 Here's a live demo: http://danielpowney.com/multi-rating/
 
@@ -70,10 +70,11 @@ The following key features are available in the Pro version:
 * Thumbs up/thumbs down rating item type (e.g. like/dislike)
 * Display a breakdown of rating item results in 3 layouts
 * Allow/disallow anonymous user ratings option
+* Embed CAPTCHA in the rating form and WordPress comment form (add-on)
 
 Check it out here http://danielpowney.com/downloads/multi-rating-pro/
 
-Github: http://github.com/danielpowney/multi-rating
+Github repo: http://github.com/danielpowney/multi-rating
 
 == Installation ==
 
@@ -105,11 +106,26 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
-= 4.1.3 (06/06/2015) =
+= 4.1.7 (08/07/2015) =
+* Bug: Fixed schema.org microdata for itemtype Article (the post) in rating-result.php template file missing required itemprops publishedDate, headline and image 
+
+= 4.1.6 (02/08/2015) =
+* Bug: Fixed dbdelta key spacing as per https://core.trac.wordpress.org/ticket/32314
+
+= 4.1.5 (16/07/2015) =
+* Tweak: Set template strip newlines option to on by default
+* New: Create a sample rating item if none exists
+
+= 4.1.4 (15/07/2015) =
+* New: Added auto placement of rating results options before_content and after_content
+* New: Added rating form widget
+* New: Added rating results widget
+
+= 4.1.3 (06/07/2015) =
 * Tweak: Changed post link in rating results and rating entries tables to the edit post page
 * Bug: Fixed touch event on minus icon with custom star images in rating form not working properly 
 
-= 4.1.2 (03/06/2015) =
+= 4.1.2 (03/07/2015) =
 * Bug: Fixed error creating db tables on activation caused by stray comma in SQL statement
 
 = 4.1.1 (30/06/2015) =

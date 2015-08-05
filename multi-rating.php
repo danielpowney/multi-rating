@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: The best rating system plugin for WordPress. Multi Rating allows visitors to rate a post based on multiple criteria and questions.
-Version: 4.1.3
+Version: 4.1.7
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '4.1.3',
+	VERSION = '4.1.7',
 	ID = 'multi-rating',
 
 	// tables
@@ -69,7 +69,7 @@ class Multi_Rating {
 	RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION 	= 'mr_rating_form_submit_success_message',
 	DATE_VALIDATION_FAIL_MESSAGE_OPTION			= 'mr_date_validation_fail_message',
 	NO_RATING_RESULTS_TEXT_OPTION				= 'mr_no_rating_results_text',
-	FIELD_REQUIRED_ERROR_MESSAGE_OPTION			= 'mrp_field_required_error',
+	FIELD_REQUIRED_ERROR_MESSAGE_OPTION			= 'mrp_field_required_error', // FIXME
 	INCLUDE_FONT_AWESOME_OPTION					= 'mr_include_font_awesome',
 	FONT_AWESOME_VERSION_OPTION					= 'mr_font_awesome_version',
 	VERSION_OPTION								= 'mr_version_option',
@@ -323,7 +323,7 @@ class Multi_Rating {
 				ip_address varchar(100),
 				user_id bigint(20) DEFAULT 0,
 				PRIMARY KEY  (rating_item_entry_id),
-				KEY  ix_rating_entry (rating_item_entry_id,post_id)
+				KEY ix_rating_entry (rating_item_entry_id,post_id)
 		) ENGINE=InnoDB AUTO_INCREMENT=1;';
 		dbDelta( $sql_create_rating_item_entry_tbl );
 
@@ -333,7 +333,7 @@ class Multi_Rating {
 				rating_item_id bigint(20) NOT NULL,
 				value int(11) NOT NULL,
 				PRIMARY KEY  (rating_item_entry_value_id),
-				KEY  ix_rating_entry (rating_item_entry_id)
+				KEY ix_rating_entry (rating_item_entry_id)
 		) ENGINE=InnoDB AUTO_INCREMENT=1;';
 		dbDelta( $sql_create_rating_item_entry_value_tbl );
 		
@@ -497,8 +497,8 @@ class Multi_Rating {
 		add_action( 'wp_ajax_nopriv_save_rating', array( 'MR_Rating_Form', 'save_rating' ) );
 		add_action( 'wp_ajax_save_rating_item_table_column', array( 'MR_Rating_Item_Table', 'save_rating_item_table_column' ) );
 		
-		add_action( 'wp_ajax_nopriv_retrieve_terms_by_taxonomy', 'mr_retrieve_terms_by_taxonomy' );
-		add_action( 'wp_ajax_retrieve_terms_by_taxonomy', 'mr_retrieve_terms_by_taxonomy' );
+		add_action( 'wp_ajax_nopriv_get_terms_by_taxonomy', 'mr_get_terms_by_taxonomy' );
+		add_action( 'wp_ajax_get_terms_by_taxonomy', 'mr_get_terms_by_taxonomy' );
 		
 	}
 		

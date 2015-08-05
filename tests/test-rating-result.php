@@ -6,7 +6,7 @@
  * @author dpowney
  *
  */
-class MRP_Rating_Result_Test extends WP_UnitTestCase {
+class MR_Rating_Result_Test extends WP_UnitTestCase {
 	
 	/**
 	 * Tests rating result for a single entry

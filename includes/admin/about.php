@@ -112,9 +112,7 @@ function mr_about_screen() {
 					</div>
 				</div>
 			
-				<hr>
-			
-				<div class="feature-section col two-col">
+				<div class="feature-section col two-col" style="margin-top: 40px;">
 					<div class="col-1">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'shortcodes.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'Shortcodes', 'multi-rating' ); ?></h4>
@@ -130,8 +128,6 @@ function mr_about_screen() {
 					</div>
 				</div>
 			</div>
-			
-			<hr>
 			
 			<div class="changelog under-the-hood">
 				<div class="feature-section col three-col">
@@ -218,6 +214,7 @@ function mr_about_screen() {
 		    <li><?php _e( 'Thumbs up/thumbs down rating item type (e.g. like/dislike)', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Display a breakdown of rating item results in 3 layouts', 'multi-rating' ); ?></li>
 		    <li><?php _e( 'Allow/disallow anonymous user ratings option', 'multi-rating' ); ?></li>
+		     <li><?php _e( 'Embed CAPTCHA in the rating form and WordPress comment form (add-on).', 'multi-rating' ); ?><span style="color: Red; font-size: 80%; margin-left: 5px;">(<?php _e('New', 'multi-rating' ); ?>)</span></li>
 		</ol>
 		<?php
 	}

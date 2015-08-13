@@ -99,7 +99,7 @@
 				
 			$microdata .= '</div>';
 				
-			$microdata = apply_filters( 'mr_rating_result_microdata', $microdata, $rating_form_id, $post_id, $rating_result );
+			$microdata = apply_filters( 'mr_rating_result_microdata', $microdata, $post_id, $rating_result );
 				
 			echo $microdata;
 		}

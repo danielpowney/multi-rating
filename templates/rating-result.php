@@ -1,29 +1,15 @@
-<span class="rating-result <?php echo esc_attr( $class ); ?>"<?php
- 
-$count = isset( $rating_result['count'] ) ? $rating_result['count'] : 0;
- 
-if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
-	// ignore count is used to not show this block
-	?>>
-		<?php 
+<span class="rating-result <?php echo esc_attr( $class ); ?>">
+	<?php
+	$count = isset( $rating_result['count'] ) ? $rating_result['count'] : 0;
+	 
+	if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
+		// ignore count is used to not show this block
 		$no_rating_results_text = apply_filters( 'mr_no_rating_results_text', $no_rating_results_text );
 		?>
 		<span class="no-rating-results-text"><?php echo esc_html( $no_rating_results_text ); ?></span>
 		<?php
-} else {
-
-	if  ( $show_rich_snippets && $result_type == Multi_Rating::STAR_RATING_RESULT_TYPE ) {
+	} else {
 		
-		$microdata_thing = apply_filters( 'mr_rating_result_microdata_thing', "http://schema.org/Article", $rating_result['post_id'], $rating_result );
-		
-		?> itemscope itemtype="<?php echo esc_attr( $microdata_thing ); ?>" <?php
-		
-		do_action( 'mr_rating_result_microdata_thing_properties', $post_id, $rating_result );
-	}
-	?>><?php
-	
-	
-
 		if ( $show_title == true ) {
 			$post_obj = get_post( $post_id );
 			?>
@@ -89,17 +75,33 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 		}
 			
 		if ( is_singular() && $show_rich_snippets == true ) {			
-			$post_obj = get_post( $post_id );	
+
+			// default itemscope is "http://schema.org/Article"
+			$microdata = '<div itemscope itemtype="' . "http://schema.org/Article" . '" style="display: none;">';
+				
+			$post_obj = get_post( $post_id );
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ) );
-			?>
-			<meta itemprop="datePublished" content="<?php echo date( 'Y-m-d', strtotime( $post_obj->post_date ) ); ?>" />
-			<meta itemprop="headline" content="<?php echo $post_obj->post_title; ?>" />
-			<meta itemprop="image" content="<?php if ( isset( $image[0] ) ) { echo $image[0]; } ?>" />
-			<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="rating-result-summary" style="display: none;">
-			<span itemprop="ratingValue"><?php echo $rating_result['adjusted_star_result']; ?></span>/<span itemprop="bestRating">5</span>
-			<span itemprop="ratingCount" style="display:none;"><?php echo $count; ?></span>
-			</span>
-			<?php
+			$image_content = '';
+			if ( isset( $image[0] ) ) {
+				$image_content = $image[0];
+			}
+				
+			// default required itemprops for "http://schema.org/Article"
+			$microdata .= '<meta itemprop="datePublished" content="' . date( 'Y-m-d', strtotime( $post_obj->post_date ) ) . '" />';
+			$microdata .= '<meta itemprop="headline" content="' . $post_obj->post_title . '" />';
+			$microdata .= '<meta itemprop="image" content="' . $image_content . '" />';
+			
+			// add aggregate rating
+			$microdata .= '<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">'
+					. '<span itemprop="ratingValue">' . $rating_result['adjusted_star_result'] . '</span>/<span itemprop="bestRating">5</span>'
+							. '<span itemprop="ratingCount">' . $rating_result['count'] . '</span>'
+									. '</span>';
+				
+			$microdata .= '</div>';
+				
+			$microdata = apply_filters( 'mr_rating_result_microdata', $microdata, $rating_form_id, $post_id, $rating_result );
+				
+			echo $microdata;
 		}
 	}
 	?>

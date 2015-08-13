@@ -3,7 +3,7 @@ Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
 Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, multi rating, feedback, user rating, wpml, feedback, question, star rating, 5 star, font awesome
 Requires at least: 4.0
-Tested up to: 4.2.2
+Tested up to: 4.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -105,6 +105,9 @@ Full documentation available here http://danielpowney.com/multi-rating/
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.1.8 (14/08/2015) =
+* Tweak: Made it easier to add your own schema.org microdata and override the default "http://schema.org/Article" micordata using new filter mr_rating_result_microdata. The old filters mrp_rating_result_microdata_thing and mrp_rating_result_microdata_thing_properties are no longer supported.
 
 = 4.1.7 (08/07/2015) =
 * Bug: Fixed schema.org microdata for itemtype Article (the post) in rating-result.php template file missing required itemprops publishedDate, headline and image 

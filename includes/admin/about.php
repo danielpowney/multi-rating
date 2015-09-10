@@ -95,25 +95,25 @@ function mr_about_screen() {
 				<p class="about-description"><?php _e( 'Use the tips below to help you get started.', 'multi-rating' ); ?></p>
 				
 				<div class="feature-section col three-col">
-					<div class="col-1">
+					<div class="col">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'add-new-rating-items.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'Add New Rating Items', 'multi-rating' ); ?></h4>
 						<p><?php printf( __( 'Setup your criteria and questions by <a href="admin.php?page=%s">adding new rating items</a>.', 'multi-rating' ), Multi_Rating::ADD_NEW_RATING_ITEM_PAGE_SLUG ); ?></p>
 					</div>
-					<div class="col-2">
+					<div class="col">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'auto-placement.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'Auto Placement Settings' ); ?></h4>
 						<p><?php printf( __( 'Use the <a href="admin.php?page=%s">automatic placement settings</a> to set the rating form and rating results to display on every post or page in default positions.', 'multi-rating' ), Multi_Rating::SETTINGS_PAGE_SLUG ); ?></p>						
 					</div>
-					<div class="col-3 last-feature">
+					<div class="col last-feature">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'view-frontend.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'View the Frontend', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'If everything is setup correctly, the rating form and rating results should appear on your website!', 'multi-rating' ); ?></p>
 					</div>
 				</div>
 			
-				<div class="feature-section col two-col" style="margin-top: 40px;">
-					<div class="col-1">
+				<div class="feature-section col two-col">
+					<div class="col">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'shortcodes.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'Shortcodes', 'multi-rating' ); ?></h4>
 						<p><?php _e( '[mr_rating_form] - displays the rating form</i>.', 'multi-rating' ); ?><br />
@@ -121,7 +121,7 @@ function mr_about_screen() {
 						<?php _e( '[mr_rating_result] - displays the rating result', 'multi-rating' ); ?></p>
 						<p><?php printf( __( 'Refer to the <a href="%s">documentation</a> for more information on the attributes available.', 'multi-rating' ), 'http://danielpowney.com/multi-rating/' ); ?></p>
 					</div>
-					<div class="col-2 last-feature">
+					<div class="col last-feature">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'view-rating-results.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'View Rating Results', 'multi-rating' ); ?></h4>
 						<p><?php printf( __( 'View all <a href="admin.php?page=%s">rating results</a> and entries from the WP-admin.', 'multi-rating' ), Multi_Rating::RATING_RESULTS_PAGE_SLUG ); ?></p>
@@ -129,9 +129,9 @@ function mr_about_screen() {
 				</div>
 			</div>
 			
-			<div class="changelog under-the-hood">
-				<div class="feature-section col three-col">
-					<div>
+			<div class="changelog">
+				<div class="under-the-hood col three-col">
+					<div class="col">
 						<h4><?php _e( 'Custom Post Types', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'If you want to use the plugin for pages and other post types you\'ll need to be enable them in the plugin settings.', 'multi-rating' ); ?></p>
 								
@@ -145,7 +145,7 @@ function mr_about_screen() {
 						<p><?php _e( 'The plugin has an in-built template system.', 'multi-rating' ); ?></p>
 						
 					</div>
-					<div>
+					<div class="col">
 					
 						<h4><?php _e( 'Rich Snippets', 'multi-rating' ); ?></h4>
 						<p><?php _e( '<a href="http://schema.org">schema.org</a> structured markup can be be added to every page which allows search engines to display the aggregated rating results as rich snippets.', 'multi-rating' ); ?></p>															
@@ -164,7 +164,7 @@ function mr_about_screen() {
 						<p><?php _e( 'Administrator and Editor user roles have the capability to edit ratings.', 'multi-rating' ); ?></p>
 						
 					</div>
-					<div class="last-feature">	
+					<div class="col last-feature">	
 					
 						<h4><?php _e( 'Reports' ); ?></h4>
 						<p><?php _e( 'You can view the number of rating entries per day over time.', 'multi-rating' ); ?></p>

@@ -106,6 +106,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
+= 4.1.9 (10/09/2015) =
+* Bug: Fixed settings section in wp-admin for custom error message text
+* Tweak: Fixed plugin about page for WP 4.3
+
 = 4.1.8 (14/08/2015) =
 * Tweak: Made it easier to add your own schema.org microdata and override the default "http://schema.org/Article" micordata using new filter mr_rating_result_microdata. The old filters mrp_rating_result_microdata_thing and mrp_rating_result_microdata_thing_properties are no longer supported.
 

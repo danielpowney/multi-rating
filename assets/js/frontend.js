@@ -174,8 +174,8 @@ jQuery(document).ready(function() {
 				jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-hover-star mr-star-hover mr-custom-full-star mr-star-full').addClass('mr-custom-empty-star mr-star-empty');	
 
 			} else {
-				jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
-				jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
+				jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_hover);
+				jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_hover);
 				jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_hover + " " + icon_classes.star_full).addClass(icon_classes.star_empty);	
 			}
 		}

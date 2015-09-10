@@ -609,7 +609,7 @@ class MR_Settings {
 		add_settings_field( Multi_Rating::FILTER_LABEL_TEXT_OPTION, __( 'Filter Label Text', 'multi-rating' ), array( &$this, 'field_filter_label_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION, __( 'Rating Form Submit Success Message', 'multi-rating' ), array( &$this, 'field_rating_form_submit_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION, __( 'Rating Restriction Error Message', 'multi-rating' ), array( &$this, 'field_save_rating_restriction_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
-		add_settings_field( Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION, __( 'Field Required Error Message', 'multi-rating' ), array( &$this, 'field_required_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_messages' );
+		add_settings_field( Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION, __( 'Field Required Error Message', 'multi-rating' ), array( &$this, 'field_required_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION, __( 'No Rating Results Text' , 'multi-rating' ), array( &$this, 'field_no_rating_results_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::CHAR_ENCODING_OPTION, __( 'Character Encoding', 'multi-rating' ), array( &$this, 'field_char_encoding' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		

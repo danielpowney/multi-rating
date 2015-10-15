@@ -12,10 +12,10 @@ $include_minus = apply_filters( 'mr_rating_form_include_minus', true);
 	$index = 0;
 	for ( $index; $index <= $max_option_value; $index++ ) {
 		
-		if ( $index == 0 && $include_minus ) {
+		if ( $index == 0 ) {
 			$class = $icon_classes['minus'] . ' index-' . $index . '-' . $element_id;
 			?>
-			<i id="index-<?php echo $index; ?>-<?php echo $element_id; ?>" class="<?php echo $class; ?>"></i>
+			<i <?php if ( ! $include_minus ) { echo 'style="display: none"'; } ?> id="index-<?php echo $index; ?>-<?php echo $element_id; ?>" class="<?php echo $class; ?>"></i>
 			<?php
 			continue;
 		}

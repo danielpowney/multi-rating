@@ -324,7 +324,7 @@ class Multi_Rating_API {
 		$query_select = 'SELECT rie.rating_item_entry_id, rie.user_id, rie.post_id, rie.entry_date';
 		
 		if ( $published_posts_only ) {
-			$query_select .= ', p.post_status ';
+			$query_select .= ', p.post_status, p.post_type ';
 		}
 		
 		$query_select = apply_filters( 'mr_entries_query_select', $query_select, $params );
@@ -421,7 +421,7 @@ class Multi_Rating_API {
 				$query_where .= ' AND';
 			}
 				
-			$query_where .= ' p.ID = rie.post_id AND p.post_status = "publish"';
+			$query_where .= ' p.ID = rie.post_id AND ( p.post_status = "publish" OR p.post_type = "attachment" )';
 			$added_to_query = true;
 		}
 		

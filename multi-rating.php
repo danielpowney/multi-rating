@@ -344,6 +344,27 @@ class Multi_Rating {
 		$editor_role->add_cap( 'mr_edit_ratings' );
 		$administrator_role->add_cap( 'mr_edit_ratings' );
 		
+		// if no rating items exist, add a sample one :)
+		try {
+			
+			$count = $wpdb->get_var( 'SELECT COUNT(rating_item_id) FROM ' . $wpdb->prefix 
+					. Multi_Rating::RATING_ITEM_TBL_NAME );
+			
+			if ( is_numeric( $count ) && $count == 0 ) {
+				$results = $wpdb->insert(  $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME, array(
+						'description' => __( 'Sample rating item', 'multi-rating' ),
+						'max_option_value' => 5,
+						'default_option_value' => 5,
+						'weight' => 1,
+						'type' => 'star_rating',
+						'required' => true
+				) );
+			}
+			
+		} catch ( Exception $e ) {
+			// do nothing
+		}
+		
 	}
 	
 	/**

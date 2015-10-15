@@ -69,7 +69,7 @@ class Multi_Rating_API {
 		
 		$rating_items_query .= ' GROUP BY ri.rating_item_id';
 		
-		$rating_item_rows = $wpdb->get_results($rating_items_query);
+		$rating_item_rows = $wpdb->get_results( $rating_items_query );
 		
 		// construct rating items array
 		$rating_items = array();

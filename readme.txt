@@ -110,6 +110,7 @@ Full documentation available here http://danielpowney.com/multi-rating/
 * Bug: Fixed attachments not being able to calculate ratings due to post status inherit instead of published
 * Bug: Fixed rating form using mrp_rating_form_include_minus filter
 * Tweak: Changed Rating Results List widget show filter default to false
+* Tweak: Moved creating sample rating item if none exists to plugin activation
 
 = 4.1.9 (10/09/2015) =
 * Bug: Fixed settings section in wp-admin for custom error message text

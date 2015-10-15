@@ -292,6 +292,16 @@ class MR_Rating_Result_Test extends WP_UnitTestCase {
 		$this->assertEquals( 5, count( $rating_result_list ) );
 	}
 	
+	public function setUp() {
+	
+		parent::setUp();
+	
+		// delete any sample rating items
+		global $wpdb;
+	
+		$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE 1' );
+	}
+	
 	public function tearDown() {
 		
 		parent::tearDown();

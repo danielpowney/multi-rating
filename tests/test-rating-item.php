@@ -10,7 +10,7 @@ class MR_Rating_Item_Test extends WP_UnitTestCase {
 	/**
 	 * Simple test for getting a rating item and checking correct values are returned
 	 * 
-	 * @group func
+	 * @group func8	
 	 */
 	function test_get_rating_items() {
 		
@@ -83,6 +83,29 @@ class MR_Rating_Item_Test extends WP_UnitTestCase {
 		
 		$this->assertEquals( 3, count( $rating_items ) );
 
+	}
+	
+	public function setUp() {
+	
+		parent::setUp();
+	
+		// delete any sample rating items
+		global $wpdb;
+	
+		$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE 1' );
+	}
+	
+	public function tearDown() {
+	
+		parent::tearDown();
+	
+		global $wpdb;
+	
+		$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE 1' );
+		$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' WHERE 1' );
+		$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE 1' );
+		$wpdb->query( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_SUBJECT_TBL_NAME . ' WHERE 1' );
+	
 	}
 	
 }

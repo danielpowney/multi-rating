@@ -102,34 +102,6 @@ class MR_Settings {
 		update_option( Multi_Rating::POSITION_SETTINGS, $this->position_settings);
 		update_option( Multi_Rating::CUSTOM_TEXT_SETTINGS, $this->custom_text_settings);
 		update_option( Multi_Rating::GENERAL_SETTINGS, $this->general_settings);
-		
-		global $wpdb;
-
-		$query = 'SELECT COUNT(rating_item_id) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME;
-	
-		$count_rating_items = $wpdb->get_var( $query );
-		
-		if ( $count_rating_items == 0 ) {
-			$this->generate_sample_rating_item();
-		}
-	}
-	
-	/**
-	 * Generates a sample rating item
-	 */
-	function generate_sample_rating_item() {
-		
-		global $wpdb;
-		
-		$results = $wpdb->insert(  $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME, array(
-				'description' => __( 'Sample rating item', 'multi-rating' ),
-				'max_option_value' => 5,
-				'default_option_value' => 5,
-				'weight' => 1,
-				'type' => 'star_rating',
-				'required' => true
-		) );
-
 	}
 
 	/**

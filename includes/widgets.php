@@ -31,7 +31,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 	
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
 		$limit = empty( $instance['limit'] ) ? 10 : intval( $instance['limit'] );
-		$taxonomy =  empty( $instance['taxonomy'] ) ? '' : $instance['taxonomy'];
+		$taxonomy =  empty( $instance['taxonomy'] ) ? null : $instance['taxonomy'];
 		$term_id = 0;
 		if ( ! empty( $instance['term_id'] ) && is_numeric( $instance['term_id'] ) ) {
 			$term_id = intval( $instance['term_id'] );
@@ -125,7 +125,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 				'image_size' => 'thumbnail',
 				'header' => 'h3',
 				'sort_by' => 'highest_rated',
-				'show_filter' => true,
+				'show_filter' => false,
 				'taxonomy' => '',
 				'term_id' => 0,
 				'show_rank' => true,

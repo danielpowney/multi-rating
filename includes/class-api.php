@@ -899,7 +899,7 @@ class Multi_Rating_API {
 			$taxonomy = 'category';
 		}
 		
-		if ( $category_id != 0) {
+		if ( $category_id != 0 ) {
 			$term_id = $category_id;
 			$taxonomy = 'category';
 		}

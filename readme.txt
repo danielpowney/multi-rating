@@ -106,6 +106,10 @@ Full documentation available here http://danielpowney.com/multi-rating/
 
 == Changelog ==
 
+= 4.1.11 (02/11/2015) =
+* Bug: jQuery UI calls protocol agnostic i.e http or https
+* Bug: Removed usage of mysql_real_escape_string() in admin tables
+
 = 4.1.10 (15/10/2015) =
 * Bug: Fixed attachments not being able to calculate ratings due to post status inherit instead of published
 * Bug: Fixed rating form using mrp_rating_form_include_minus filter

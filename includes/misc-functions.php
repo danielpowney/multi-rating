@@ -14,7 +14,7 @@ function mr_plugin_footer( $footer_text ) {
 		$plugin_footer = sprintf( __( 'Please <a href="%1$s" target="_blank">rate this plugin</a> on WordPress.org | '
 				. 'Check out <a href="%2$s" target="_blank">Multi Rating Pro</a>!', 'multi-rating' ),
 				'http://wordpress.org/support/view/plugin-reviews/multi-rating?filter=5#postform',
-				'http://danielpowney.com/downloads/multi-rating-pro'
+				'http://multiratingpro.com'
 		);
 
 		return $plugin_footer . '<br />' . $footer_text;

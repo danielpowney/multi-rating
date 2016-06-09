@@ -14,6 +14,8 @@ The best rating system plugin for WordPress. This is a simple plugin which allow
 
 The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.
 
+View [Demo](http://multiratingpro.com/demo-page-free).
+
 = Key Features =
 
 * 5 star ratings, percentage and score results
@@ -35,8 +37,6 @@ The best rating system plugin for WordPress. This is a simple plugin which allow
 * In-built template system for customization
 * All data stoted in your own WordPress database - no signup required!
 
-View [Demo](http://multiratingpro.com/demo-page-free)
-
 = Shortcode Examples =
 
 * [mr_rating_form]
@@ -49,7 +49,7 @@ View [Demo](http://multiratingpro.com/demo-page-free)
 
 = Pro version available! =
 
-The Multi Rating Pro version provides a significant additional feature set, including:
+The [Multi Rating Pro](http://multiratingpro.com) version provides a significant additional feature set, including:
 
 * Unlimited rating forms
 * Ratings moderation (approve or unapprove rating entries)
@@ -62,7 +62,7 @@ The Multi Rating Pro version provides a significant additional feature set, incl
 * Show a breakdown of rating item results in a poll layout
 * Show text labels for rating item options instead of numbers	
 * Extra shortcodes and widgets (i.e. reviews, user ratings dashboard and rating item results)
-* Filters to set different rating forms and override auto placement settings for specific taxonomies, terms, post types, post id’s and page URL’s
+* Filters to set different rating forms and override auto placement settings for specific taxonomies, terms, post types, post id's and page URL's
 * Options to exclude the home page, search page and archive pages (e.g. category)
 * Thumbs up/down rating item type (e.g. like or dislike)
 * Option to disallow anonymous ratings
@@ -101,7 +101,10 @@ The [Demo](http://multiratingpro.com/demo-page-free) provide some documentation.
 
 == Changelog ==
 
-= 4.1.12 (06/07/2016) =
+= 4.1.13 (09/06/2016) =
+* Bug: Fixed pagination with filters on rating entries and rating results tables in wp-admin
+
+= 4.1.12 (06/06/2016) =
 * Minor readme changes and updated some links
 
 = 4.1.11 (02/11/2015) =

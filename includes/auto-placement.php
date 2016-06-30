@@ -59,7 +59,7 @@ function mr_filter_the_content( $content ) {
 					'post_id' => $post_id,
 					'echo' => false,
 					'show_date' => false,
-					'show_rich_snippets' => true,
+					'generate_microdata' => is_singular(),
 					'class' => $rating_results_position . ' mr-filter'
 			) );
 		}
@@ -136,7 +136,7 @@ function mr_filter_the_title( $title ) {
 				'post_id' => $post_id,
 				'echo' => false,
 				'show_date' => false,
-				'show_rich_snippets' => true,
+				'generate_microdata' => is_singular(),
 				'class' => $rating_results_position . ' mr-filter'
 		) );
 	}

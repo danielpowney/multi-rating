@@ -46,12 +46,9 @@ class MR_Settings {
 		$this->position_settings 		= (array) get_option( Multi_Rating::POSITION_SETTINGS );
 		$this->general_settings 		= (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 	
-		$default_css = addslashes(".rating-results-list .rank { font-weight: bold; }");
-	
-	
 		// Merge with defaults
 		$this->style_settings = array_merge( array(
-				Multi_Rating::CUSTOM_CSS_OPTION 				=> $default_css,
+				Multi_Rating::CUSTOM_CSS_OPTION 				=> '',
 				Multi_Rating::STAR_RATING_COLOUR_OPTION 		=> '#ffd700',
 				Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION 	=> '#ffba00',
 				Multi_Rating::INCLUDE_FONT_AWESOME_OPTION 		=> true,
@@ -113,11 +110,11 @@ class MR_Settings {
 	
 		add_settings_section( 'section_general', __( 'General Settings', 'multi-rating' ), array( &$this, 'section_general_desc' ), Multi_Rating::GENERAL_SETTINGS );
 	
-		add_settings_field( Multi_Rating::POST_TYPES_OPTION, __( 'Enabled Post Types', 'multi-rating' ), array( &$this, 'field_post_types' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
-		add_settings_field( Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION, __( 'Rating Restriction', 'multi-rating' ), array( &$this, 'field_save_rating_restriction' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
+		add_settings_field( Multi_Rating::POST_TYPES_OPTION, __( 'Post Types', 'multi-rating' ), array( &$this, 'field_post_types' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
+		add_settings_field( Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION, __( 'Duplicate Check Method', 'multi-rating' ), array( &$this, 'field_save_rating_restriction' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
 		add_settings_field( Multi_Rating::RATING_RESULTS_CACHE_OPTION, __( 'Rating Results Cache', 'multi-rating' ), array( &$this, 'field_rating_results_cache' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
-		add_settings_field( Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION, __( 'Hide Rating Form', 'multi-rating' ), array( &$this, 'field_hide_rating_form_after_submit' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
-		add_settings_field( Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION, __( 'Hide Multi Rating Post Meta Box?', 'multi-rating' ), array( &$this, 'field_hide_post_meta_box' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
+		add_settings_field( Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION, __( 'Hide Rating Form Submit', 'multi-rating' ), array( &$this, 'field_hide_rating_form_after_submit' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
+		add_settings_field( Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION, __( 'Hide Post Meta Box', 'multi-rating' ), array( &$this, 'field_hide_post_meta_box' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
 		add_settings_field( Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION, __( 'Template Strip Newlines?', 'multi-rating' ), array( &$this, 'field_template_strip_newlines' ), Multi_Rating::GENERAL_SETTINGS, 'section_general' );
 		
 	}
@@ -152,7 +149,7 @@ class MR_Settings {
 		}
 		?>
 		<label><?php _e('Hours', 'multi-rating'); ?></label>&nbsp;<input class="small-text" type="number" min="1" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION; ?>]" value="<?php echo $this->general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION]; ?>" />
-		<p><?php _e( 'Restrict saving a rating form for the same post multiple times.', 'multi-rating' ); ?></p>
+		<p><?php _e( 'Choose a method to prevent ratings for the same post multiple times.', 'multi-rating' ); ?></p>
 		
 		<?php 
 	}
@@ -174,6 +171,8 @@ class MR_Settings {
 			}
 			echo ' />&nbsp;<label class="checkbox-label">' . $post_type . '</label>';
 		}
+		?>
+		<p><?php _e( 'Enable post types for auto placement of the rating form and rating results.', 'multi-rating' ); ?></p><?php
 	}
 	/**
 	 * Rating results cache
@@ -191,7 +190,7 @@ class MR_Settings {
 	function field_hide_rating_form_after_submit() {
 		?>
 		<input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS;?>[<?php echo Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION; ?>]" value="true" <?php checked( true, $this->general_settings[Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION], true ); ?> />
-		<?php 
+		<label><?php _e( 'Check this box if you want to hide the rating form on submit.', 'multi-rating' ); ?></label><?php 
 	}
 	
 	/**
@@ -200,7 +199,7 @@ class MR_Settings {
 	function field_template_strip_newlines() {
 		?>
 		<input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS;?>[<?php echo Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION; ?>]" value="true" <?php checked(true, $this->general_settings[Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION], true); ?> />
-		<label><?php printf( __( 'Some plugins convert newlines to HTML paragraphs similar to <a href="%s">wpautop</a> (e.g. Visual Composer). Turn this option on if you want to prevent this from happening by stripping the newlines from the Multi Rating templates prior to display. This has no effect on the presentation.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/wpautop' ); ?></label>
+		<label><?php printf( __( 'Some plugins convert newlines to HTML paragraphs similar to <a href="%s">wpautop</a> (e.g. Visual Composer). Check this box if you want to prevent this from happening by stripping the newlines from the Multi Rating templates.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/wpautop' ); ?></label>
 		<?php 
 	}
 	
@@ -210,7 +209,7 @@ class MR_Settings {
 	function field_hide_post_meta_box() {
 		?>
 		<input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS;?>[<?php echo Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION; ?>]" value="true" <?php checked(true, $this->general_settings[Multi_Rating::DEFAULT_HIDE_POST_META_BOX_OPTION], true); ?> />
-		<label><?php _e( 'Do you want the Multi Rating post meta box to be hidden by default. You can set the meta box to visible in the Screen Options.', 'multi-rating' ); ?></label>
+		<label><?php _e( 'Check this box if you want to hide the post meta box by default.', 'multi-rating' ); ?></label>
 		<?php 
 	}
 	
@@ -289,9 +288,7 @@ class MR_Settings {
 	 * Position section description
 	 */
 	function section_position_desc() {
-		?>
-		<p class="description"><?php _e( 'These settings allow you to automatically place the rating form and rating results on every post or page in default positions.', 'multi-rating' ); ?></p>
-		<?php
+		
 	}
 	
 	/**
@@ -306,7 +303,7 @@ class MR_Settings {
 			<option value="before_content" <?php selected( 'before_content', $this->position_settings[Multi_Rating::RATING_RESULTS_POSITION_OPTION], true ); ?>><?php _e( 'Before content', 'multi-rating' ); ?></option>
 			<option value="after_content" <?php selected( 'after_content', $this->position_settings[Multi_Rating::RATING_RESULTS_POSITION_OPTION], true ); ?>><?php _e( 'After content', 'multi-rating' ); ?></option>	
 		</select>
-		<label><?php _e( 'Choose to automatically display the rating result before or after the post title for all enabled post types.', 'multi-rating' ); ?></label>
+		<label><?php _e( 'Default rating results position on a post.', 'multi-rating' ); ?></label>
 		<?php
 	}
 	
@@ -320,7 +317,7 @@ class MR_Settings {
 			<option value="before_content" <?php selected('before_content', $this->position_settings[Multi_Rating::RATING_FORM_POSITION_OPTION], true); ?>><?php _e( 'Before content', 'multi-rating' ); ?></option>
 			<option value="after_content" <?php selected('after_content', $this->position_settings[Multi_Rating::RATING_FORM_POSITION_OPTION], true); ?>><?php _e( 'After content', 'multi-rating' ); ?></option>
 		</select>
-		<label><?php _e( 'Choose to automatically display the rating form before or after the post content for all enabled post types.', 'multi-rating' ); ?></label>
+		<label><?php _e( 'Default rating form position on a post.', 'multi-rating' ); ?></label>
 		<?php
 	}
 	
@@ -345,12 +342,12 @@ class MR_Settings {
 	
 		add_settings_section( 'section_style', __( 'Style Settings', 'multi-rating' ), array( &$this, 'section_style_desc' ), Multi_Rating::STYLE_SETTINGS );
 
+		add_settings_field( Multi_Rating::STAR_RATING_COLOUR_OPTION, __( 'Primary Color', 'multi-rating' ), array( &$this, 'field_star_rating_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
+		add_settings_field( Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION, __( 'Secondary Color', 'multi-rating' ), array( &$this, 'field_star_rating_hover_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
+		add_settings_field( Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION, __( 'Error Color', 'multi-rating' ), array( &$this, 'field_error_message_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
+		add_settings_field( Multi_Rating::INCLUDE_FONT_AWESOME_OPTION, __( 'Load Icon Font Library from CDN', 'multi-rating' ), array( &$this, 'field_include_font_awesome' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
+		add_settings_field( Multi_Rating::FONT_AWESOME_VERSION_OPTION, __( 'Icon Font Library', 'multi-rating' ), array( &$this, 'field_font_awesome_version' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
 		add_settings_field( Multi_Rating::CUSTOM_CSS_OPTION, __( 'Custom CSS', 'multi-rating' ), array( &$this, 'field_custom_css' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
-		add_settings_field( Multi_Rating::STAR_RATING_COLOUR_OPTION, __( 'Star Rating Color', 'multi-rating' ), array( &$this, 'field_star_rating_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
-		add_settings_field( Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION, __( 'Star Rating Hover Color', 'multi-rating' ), array( &$this, 'field_star_rating_hover_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
-		add_settings_field( Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION, __( 'Error Message Color', 'multi-rating' ), array( &$this, 'field_error_message_colour' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
-		add_settings_field( Multi_Rating::INCLUDE_FONT_AWESOME_OPTION, __( 'Load Font Awesome Library?', 'multi-rating' ), array( &$this, 'field_include_font_awesome' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
-		add_settings_field( Multi_Rating::FONT_AWESOME_VERSION_OPTION, __( 'Font Awesome Version', 'multi-rating' ), array( &$this, 'field_font_awesome_version' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
 		add_settings_field( Multi_Rating::USE_CUSTOM_STAR_IMAGES, __( 'Use Custom Star Images', 'multi-rating' ), array( &$this, 'field_use_custom_star_images' ), Multi_Rating::STYLE_SETTINGS, 'section_style' );
 	}
 	
@@ -366,7 +363,7 @@ class MR_Settings {
 	function field_include_font_awesome() {
 		?>
 		<input type="checkbox" name="<?php echo Multi_Rating::STYLE_SETTINGS; ?>[<?php echo Multi_Rating::INCLUDE_FONT_AWESOME_OPTION; ?>]" value="true" <?php checked(true, $this->style_settings[Multi_Rating::INCLUDE_FONT_AWESOME_OPTION], true); ?> />
-		<label><?php _e( 'Do you want the plugin to include loading of the Font Awesome CSS?', 'multi-rating' ); ?></label>
+		<label><?php _e( 'Check this box if you want to load the font icon library from a CDN.', 'multi-rating' ); ?></label>
 		<?php
 	}
 	
@@ -473,6 +470,7 @@ class MR_Settings {
 		$star_rating_colour = $this->style_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
 		?>
    	 	<input class="color-picker" type="text" id="mr-star-rating-colour" name="<?php echo Multi_Rating::STYLE_SETTINGS; ?>[<?php echo Multi_Rating::STAR_RATING_COLOUR_OPTION; ?>]; ?>" value="<?php echo $star_rating_colour; ?>" />
+		<p><?php _e( 'Choose a color for selection.', 'mult-rating' ); ?></p>
 		<?php 
 	}
 	
@@ -482,7 +480,8 @@ class MR_Settings {
 	function field_star_rating_hover_colour() {
 		$star_rating_hover_colour = $this->style_settings[Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION];
 		?>
-	 	 	<input class="color-picker" type="text" id="mr-star-rating-hover-colour" name="<?php echo Multi_Rating::STYLE_SETTINGS; ?>[<?php echo Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION; ?>]; ?>" value="<?php echo $star_rating_hover_colour; ?>" />
+	 	<input class="color-picker" type="text" id="mr-star-rating-hover-colour" name="<?php echo Multi_Rating::STYLE_SETTINGS; ?>[<?php echo Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION; ?>]; ?>" value="<?php echo $star_rating_hover_colour; ?>" />
+		<p><?php _e( 'Choose a color for on hover.', 'mult-rating' ); ?></p>
 		<?php 
 	}
 	
@@ -493,6 +492,7 @@ class MR_Settings {
 		$error_message_colour = $this->style_settings[Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION];
 		?>
 		<input class="color-picker" type="text" id="mr-error-message-colour" name="<?php echo Multi_Rating::STYLE_SETTINGS; ?>[<?php echo Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION; ?>]; ?>" value="<?php echo $error_message_colour; ?>" />
+		<p><?php _e( 'Choose a color to highlight errors.', 'mult-rating' ); ?></p>
 		<?php 
 	}
 	
@@ -576,14 +576,13 @@ class MR_Settings {
 	
 		add_settings_field( Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION, __( 'Rating Form Title', 'multi-rating' ), array( &$this, 'field_rating_form_title_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION, __( 'Rating Results List Title', 'multi-rating' ), array( &$this, 'field_rating_results_list_title_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
-		add_settings_field( Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION, __( 'Rating Form Submit Button Text', 'multi-rating' ), array( &$this, 'field_rating_form_submit_button_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
+		add_settings_field( Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION, __( 'Submit Button Text', 'multi-rating' ), array( &$this, 'field_rating_form_submit_button_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::FILTER_BUTTON_TEXT_OPTION, __( 'Filter Button Text', 'multi-rating' ), array( &$this, 'field_filter_button_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::FILTER_LABEL_TEXT_OPTION, __( 'Filter Label Text', 'multi-rating' ), array( &$this, 'field_filter_label_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
-		add_settings_field( Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION, __( 'Rating Form Submit Success Message', 'multi-rating' ), array( &$this, 'field_rating_form_submit_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
-		add_settings_field( Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION, __( 'Rating Restriction Error Message', 'multi-rating' ), array( &$this, 'field_save_rating_restriction_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
+		add_settings_field( Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION, __( 'Submit Success Message', 'multi-rating' ), array( &$this, 'field_rating_form_submit_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
+		add_settings_field( Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION, __( 'Duplicate Check Error Message', 'multi-rating' ), array( &$this, 'field_save_rating_restriction_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION, __( 'Field Required Error Message', 'multi-rating' ), array( &$this, 'field_required_error_message' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		add_settings_field( Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION, __( 'No Rating Results Text' , 'multi-rating' ), array( &$this, 'field_no_rating_results_text' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
-		add_settings_field( Multi_Rating::CHAR_ENCODING_OPTION, __( 'Character Encoding', 'multi-rating' ), array( &$this, 'field_char_encoding' ), Multi_Rating::CUSTOM_TEXT_SETTINGS, 'section_custom_text' );
 		
 	}
 	
@@ -591,7 +590,7 @@ class MR_Settings {
 	 * Custom text section description
 	 */
 	public function section_custom_text_desc() {
-		echo '<p class="description">' . __( 'Modify the default text and messages.' , 'multi-rating' ) . '</p>';
+		
 	}
 	
 	/**
@@ -646,7 +645,6 @@ class MR_Settings {
 	function field_required_error_message() {
 		?>
 		<input type="text" name="<?php echo Multi_Rating::CUSTOM_TEXT_SETTINGS; ?>[<?php echo Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION; ?>]" class="large-text" value="<?php echo $this->custom_text_settings[Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION]; ?>" />
-		<p><?php _e( 'Applies to rating items if zero is selected.', 'multi-rating' ); ?></p>
 		<?php
 	}
 		
@@ -676,19 +674,6 @@ class MR_Settings {
 		<input type="text" name="<?php echo Multi_Rating::CUSTOM_TEXT_SETTINGS; ?>[<?php echo Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION; ?>]" class="regular-text" value="<?php echo $this->custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION]; ?>" />
 		<?php
 	}	
-
-	/**
-	 * Char encoding setting
-	 */
-	function field_char_encoding() {
-		?>	
-		<select name="<?php echo Multi_Rating::CUSTOM_TEXT_SETTINGS; ?>[<?php echo Multi_Rating::CHAR_ENCODING_OPTION; ?>]">
-			<option value="" <?php selected( '', $this->custom_text_settings[Multi_Rating::CHAR_ENCODING_OPTION], true); ?>><?php _e('Keep current charset (Recommended)', 'multi-rating' ); ?></option>
-	        <option value="utf8_general_ci" <?php selected('utf8_general_ci', $this->custom_text_settings[Multi_Rating::CHAR_ENCODING_OPTION], true); ?>><?php _e( 'UTF-8 (try this first)', 'multi-rating' ); ?></option>
-	        <option value="latin1_swedish_ci" <?php selected('latin1_swedish_ci', $this->custom_text_settings[Multi_Rating::CHAR_ENCODING_OPTION], true); ?>><?php _e( 'latin1_swedish_ci' , 'multi-rating' ); ?></option>
-		</select>
-		<?php
-	}
 	
 	/**
 	 * Sanitize custom text settings
@@ -697,31 +682,6 @@ class MR_Settings {
 	 * @return unknown
 	 */
 	function sanitize_custom_text_settings( $input ) {
-		
-		global $wpdb;
-		
-		$character_encoding = $input[Multi_Rating::CHAR_ENCODING_OPTION];
-		$old_character_set = $this->general_settings[Multi_Rating::CHAR_ENCODING_OPTION];
-		
-		if ($character_encoding != $old_character_set) {
-			
-			$tables = array( $wpdb->prefix.Multi_Rating::RATING_ITEM_TBL_NAME );
-			
-			foreach ( $tables as $table ) {
-				$rows = $wpdb->get_results( "DESCRIBE {$table}" );
-				
-				foreach ( $rows as $row ) {
-					
-					$name = $row->Field;
-					$type = $row->Type;
-					
-					if ( preg_match( "/^varchar\((\d+)\)$/i", $type, $mat ) || ! strcasecmp( $type, "CHAR" )
-							|| !strcasecmp( $type, "TEXT" ) || ! strcasecmp( $type, "MEDIUMTEXT" ) ) {
-						$wpdb->query( 'ALTER TABLE ' . $table .' CHANGE ' . $name . ' ' . $name . ' ' . $type . ' COLLATE ' . $character_encoding );
-					}
-				}
-			}
-		}
 	
 		return $input;
 	}

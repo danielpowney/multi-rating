@@ -101,6 +101,12 @@ The [Demo](http://multiratingpro.com/demo-page-free) provide some documentation.
 
 == Changelog ==
 
+= 4.1.14 (XX/06/2016) = 
+* Bug: The default WordPress charset collate is now used for db table creation and updates (global $charset_collate variable)
+* Bug: Fixed some schema.org microdata errors for misssing Article properties
+* Bug: Some JS fixes based on JSLint and also updated some jQuery selectors based on attribute values to be surrounded in quotes
+* New: Added Pro version menu item
+
 = 4.1.13 (09/06/2016) =
 * Bug: Fixed pagination with filters on rating entries and rating results tables in wp-admin
 

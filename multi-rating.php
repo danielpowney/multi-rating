@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: The best rating system plugin for WordPress. Multi Rating allows visitors to rate a post based on multiple criteria and questions.
-Version: 4.1.13
+Version: 4.1.14
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '4.1.13',
+	VERSION = '4.1.14',
 	ID = 'multi-rating',
 
 	// tables
@@ -289,53 +289,60 @@ class Multi_Rating {
 	 */
 	public static function activate_plugin() {
 		
-		global $wpdb;	
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		
-		// subjects can be a post type
-		$sql_create_rating_subject_tbl = 'CREATE TABLE ' . $wpdb->prefix . Multi_Rating::RATING_SUBJECT_TBL_NAME . ' (
-				rating_id bigint(20) NOT NULL AUTO_INCREMENT,
-				post_type varchar(20) NOT NULL,
-				PRIMARY KEY  (rating_id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1;';
-		dbDelta( $sql_create_rating_subject_tbl );
+		try {
+			
+			global $wpdb, $charset_collate;
 		
-		// subjects are rated by multiple rating items
-		$sql_create_rating_item_tbl = 'CREATE TABLE '. $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' (
-				rating_item_id bigint(20) NOT NULL AUTO_INCREMENT,
-				rating_id bigint(20) NOT NULL,
-				description varchar(255) NOT NULL,
-				default_option_value int(11),
-				max_option_value int(11),
-				required tinyint(1) DEFAULT 0,
-				active tinyint(1) DEFAULT 1,
-				weight double precision DEFAULT 1.0,
-				type varchar(20) NOT NULL DEFAULT "select",
-				PRIMARY KEY  (rating_item_id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1;';
-		dbDelta( $sql_create_rating_item_tbl );
-		
-		// rating item entries and results are saved
-		$sql_create_rating_item_entry_tbl = 'CREATE TABLE ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' (
-				rating_item_entry_id bigint(20) NOT NULL AUTO_INCREMENT,
-				post_id bigint(20) NOT NULL,
-				entry_date datetime NOT NULL,
-				ip_address varchar(100),
-				user_id bigint(20) DEFAULT 0,
-				PRIMARY KEY  (rating_item_entry_id),
-				KEY ix_rating_entry (rating_item_entry_id,post_id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1;';
-		dbDelta( $sql_create_rating_item_entry_tbl );
-
-		$sql_create_rating_item_entry_value_tbl = 'CREATE TABLE ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' (
-				rating_item_entry_value_id bigint(20) NOT NULL AUTO_INCREMENT,
-				rating_item_entry_id bigint(20) NOT NULL,
-				rating_item_id bigint(20) NOT NULL,
-				value int(11) NOT NULL,
-				PRIMARY KEY  (rating_item_entry_value_id),
-				KEY ix_rating_entry (rating_item_entry_id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1;';
-		dbDelta( $sql_create_rating_item_entry_value_tbl );
+			// subjects can be a post type
+			$sql_create_rating_subject_tbl = 'CREATE TABLE ' . $wpdb->prefix . Multi_Rating::RATING_SUBJECT_TBL_NAME . ' (
+					rating_id bigint(20) NOT NULL AUTO_INCREMENT,
+					post_type varchar(20) NOT NULL,
+					PRIMARY KEY  (rating_id)
+			) ' . $charset_collate;
+			dbDelta( $sql_create_rating_subject_tbl );
+			
+			// subjects are rated by multiple rating items
+			$sql_create_rating_item_tbl = 'CREATE TABLE '. $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' (
+					rating_item_id bigint(20) NOT NULL AUTO_INCREMENT,
+					rating_id bigint(20) NOT NULL,
+					description varchar(255) NOT NULL,
+					default_option_value int(11),
+					max_option_value int(11),
+					required tinyint(1) DEFAULT 0,
+					active tinyint(1) DEFAULT 1,
+					weight double precision DEFAULT 1.0,
+					type varchar(20) NOT NULL DEFAULT "select",
+					PRIMARY KEY  (rating_item_id)
+			) ' . $charset_collate;
+			dbDelta( $sql_create_rating_item_tbl );
+			
+			// rating item entries and results are saved
+			$sql_create_rating_item_entry_tbl = 'CREATE TABLE ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' (
+					rating_item_entry_id bigint(20) NOT NULL AUTO_INCREMENT,
+					post_id bigint(20) NOT NULL,
+					entry_date datetime NOT NULL,
+					ip_address varchar(100),
+					user_id bigint(20) DEFAULT 0,
+					PRIMARY KEY  (rating_item_entry_id),
+					KEY ix_rating_entry (rating_item_entry_id,post_id)
+			) ' . $charset_collate;
+			dbDelta( $sql_create_rating_item_entry_tbl );
+	
+			$sql_create_rating_item_entry_value_tbl = 'CREATE TABLE ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' (
+					rating_item_entry_value_id bigint(20) NOT NULL AUTO_INCREMENT,
+					rating_item_entry_id bigint(20) NOT NULL,
+					rating_item_id bigint(20) NOT NULL,
+					value int(11) NOT NULL,
+					PRIMARY KEY  (rating_item_entry_value_id),
+					KEY ix_rating_entry (rating_item_entry_id)
+			) ' . $charset_collate;
+			dbDelta( $sql_create_rating_item_entry_value_tbl );
+			
+		} catch ( Exception $e ) {
+			// do nothing
+		}
 		
 		// Adds mr_edit_ratings capability to allow Editor role to be able to edit ratings
 		$editor_role = get_role( 'editor' );
@@ -417,7 +424,7 @@ class Multi_Rating {
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Reports', 'multi-rating' ), __( 'Reports', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::REPORTS_PAGE_SLUG, 'mr_reports_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Tools', 'multi-rating' ), __( 'Tools', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::TOOLS_PAGE_SLUG, 'mr_tools_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'About', 'multi-rating' ), __( 'About', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::ABOUT_PAGE_SLUG, 'mr_about_screen' );
-		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Edit Rating', 'multi-rating' ), '', 'mr_edit_ratings', Multi_Rating::EDIT_RATING_PAGE_SLUG, 'mr_edit_rating_screen' );	
+		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Edit Rating', 'multi-rating' ), '', 'mr_edit_ratings', Multi_Rating::EDIT_RATING_PAGE_SLUG, 'mr_edit_rating_screen' );
 	}
 
 	/**

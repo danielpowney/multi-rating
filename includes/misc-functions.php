@@ -60,4 +60,13 @@ function mr_template_html_strip_newlines( $html ) {
 }
 add_filter( 'mr_template_html', 'mr_template_html_strip_newlines', 10, 1 );
  
+
+/**
+ * add a link to the Pro version in the menu
+ */
+function mrp_add_pro_menu_item() {
+	global $submenu;
+	$submenu['mr_rating_results'][] = array( 'Pro version', 'manage_options', 'http://multiratingpro.com/' );
+}
+add_action( 'admin_menu', 'mrp_add_pro_menu_item' );
  ?>

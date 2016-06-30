@@ -675,18 +675,23 @@ class Multi_Rating_API {
 		extract( wp_parse_args( $params, array(
 				'post_id' => null,
 				'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION],
-				'show_rich_snippets' => false,
+				'show_rich_snippets' => false, // @deprecated
 				'show_title' => false,
 				'show_count' => true,
 				'echo' => true,
 				'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
 				'class' => '',
 				'before_count' => '(',
-				'after_count' => ')'
+				'after_count' => ')',
+				'generate_microdata' => false
 		) ) );
 		
 		if ( is_string( $show_rich_snippets ) ) {
 			$show_rich_snippets = $show_rich_snippets == 'true' ? true : false;
+			$generate_microdata = $show_rich_snippets;
+		}
+		if ( is_string( $generate_microdata ) ) {
+			$generate_microdata = $generate_microdata == 'true' ? true : false;
 		}
 		if ( is_string( $show_title ) ) {
 			$show_title = $show_title == 'true' ? true : false;
@@ -720,7 +725,7 @@ class Multi_Rating_API {
 		ob_start();
 		mr_get_template_part( 'rating-result', null, true, array(
 				'no_rating_results_text' => $no_rating_results_text,
-				'show_rich_snippets' => $show_rich_snippets,
+				'generate_microdata' => $generate_microdata,
 				'show_title' => $show_title,
 				'show_date' => false,
 				'show_count' => $show_count,
@@ -936,7 +941,7 @@ class Multi_Rating_API {
 			'filter_label_text' => $filter_label_text,
 			'show_featured_img' => $show_featured_img,
 			'image_size' => $image_size,
-			'show_rich_snippets' => false,
+			'generate_microdata' => false,
 			'class' => $class . ' rating-results-list',
 			'rating_results' => $rating_results,
 			'before_count' => '(',

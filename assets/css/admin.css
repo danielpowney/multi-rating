@@ -54,3 +54,10 @@ div#custom-star-images-details td {
 	padding-bottom: 0px !important;
 	padding-top: 10px !important;
 }
+
+
+li#toplevel_page_mr_rating_results .wp-submenu li a[href="admin.php?page=mr_edit_rating"],
+li#toplevel_page_mr_rating_results .wp-submenu li a.wp-first-item {
+	display: none !important;
+	padding: 0px !important;
+}

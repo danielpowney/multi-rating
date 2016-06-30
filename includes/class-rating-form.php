@@ -131,7 +131,7 @@ class MR_Rating_Form {
 			ob_start();
 			mr_get_template_part( 'rating-result', null, true, array(
 				'no_rating_results_text' => '',
-				'show_rich_snippets' => false,
+				'generate_microdata' => false,
 				'show_title' => false,
 				'show_date' => false,
 				'show_count' => true,

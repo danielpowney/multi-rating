@@ -435,7 +435,7 @@ class MR_Settings {
 				<img src="<?php echo $this->style_settings[Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE]; ?>" width="<?php echo $this->style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH]; ?>px" height="<?php echo $this->style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT]; ?>px"/>
 			</p>
 		</div>
-		<p><?php printf( __( '<a href="%1$s" target="_blank">Learn how to setup your own Custom Star Rating images.</a>', 'multi-rating' ), 'http://danielpowney.com/docs/add-custom-star-rating-images/' ); ?></p>
+		<p><?php printf( __( '<a href="%1$s" target="_blank">Learn how to setup your own Custom Star Rating images.</a>', 'multi-rating' ), 'http://multiratingpro.com/documentation/custom-star-images/' ); ?></p>
 		<?php
 	}
 	

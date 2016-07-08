@@ -10,7 +10,8 @@ if ( $count == null || $count == 0 ) {
 
 <span class="rating-result <?php echo esc_attr( $class ); ?>" <?php 
 if ( $generate_microdata ) {
-	echo 'itemscope itemtype="http://schema.org/AggregateRating"';
+	$microdata = 'itemscope itemtype="http://schema.org/AggregateRating"';
+	echo apply_filters( 'mr_microdata_aggregate_rating_attributes', $microdata, $post_id );
 } ?>>
 	<?php
 	if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
@@ -106,7 +107,10 @@ if ( $generate_microdata ) {
 		}
 		
 		if ( $generate_microdata ) {
-			echo '<meta itemprop="itemReviewed" content="' . $post_obj->post_title . '" />';
+			$microdata = '<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/Thing">'
+					. '<meta itemprop="name" content="' . $post_obj->post_title . '" />'
+					. '</span>';
+			echo apply_filters( 'mr_microdata_rating_result_item_reviewed', $microdata, $post_id );
 		}
 		
 	}

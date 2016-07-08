@@ -101,7 +101,7 @@ jQuery(document).ready(function() {
 			}
 			
 			if (ratingForm && ratingForm.parent()) {
-				ratingForm.before(messages);
+				ratingForm.find(".save-rating").before(messages);
 			}
 		}
 		

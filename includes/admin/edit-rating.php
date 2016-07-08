@@ -166,7 +166,11 @@ function mr_edit_rating() {
 	}
 	
 	// redirect back to entries page
-	$entries_page = 'admin.php?page=mr_rating_results&tab=mr_entries&entry-id=' . $entry_id . '&post-id=' . $post_id;
+	$entries_page = 'admin.php?page=' . Multi_Rating::RATING_ENTRIES_PAGE_SLUG;
+
+	if ( isset( $_REQUEST['post-id'] ) ) {
+		$entries_page .= '&post-id=' . $_REQUEST['post-id'];
+	}
 	if ( isset( $_REQUEST['username'] ) ) {
 		$entries_page .= '&username=' . $_REQUEST['username'];
 	}

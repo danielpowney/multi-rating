@@ -98,7 +98,7 @@ function mr_about_screen() {
 					<div class="col">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'add-new-rating-items.png' , __FILE__ ); ?>" />
 						<h4><?php _e( 'Add New Rating Items', 'multi-rating' ); ?></h4>
-						<p><?php printf( __( 'Setup your criteria and questions by <a href="admin.php?page=%s">adding new rating items</a>.', 'multi-rating' ), Multi_Rating::ADD_NEW_RATING_ITEM_PAGE_SLUG ); ?></p>
+						<p><?php printf( __( 'Setup your criteria and questions by <a href="admin.php?page=%s">adding new rating items</a>.', 'multi-rating' ), Multi_Rating::RATING_ITEMS_PAGE_SLUG . '&rating-item-id=' ); ?></p>
 					</div>
 					<div class="col">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'auto-placement.png' , __FILE__ ); ?>" />
@@ -155,7 +155,7 @@ function mr_about_screen() {
 						<p><?php _e( 'Font Awesome versions 4.3.0, 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by the plugin.', 'multi-rating' ); ?></p>	
 						
 						<h4><?php _e( 'Upload Custom Star Images', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'You can <a href="http://danielpowney.com/docs/add-custom-star-rating-images/">upload your own custom star images</a> to use instead of the using the default Font Awesome star icons. ', 'multi-rating' ); ?></p>				
+						<p><?php _e( 'You can <a href="http://multiratingpro.com/documentation/custom-star-images?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=custom-images">upload your own custom star images</a> to use instead of the using icon fonts.', 'multi-rating' ); ?></p>				
 					
 						<h4><?php _e( 'Export Rating Results', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'You can export the rating results to a CSV file.', 'multi-rating' ); ?></p>
@@ -174,7 +174,7 @@ function mr_about_screen() {
 						<p><?php _e( 'There\'s a meta-box on the edit post page so that you can override the default settings (e.g. auto placement settings).', 'multi-rating' ); ?></p>
 					
 						<h4><?php _e( 'Developer API', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'The <a href="http://danielpowney.com/docs/api/">API functions</a> are located in the class-api.php file which contains a static class called Multi_Rating_API.', 'multi-rating' ); ?></p>
+						<p><?php _e( 'The API functions are located in the class-api.php file which contains a static class called Multi_Rating_API.', 'multi-rating' ); ?></p>
 						
 						<h4><?php _e( 'Action Hooks & Filters', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'Developers can extend the plugin functionality using action hooks and filters.', 'multi-rating' ); ?></p>		
@@ -195,7 +195,7 @@ function mr_about_screen() {
 		<?php
 	} else { // Multi Rating Pro
 		?>
-		<p><?php printf( __( 'The <a href="%s">Multi Rating Pro</a> version provides a significant additional feature set, including:', 'multi-rating' ), 'http://multiratingpro.com' ); ?></p>
+		<p><?php printf( __( 'The <a href="%s">Multi Rating Pro</a> version provides a significant additional feature set, including:', 'multi-rating' ), 'http://multiratingpro.com?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=top' ); ?></p>
 		
 		<p><strong><?php _e( 'The following key features are available in the Pro version:', 'multi-rating' ); ?></strong></p>
 		<ol style="list-style-type:disc; margin-left: 2.5em;">
@@ -217,7 +217,7 @@ function mr_about_screen() {
 			<li><?php _e( 'And much more.', 'multi-rating' ); ?></li>
 		</ol>
 		
-		<p>Check out <a href="http://multiratingpro.com">Multi Rating Pro</a>.</p>
+		<p>Check out <a href="http://multiratingpro.com?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=bottom">Multi Rating Pro</a>.</p>
 		<?php
 	}
 }

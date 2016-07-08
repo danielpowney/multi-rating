@@ -23,7 +23,7 @@ class Multi_Rating_API {
 		
 		// base query
 		$rating_items_query = 'SELECT ri.rating_item_id, ri.rating_id, ri.description, ri.default_option_value, '
-				. 'ri.max_option_value, ri.weight, ri.active, ri.type FROM '
+				. 'ri.max_option_value, ri.weight, ri.active, ri.type, ri.required FROM '
 				. $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' as ri';
 		
 		if ( $rating_entry_id || $post_id ) {
@@ -69,17 +69,19 @@ class Multi_Rating_API {
 		
 		$rating_items_query .= ' GROUP BY ri.rating_item_id';
 		
-		$rating_item_rows = $wpdb->get_results( $rating_items_query );
+		$rows = $wpdb->get_results( $rating_items_query );
 		
 		// construct rating items array
 		$rating_items = array();
-		foreach ( $rating_item_rows as $rating_item_row ) {
-			$rating_item_id = $rating_item_row->rating_item_id;
-			$weight = $rating_item_row->weight;
-			$description = $rating_item_row->description;
-			$default_option_value = $rating_item_row->default_option_value;
-			$max_option_value = $rating_item_row->max_option_value;
-			$type = $rating_item_row->type;
+		foreach ( $rows as $row ) {
+			
+			$rating_item_id = $row->rating_item_id;
+			$weight = $row->weight;
+			$description = $row->description;
+			$default_option_value = $row->default_option_value;
+			$max_option_value = $row->max_option_value;
+			$type = $row->type;
+			$required = $row->required;
 			
 			// WPML translate string
 			if ( function_exists( 'icl_translate' ) && strlen( $description ) > 0 ) {
@@ -92,7 +94,8 @@ class Multi_Rating_API {
 					'rating_item_id' => intval( $rating_item_id ),
 					'description' => stripslashes( $description ),
 					'default_option_value' => intval( $default_option_value ),
-					'type' => $type
+					'type' => $type,
+					'required' => $required
 			);
 		}
 		
@@ -664,13 +667,6 @@ class Multi_Rating_API {
 		
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
-		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
-		
-		$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
-		$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
-		$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
-		$image_width = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
-		$image_height = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
 		
 		extract( wp_parse_args( $params, array(
 				'post_id' => null,
@@ -737,11 +733,7 @@ class Multi_Rating_API {
 				'after_count' => $after_count,
 				'post_id' => $post_id,
 				'ignore_count' => false,
-				'preserve_max_option' => false, 
-				'icon_classes' => $icon_classes,
-				'use_custom_star_images' => $use_custom_star_images,
-				'image_width' => $image_width,
-				'image_height' => $image_height
+				'preserve_max_option' => false
 		) );
 		$html = ob_get_contents();
 		ob_end_clean();
@@ -765,11 +757,6 @@ class Multi_Rating_API {
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
 		$position_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );
-		
-		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
-		$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
-		$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
-		$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
 
 		extract( wp_parse_args($params, array(
 				'post_id' => null,
@@ -808,9 +795,7 @@ class Multi_Rating_API {
 			'submit_button_text' => $submit_button_text,
 			'class' => $class,
 			'post_id' => $post_id,
-			'rating_items' => $rating_items,
-			'icon_classes' => $icon_classes,
-			'use_custom_star_images' => $use_custom_star_images
+			'rating_items' => $rating_items
 		) );
 		$html = ob_get_contents();
 		ob_end_clean();
@@ -834,13 +819,6 @@ class Multi_Rating_API {
 		
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
-		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
-		
-		$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
-		$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
-		$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
-		$image_width = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
-		$image_height = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
 		
 		extract( wp_parse_args( $params, array(
 				'title' => $custom_text_settings[Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION],
@@ -949,11 +927,7 @@ class Multi_Rating_API {
 			'ignore_count' => false,
 			'preserve_max_option' => false, 
 			'before_date' => '',
-			'after_date' => '',
-			'icon_classes' => $icon_classes,
-			'use_custom_star_images' => $use_custom_star_images,
-			'image_width' => $image_width,
-			'image_height' => $image_height
+			'after_date' => ''
 		) );
 		$html = ob_get_contents();
 		ob_end_clean();

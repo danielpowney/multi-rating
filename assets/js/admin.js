@@ -185,7 +185,7 @@ jQuery(document).ready(function() {
 	        var json = file_frame.state().get("selection").first().toJSON();
 	 
 	        // After that, set the properties of the image and display it
-	        jQuery("#" + starImage + "-preview").attr("src", json.url).show().parent().removeClass("hidden");
+	        jQuery("#" + starImage + "-preview").attr("src", json.url).css("display", "block");
 	        
 	        // Store the image's information into the meta data fields
 	        jQuery("#" + starImage).val(json.url);
@@ -196,6 +196,9 @@ jQuery(document).ready(function() {
 	 
 	}
 	
+	/**
+	 * Custom images
+	 */
 	jQuery("#custom-full-star-img-upload-btn, #custom-half-star-img-upload-btn, #custom-empty-star-img-upload-btn, #custom-hover-star-img-upload-btn").on("click", function(evt) {
         // Stop the anchor's default behavior
         evt.preventDefault();

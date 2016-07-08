@@ -185,31 +185,37 @@ class MR_Utils {
 	/**
 	 * Gets the Font Awesome icon classes based on version
 	 * 
-	 * @param $font_awesome_version
+	 * @param $icon_font_library
 	 * @return array icon classes
 	 */
-	public static function get_icon_classes( $font_awesome_version ) {
+	public static function get_icon_classes( $icon_font_library ) {
 		
 		$icon_classes = array();
 		
-		if ( $font_awesome_version == '4.0.3' || $font_awesome_version == '4.1.0' || $font_awesome_version == '4.2.0'
-				|| $font_awesome_version == '4.3.0' ) {
+		if ( $icon_font_library == 'font-awesome-4.0.3' || $icon_font_library == 'font-awesome-4.1.0'
+				|| $icon_font_library == 'font-awesome-4.2.0' || $icon_font_library == 'font-awesome-4.3.0'
+				|| $icon_font_library == 'font-awesome-4.5.0' || $icon_font_library == 'font-awesome-4.6.3' ) {
 			$icon_classes['star_full'] = 'fa fa-star mr-star-full';
 			$icon_classes['star_hover'] = 'fa fa-star mr-star-hover';
 			$icon_classes['star_half'] = 'fa fa-star-half-o mr-star-half';
 			$icon_classes['star_empty'] = 'fa fa-star-o mr-star-empty';
 			$icon_classes['minus'] = 'fa fa-minus-circle mr-minus';
 			$icon_classes['spinner'] = 'fa fa-spinner fa-spin mr-spinner';
-		} else if ( $font_awesome_version == '3.2.1' ) {
+		} else if ( $icon_font_library == 'font-awesome-3.2.1' ) {
 			$icon_classes['star_full'] = 'icon-star mr-star-full';
 			$icon_classes['star_hover'] = 'icon-star mr-star-hover';
 			$icon_classes['star_half'] = 'icon-star-half-full mr-star-half';
 			$icon_classes['star_empty'] = 'icon-star-empty mr-star-empty';
 			$icon_classes['minus'] = 'icon-minus-sign mr-minus';
 			$icon_classes['spinner'] = 'icon-spinner icon-spin mr-spinner';
+		} else if ( $icon_font_library == 'dashicons' ) {
+			$icon_classes['star_full'] = 'dashicons dashicons-star-filled mr-star-full';
+			$icon_classes['star_hover'] = 'dashicons dashicons-star-filled mr-star-hover';
+			$icon_classes['star_half'] = 'dashicons dashicons-star-half mr-star-half';
+			$icon_classes['star_empty'] = 'dashicons dashicons-star-empty mr-star-empty';
 		}
 		
-		return $icon_classes;
+		return apply_filters( 'mr_icon_classes', $icon_classes, $icon_font_library );
 	}
 	
 	/**

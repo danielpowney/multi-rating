@@ -1,7 +1,7 @@
 === Multi Rating ===
 Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
-Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, hReview, feedback, wpml, question
+Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, microdata, feedback, wpml, question
 Requires at least: 4.0
 Tested up to: 4.5
 Stable tag: trunk
@@ -14,7 +14,7 @@ The best rating system plugin for WordPress. This is a simple plugin which allow
 
 The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.
 
-View [Demo](http://multiratingpro.com/demo-page-free).
+View [Demo](http://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme).
 
 = Key Features =
 
@@ -49,7 +49,7 @@ View [Demo](http://multiratingpro.com/demo-page-free).
 
 = Pro version available! =
 
-The [Multi Rating Pro](http://multiratingpro.com) version provides a significant additional feature set, including:
+The [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=top) version provides a significant additional feature set, including:
 
 * Unlimited rating forms
 * Ratings moderation (approve or unapprove rating entries)
@@ -69,7 +69,7 @@ The [Multi Rating Pro](http://multiratingpro.com) version provides a significant
 * Embed reCAPTCHA in the rating form (add-on)
 * And much more.
 
-Check out [Multi Rating Pro](http://multiratingpro.com).
+Check out [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
 
 == Installation ==
 
@@ -79,7 +79,7 @@ Check out [Multi Rating Pro](http://multiratingpro.com).
 
 == Frequently Asked Questions ==
 
-The [Demo](http://multiratingpro.com/demo-page-free) provide some documentation.
+Documentation can be found on the [demo page](http://multiratingpro.com/demo-page-free?utm_source=faq&utm_medium=free-plugin&utm_campaign=readme).
 
 == Screenshots ==
 1. Auto placement of rating results after post title and rating form after post content. Twenty Fifteen theme.
@@ -101,17 +101,25 @@ The [Demo](http://multiratingpro.com/demo-page-free) provide some documentation.
 
 == Changelog ==
 
-= 4.1.14 (XX/06/2016) = 
-* Bug: The default WordPress charset collate is now used for db table creation and updates (global $charset_collate variable)
-* Bug: Fixed some schema.org microdata errors for misssing Article properties
-* Bug: Some JS fixes based on JSLint and also updated some jQuery selectors based on attribute values to be surrounded in quotes
+= 4.2 (XX/06/2016) = 
+* New: Added Dashicon support
+* New: Added Font Awesome 4.2.0, 4.5.0 and 4.6.3 support
 * New: Added Pro version menu item
+* New: Added disable styles option
+* New: Changes the font icon options to be generic to allow other font icon libraries to be added
+* Tweak: Removed the hide post meta box option to keep the settings minimal and simple in the free version
+* Tweak: Moved MR post meta box so that it's not at the top
+* Tweak: Changed the rating-form.php template file so that messages are shown just above the buttons
+* Bug: The default WordPress charset collate is now used for db table creation and updates (global $charset_collate variable)
+* Bug: Fixed some schema.org microdata errors
+* Bug: Some JS fixes based on JSLint and also updated some jQuery selectors based on attribute values to be surrounded in quotes
+* Tweak: Updated languages files
 
 = 4.1.13 (09/06/2016) =
 * Bug: Fixed pagination with filters on rating entries and rating results tables in wp-admin
 
 = 4.1.12 (06/06/2016) =
-* Minor readme changes and updated some links
+* Tweak: Minor readme changes and updated some links
 
 = 4.1.11 (02/11/2015) =
 * Bug: jQuery UI calls protocol agnostic i.e http or https

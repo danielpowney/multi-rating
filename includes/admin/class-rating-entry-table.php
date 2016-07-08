@@ -117,14 +117,13 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 		
 		return array(
 				MR_Rating_Entry_Table::CHECKBOX_COLUMN => '<input type="checkbox" />',
-				MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN =>__( 'Entry Id', 'multi-rating' ),
+				MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN =>__( 'ID', 'multi-rating' ),
 				MR_Rating_Entry_Table::POST_ID_COLUMN => __( 'Post', 'multi-rating' ),
-				MR_Rating_Entry_Table::ENTRY_DATE_COLUMN =>__( 'Entry Date', 'multi-rating' ),
+				MR_Rating_Entry_Table::ENTRY_DATE_COLUMN =>__( 'Date', 'multi-rating' ),
 				MR_Rating_Entry_Table::IP_ADDRESS_COLUMN	=>__( 'IP Address', 'multi-rating' ),
 				MR_Rating_Entry_Table::USER_ID_COLUMN => __( 'User ID', 'multi-rating' ),
-				MR_Rating_Entry_Table::RATING_RESULT_COLUMN => __( 'Rating Result', 'multi-rating' ),
-				MR_Rating_Entry_Table::ACTION_COLUMN => __( 'Action', 'multi-rating' ),
-				MR_Rating_Entry_Table::SHORTCODE_COLUMN => __( 'Shortcode', 'multi-rating' )
+				MR_Rating_Entry_Table::RATING_RESULT_COLUMN => __( 'Rating Details', 'multi-rating' ),
+				MR_Rating_Entry_Table::ACTION_COLUMN => __( 'Action', 'multi-rating' )
 		);
 	}
 
@@ -244,10 +243,6 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 	function column_default( $item, $column_name ) {
 		
 		switch( $column_name ) {
-			
-			case MR_Rating_Entry_Table::SHORTCODE_COLUMN :
-				echo '[mr_rating_result post_id="' . $item[ MR_Rating_Entry_Table::POST_ID_COLUMN ] . '"]';
-				break;
 				
 			case MR_Rating_Entry_Table::ENTRY_DATE_COLUMN :
 				echo date( 'F j, Y, g:i a', strtotime( $item[ $column_name ] ) );
@@ -284,16 +279,18 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 			case MR_Rating_Entry_Table::RATING_RESULT_COLUMN :
 				$rating_result = Multi_Rating_API::calculate_rating_item_entry_result( $item[ MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN ], null );
 				
-				echo __('Star: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_star_result'], 2 ) . '/5</span><br />'
-						. __('Score: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_score_result'], 2) . '/' . $rating_result['total_max_option_value'] . '</span><br />' 
-						. __('Percentage: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_percentage_result'], 2) . '%</span>';				
+				echo __( 'Star: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_star_result'], 2 ) . '/5</span><br />'
+						. __( 'Score: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_score_result'], 2) . '/' . $rating_result['total_max_option_value'] . '</span><br />' 
+						. __( 'Percentage: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_percentage_result'], 2) . '%</span>';				
 				break;
 			
 			case MR_Rating_Entry_Table::ACTION_COLUMN :
 				
 				// do not need to pass post id and rating form id
 				$url = '?page=mr_edit_rating&entry-id=' . $item[ MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN ]; 
-				
+				if ( isset( $_REQUEST['post-id'] ) ) {
+					$url .= '&post-id=' . $_REQUEST['post-id'];
+				}
 				if ( isset( $_REQUEST['username'] ) ) {
 					$url .= '&username=' . $_REQUEST['username'];
 				}

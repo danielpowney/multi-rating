@@ -101,7 +101,10 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 
 == Changelog ==
 
-= 4.2 (XX/06/2016) = 
+= 4.2.1 (09/07/2016) =
+* Bug: Fixed fatal error missing rating-entries.php file
+
+= 4.2 (08/07/2016) = 
 * New: Added Dashicon support
 * New: Added Font Awesome 4.2.0, 4.5.0 and 4.6.3 support
 * New: Added Pro version menu item

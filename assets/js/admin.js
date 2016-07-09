@@ -149,7 +149,7 @@ jQuery(document).ready(function() {
 	     * If an instance of file_frame already exists, then we can open it
 	     * rather than creating a new instance.
 	     */
-	    if ( undefined !== file_frame ) {
+	    if (undefined !== file_frame) {
 	        file_frame.open();
 	        return;
 	    }
@@ -185,10 +185,10 @@ jQuery(document).ready(function() {
 	        var json = file_frame.state().get("selection").first().toJSON();
 	 
 	        // After that, set the properties of the image and display it
-	        jQuery("#" + starImage + "-preview").attr("src", json.url ).show().parent().removeClass("hidden");
+	        jQuery("#" + starImage + "-preview").attr("src", json.url).css("display", "block");
 	        
 	        // Store the image's information into the meta data fields
-	        jQuery("#" + starImage).val( json.url );
+	        jQuery("#" + starImage).val(json.url);
 	    });
 	 
 	    // Now display the actual file_frame
@@ -196,6 +196,9 @@ jQuery(document).ready(function() {
 	 
 	}
 	
+	/**
+	 * Custom images
+	 */
 	jQuery("#custom-full-star-img-upload-btn, #custom-half-star-img-upload-btn, #custom-empty-star-img-upload-btn, #custom-hover-star-img-upload-btn").on("click", function(evt) {
         // Stop the anchor's default behavior
         evt.preventDefault();
@@ -211,9 +214,9 @@ jQuery(document).ready(function() {
 	
 	jQuery("#use-custom-star-images").change(function() {
 		if (this.checked) {
-			jQuery("#custom-star-images-details").show("slow", function() {} );
+			jQuery("#custom-star-images-details").show("slow", function() {});
 		} else {
-			jQuery("#custom-star-images-details").hide("slow", function() {} );
+			jQuery("#custom-star-images-details").hide("slow", function() {});
 		}
 	});
 	

@@ -1,31 +1,30 @@
-<span class="rating-result <?php echo esc_attr( $class ); ?>"<?php
- 
+<?php 
+
+$generate_microdata = ( isset( $generate_microdata ) && $generate_microdata ) 
+		|| ( isset( $show_rich_snippets ) && $show_rich_snippets == true );
 $count = isset( $rating_result['count'] ) ? $rating_result['count'] : 0;
- 
-if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
-	// ignore count is used to not show this block
-	?>>
-		<?php 
+if ( $count == null || $count == 0 ) {
+	$generate_microdata = false;
+}
+?>
+
+<span class="rating-result <?php echo esc_attr( $class ); ?>" <?php 
+if ( $generate_microdata ) {
+	$microdata = 'itemscope itemtype="http://schema.org/AggregateRating"';
+	echo apply_filters( 'mr_microdata_aggregate_rating_attributes', $microdata, $post_id );
+} ?>>
+	<?php
+	if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
+		// ignore count is used to not show this block
 		$no_rating_results_text = apply_filters( 'mr_no_rating_results_text', $no_rating_results_text );
 		?>
 		<span class="no-rating-results-text"><?php echo esc_html( $no_rating_results_text ); ?></span>
 		<?php
-} else {
-
-	if  ( $show_rich_snippets && $result_type == Multi_Rating::STAR_RATING_RESULT_TYPE ) {
+	} else {
 		
-		$microdata_thing = apply_filters( 'mr_rating_result_microdata_thing', "http://schema.org/Article", $rating_result['post_id'], $rating_result );
+		$post_obj = get_post( $post_id );
 		
-		?> itemscope itemtype="<?php echo esc_attr( $microdata_thing ); ?>" <?php
-		
-		do_action( 'mr_rating_result_microdata_thing_properties', $post_id, $rating_result );
-	}
-	?>><?php
-	
-	
-
 		if ( $show_title == true ) {
-			$post_obj = get_post( $post_id );
 			?>
 			<a href="<?php echo esc_attr( get_permalink( $post_id ) ); ?>"><?php echo esc_html( $post_obj->post_title ); ?></a>
 			<?php
@@ -35,11 +34,17 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 			
 		if ( $result_type == Multi_Rating::SCORE_RESULT_TYPE ) {
 			
-			mr_get_template_part( 'rating-result', 'score', true, array( 'rating_result' => $rating_result ) );
+			mr_get_template_part( 'rating-result', 'score', true, array( 
+					'rating_result' => $rating_result,
+					'generate_microdata' => $generate_microdata
+			 ) );
 			
 		} else if ( $result_type == Multi_Rating::PERCENTAGE_RESULT_TYPE ) {
 			
-			mr_get_template_part( 'rating-result', 'percentage', true, array( 'rating_result' => $rating_result ) );
+			mr_get_template_part( 'rating-result', 'percentage', true, array( 
+					'rating_result' => $rating_result,
+					'generate_microdata' => $generate_microdata
+			 ) );
 			
 		} else { // star rating
 			
@@ -61,7 +66,8 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 				'star_result' => $star_result,
 				'icon_classes' => $icon_classes,
 				'image_height' => $image_height,
-				'image_width' => $image_width
+				'image_width' => $image_width,
+				'generate_microdata' => $generate_microdata
 			) );
 		
 		}
@@ -74,7 +80,19 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 			$after_count = apply_filters( 'mr_rating_result_after_count', $after_count, $count );
 			
 			?>
-			<span class="count"><?php echo $before_count . number_format( $count ) . $after_count; ?></span>
+			<span class="count">
+				<?php 
+				echo $before_count;
+				if ( $generate_microdata ) { 
+					echo '<span itemprop="ratingCount">'; 
+				}
+				echo number_format( $count );
+				if ( $generate_microdata ) {
+					echo '</span>';
+				}
+				echo $after_count; 
+				?>
+			</span>
 			<?php
 		}
 			
@@ -87,20 +105,14 @@ if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 			<span class="date"><?php echo $before_date . mysql2date( get_option('date_format'), $rating_result['entry_date'] ) . $after_date; ?></span>
 			<?php
 		}
-			
-		if ( is_singular() && $show_rich_snippets == true ) {			
-			$post_obj = get_post( $post_id );	
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ) );
-			?>
-			<meta itemprop="datePublished" content="<?php echo date( 'Y-m-d', strtotime( $post_obj->post_date ) ); ?>" />
-			<meta itemprop="headline" content="<?php echo $post_obj->post_title; ?>" />
-			<meta itemprop="image" content="<?php if ( isset( $image[0] ) ) { echo $image[0]; } ?>" />
-			<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="rating-result-summary" style="display: none;">
-			<span itemprop="ratingValue"><?php echo $rating_result['adjusted_star_result']; ?></span>/<span itemprop="bestRating">5</span>
-			<span itemprop="ratingCount" style="display:none;"><?php echo $count; ?></span>
-			</span>
-			<?php
+		
+		if ( $generate_microdata ) {
+			$microdata = '<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/Thing">'
+					. '<meta itemprop="name" content="' . $post_obj->post_title . '" />'
+					. '</span>';
+			echo apply_filters( 'mr_microdata_rating_result_item_reviewed', $microdata, $post_id );
 		}
+		
 	}
 	?>
 </span>

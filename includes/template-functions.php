@@ -112,7 +112,7 @@ function mr_locate_template( $template_names, $load = false, $require_once = tru
  */
 function mr_load_template( $_template_file, $require_once = true, $template_vars = array() ) {
 	
-	apply_filters( 'mr_load_template_params', $template_vars ); // in case you want to add your own global variables or common data
+	$template_vars = apply_filters( 'mr_load_template_params', $template_vars ); // in case you want to add your own global variables or common data
 		
 	if ( $template_vars ) {
 		extract( $template_vars );
@@ -132,4 +132,34 @@ function mr_load_template( $_template_file, $require_once = true, $template_vars
 function mr_get_templates_dir() {
 	return plugin_dir_path( __FILE__ ) . '..' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
 }
+
+/**
+ * Adds star rating style params
+ *
+ * @param unknown $template_vars
+ * @return multitype:
+ */
+function mr_load_star_rating_style_params( $template_vars ) {
+
+	$styles_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+	$custom_images_settings = (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
+
+	$icon_font_library = $styles_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+	$icon_classes = MR_Utils::get_icon_classes( $icon_font_library );
+
+	$use_custom_star_images = $custom_images_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
+	$image_width = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
+	$image_height = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
+	$star_rating_colour = $styles_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
+
+	return array_merge( $template_vars, array(
+			'icon_classes' => $icon_classes,
+			'use_custom_star_images' => $use_custom_star_images,
+			'image_width' => $image_width,
+			'image_height' => $image_height,
+			'star_rating_colour' => $star_rating_colour
+	) );
+
+}
+add_filter( 'mr_load_template_params', 'mr_load_star_rating_style_params' );
 ?>

@@ -19,7 +19,7 @@ class MR_Rating_Form {
 	public static function save_rating() {
 	
 		$ajax_nonce = $_POST['nonce'];
-		if ( wp_verify_nonce($ajax_nonce, Multi_Rating::ID.'-nonce' ) ) {
+		if ( wp_verify_nonce( $ajax_nonce, Multi_Rating::ID . '-nonce' ) ) {
 				
 			global $wpdb;
 	
@@ -113,13 +113,6 @@ class MR_Rating_Form {
 				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, $rating_result );
 			}
 			
-			$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
-			$font_awesome_version = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
-			$icon_classes = MR_Utils::get_icon_classes( $font_awesome_version );
-			$use_custom_star_images = $style_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
-			$image_width = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
-			$image_height = $style_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
-			
 			$rating_results_position = get_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POSITION_POST_META, true );
 			
 			$position_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );
@@ -131,7 +124,7 @@ class MR_Rating_Form {
 			ob_start();
 			mr_get_template_part( 'rating-result', null, true, array(
 				'no_rating_results_text' => '',
-				'show_rich_snippets' => false,
+				'generate_microdata' => false,
 				'show_title' => false,
 				'show_date' => false,
 				'show_count' => true,
@@ -144,11 +137,7 @@ class MR_Rating_Form {
 				'ignore_count' => false,
 				'preserve_max_option' => false,
 				'before_date' => '',
-				'after_date' => '',
-				'icon_classes' => $icon_classes,
-				'use_custom_star_images' => $use_custom_star_images,
-				'image_width' => $image_width,
-				'image_height' => $image_height
+				'after_date' => ''
 			) );
 			$html = ob_get_contents();
 			ob_end_clean();

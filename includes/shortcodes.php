@@ -70,13 +70,14 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 	extract( shortcode_atts( array(
 			'post_id' => $post_id,
 			'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION],
-			'show_rich_snippets' => false,
+			'show_rich_snippets' => false, // @deprecated
 			'show_title' => false,
 			'show_count' => true,
 			'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
 			'class' => '',
 			'before_count' => '(',
-			'after_count' => ')'
+			'after_count' => ')',
+			'generate_microdata' => false
 	), $atts ) );
 	
 	if ( $post_id == null ) {
@@ -85,6 +86,10 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 	
 	if ( is_string( $show_rich_snippets ) ) {
 		$show_rich_snippets = $show_rich_snippets == 'true' ? true : false;
+		$generate_microdata = $show_rich_snippets;
+	}
+	if ( is_string( $generate_microdata ) ) {
+		$generate_microdata = $generate_microdata == 'true' ? true : false;
 	}
 	if ( is_string( $show_title) ) {
 		$show_title = $show_title == 'true' ? true : false;
@@ -96,7 +101,7 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 	return Multi_Rating_API::display_rating_result( array(
 			'post_id' => $post_id,
 			'no_rating_results_text' => $no_rating_results_text,
-			'show_rich_snippets' => $show_rich_snippets,
+			'generate_microdata' => $generate_microdata,
 			'show_title' => $show_title,
 			'show_date' => false,
 			'show_count' => $show_count,

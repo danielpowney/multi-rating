@@ -12,23 +12,20 @@ jQuery(document).ready(function() {
 		var postId = parts[1];
 		var sequence = parts[2];
 		
-		var hiddenRatingEntryId = "#ratingEntryId-" + postId + "-" + sequence;
-		var ratingEntryId = jQuery(hiddenRatingEntryId);
-		
 		// rating items - hidden inputs are used to find all rating items in the rating form
 		jQuery('.rating-form input[type="hidden"].rating-item-' + postId + '-' + sequence).each(function(index) {			
 			
 			var ratingItemId = jQuery(this).val();
 			
 			// get values for rating items
-			var element = jQuery('[name=rating-item-' + ratingItemId + '-' + sequence + ']');
+			var element = jQuery('[name="rating-item-' + ratingItemId + '-' + sequence + '"]');
 			var value = null;
 			if (jQuery(element).is(':radio')) {
-				value = jQuery('input[type="radio"][name=rating-item-' + ratingItemId + '-' + sequence + ']:checked').val(); 
+				value = jQuery('input[type="radio"][name="rating-item-' + ratingItemId + '-' + sequence + '"]:checked').val(); 
 			} else if (jQuery(element).is('select')) {
-				value = jQuery('select[name=rating-item-' +ratingItemId + '-' + sequence + '] :selected').val(); 
+				value = jQuery('select[name="rating-item-' +ratingItemId + '-' + sequence + '"] :selected').val(); 
 			} else {
-				value = jQuery('input[type=hidden][name=rating-item-' + ratingItemId + '-' + sequence + ']').val();
+				value = jQuery('input[type="hidden"][name="rating-item-' + ratingItemId + '-' + sequence + '"]').val();
 			}
 			
 			var ratingItem = { 'id' : ratingItemId, 'value' : value };
@@ -77,19 +74,19 @@ jQuery(document).ready(function() {
 		jQuery("#rating-form-" + id + " .rating-item .mr-error").html("");
 		
 		// update messages
-		if ((jsonResponse.validation_results && jsonResponse.validation_results.length > 0) || jsonResponse.message ) {
+		if ((jsonResponse.validation_results && jsonResponse.validation_results.length > 0) || jsonResponse.message) {
 			var messages = '';
 			
-			if ( jsonResponse.validation_results ) {
-				var $index = 0;
-				for ($index; $index< jsonResponse.validation_results.length; $index++) {
+			if (jsonResponse.validation_results) {
+				var index = 0;
+				for (index; index<jsonResponse.validation_results.length; index++) {
 					
-					if ( jsonResponse.validation_results[$index].field && jQuery("#" + jsonResponse.validation_results[$index].field + "-" + jsonResponse.data.sequence + "-error").length ) {
-						jQuery("#" + jsonResponse.validation_results[$index].field + "-" + jsonResponse.data.sequence + "-error")
-								.html(jsonResponse.validation_results[$index].message);
+					if (jsonResponse.validation_results[index].field && jQuery("#" + jsonResponse.validation_results[index].field + "-" + jsonResponse.data.sequence + "-error").length) {
+						jQuery("#" + jsonResponse.validation_results[index].field + "-" + jsonResponse.data.sequence + "-error")
+								.html(jsonResponse.validation_results[index].message);
 					} else {
-						messages += '<p class="mr message mr-' + jsonResponse.validation_results[$index].severity + '">' 
-								+ jsonResponse.validation_results[$index].message + '</p>';
+						messages += '<p class="mr message mr-' + jsonResponse.validation_results[index].severity + '">' 
+								+ jsonResponse.validation_results[index].message + '</p>';
 					}
 				}
 			}
@@ -104,12 +101,12 @@ jQuery(document).ready(function() {
 			}
 			
 			if (ratingForm && ratingForm.parent()) {
-				ratingForm.before(messages);
+				ratingForm.find(".save-rating").before(messages);
 			}
 		}
 		
 		// remove rating form if success
-		if ( jsonResponse.status == 'success' && jsonResponse.data.hide_rating_form == true && ratingForm) {
+		if (jsonResponse.status == 'success' && jsonResponse.data.hide_rating_form == true && ratingForm) {
 			ratingForm.remove();
 		}
 
@@ -128,7 +125,7 @@ jQuery(document).ready(function() {
 		
 		updateRatingItemStatus(this.id, 'clicked');
 		
-		if (useCustomStarImages == true ) {
+		if (useCustomStarImages == true) {
 			jQuery(this).not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star mr-star-full');
 			jQuery(this).prevAll().not('.mr-minus').removeClass('mr-custom-empty-star mr-star-empty mr-custom-hover-star mr-star-hover').addClass('mr-custom-full-star mr-star-full');
 			jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-full-star mr-star-full mr-custom-hover-star mr-star-hover').addClass('mr-custom-empty-star mr-star-empty');
@@ -174,8 +171,8 @@ jQuery(document).ready(function() {
 				jQuery(this).nextAll().not('.mr-minus').removeClass('mr-custom-hover-star mr-star-hover mr-custom-full-star mr-star-full').addClass('mr-custom-empty-star mr-star-empty');	
 
 			} else {
-				jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
-				jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_full);
+				jQuery(this).not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_hover);
+				jQuery(this).prevAll().not('.mr-minus').removeClass(icon_classes.star_empty).addClass(icon_classes.star_hover);
 				jQuery(this).nextAll().not('.mr-minus').removeClass(icon_classes.star_hover + " " + icon_classes.star_full).addClass(icon_classes.star_empty);	
 			}
 		}

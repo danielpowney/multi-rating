@@ -14,7 +14,7 @@ function mr_plugin_footer( $footer_text ) {
 		$plugin_footer = sprintf( __( 'Please <a href="%1$s" target="_blank">rate this plugin</a> on WordPress.org | '
 				. 'Check out <a href="%2$s" target="_blank">Multi Rating Pro</a>!', 'multi-rating' ),
 				'http://wordpress.org/support/view/plugin-reviews/multi-rating?filter=5#postform',
-				'http://danielpowney.com/downloads/multi-rating-pro'
+				'http://multiratingpro.com?utm_source=footer&utm_medium=free-plugin&utm_campaign=wp-admin'
 		);
 
 		return $plugin_footer . '<br />' . $footer_text;
@@ -60,4 +60,15 @@ function mr_template_html_strip_newlines( $html ) {
 }
 add_filter( 'mr_template_html', 'mr_template_html_strip_newlines', 10, 1 );
  
+
+/**
+ * add a link to the Pro version in the menu
+ */
+function mr_add_pro_menu_item() {
+
+	global $submenu;
+	$submenu['mr_rating_results'][] = array( 'Pro version', 'manage_options', 'http://multiratingpro.com?utm_source=menu&utm_medium=free-plugin&utm_campaign=wp-admin' );
+
+}
+add_action( 'admin_menu', 'mr_add_pro_menu_item' );
  ?>

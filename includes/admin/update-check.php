@@ -22,8 +22,50 @@ function mr_update_check() {
 	
 	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 4 ) {
 		mr_upgrade_to_4_0();
+	}
+	
+	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 4.2 ) {
+		mr_upgrade_to_4_2();
 		update_option( Multi_Rating::VERSION_OPTION, Multi_Rating::VERSION ); // latest version upgrade complete
 	}
+}
+
+/**
+ * 
+ */
+function mr_upgrade_to_4_2() {
+	
+	$styles_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );	
+	$custom_images_settings = (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
+
+	if ( isset( $styles_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES] ) ) {
+		$custom_images_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES] = $styles_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
+	}
+	if ( isset( $styles_settings[Multi_Rating::CUSTOM_FULL_STAR_IMAGE] ) ) { 
+		$custom_images_settings[Multi_Rating::CUSTOM_FULL_STAR_IMAGE] = $styles_settings[Multi_Rating::CUSTOM_FULL_STAR_IMAGE];
+	}
+	if ( isset( $styles_settings[Multi_Rating::CUSTOM_HALF_STAR_IMAGE] ) ) {
+		$custom_images_settings[Multi_Rating::CUSTOM_HALF_STAR_IMAGE] = $styles_settings[Multi_Rating::CUSTOM_HALF_STAR_IMAGE];
+	}
+	if ( isset( $styles_settings[Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE] ) ) {
+		$custom_images_settings[Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE] = $styles_settings[Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE];
+	}
+	if ( isset( $styles_settings[Multi_Rating::CUSTOM_HOVER_STAR_IMAGE] ) ) {
+		$custom_images_settings[Multi_Rating::CUSTOM_HOVER_STAR_IMAGE] = $styles_settings[Multi_Rating::CUSTOM_HOVER_STAR_IMAGE];
+	}
+	if ( isset( $styles_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH]) ) {
+		$custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH] = $styles_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
+	}
+	if ( isset( $styles_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT] ) ) {
+		$custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT] = $styles_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
+	}
+	if ( isset( $styles_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION] ) ) {
+		$styles_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION] = 'font-awesome-' . $styles_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+	}
+
+	update_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS, $custom_images_settings );
+	update_option( Multi_Rating::STYLE_SETTINGS, $styles_settings );
+	
 }
 
 /**
@@ -134,35 +176,35 @@ function mr_upgrade_to_3_0() {
 		$root = dirname(__FILE__ ) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 			
 		// PHP files
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'filters.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'filters.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'multi-rating-api.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'multi-rating-api.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'rating-item-entry-table.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'rating-item-entry-table.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'rating-item-table.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'rating-item-table.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'rating-result-view.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'rating-result-view.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'rating-form-view.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'rating-form-view.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'rating-item-entry-value-table.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'rating-item-entry-value-table.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'shortcodes.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'shortcodes.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'update-check.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'update-check.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'utils.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'utils.php');
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'widgets.php'))
-			unlink($root . DIRECTORY_SEPARATOR . 'widgets.php');
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'filters.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'filters.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'multi-rating-api.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'multi-rating-api.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'rating-item-entry-table.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'rating-item-entry-table.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'rating-item-table.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'rating-item-table.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'rating-result-view.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'rating-result-view.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'rating-form-view.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'rating-form-view.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'rating-item-entry-value-table.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'rating-item-entry-value-table.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'shortcodes.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'shortcodes.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'update-check.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'update-check.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'utils.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'utils.php' );
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'widgets.php' ) )
+			unlink( $root . DIRECTORY_SEPARATOR . 'widgets.php' );
 			
 		// Dirs
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'js' ) )
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'js' ) )
 			mr_recursive_rmdir_and_unlink( $root . DIRECTORY_SEPARATOR . 'js' );
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'css' ) )
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'css' ) )
 			mr_recursive_rmdir_and_unlink( $root . DIRECTORY_SEPARATOR . 'css' );
-		if (file_exists( $root . DIRECTORY_SEPARATOR . 'img' ) )
+		if ( file_exists( $root . DIRECTORY_SEPARATOR . 'img' ) )
 			mr_recursive_rmdir_and_unlink( $root . DIRECTORY_SEPARATOR . 'img' );
 			
 		// JS
@@ -175,7 +217,7 @@ function mr_upgrade_to_3_0() {
 		 * Migrate options that have been renamed
 		 */
 			
-	} catch (Exception $e) {
+	} catch ( Exception $e ) {
 		die( __( 'An error occured.', 'multi-rating' ) );
 	}
 }

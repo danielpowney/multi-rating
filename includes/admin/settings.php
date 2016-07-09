@@ -18,11 +18,11 @@ function mr_settings_screen() {
 		}
 		
 		?>
-			<form method="post" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>" action="options.php">
+		<form method="post" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>" action="options.php">
 			<?php
 			wp_nonce_field( 'update-options' );
 			settings_fields( Multi_Rating::GENERAL_SETTINGS );
-			do_settings_sections( Multi_Rating::GENERAL_SETTINGS );
+			do_settings_sections( Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::GENERAL_SETTINGS );
 			submit_button(null, 'primary', 'submit', true, null);
 			?>
 		</form>
@@ -31,7 +31,7 @@ function mr_settings_screen() {
 			<?php
 			wp_nonce_field( 'update-options' );
 			settings_fields( Multi_Rating::POSITION_SETTINGS );
-			do_settings_sections( Multi_Rating::POSITION_SETTINGS );
+			do_settings_sections( Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::POSITION_SETTINGS );
 			submit_button(null, 'primary', 'submit', true, null);
 			?>
 		</form>
@@ -40,7 +40,7 @@ function mr_settings_screen() {
 			<?php
 			wp_nonce_field( 'update-options' );
 			settings_fields( Multi_Rating::CUSTOM_TEXT_SETTINGS );
-			do_settings_sections( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+			do_settings_sections( Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::CUSTOM_TEXT_SETTINGS );
 			submit_button(null, 'primary', 'submit', true, null);
 			?>
 		</form>
@@ -49,10 +49,19 @@ function mr_settings_screen() {
 			<?php
 			wp_nonce_field( 'update-options' );
 			settings_fields( Multi_Rating::STYLE_SETTINGS );
-			do_settings_sections( Multi_Rating::STYLE_SETTINGS );
+			do_settings_sections( Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::STYLE_SETTINGS );
 			submit_button(null, 'primary', 'submit', true, null);
 			?>
 		</form>		
+		
+		<form method="post" name="<?php echo Multi_Rating::CUSTOM_IMAGES_SETTINGS; ?>" action="options.php">
+			<?php
+			wp_nonce_field( 'update-options' );
+			settings_fields( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
+			do_settings_sections( Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::CUSTOM_IMAGES_SETTINGS );
+			submit_button(null, 'primary', 'submit', true, null);
+			?>
+		</form>	
 	</div>
 	<?php 
 }

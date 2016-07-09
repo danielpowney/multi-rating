@@ -8,6 +8,22 @@ table.form-table .checkbox-label {
 	margin-right: 12px;
 }
 
+table.entries th#id, table.ratingitems th#rating_item_id, table.ratingresults th#rating_item_entry_id {
+	width: 2.2em;
+}
+table.ratingitems th#description {
+	width: 20em;
+}
+table.ratingitems td.description .view {
+	font-weight: bold;
+}
+form#add-new-rating-item-form select#type,table.ratingitems td.type select {
+	width: 6em;
+}
+table.ratingresults th#entries_count, table.ratingresults th#action {
+	width: 10em;
+}
+
 /* Reports */
 #reports-form p.description { 
 	margin-top: 4px;
@@ -53,4 +69,11 @@ body.admin-color-classic .report-wrapper {
 div#custom-star-images-details td {
 	padding-bottom: 0px !important;
 	padding-top: 10px !important;
+}
+
+
+li#toplevel_page_mr_rating_results .wp-submenu li a[href="admin.php?page=mr_edit_rating"],
+li#toplevel_page_mr_rating_results .wp-submenu li a.wp-first-item {
+	display: none !important;
+	padding: 0px !important;
 }

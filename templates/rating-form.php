@@ -26,6 +26,7 @@
 			$max_option_value =  $rating_item['max_option_value'];
 			$default_option_value = $rating_item['default_option_value'];
 			$rating_item_type = $rating_item['type'];
+			$required = $rating_item['required'];
 			
 			mr_get_template_part( 'rating-form', 'rating-item', true, array(
 				'rating_item_id' => $rating_item_id,
@@ -39,6 +40,7 @@
 				'use_custom_star_images' => $use_custom_star_images,
 				'element_id' => $element_id,
 				'rating_item_type' => $rating_item_type,
+				'required' => $required
 			) );
 			
 			?>

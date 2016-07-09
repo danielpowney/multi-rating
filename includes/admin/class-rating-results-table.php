@@ -84,7 +84,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 				
 				<label for="sort-by"><?php _e('Sort', 'multi-rating' ); ?></label>
 				<select id="sort-by" name="sort-by">
-				<option value=""></option>
+					<option value=""></option>
 					<option value="post_title_asc" <?php if ( $sort_by == 'post_title_asc' ) { echo 'selected="selected"'; } ?>><?php _e( 'Post Title Ascending', 'multi-rating' ); ?></option>
 					<option value="post_title_desc" <?php if ( $sort_by == 'post_title_desc' ) { echo 'selected="selected"'; } ?>><?php _e( 'Post Title Descending', 'multi-rating' ); ?></option>
 					<option value="top_rating_results" <?php if ( $sort_by == 'top_rating_results' ) { echo 'selected="selected"'; } ?>><?php _e( 'Top Rating Results', 'multi-rating' ); ?></option>
@@ -110,7 +110,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 		
 		$columns= array(
 				MR_Rating_Results_Table::POST_ID_COLUMN => __( 'Post', 'multi-rating' ),
-				MR_Rating_Results_Table::RATING_RESULT_COLUMN => __( 'Rating Result', 'multi-rating' ),
+				MR_Rating_Results_Table::RATING_RESULT_COLUMN => __( 'Overall Rating', 'multi-rating' ),
 				MR_Rating_Results_Table::ENTRIES_COUNT_COLUMN => __( 'Entries', 'multi-rating' ),
 				MR_Rating_Results_Table::ACTION_COLUMN => __( 'Action', 'multi-rating' ),
 				MR_Rating_Results_Table::SHORTCODE_COLUMN => __( 'Shortcode', 'multi-rating' )
@@ -189,7 +189,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 		// pagination
 		$item_count = $wpdb->query( $query ); //return the total number of affected rows
 		$items_per_page = 10;
-		$page_num = ! empty( $_GET["paged"] ) ? mysql_real_escape_string( $_GET["paged"] ) : '';
+		$page_num = ! empty( $_GET['paged'] ) ? $_GET['paged'] : '';
 		if ( empty( $page_num ) || ! is_numeric( $page_num ) || $page_num <= 0 ) {
 			$page_num = 1;
 		}
@@ -298,7 +298,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 		switch( $column_name ) {
 			case MR_Rating_Results_Table::SHORTCODE_COLUMN : {
 				
-				echo '[mr_rating_result post_id="' . $post_id . '"]';
+				echo '<code>[mr_rating_result post_id="' . $post_id . '"]</code>';
 				break;
 			}
 			
@@ -322,9 +322,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 			case MR_Rating_Results_Table::ACTION_COLUMN : {
 							
 				?>
-				<a class="view-rating-result-entries-anchor" href="?page=<?php echo Multi_Rating::RATING_RESULTS_PAGE_SLUG; ?>&tab=<?php 
-						echo Multi_Rating::ENTRIES_TAB; ?>&post-id=<?php echo $post_id ?>"><?php 
-						_e( 'View Entries', 'multi-rating' ); ?></a>
+				<a class="view-rating-result-entries-anchor" href="?page=<?php echo Multi_Rating::RATING_ENTRIES_PAGE_SLUG; ?>&post-id=<?php echo $post_id ?>"><?php _e( 'View Entries', 'multi-rating' ); ?></a>
 				<?php
 				break;
 			}
@@ -353,9 +351,9 @@ class MR_Rating_Results_Table extends WP_List_Table {
 				
 				$entries = $rating_result['count'];
 				if ($entries != 0) {
-					echo __('Star: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_star_result'], 2 ) . '/5</span><br />'
-							. __('Score: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_score_result'], 2) . '/' . $rating_result['total_max_option_value'] . '</span><br />' 
-							. __('Percentage: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_percentage_result'], 2) . '%</span>';				
+					echo __( 'Star: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_star_result'], 2 ) . '/5</span><br />'
+							. __( 'Score: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_score_result'], 2) . '/' . $rating_result['total_max_option_value'] . '</span><br />' 
+							. __( 'Percentage: ', 'multi-rating' ) . '<span style="color: #0074a2;">' . round( $rating_result['adjusted_percentage_result'], 2) . '%</span>';				
 				} else {
 					_e( 'None', 'multi-rating' );	
 				}

@@ -8,6 +8,9 @@
 	<?php
 	// option values
 	$index = 0;
+	if ( $required == true ) {
+		$index = 1;
+	}
 	for ( $index; $index <= $max_option_value; $index++ ) {
 			
 		$is_selected = false;

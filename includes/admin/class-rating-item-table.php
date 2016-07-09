@@ -57,14 +57,14 @@ class MR_Rating_Item_Table extends WP_List_Table {
 		
 		return array(
 				MR_Rating_Item_Table::CHECKBOX_COLUMN => '<input type="checkbox" />',
-				MR_Rating_Item_Table::RATING_ITEM_ID_COLUMN =>__( 'Rating Item ID', 'multi-rating' ),
+				MR_Rating_Item_Table::DESCRIPTION_COLUMN =>__( 'Label' , 'multi-rating' ),
+				MR_Rating_Item_Table::RATING_ITEM_ID_COLUMN =>__( 'ID', 'multi-rating' ),
 				MR_Rating_Item_Table::RATING_ID_COLUMN => '',
-				MR_Rating_Item_Table::DESCRIPTION_COLUMN =>__( 'Description' , 'multi-rating' ),
 				MR_Rating_Item_Table::TYPE_COLUMN => __( 'Type', 'multi-rating' ),
-				MR_Rating_Item_Table::WEIGHT_COLUMN	=>__( 'Weight', 'multi-rating' ),
-				MR_Rating_Item_Table::DEFAULT_OPTION_VALUE_COLUMN => __( 'Default Option Value', 'multi-rating' ),
+				MR_Rating_Item_Table::MAX_OPTION_VALUE_COLUMN => __( 'Max Option', 'multi-rating' ),
+				MR_Rating_Item_Table::DEFAULT_OPTION_VALUE_COLUMN => __( 'Default Option', 'multi-rating' ),
 				MR_Rating_Item_Table::FIELD_REQUIRED_COLUMN => __( 'Required', 'multi-rating' ),
-				MR_Rating_Item_Table::MAX_OPTION_VALUE_COLUMN => __( 'Max Option Value', 'multi-rating' )
+				MR_Rating_Item_Table::WEIGHT_COLUMN	=>__( 'Weight', 'multi-rating' ),
 		);
 	}
 
@@ -136,7 +136,7 @@ class MR_Rating_Item_Table extends WP_List_Table {
 		$field_id = 'field-'. $column_name . '-'. $row_id;
 		$text_id = 'text-'. $column_name . '-'. $row_id;
 		
-		$type_options = array( 'select' => __( 'Select', 'multi-rating' ), 'radio' => __( 'Radio', 'multi-rating' ), 'star_rating' => __( 'Star Rating', 'multi-rating' ) );
+		$type_options = array( 'select' => __( 'Select', 'multi-rating' ), 'radio' => __( 'Radio', 'multi-rating' ), 'star_rating' => __( 'Stars', 'multi-rating' ) );
 	
 		$text_value = isset( $type_options[$row_value] ) ? $type_options[$row_value] : $row_value;
 	
@@ -189,7 +189,7 @@ class MR_Rating_Item_Table extends WP_List_Table {
 		$field_id = 'field-'. $column_name . '-'. $row_id;
 		$text_id = 'text-'. $column_name . '-'. $row_id;
 		
-		echo '<div id="' .$view_section_id.'"><div id="'.$text_id.'">' . $row_value . '</div><div class="row-actions"><a href="#" id="'.$edit_btn_id.'">' . __( 'Edit', 'multi-rating' ) . '</a></div></div>';
+		echo '<div id="' .$view_section_id.'"><div id="'.$text_id.'" class="view">' . $row_value . '</div><div class="row-actions"><a href="#" id="'.$edit_btn_id.'">' . __( 'Edit', 'multi-rating' ) . '</a></div></div>';
 		echo '<div id="'.$edit_section_id.'" style="display: none;">';
 		echo '<input type="text" name="' . $field_id . '" id="'. $field_id . '" value="'. $row_value . '" style="width: 100%;" />';
 		echo '<div class="row-actions"><a href="#" id="'.$save_btn_id.'">' . __( 'Save', 'multi-rating' ) . '</a></div></div>';	

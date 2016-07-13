@@ -101,6 +101,9 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 
 == Changelog ==
 
+= 4.2.2 (14/07/2016) =
+* Bug: Fixed issue unable to add more than one rating item
+
 = 4.2.1 (09/07/2016) =
 * Bug: Fixed fatal error missing rating-entries.php file
 

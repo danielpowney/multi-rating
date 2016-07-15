@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: multi-rating\n"
-"POT-Creation-Date: 2016-07-08 20:58+1000\n"
-"PO-Revision-Date: 2016-07-08 20:59+1000\n"
+"POT-Creation-Date: 2016-07-14 09:22+1000\n"
+"PO-Revision-Date: 2016-07-14 09:22+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -570,12 +570,12 @@ msgid "An error occured"
 msgstr ""
 
 #: ../includes/admin/class-rating-item-table.php:309
-#: ../includes/admin/rating-items.php:87
+#: ../includes/admin/rating-items.php:86
 msgid "Description cannot be empty. "
 msgstr ""
 
 #: ../includes/admin/class-rating-item-table.php:314
-#: ../includes/admin/rating-items.php:96
+#: ../includes/admin/rating-items.php:95
 msgid "Max option value cannot be empty and must be a whole number. "
 msgstr ""
 
@@ -585,7 +585,7 @@ msgid "Default option value cannot be greater than the max option value. "
 msgstr ""
 
 #: ../includes/admin/class-rating-item-table.php:322
-#: ../includes/admin/rating-items.php:100
+#: ../includes/admin/rating-items.php:99
 msgid "Default option value cannot be empty and must be a whole number. "
 msgstr ""
 
@@ -686,7 +686,7 @@ msgid ""
 "rating item will adjust the rating results accordingly."
 msgstr ""
 
-#: ../includes/admin/rating-items.php:54
+#: ../includes/admin/rating-items.php:53
 msgid "Save Changes"
 msgstr ""
 
@@ -694,11 +694,11 @@ msgstr ""
 msgid "Add New"
 msgstr ""
 
-#: ../includes/admin/rating-items.php:126
-msgid "Rating item added successfully."
+#: ../includes/admin/rating-items.php:111
+msgid "Default option cannot be greater than max option."
 msgstr ""
 
-#: ../includes/admin/rating-items.php:129
+#: ../includes/admin/rating-items.php:132
 msgid "An error occured. Rating item could not be added."
 msgstr ""
 

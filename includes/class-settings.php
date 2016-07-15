@@ -81,7 +81,7 @@ class MR_Settings {
 				Multi_Rating::STAR_RATING_COLOUR_OPTION => '#ffd700',
 				Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION => '#ffba00',
 				Multi_Rating::INCLUDE_FONT_AWESOME_OPTION => true,
-				Multi_Rating::FONT_AWESOME_VERSION_OPTION => '4.0.3',
+				Multi_Rating::FONT_AWESOME_VERSION_OPTION => 'font-awesome-4.0.3',
 				Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION => '#EC6464',
 				Multi_Rating::DISABLE_STYLES_OPTION => false
 		), $this->style_settings );
@@ -173,7 +173,7 @@ class MR_Settings {
 						'section' 	=> 'section_general',
 						'args' => array(
 								'option_name' 	=> Multi_Rating::GENERAL_SETTINGS,
-								'setting_id' 	=> Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION,
+								'setting_id' 	=> Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION,
 								'label' 		=> sprintf( __( 'Some plugins convert newlines to HTML paragraphs similar to <a href="%s">wpautop</a> (e.g. Visual Composer). Check this box if you want to prevent this from happening by stripping the newlines from the Multi Rating templates.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/wpautop' )
 						)
 				)

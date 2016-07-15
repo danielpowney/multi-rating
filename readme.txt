@@ -101,8 +101,13 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 
 == Changelog ==
 
+= 4.2.3 (16/07/2016) =
+* Bug: Fixed styles for icon font library not defaulting correctly
+* Bug: Fixed hide rating form on submit and template strip newlines settings not saving correctly
+
 = 4.2.2 (14/07/2016) =
 * Bug: Fixed issue unable to add more than one rating item
+* Tweak: Added new error if default option > max option when adding a new rating item
 
 = 4.2.1 (09/07/2016) =
 * Bug: Fixed fatal error missing rating-entries.php file

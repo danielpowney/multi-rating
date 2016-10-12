@@ -108,9 +108,11 @@ class MR_Rating_Form {
 			) );
 
 			$rating_results_cache = $general_settings[Multi_Rating::RATING_RESULTS_CACHE_OPTION];
-			if ($rating_results_cache == true) {
+			if ( $rating_results_cache == true ) {
 				// update rating results cache
 				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, $rating_result );
+				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating', $rating_result['adjusted_star_result'] );
+				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries', $rating_result['count'] );
 			}
 			
 			$rating_results_position = get_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POSITION_POST_META, true );

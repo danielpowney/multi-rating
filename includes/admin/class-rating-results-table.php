@@ -434,6 +434,8 @@ class MR_Rating_Results_Table extends WP_List_Table {
 				 * delete rating results cache in WordPress postmeta table
 				 */
 				delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY );
+				delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating' );
+				delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries' );
 			}
 				
 			echo '<div class="updated"><p>' . __( 'Rating results deleted successfully.', 'multi-rating' ) . '</p></div>';

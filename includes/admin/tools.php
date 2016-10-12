@@ -317,6 +317,8 @@ function mr_clear_database() {
 			
 			// rating results cache will be refreshed next time it's needed
 			delete_post_meta( $entry['post_id'], Multi_Rating::RATING_RESULTS_POST_META_KEY );
+			delete_post_meta( $entry['post_id'], Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating' );
+			delete_post_meta( $entry['post_id'], Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries' );
 		}
 		
 		global $wpdb;
@@ -358,10 +360,12 @@ function mr_clear_cache() {
 
 	$query .= ' GROUP BY post_id';
 
-	$results = $wpdb->get_results( $query );
+	$rows = $wpdb->get_results( $query );
 
-	foreach ( $results as $result ) {
-		delete_post_meta( $result->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY );
+	foreach ( $rows as $row ) {
+		delete_post_meta( $row->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY );
+		delete_post_meta( $row->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating' );
+		delete_post_meta( $row->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries' );
 	}
 	echo '<div class="updated"><p>' . __( 'Cache cleared successfully.', 'multi-rating' ) . '</p></div>';
 }

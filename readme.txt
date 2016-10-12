@@ -1,18 +1,18 @@
 === Multi Rating ===
 Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
-Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, microdata, feedback, wpml, question
+Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, microdata, feedback, question
 Requires at least: 4.0
-Tested up to: 4.5
+Tested up to: 4.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.
+A powerful rating / review system plugin for WordPress with a niche of doing multi ratings better than anyone else. 
 
 == Description ==
 
-The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.
+The best rating system plugin for WordPress. This is simple plugin for users to rate posts based on multiple criteria / questions.
 
 View [Demo](http://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme).
 
@@ -35,7 +35,7 @@ View [Demo](http://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_me
 * Developer friently
 * i18n translation ready and WPML support
 * In-built template system for customization
-* All data stoted in your own WordPress database - no signup required!
+* All data stored in your own WordPress database - no signup required!
 
 = Shortcode Examples =
 
@@ -100,6 +100,11 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.2.4 () =
+* New: Added badge icon to about page
+* New: Added post meta field "mr_rating_result_count_entries" which is a count of rating entries
+* New: Added post meta field "mr_rating_result_star_rating" which has the overall star rating
 
 = 4.2.3 (16/07/2016) =
 * Bug: Fixed styles for icon font library not defaulting correctly

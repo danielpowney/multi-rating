@@ -77,3 +77,9 @@ li#toplevel_page_mr_rating_results .wp-submenu li a.wp-first-item {
 	display: none !important;
 	padding: 0px !important;
 }
+
+
+.about-wrap .mr-badge { float: right; border-radius: 4px; margin: 0 0 15px 15px; max-width: 120px; }
+.about-wrap #mr-header { margin-bottom: 15px; }
+.about-wrap #mr-header h1 { margin-bottom: 15px !important; }
+.about-wrap #mr-header .about-text { margin: 0 0 15px; max-width: 670px; }

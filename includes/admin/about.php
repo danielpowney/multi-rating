@@ -67,10 +67,16 @@ function mr_about_screen() {
 	?>
 	
 	<div class="wrap about-wrap">
+	
+		<div id="mr-header">
+			<img class="mr-badge" src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'badge.png' , __FILE__ ); ?>" alt="<?php _e( 'Multi Rating', 'multi-rating-pro' ); ?>" / >
 			<h1><?php printf( __( 'Multi Rating v%s', 'multi-rating' ), Multi_Rating::VERSION ); ?></h1>
+			<p class="about-text">
+				<?php _e( 'The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.', 'multi-rating' ); ?>
+			</p>
+		</div>
 		
-		<div class="about-text"><?php _e( 'The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.', 'multi-rating' ); ?></div>
-			<h2 class="nav-tab-wrapper">
+		<h2 class="nav-tab-wrapper">
 			<?php
 			$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'getting_started';
 			$page = Multi_Rating::ABOUT_PAGE_SLUG;

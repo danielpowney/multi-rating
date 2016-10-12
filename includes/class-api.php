@@ -132,12 +132,13 @@ class Multi_Rating_API {
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 		$rating_results_cache = $general_settings[Multi_Rating::RATING_RESULTS_CACHE_OPTION];
 			
-		if ($rating_results_cache == true) {
+		if ( $rating_results_cache == true ) {
 			// retrieve from cache if exists, otherwise calculate and save to cache
 			$rating_result = get_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, true );
 		}
 			
 		if ( $rating_result == null ) {
+			
 			$rating_items = Multi_Rating_API::get_rating_items( );
 		
 			$rating_result = Multi_Rating_API::calculate_rating_result( array(
@@ -145,9 +146,12 @@ class Multi_Rating_API {
 					'rating_items' => $rating_items
 			) );
 		
-			if ($rating_results_cache == true) {
+			if ( $rating_results_cache == true)  {
 				// update rating results cache
 				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, $rating_result );
+				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating', $rating_result['adjusted_star_result'] );
+				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries', $rating_result['count'] );
+				
 			}
 		}
 		

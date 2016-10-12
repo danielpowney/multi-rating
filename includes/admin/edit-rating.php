@@ -161,8 +161,11 @@ function mr_edit_rating() {
 	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 	$rating_results_cache = $general_settings[Multi_Rating::RATING_RESULTS_CACHE_OPTION];
 	if ($rating_results_cache == true) {
-		// update rating results cache
-		update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, null );
+		// delete rating results cache
+		delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY );
+		delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating' );
+		delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries' );
+		
 	}
 	
 	// redirect back to entries page

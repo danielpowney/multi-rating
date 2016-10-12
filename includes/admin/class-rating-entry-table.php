@@ -156,9 +156,9 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 			}
 		}
 		
-		if ( $to_date != null && strlen($to_date) > 0 ) {
+		if ( $to_date != null && strlen( $to_date ) > 0 ) {
 			list( $year, $month, $day ) = explode( '-', $to_date );// default yyyy-mm-dd format
-			if ( ! checkdate( $month , $day , $year )) {
+			if ( ! checkdate( $month , $day , $year ) ) {
 				$to_date = null;
 			}
 		}
@@ -177,7 +177,7 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 		}
 		
 		if ( $post_id ) {
-			if ($added_to_query) {
+			if ( $added_to_query ) {
 				$query .= ' AND';
 			}
 				
@@ -186,7 +186,7 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 		}
 		
 		if ( $username ) {
-			if ($added_to_query) {
+			if ( $added_to_query ) {
 				$query .= ' AND';
 			}
 				
@@ -195,7 +195,7 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 		}
 		
 		if ( $from_date ) {
-			if ($added_to_query) {
+			if ( $added_to_query ) {
 				$query .= ' AND';
 			}
 				
@@ -204,7 +204,7 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 		}
 		
 		if ( $to_date ) {
-			if ($added_to_query) {
+			if ( $added_to_query ) {
 				$query .= ' AND';
 			}
 				
@@ -362,7 +362,9 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 				$row = $wpdb->get_row($query);
 				
 				// rating results cache will be refreshed next time it's needed
-				delete_post_meta($row->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY );
+				delete_post_meta( $row->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY );
+				delete_post_meta( $row->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating' );
+				delete_post_meta( $row->post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries' );
 				
 				$query = 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE ' .  MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN . ' = ' . $id;
 				$results = $wpdb->query($query);

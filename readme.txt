@@ -101,7 +101,7 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 
 == Changelog ==
 
-= 4.2.4 () =
+= 4.2.4 (18/10/2016) =
 * New: Added badge icon to about page
 * New: Added post meta field "mr_rating_result_count_entries" which is a count of rating entries
 * New: Added post meta field "mr_rating_result_star_rating" which has the overall star rating

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: multi-rating\n"
-"POT-Creation-Date: 2016-07-14 09:22+1000\n"
-"PO-Revision-Date: 2016-07-14 09:22+1000\n"
+"POT-Creation-Date: 2016-10-13 17:38+1000\n"
+"PO-Revision-Date: 2016-10-13 17:38+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,49 +16,54 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../includes/admin/about.php:70
+#: ../includes/admin/about.php:72 ../includes/admin/class-post-metabox.php:31
+#: ../multi-rating.php:391
+msgid "Multi Rating"
+msgstr ""
+
+#: ../includes/admin/about.php:73
 #, php-format
 msgid "Multi Rating v%s"
 msgstr ""
 
-#: ../includes/admin/about.php:72
+#: ../includes/admin/about.php:75
 msgid ""
 "The best rating system plugin for WordPress. This is a simple plugin which "
 "allows users to rate posts based on multiple criteria and questions."
 msgstr ""
 
-#: ../includes/admin/about.php:78
+#: ../includes/admin/about.php:84
 msgid "Getting Started"
 msgstr ""
 
-#: ../includes/admin/about.php:79
+#: ../includes/admin/about.php:85
 msgid "Support"
 msgstr ""
 
-#: ../includes/admin/about.php:80
+#: ../includes/admin/about.php:86
 msgid "Pro version available!"
 msgstr ""
 
-#: ../includes/admin/about.php:95
+#: ../includes/admin/about.php:101
 msgid "Use the tips below to help you get started."
 msgstr ""
 
-#: ../includes/admin/about.php:100
+#: ../includes/admin/about.php:106
 msgid "Add New Rating Items"
 msgstr ""
 
-#: ../includes/admin/about.php:101
+#: ../includes/admin/about.php:107
 #, php-format
 msgid ""
 "Setup your criteria and questions by <a href=\"admin.php?page=%s\">adding "
 "new rating items</a>."
 msgstr ""
 
-#: ../includes/admin/about.php:105 ../includes/class-settings.php:285
+#: ../includes/admin/about.php:111 ../includes/class-settings.php:285
 msgid "Auto Placement Settings"
 msgstr ""
 
-#: ../includes/admin/about.php:106
+#: ../includes/admin/about.php:112
 #, php-format
 msgid ""
 "Use the <a href=\"admin.php?page=%s\">automatic placement settings</a> to "
@@ -66,116 +71,116 @@ msgid ""
 "default positions."
 msgstr ""
 
-#: ../includes/admin/about.php:110
+#: ../includes/admin/about.php:116
 msgid "View the Frontend"
 msgstr ""
 
-#: ../includes/admin/about.php:111
+#: ../includes/admin/about.php:117
 msgid ""
 "If everything is setup correctly, the rating form and rating results should "
 "appear on your website!"
 msgstr ""
 
-#: ../includes/admin/about.php:118
+#: ../includes/admin/about.php:124
 msgid "Shortcodes"
 msgstr ""
 
-#: ../includes/admin/about.php:119
+#: ../includes/admin/about.php:125
 msgid "[mr_rating_form] - displays the rating form</i>."
 msgstr ""
 
-#: ../includes/admin/about.php:120
+#: ../includes/admin/about.php:126
 msgid "[mr_rating_results_list] - displays a list of rating results."
 msgstr ""
 
-#: ../includes/admin/about.php:121
+#: ../includes/admin/about.php:127
 msgid "[mr_rating_result] - displays the rating result"
 msgstr ""
 
-#: ../includes/admin/about.php:122
+#: ../includes/admin/about.php:128
 #, php-format
 msgid ""
 "Refer to the <a href=\"%s\">documentation</a> for more information on the "
 "attributes available."
 msgstr ""
 
-#: ../includes/admin/about.php:126
+#: ../includes/admin/about.php:132
 msgid "View Rating Results"
 msgstr ""
 
-#: ../includes/admin/about.php:127
+#: ../includes/admin/about.php:133
 #, php-format
 msgid ""
 "View all <a href=\"admin.php?page=%s\">rating results</a> and entries from "
 "the WP-admin."
 msgstr ""
 
-#: ../includes/admin/about.php:135
+#: ../includes/admin/about.php:141
 msgid "Custom Post Types"
 msgstr ""
 
-#: ../includes/admin/about.php:136
+#: ../includes/admin/about.php:142
 msgid ""
 "If you want to use the plugin for pages and other post types you'll need to "
 "be enable them in the plugin settings."
 msgstr ""
 
-#: ../includes/admin/about.php:138
+#: ../includes/admin/about.php:144
 msgid "Custom Taxonomy"
 msgstr ""
 
-#: ../includes/admin/about.php:139
+#: ../includes/admin/about.php:145
 msgid ""
 "Shortcodes and API support custom taxonomies e.g. [mr_rating_resultlist "
 "taxonomy=\"post_tag\" term_id=\"1\"]. The category_id attribute is a "
 "shortcut to taxonomy=\"category\" and term_id=\"category_id\"."
 msgstr ""
 
-#: ../includes/admin/about.php:141
+#: ../includes/admin/about.php:147
 msgid "I18n, WPML & Custom Text"
 msgstr ""
 
-#: ../includes/admin/about.php:142
+#: ../includes/admin/about.php:148
 msgid ""
 "The plugin has been internationalized and is translation ready (.pot file in "
 "the languages directory). The plugin is fully WPML compatible. You can also "
 "modify the default text and messages."
 msgstr ""
 
-#: ../includes/admin/about.php:144
+#: ../includes/admin/about.php:150
 msgid "Template System"
 msgstr ""
 
-#: ../includes/admin/about.php:145
+#: ../includes/admin/about.php:151
 msgid "The plugin has an in-built template system."
 msgstr ""
 
-#: ../includes/admin/about.php:150
+#: ../includes/admin/about.php:156
 msgid "Rich Snippets"
 msgstr ""
 
-#: ../includes/admin/about.php:151
+#: ../includes/admin/about.php:157
 msgid ""
 "<a href=\"http://schema.org\">schema.org</a> structured markup can be be "
 "added to every page which allows search engines to display the aggregated "
 "rating results as rich snippets."
 msgstr ""
 
-#: ../includes/admin/about.php:154
+#: ../includes/admin/about.php:160
 msgid "Font Awesome"
 msgstr ""
 
-#: ../includes/admin/about.php:155
+#: ../includes/admin/about.php:161
 msgid ""
 "Font Awesome versions 4.3.0, 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by "
 "the plugin."
 msgstr ""
 
-#: ../includes/admin/about.php:157
+#: ../includes/admin/about.php:163
 msgid "Upload Custom Star Images"
 msgstr ""
 
-#: ../includes/admin/about.php:158
+#: ../includes/admin/about.php:164
 msgid ""
 "You can <a href=\"http://multiratingpro.com/documentation/custom-star-images?"
 "utm_source=about&utm_medium=free-plugin&utm_campaign=wp-"
@@ -183,176 +188,172 @@ msgid ""
 "use instead of the using icon fonts."
 msgstr ""
 
-#: ../includes/admin/about.php:160 ../includes/admin/tools.php:13
+#: ../includes/admin/about.php:166 ../includes/admin/tools.php:13
 msgid "Export Rating Results"
 msgstr ""
 
-#: ../includes/admin/about.php:161
+#: ../includes/admin/about.php:167
 msgid "You can export the rating results to a CSV file."
 msgstr ""
 
-#: ../includes/admin/about.php:163
+#: ../includes/admin/about.php:169
 msgid "Edit Ratings"
 msgstr ""
 
-#: ../includes/admin/about.php:164
+#: ../includes/admin/about.php:170
 msgid ""
 "Administrator and Editor user roles have the capability to edit ratings."
 msgstr ""
 
-#: ../includes/admin/about.php:169 ../multi-rating.php:397
+#: ../includes/admin/about.php:175 ../multi-rating.php:397
 msgid "Reports"
 msgstr ""
 
-#: ../includes/admin/about.php:170
+#: ../includes/admin/about.php:176
 msgid "You can view the number of rating entries per day over time."
 msgstr ""
 
-#: ../includes/admin/about.php:173
+#: ../includes/admin/about.php:179
 msgid "Meta-box"
 msgstr ""
 
-#: ../includes/admin/about.php:174
+#: ../includes/admin/about.php:180
 msgid ""
 "There's a meta-box on the edit post page so that you can override the "
 "default settings (e.g. auto placement settings)."
 msgstr ""
 
-#: ../includes/admin/about.php:176
+#: ../includes/admin/about.php:182
 msgid "Developer API"
 msgstr ""
 
-#: ../includes/admin/about.php:177
+#: ../includes/admin/about.php:183
 msgid ""
 "The API functions are located in the class-api.php file which contains a "
 "static class called Multi_Rating_API."
 msgstr ""
 
-#: ../includes/admin/about.php:179
+#: ../includes/admin/about.php:185
 msgid "Action Hooks & Filters"
 msgstr ""
 
-#: ../includes/admin/about.php:180
+#: ../includes/admin/about.php:186
 msgid ""
 "Developers can extend the plugin functionality using action hooks and "
 "filters."
 msgstr ""
 
-#: ../includes/admin/about.php:182
+#: ../includes/admin/about.php:188
 msgid "GitHub"
 msgstr ""
 
-#: ../includes/admin/about.php:183
+#: ../includes/admin/about.php:189
 #, php-format
 msgid "We're on <a href=\"%s\">GitHub</a>. Contributions welcome."
 msgstr ""
 
-#: ../includes/admin/about.php:191
+#: ../includes/admin/about.php:197
 #, php-format
 msgid ""
 "All support for the free Multi Rating plugin should use the <a href=\"%s"
 "\">WordPress.org support forum</a>."
 msgstr ""
 
-#: ../includes/admin/about.php:192
+#: ../includes/admin/about.php:198
 #, php-format
 msgid ""
 "Please use the <a href=\"%s\">contact form</a> to send translation files or "
 "to contact me directly."
 msgstr ""
 
-#: ../includes/admin/about.php:193
+#: ../includes/admin/about.php:199
 #, php-format
 msgid ""
 "Please <a href=\"%1$s\" target=\"_blank\">rate this plugin</a> on WordPress."
 "org."
 msgstr ""
 
-#: ../includes/admin/about.php:198
+#: ../includes/admin/about.php:204
 #, php-format
 msgid ""
 "The <a href=\"%s\">Multi Rating Pro</a> version provides a significant "
 "additional feature set, including:"
 msgstr ""
 
-#: ../includes/admin/about.php:200
+#: ../includes/admin/about.php:206
 msgid "The following key features are available in the Pro version:"
 msgstr ""
 
-#: ../includes/admin/about.php:202
+#: ../includes/admin/about.php:208
 msgid "Ratings moderation (approve or unapprove rating entries)"
 msgstr ""
 
-#: ../includes/admin/about.php:203
+#: ../includes/admin/about.php:209
 msgid "WordPress comment system integration"
 msgstr ""
 
-#: ../includes/admin/about.php:204
+#: ../includes/admin/about.php:210
 msgid "Logged in users can update or delete their existing ratings"
 msgstr ""
 
-#: ../includes/admin/about.php:205
+#: ../includes/admin/about.php:211
 msgid "Bayesian average ratings"
 msgstr ""
 
-#: ../includes/admin/about.php:206
+#: ../includes/admin/about.php:212
 msgid ""
 "Add common review fields to the rating form including title, name, e-mail "
 "and comments"
 msgstr ""
 
-#: ../includes/admin/about.php:207
+#: ../includes/admin/about.php:213
 msgid "Add custom fields to the rating form to collect additional information"
 msgstr ""
 
-#: ../includes/admin/about.php:208
+#: ../includes/admin/about.php:214
 msgid "Show a list of rating entry details in a review layout"
 msgstr ""
 
-#: ../includes/admin/about.php:209
+#: ../includes/admin/about.php:215
 msgid "Show a breakdown of rating item results in a poll layout"
 msgstr ""
 
-#: ../includes/admin/about.php:210
+#: ../includes/admin/about.php:216
 msgid "Show text labels for rating item options instead of numbers"
 msgstr ""
 
-#: ../includes/admin/about.php:211
+#: ../includes/admin/about.php:217
 msgid ""
 "Extra shortcodes and widgets (e.g. reviews, user ratings dashboard and "
 "rating item results)"
 msgstr ""
 
-#: ../includes/admin/about.php:212
+#: ../includes/admin/about.php:218
 msgid ""
 "Filters to set different rating forms and override auto placement settings "
 "for specific taxonomies, terms, post types, post id's and page URL's"
 msgstr ""
 
-#: ../includes/admin/about.php:213
+#: ../includes/admin/about.php:219
 msgid ""
 "Options to exclude the home page, search page and archive pages (e.g. "
 "category)"
 msgstr ""
 
-#: ../includes/admin/about.php:214
+#: ../includes/admin/about.php:220
 msgid "Thumbs up/down rating item type (e.g. like or dislike)"
 msgstr ""
 
-#: ../includes/admin/about.php:215
+#: ../includes/admin/about.php:221
 msgid "Option to disallow anonymous ratings"
 msgstr ""
 
-#: ../includes/admin/about.php:216
+#: ../includes/admin/about.php:222
 msgid "Embed reCAPTCHA in the rating form (add-on)"
 msgstr ""
 
-#: ../includes/admin/about.php:217
+#: ../includes/admin/about.php:223
 msgid "And much more."
-msgstr ""
-
-#: ../includes/admin/class-post-metabox.php:31 ../multi-rating.php:391
-msgid "Multi Rating"
 msgstr ""
 
 #: ../includes/admin/class-post-metabox.php:85
@@ -479,7 +480,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:375
+#: ../includes/admin/class-rating-entry-table.php:377
 msgid "Entries deleted successfully"
 msgstr ""
 
@@ -650,7 +651,7 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:439
+#: ../includes/admin/class-rating-results-table.php:441
 msgid "Rating results deleted successfully."
 msgstr ""
 
@@ -795,20 +796,20 @@ msgstr ""
 msgid "User Id"
 msgstr ""
 
-#: ../includes/admin/tools.php:330
+#: ../includes/admin/tools.php:332
 msgid "Database cleared successfully."
 msgstr ""
 
-#: ../includes/admin/tools.php:332
+#: ../includes/admin/tools.php:334
 #, php-format
 msgid "An error has occured. %s"
 msgstr ""
 
-#: ../includes/admin/tools.php:335
+#: ../includes/admin/tools.php:337
 msgid "No entries found"
 msgstr ""
 
-#: ../includes/admin/tools.php:366
+#: ../includes/admin/tools.php:370
 msgid "Cache cleared successfully."
 msgstr ""
 

@@ -25,7 +25,6 @@ function mr_tools_screen() {
 								<?php	
 								global $wpdb;
 								$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
-								
 								$rows = $wpdb->get_results( $query, ARRAY_A );
 			
 								foreach ( $rows as $row ) {
@@ -78,8 +77,8 @@ function mr_tools_screen() {
 									<?php	
 									global $wpdb;
 									$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
-									
 									$rows = $wpdb->get_results( $query, ARRAY_A );
+									
 									foreach ( $rows as $row ) {
 										$post_id = $row['post_id'];
 										$temp_post_id = $post_id;
@@ -121,7 +120,6 @@ function mr_tools_screen() {
 									<?php	
 									global $wpdb;
 									$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
-									
 									$rows = $wpdb->get_results( $query, ARRAY_A );
 				
 									foreach ( $rows as $row ) {
@@ -222,16 +220,16 @@ function mr_generare_csv_report( $file_name, $filters ) {
 		
 	$header_row = __('Entry Id', 'multi-rating') . ', '
 			. __('Entry Date', 'multi-rating') . ', '
-					. __('Post Id', 'multi-rating') . ', '
-							. __('Post Title', 'multi-rating') . ', '
-									. __('Score Rating Result', 'multi-rating') . ', '
-											. __('Adjusted Score Rating Result', 'multi-rating') . ', '
-													. __('Total Max Option Value', 'multi-rating') . ', '
-															. __('Percentage Rating Result', 'multi-rating') . ', '
-																	. __('Adjusted Percentage Rating Result', 'multi-rating') . ', '
-																			. __('Star Rating Result', 'multi-rating') . ', '
-																					. __('Adjusted Star Rating Result', 'multi-rating') . ', '
-																							. __('User Id', 'multi-rating' );
+			. __('Post Id', 'multi-rating') . ', '
+			. __('Post Title', 'multi-rating') . ', '
+			. __('Score Rating Result', 'multi-rating') . ', '
+			. __('Adjusted Score Rating Result', 'multi-rating') . ', '
+			. __('Total Max Option Value', 'multi-rating') . ', '
+			. __('Percentage Rating Result', 'multi-rating') . ', '
+			. __('Adjusted Percentage Rating Result', 'multi-rating') . ', '
+			. __('Star Rating Result', 'multi-rating') . ', '
+			. __('Adjusted Star Rating Result', 'multi-rating') . ', '
+			. __('User Id', 'multi-rating' );
 
 	$export_data_rows = array( $header_row );
 
@@ -254,10 +252,10 @@ function mr_generare_csv_report( $file_name, $filters ) {
 
 			$current_row = $rating_item_entry_id .', ' . $rating_item_entry['entry_date'] . ', '
 					. $post_id . ', ' . get_the_title($post_id) . ', ' . $rating_result['score_result'] . ', '
-							. $rating_result['adjusted_score_result'] . ', ' . $rating_result['total_max_option_value'] . ', '
-									. $rating_result['percentage_result'] . ', ' . $rating_result['adjusted_percentage_result'] . ', '
-											. $rating_result['star_result'] . ', ' . $rating_result['adjusted_star_result'] . ', '
-													. $rating_item_entry['user_id'];
+					. $rating_result['adjusted_score_result'] . ', ' . $rating_result['total_max_option_value'] . ', '
+					. $rating_result['percentage_result'] . ', ' . $rating_result['adjusted_percentage_result'] . ', '
+					. $rating_result['star_result'] . ', ' . $rating_result['adjusted_star_result'] . ', '
+					. $rating_item_entry['user_id'];
 
 			array_push( $export_data_rows, $current_row );
 		}
@@ -311,9 +309,9 @@ function mr_clear_database() {
 	
 	if ( count( $entries) > 0 ) {
 	
-		$entry_id_array = array();
-		foreach ($entries as $entry) {
-			array_push($entry_id_array, $entry['rating_item_entry_id']);
+		$rating_entry_ids = array();
+		foreach ( $entries as $entry ) {
+			array_push( $rating_entry_ids, $entry['rating_item_entry_id'] );
 			
 			// rating results cache will be refreshed next time it's needed
 			delete_post_meta( $entry['post_id'], Multi_Rating::RATING_RESULTS_POST_META_KEY );
@@ -323,7 +321,7 @@ function mr_clear_database() {
 		
 		global $wpdb;
 		
-		$entry_id_list = implode( ',', $entry_id_array );
+		$entry_id_list = implode( ',', $rating_entry_ids );
 	
 		try {
 			$rows = $wpdb->get_results( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE rating_item_entry_id IN ( ' . $entry_id_list . ')' );
@@ -353,12 +351,18 @@ function mr_clear_cache() {
 	global $wpdb;
 
 	$query = 'SELECT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
-
+	$query_args = array();
+	
 	if ( $post_id != '' ) {
-		$query .= ' WHERE post_id = "' . $post_id . '"';
+		$query .= ' WHERE post_id = %d';
+		array_push( $query_args, $post_id );
 	}
 
 	$query .= ' GROUP BY post_id';
+	
+	if ( count( $query_args ) > 0 ) {
+		$query = $wpdb->prepare( $query, $query_args );
+	}
 
 	$rows = $wpdb->get_results( $query );
 

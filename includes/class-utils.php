@@ -289,15 +289,12 @@ class MR_Utils {
 	 */
 	public static function ip_address_validation_check( $ip_address, $post_id, $hours ) {
 		global $wpdb;
-
-		$entry_date_mysql = current_time('mysql');
 		
-		$previous_day_date = strtotime( $entry_date_mysql ) - ( 1 * 1 * 60 * 60 * $hours );
-		$previous_day_date_mysql = date( 'Y-m-d H:i:s', $previous_day_date );
+		$previous_day_date = date( 'Y-m-d H:i:s', strtotime( current_time('mysql') ) - ( 1 * 1 * 60 * 60 * $hours ) );
 		
-		$ip_address_check_query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE ip_address = "'
-				. esc_sql( $ip_address ) . '" AND post_id =' . esc_sql( $post_id ) . ' AND entry_date >= "' . esc_sql( $previous_day_date_mysql ) . '"';
-		$rows = $wpdb->get_results( $ip_address_check_query );
+		$query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME 
+				. ' WHERE ip_address = %s AND post_id = %d AND entry_date >= %s';
+		$rows = $wpdb->get_results( $wpdb->prepare( $query, $ip_address, $post_id, $previous_day_date ) );
 		
 		return ( count( $rows ) > 0 );
 	}
@@ -308,14 +305,15 @@ class MR_Utils {
 	public static function validate_rating_item_required( $validation_results, $rating_items ) {
 	
 		foreach ( $rating_items as $rating_item ) {
+			
 			$rating_item_id = $rating_item['id'];
 			$rating_item_value = $rating_item['value'];
 	
 			if ( $rating_item_value == 0 ) {
 				global $wpdb;
 	
-				$query = 'SELECT required FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE rating_item_id = ' . intval( $rating_item_id );
-				$required = $wpdb->get_col( $query, 0 );
+				$query = 'SELECT required FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE rating_item_id = %d';
+				$required = $wpdb->get_col( $wpdb->prepare( $query, $rating_item_id ), 0 );
 	
 				if ( $required[0] == true ) {
 					$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );

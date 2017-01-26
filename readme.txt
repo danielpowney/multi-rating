@@ -3,7 +3,7 @@ Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
 Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, microdata, feedback, question
 Requires at least: 4.0
-Tested up to: 4.6
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -67,6 +67,7 @@ The [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medi
 * Thumbs up/down rating item type (e.g. like or dislike)
 * Option to disallow anonymous ratings
 * Embed reCAPTCHA in the rating form (add-on)
+* Gravity Forms integration (add-on)
 * And much more.
 
 Check out [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
@@ -100,6 +101,13 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.2.5 (25/01/2017) =
+* Bug: Fixed some potential SQL injection vulnerabilities
+* Bug: Fixed a couple of cross site scripting (XSS) vulnerabilities in the rating form
+* Bug: Fixed incorrect weight validation for decimals when adding a new rating item
+* Bug: Added missing validation of post id when saving a rating entry
+* Bug: Check if editor and administrator roles roles exist before adding mr_edit_rating capability
 
 = 4.2.4 (18/10/2016) =
 * New: Added badge icon to about page

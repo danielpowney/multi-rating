@@ -24,15 +24,15 @@ class MR_Rating_Form {
 			global $wpdb;
 	
 			$rating_items = $_POST['ratingItems'];
-			$post_id = $_POST['postId'];
+			$post_id = isset( $_POST['postId'] ) && is_numeric( $_POST['postId'] ) ? intval( $_POST['postId'] ) : null;
+			$sequence = isset( $_POST['sequence'] ) && is_numeric( $_POST['sequence'] ) ? intval( $_POST['sequence'] ) : null;
 			$ip_address = MR_Utils::get_ip_address();
 			$entry_date_mysql = current_time( 'mysql' );
-			$sequence = isset($_POST['sequence']) ? $_POST['sequence'] : '';
 			
 			// WPML get original pst id for default language
 			if ( function_exists( 'icl_object_id' ) ) {
 				global $sitepress;
-				$post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, $sitepress->get_default_language() );
+				$post_id = icl_object_id( $post_id , get_post_type( $post_id ), true, $sitepress->get_default_language() );
 			}
 	
 			$data = array(
@@ -50,6 +50,15 @@ class MR_Rating_Form {
 	
 			// stores any validation results, custom validation results can be added through filters
 			$validation_results = array();
+			
+			// validate post id
+			if ( ! get_post( $post_id ) ) {
+				array_push( $validation_results, array(
+						'severity' => 'error',
+						'name' => 'invalid_post_id',
+						'message' => __( 'An error has occured.', 'multi-rating' )
+				) );
+			}
 			
 			$validation_results = MR_Utils::validate_save_rating_restricton( $validation_results, $post_id );
 			
@@ -72,7 +81,7 @@ class MR_Rating_Form {
 					'entry_date' => $entry_date_mysql,
 					'ip_address' => $ip_address,
 					'user_id' => $user_id,
-			), array('%d', '%s', '%s', '%d') );
+			), array( '%d', '%s', '%s', '%d' ) );
 	
 			$rating_entry_id = $wpdb->insert_id;
 	
@@ -85,7 +94,7 @@ class MR_Rating_Form {
 						'rating_item_entry_id' => $rating_entry_id,
 						'rating_item_id' => $rating_item_id,
 						'value' => $rating_item_value
-				), array('%d', '%d', '%d') );
+				), array( '%d', '%d', '%d' ) );
 			}
 			
 			// Set cookie if restriction type is used

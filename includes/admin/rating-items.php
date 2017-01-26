@@ -44,7 +44,7 @@ function mr_rating_items_screen() {
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Weight', 'multi-rating' ); ?></th>
 							<td>
-								<input id="weight" name="weight" type="number" value="1" min="0" placeholder="<?php _e( 'Enter weight', 'multi-rating' ); ?>" class="small-text" required />
+								<input id="weight" name="weight" type="number" value="1" min="0" step="0.01" placeholder="<?php _e( 'Enter weight', 'multi-rating' ); ?>" class="small-text" required />
 								<p class="description"><?php _e( 'All rating items are rated equally by default. Modifying the weight of a rating item will adjust the rating results accordingly.', 'multi-rating' ); ?></p>
 							</td>
 						</tr>
@@ -103,23 +103,21 @@ function mr_save_rating_item() {
 				
 			global $wpdb;
 				
-			$max_option_value = intval($_POST['max-option-value']);
-			$default_option_value = intval($_POST['default-option-value']);
-			$weight = doubleval($_POST['weight']);
+			$max_option_value = intval( $_POST['max-option-value'] );
+			$default_option_value = intval( $_POST['default-option-value'] );
+			$weight = doubleval( $_POST['weight'] );
 			
 			if ( $default_option_value > $max_option_value ) {
 				array_push( $error_messages, __( 'Default option cannot be greater than max option.', 'multi-rating' ) );
 			} else {
 				
-				$results = $wpdb->insert( $wpdb->prefix.Multi_Rating::RATING_ITEM_TBL_NAME, array(
-						'description' => $description,
-						'max_option_value' => $max_option_value,
-						'default_option_value' => $default_option_value,
-						'weight' => $weight,
-						'type' => $type
-				) );
+				$results = $wpdb->insert( $wpdb->prefix.Multi_Rating::RATING_ITEM_TBL_NAME, 
+						array( 'description' => $description, 'max_option_value' => $max_option_value, 'default_option_value' => $default_option_value,
+								'weight' => $weight, 'type' => $type ),
+						array( '%s', '%d', '%d', '%f', '%s' )
+				);
 				
-				$rating_item_id = $wpdb->insert_id;
+				$rating_item_id = intval( $wpdb->insert_id );
 					
 				// WPML register string
 				if ( function_exists( 'icl_register_string' ) ) {

@@ -60,8 +60,8 @@ class MR_Rating_Results_Table extends WP_List_Table {
 					<?php	
 					global $wpdb;
 					$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
-					
 					$rows = $wpdb->get_results( $query, ARRAY_A );
+					
 					foreach ( $rows as $row ) {
 						$temp_post_id = $row['post_id'];
 						
@@ -155,6 +155,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 			$query .= ', ' . $wpdb->posts . ' as p';
 		}
 		
+		$query_args = array();
 		$added_to_query = false;
 		if ( $post_id || $sort_by == 'post_title_asc' || $sort_by == 'post_title_desc' ) {
 			$query .= ' WHERE';
@@ -165,7 +166,8 @@ class MR_Rating_Results_Table extends WP_List_Table {
 				$query .= ' AND';
 			}
 		
-			$query .= ' rie.post_id = "' . $post_id . '"';
+			$query .= ' rie.post_id = %d';
+			array_push( $query_args, $post_id );
 			$added_to_query = true;
 		}
 		
@@ -184,6 +186,10 @@ class MR_Rating_Results_Table extends WP_List_Table {
 			$query .= ' ORDER BY post_title ASC';
 		} else if ( $sort_by == 'post_title_desc' ) {
 			$query .= ' ORDER BY post_title DESC';
+		}
+		
+		if ( count( $query_args ) > 0 ) {
+			$query = $wpdb->prepare( $query, $query_args );
 		}
 		
 		// pagination
@@ -225,7 +231,7 @@ class MR_Rating_Results_Table extends WP_List_Table {
 				
 				$row['rating_result'] = $rating_result;
 				
-				array_push($this->items, $row);
+				array_push( $this->items, $row );
 			}
 			
 			uasort( $this->items, array( 'MR_Rating_Results_Table' , 'sort_top_rating_results' ) );
@@ -237,9 +243,8 @@ class MR_Rating_Results_Table extends WP_List_Table {
 				$post_id = $row['post_id'];
 				
 				global $wpdb;
-				$query = $query = 'SELECT COUNT(*) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME 
-						. ' WHERE post_id = "' . $post_id . '"';
-				$count = $wpdb->get_col( $query, 0 );
+				$query = 'SELECT COUNT(*) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE post_id = %d';
+				$count = $wpdb->get_col( $wpdb->prepare( $query, $post_id ), 0 );
 				
 				$row['entries_count'] = $count[0];
 				
@@ -330,9 +335,8 @@ class MR_Rating_Results_Table extends WP_List_Table {
 			case MR_Rating_Results_Table::ENTRIES_COUNT_COLUMN : {
 				global $wpdb;
 				
-				$query = $query = 'SELECT COUNT(*) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE post_id = "' 
-						. $post_id . '"';
-				$rows = $wpdb->get_col( $query, 0 );
+				$query = 'SELECT COUNT(*) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE post_id = %d'; 
+				$rows = $wpdb->get_col( $wpdb->prepare( $query, $post_id ), 0 );
 				
 				echo $rows[0];
 				
@@ -421,13 +425,10 @@ class MR_Rating_Results_Table extends WP_List_Table {
 				) );
 				
 				foreach ( $entries as $entry ) {
-					$rating_item_entry_id = $entry['rating_item_entry_id'];
+					$rating_entry_id = $entry['rating_item_entry_id'];
 					
-					$entry_values_query = 'DELETE FROM '. $wpdb->prefix.Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . '  WHERE ' .  MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN . ' = "' . $rating_item_entry_id . '"';
-					$results = $wpdb->query($entry_values_query);
-					
-					$entries_query = 'DELETE FROM '. $wpdb->prefix.Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . '  WHERE ' .  MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN . ' = "' . $rating_item_entry_id . '"';	
-					$results = $wpdb->query($entries_query);
+					$wpdb->delete( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME, array( 'rating_item_entry_id' => $rating_entry_id ), array( '%d' ) );
+					$wpdb->delete( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, array( 'rating_item_entry_id' => $rating_entry_id ), array( '%d' ) );
 				}
 				
 				/* 

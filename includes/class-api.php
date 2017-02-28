@@ -680,7 +680,7 @@ class Multi_Rating_API {
 	public static function display_rating_result( $params = array()) {
 		
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 		
 		extract( wp_parse_args( $params, array(
 				'post_id' => null,
@@ -769,7 +769,7 @@ class Multi_Rating_API {
 	public static function display_rating_form( $params = array()) {
 		
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 		$position_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );
 
 		extract( wp_parse_args($params, array(
@@ -832,7 +832,7 @@ class Multi_Rating_API {
 	public static function display_rating_results_list( $params = array() ) {
 		
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 		
 		extract( wp_parse_args( $params, array(
 				'title' => $custom_text_settings[Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION],

@@ -157,8 +157,8 @@ function mr_about_screen() {
 						<p><?php _e( '<a href="http://schema.org">schema.org</a> structured markup can be be added to every page which allows search engines to display the aggregated rating results as rich snippets.', 'multi-rating' ); ?></p>															
 						
 						
-						<h4><?php _e( 'Font Awesome', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'Font Awesome versions 4.3.0, 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by the plugin.', 'multi-rating' ); ?></p>	
+						<h4><?php _e( 'Icon Font Libraries', 'multi-rating' ); ?></h4>
+						<p><?php _e( 'Font Awesome and Dashicon icon font libraries are supported by the plugin.', 'multi-rating' ); ?></p>	
 						
 						<h4><?php _e( 'Upload Custom Star Images', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'You can <a href="http://multiratingpro.com/documentation/custom-star-images?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=custom-images">upload your own custom star images</a> to use instead of the using icon fonts.', 'multi-rating' ); ?></p>				

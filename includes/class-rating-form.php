@@ -41,7 +41,7 @@ class MR_Rating_Form {
 			);				
 	
 			$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-			$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+			$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 	
 			// get user id
 			global $wp_roles;

@@ -102,6 +102,11 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 
 == Changelog ==
 
+= 4.2.6 (15/02/2017) =
+* New: Font Awesome 4.7.0 support
+* New: Added mr_disable_custom_text filter to turn off custom text settings allowing language translation of strings
+* Bug: Fixed incorrect data format used when updating label of a rating item
+
 = 4.2.5 (25/01/2017) =
 * Bug: Fixed some potential SQL injection vulnerabilities
 * Bug: Fixed a couple of cross site scripting (XSS) vulnerabilities in the rating form

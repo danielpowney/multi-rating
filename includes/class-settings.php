@@ -29,7 +29,7 @@ class MR_Settings {
 	 * Reisters settings
 	 */
 	function register_settings() {
-	
+		
 		$this->register_general_settings();
 		$this->register_position_settings();
 		$this->register_custom_text_settings();
@@ -51,51 +51,59 @@ class MR_Settings {
 		// Merge with defaults
 		
 		$this->general_settings = array_merge( array(
-				Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION => array( 'ip_address' ),
-				Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION => 24,
-				Multi_Rating::POST_TYPES_OPTION => 'post',
-				Multi_Rating::RATING_RESULTS_CACHE_OPTION => true,
-				Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION => true,
-				Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION => true
+				Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION 		=> array( 'ip_address' ),
+				Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION 		=> 24,
+				Multi_Rating::POST_TYPES_OPTION 						=> 'post',
+				Multi_Rating::RATING_RESULTS_CACHE_OPTION 				=> true,
+				Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION 		=> true,
+				Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION 			=> true
 		), $this->general_settings );
 		
 		$this->position_settings = array_merge( array(
-				Multi_Rating::RATING_RESULTS_POSITION_OPTION 	=> 'after_title',
-				Multi_Rating::RATING_FORM_POSITION_OPTION 		=> 'after_content'
+				Multi_Rating::RATING_RESULTS_POSITION_OPTION 			=> 'after_title',
+				Multi_Rating::RATING_FORM_POSITION_OPTION 				=> 'after_content'
 		), $this->position_settings );
 		
-		$this->custom_text_settings = array_merge( array(
-				Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION => __( 'Please rate this', 'multi-rating' ),
-				Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION	=> __( 'Rating Results', 'multi-rating' ),
-				Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION	=> __( 'Submit Rating', 'multi-rating' ),
-				Multi_Rating::FILTER_BUTTON_TEXT_OPTION	=> __( 'Filter', 'multi-rating' ),
-				Multi_Rating::FILTER_LABEL_TEXT_OPTION => __( 'Category', 'multi-rating' ),
+		$default_custom_text = array(
+				Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION 			=> __( 'Please rate this', 'multi-rating' ),
+				Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION		=> __( 'Rating Results', 'multi-rating' ),
+				Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION		=> __( 'Submit Rating', 'multi-rating' ),
+				Multi_Rating::FILTER_BUTTON_TEXT_OPTION					=> __( 'Filter', 'multi-rating' ),
+				Multi_Rating::FILTER_LABEL_TEXT_OPTION 					=> __( 'Category', 'multi-rating' ),
 				Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION => __( 'Your rating was %adjusted_star_result%/5.', 'multi-rating'),
 				Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION => __( 'You cannot submit a rating for the same post multiple times.', 'multi-rating' ),
-				Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION => __( 'No ratings yet.', 'multi-rating' ),
-				Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION => __( 'Field is required.', 'multi-rating' )
-		), $this->custom_text_settings );
+				Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION 			=> __( 'No ratings yet.', 'multi-rating' ),
+				Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION 		=> __( 'Field is required.', 'multi-rating' )
+		);
+		
+		$this->custom_text_settings = array_merge( $default_custom_text, $this->custom_text_settings );
+		
+		// If custom text is disabled, always use defaults
+		if ( apply_filters( 'mr_disable_custom_text', false ) ) {
+			$this->custom_text_settings = $default_custom_text;
+		}
 		
 		$this->style_settings = array_merge( array(
-				Multi_Rating::CUSTOM_CSS_OPTION => '',
-				Multi_Rating::STAR_RATING_COLOUR_OPTION => '#ffd700',
-				Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION => '#ffba00',
-				Multi_Rating::INCLUDE_FONT_AWESOME_OPTION => true,
-				Multi_Rating::FONT_AWESOME_VERSION_OPTION => 'font-awesome-4.0.3',
-				Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION => '#EC6464',
-				Multi_Rating::DISABLE_STYLES_OPTION => false
+				Multi_Rating::CUSTOM_CSS_OPTION 						=> '',
+				Multi_Rating::STAR_RATING_COLOUR_OPTION 				=> '#ffd700',
+				Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION 			=> '#ffba00',
+				Multi_Rating::INCLUDE_FONT_AWESOME_OPTION 				=> true,
+				Multi_Rating::FONT_AWESOME_VERSION_OPTION 				=> 'font-awesome-4.7.0',
+				Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION 				=> '#EC6464',
+				Multi_Rating::DISABLE_STYLES_OPTION 					=> false
 		), $this->style_settings );
 		
 		$this->custom_images_settings = array_merge( array(
-				Multi_Rating::USE_CUSTOM_STAR_IMAGES => false,
-				Multi_Rating::CUSTOM_FULL_STAR_IMAGE => '',
-				Multi_Rating::CUSTOM_HALF_STAR_IMAGE => '',
-				Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE => '',
-				Multi_Rating::CUSTOM_HOVER_STAR_IMAGE => '',
-				Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH => 32,
-				Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT => 32,
+				Multi_Rating::USE_CUSTOM_STAR_IMAGES 					=> false,
+				Multi_Rating::CUSTOM_FULL_STAR_IMAGE 					=> '',
+				Multi_Rating::CUSTOM_HALF_STAR_IMAGE 					=> '',
+				Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE 					=> '',
+				Multi_Rating::CUSTOM_HOVER_STAR_IMAGE 					=> '',
+				Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH 					=> 32,
+				Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT 					=> 32,
 		), $this->custom_images_settings );		
 	
+		// TODO only update if different...
 		update_option( Multi_Rating::GENERAL_SETTINGS, $this->general_settings );
 		update_option( Multi_Rating::POSITION_SETTINGS, $this->position_settings );
 		update_option( Multi_Rating::CUSTOM_TEXT_SETTINGS, $this->custom_text_settings );
@@ -356,6 +364,7 @@ class MR_Settings {
 		add_settings_section( 'section_styles', __( 'Style Settings', 'multi-rating' ), array( &$this, 'section_style_desc' ), Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::STYLE_SETTINGS );		
 
 		$icon_font_library_options = array(
+				'font-awesome-4.7.0'		=> __( 'Font Awesome 4.7.0', 'multi-rating' ),
 				'font-awesome-4.6.3'		=> __( 'Font Awesome 4.6.3', 'multi-rating' ),
 				'font-awesome-4.5.0'		=> __( 'Font Awesome 4.5.0', 'multi-rating' ),
 				'font-awesome-4.3.0' 		=> __( 'Font Awesome 4.3.0', 'multi-rating' ),
@@ -678,7 +687,8 @@ class MR_Settings {
 						'section' 	=> 'section_custom_text',
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
-								'setting_id' 	=> Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION
+								'setting_id' 	=> Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION,
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION => array(
@@ -689,6 +699,7 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION,
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION => array(
@@ -699,6 +710,7 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION,
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::FILTER_BUTTON_TEXT_OPTION => array(
@@ -709,6 +721,7 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::FILTER_BUTTON_TEXT_OPTION,
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::FILTER_LABEL_TEXT_OPTION => array(
@@ -719,6 +732,7 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::FILTER_LABEL_TEXT_OPTION,
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION => array(
@@ -729,7 +743,8 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::FIELD_REQUIRED_ERROR_MESSAGE_OPTION,
-								'class'			=> 'large-text'
+								'class'			=> 'large-text',
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION => array(
@@ -740,7 +755,8 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::SAVE_RATING_RESTRICTION_ERROR_MESSAGE_OPTION,
-								'class'			=> 'large-text'
+								'class'			=> 'large-text',
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION => array(
@@ -751,7 +767,8 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION,
-								'class'			=> 'large-text'
+								'class'			=> 'large-text',
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				),
 				Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION => array(
@@ -762,7 +779,8 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::CUSTOM_TEXT_SETTINGS,
 								'setting_id' 	=> Multi_Rating::RATING_FORM_SUBMIT_SUCCESS_MESSAGE_OPTION,
-								'class'			=> 'large-text'
+								'class'			=> 'large-text',
+								'readonly' 		=> apply_filters( 'mr_disable_custom_text', false )
 						)
 				)
 		);
@@ -814,10 +832,11 @@ class MR_Settings {
 		$type = isset( $args['type'] ) ? $args['type'] : 'text';
 		$min = isset( $args['min'] ) && is_numeric( $args['min'] ) ? intval( $args['min'] ) : null;
 		$max = isset( $args['max'] ) && is_numeric( $args['max'] ) ? intval( $args['max'] ) : null;
+		$readonly = isset( $args['readonly'] ) && $args['readonly'] ? ' readonly' : '';
 		?>
 		<input class="<?php echo $class; ?>" type="<?php echo $type; ?>" name="<?php echo $args['option_name']; ?>[<?php echo $args['setting_id']; ?>]" 
 				value="<?php echo $settings[$args['setting_id']]; ?>" <?php if ( $min !== null ) { echo ' min="' . $min . '"'; } ?> 
-				<?php if ( $max !== null) { echo ' max="' . $max . '"'; } ?>/>
+				<?php if ( $max !== null) { echo ' max="' . $max . '"'; } echo $readonly; ?>/>
 		<?php 
 		if ( isset( $args['label'] ) ) { ?>
 			<label><?php echo $args['label']; ?></label>

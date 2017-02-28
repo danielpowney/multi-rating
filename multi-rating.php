@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: The best rating system plugin for WordPress. Multi Rating allows visitors to rate a post based on multiple criteria and questions.
-Version: 4.2.5
+Version: 4.2.6
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '4.2.5',
+	VERSION = '4.2.6',
 	ID = 'multi-rating',
 
 	// tables
@@ -490,6 +490,8 @@ class Multi_Rating {
 				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' );
 			} else if ( $icon_font_library == 'font-awesome-4.6.3' ) {
 				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
+			} else if ( $icon_font_library == 'font-awesome-4.7.0' ) {
+				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
 			} else if ( $icon_font_library == 'dashicons' ) {
 				wp_enqueue_style( 'dashicons' );
 			}
@@ -622,10 +624,15 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 	mr_update_check();
 }
 
-/*
+/**
  * Instantiate plugin main class
  */
 function mr_multi_rating() {
-	return Multi_Rating::instance();
+
+	do_action( 'mr_before_init' );
+
+	Multi_Rating::instance();
+
+	do_action( 'mr_after_init' );
 }
-mr_multi_rating();
+add_action( 'plugins_loaded', 'mr_multi_rating' );

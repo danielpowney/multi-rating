@@ -194,7 +194,8 @@ class MR_Utils {
 		
 		if ( $icon_font_library == 'font-awesome-4.0.3' || $icon_font_library == 'font-awesome-4.1.0'
 				|| $icon_font_library == 'font-awesome-4.2.0' || $icon_font_library == 'font-awesome-4.3.0'
-				|| $icon_font_library == 'font-awesome-4.5.0' || $icon_font_library == 'font-awesome-4.6.3' ) {
+				|| $icon_font_library == 'font-awesome-4.5.0' || $icon_font_library == 'font-awesome-4.6.3'
+				|| $icon_font_library == 'font-awesome-4.7.0' ) {
 			$icon_classes['star_full'] = 'fa fa-star mr-star-full';
 			$icon_classes['star_hover'] = 'fa fa-star mr-star-hover';
 			$icon_classes['star_half'] = 'fa fa-star-half-o mr-star-half';
@@ -262,7 +263,7 @@ class MR_Utils {
 			if ( ( $save_rating_restriction_type == 'ip_address' && MR_Utils::ip_address_validation_check( $ip_address, $post_id, $hours ) == true )
 					|| ( $save_rating_restriction_type == 'cookie' && MR_Utils::cookie_validation_check( $post_id ) == true ) ) {
 					
-				$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+				$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 				
 				array_push( $validation_results, array(
 							'severity' => 'error',
@@ -316,7 +317,7 @@ class MR_Utils {
 				$required = $wpdb->get_col( $wpdb->prepare( $query, $rating_item_id ), 0 );
 	
 				if ( $required[0] == true ) {
-					$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+					$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 	
 					array_push( $validation_results, array(
 							'severity' => 'error',

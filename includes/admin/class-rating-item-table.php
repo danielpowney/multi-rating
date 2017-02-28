@@ -308,6 +308,7 @@ class MR_Rating_Item_Table extends WP_List_Table {
 				if ( strlen( trim( $value ) ) == 0 ) {
 					$error_message .= __( 'Description cannot be empty. ', 'multi-rating' );
 				}
+				$data_format = array( '%s' );
 				
 			} else if ( $column == MR_Rating_Item_Table::MAX_OPTION_VALUE_COLUMN  ) {
 				if ( is_numeric( $value ) == false) {

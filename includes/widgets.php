@@ -50,7 +50,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 		
 		$title = apply_filters( 'widget_title', $title );
 	
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 	
 		echo $before_widget;
 	
@@ -115,7 +115,7 @@ class MR_Rating_Results_List_Widget extends WP_Widget {
 	 */
 	function form( $instance ) {
 	
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 	
 		$instance = wp_parse_args( (array) $instance, array(
@@ -454,7 +454,7 @@ class MR_Rating_Form_Widget extends WP_Widget {
 	 */
 	function form( $instance ) {
 
-		$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+		$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 			
 		$instance = wp_parse_args( (array) $instance, array(
 				'title' => $custom_text_settings[Multi_Rating::RATING_FORM_TITLE_TEXT_OPTION],

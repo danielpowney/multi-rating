@@ -67,10 +67,16 @@ function mr_about_screen() {
 	?>
 	
 	<div class="wrap about-wrap">
+	
+		<div id="mr-header">
+			<img class="mr-badge" src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'badge.png' , __FILE__ ); ?>" alt="<?php _e( 'Multi Rating', 'multi-rating-pro' ); ?>" / >
 			<h1><?php printf( __( 'Multi Rating v%s', 'multi-rating' ), Multi_Rating::VERSION ); ?></h1>
+			<p class="about-text">
+				<?php _e( 'The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.', 'multi-rating' ); ?>
+			</p>
+		</div>
 		
-		<div class="about-text"><?php _e( 'The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.', 'multi-rating' ); ?></div>
-			<h2 class="nav-tab-wrapper">
+		<h2 class="nav-tab-wrapper">
 			<?php
 			$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'getting_started';
 			$page = Multi_Rating::ABOUT_PAGE_SLUG;
@@ -119,7 +125,7 @@ function mr_about_screen() {
 						<p><?php _e( '[mr_rating_form] - displays the rating form</i>.', 'multi-rating' ); ?><br />
 						<?php _e( '[mr_rating_results_list] - displays a list of rating results.', 'multi-rating' ); ?><br />
 						<?php _e( '[mr_rating_result] - displays the rating result', 'multi-rating' ); ?></p>
-						<p><?php printf( __( 'Refer to the <a href="%s">documentation</a> for more information on the attributes available.', 'multi-rating' ), 'http://danielpowney.com/multi-rating/' ); ?></p>
+						<p><?php printf( __( 'Refer to the <a href="%s">documentation</a> for more information on the attributes available.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?></p>
 					</div>
 					<div class="col last-feature">
 						<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'view-rating-results.png' , __FILE__ ); ?>" />
@@ -151,8 +157,8 @@ function mr_about_screen() {
 						<p><?php _e( '<a href="http://schema.org">schema.org</a> structured markup can be be added to every page which allows search engines to display the aggregated rating results as rich snippets.', 'multi-rating' ); ?></p>															
 						
 						
-						<h4><?php _e( 'Font Awesome', 'multi-rating' ); ?></h4>
-						<p><?php _e( 'Font Awesome versions 4.3.0, 4.2.0, 4.1.0, 4.0.3 and 3.2.1 are supported by the plugin.', 'multi-rating' ); ?></p>	
+						<h4><?php _e( 'Icon Font Libraries', 'multi-rating' ); ?></h4>
+						<p><?php _e( 'Font Awesome and Dashicon icon font libraries are supported by the plugin.', 'multi-rating' ); ?></p>	
 						
 						<h4><?php _e( 'Upload Custom Star Images', 'multi-rating' ); ?></h4>
 						<p><?php _e( 'You can <a href="http://multiratingpro.com/documentation/custom-star-images?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=custom-images">upload your own custom star images</a> to use instead of the using icon fonts.', 'multi-rating' ); ?></p>				
@@ -214,6 +220,7 @@ function mr_about_screen() {
 			<li><?php _e( 'Thumbs up/down rating item type (e.g. like or dislike)', 'multi-rating' ); ?></li>
 			<li><?php _e( 'Option to disallow anonymous ratings', 'multi-rating' ); ?></li>
 			<li><?php _e( 'Embed reCAPTCHA in the rating form (add-on)', 'multi-rating' ); ?></li>
+			<li><?php _e( 'Gravity Forms integration (add-on)', 'multi-rating' ); ?></li>
 			<li><?php _e( 'And much more.', 'multi-rating' ); ?></li>
 		</ol>
 		

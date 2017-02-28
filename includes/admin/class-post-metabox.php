@@ -25,7 +25,7 @@ class MR_Post_Metabox {
 		$post_types = $general_settings[Multi_Rating::POST_TYPES_OPTION];
 		
 		if ( ! is_array( $post_types ) && is_string( $post_types ) ) {
-			$post_types = array($post_types);
+			$post_types = array( $post_types );
 		}
 		if ( $post_types != null && in_array( $post_type, $post_types )) {
 			add_meta_box( 'mr_meta_box', __('Multi Rating', 'multi-rating'), array( $this, 'display_meta_box_content' ), $post_type, 'side', 'default');

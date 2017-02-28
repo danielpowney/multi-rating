@@ -232,18 +232,25 @@ function mr_upgrade_from_3_0_to_3_1() {
 	
 	// replace username with user ID
 	global $wpdb;
-	
 	$num_column_exists = $wpdb->query( 'SHOW COLUMNS FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' LIKE "username"' );
 	
 	if ( $num_column_exists > 0) { // if username column exists
+		
 		$query = 'SELECT username, rating_item_entry_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE username != ""';
 		$rows = $wpdb->get_results( $query );
 			
 		foreach ( $rows as $row ) {
-			$query = 'SELECT ID FROM ' . $wpdb->users . ' WHERE user_login = "' . $row->username . '"';
-			$user_id = $wpdb->get_var( $query );
+			$query = 'SELECT ID FROM ' . $wpdb->users . ' WHERE user_login = %s';
+			$user_id = $wpdb->get_var( $wpdb->prepare( $query, $row->username ) );
+			
 			if ( $user_id ) {
-				$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, array( 'user_id' => $user_id ), array( 'rating_item_entry_id' =>  $row->rating_item_entry_id ) );
+				
+				$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, 
+						array( 'user_id' => $user_id ), 
+						array( 'rating_item_entry_id' => $row->rating_item_entry_id ),
+						array( '%d' ),
+						array( '%d' )
+				);
 			}
 		}
 	

@@ -10,40 +10,38 @@ function mr_edit_rating_screen() {
 		
 		<?php 
 		// get the entry id
-		$entry_id = null;
+		$rating_entry_id = null;
 		if ( isset( $_GET['entry-id'] ) ) {
-			$entry_id = $_GET['entry-id'];
+			$rating_entry_id = $_GET['entry-id'];
 		} else if ( isset ( $_POST['entry-id'] ) ) {
-			$entry_id = $_POST['entry-id'];
+			$rating_entry_id = $_POST['entry-id'];
 		}
 		
-		if ( $entry_id == null ) {
-			echo '<p>Invalid entry Id</p>';
+		if ( $rating_entry_id == null ) {
+			echo '<p>' . __( 'Invalid rating entry id', 'multi-rating' ) . '</p>';
 			echo '</div>';
 			return;
 		}
 		
 		$rating_items = Multi_Rating_API::get_rating_items( array(
-				'rating_item_entry_id' => $entry_id
+				'rating_item_entry_id' => $rating_entry_id
 		) );
 		
 		global $wpdb;
 		
 		// get the rating entry values
-		$entry_values = array();
-		if ( $entry_id != null ) {
-			$entry_values_query = 'SELECT riev.value AS value, riev.rating_item_entry_id AS rating_item_entry_id, riev.rating_item_id AS rating_item_id'
-					. ' FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' AS riev'
-					. ' WHERE riev.rating_item_entry_id = ' . intval($entry_id);				
-			$entry_values = $wpdb->get_results( $entry_values_query );
+		$rating_entry_values = array();
+		if ( $rating_entry_id != null ) {
+			$query = 'SELECT riev.value AS value, riev.rating_item_entry_id AS rating_item_entry_id, riev.rating_item_id AS rating_item_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' AS riev WHERE riev.rating_item_entry_id = %d';				
+			$rating_entry_values = $wpdb->get_results( $wpdb->prepare( $query, $rating_entry_id ) );
 		}
 		
-		if ( count( $entry_values ) == 0 ) {
-			echo '<p>No rating exists for Entry Id ' . $entry_id . '</p>';
+		if ( count( $rating_entry_values ) == 0 ) {
+			echo '<p>' . sprintf( __( 'No rating exists for rating entry id %d', 'multi-rating' ), $rating_entry_id ) . '</p>';
 		} else {
 			
 			$selected_option_lookup = array();
-			foreach ( $entry_values as $entry_value ) {
+			foreach ( $rating_entry_values as $entry_value ) {
 				$selected_option_lookup[$entry_value->rating_item_id] = $entry_value->value;
 			}
 			
@@ -93,7 +91,7 @@ function mr_edit_rating_screen() {
 					<?php } ?>					
 				</table>
 			
-				<input type="hidden" name="entry-id" id="entry-id" value="<?php echo $entry_id; ?>" />
+				<input type="hidden" name="entry-id" id="entry-id" value="<?php echo $rating_entry_id; ?>" />
 				<input type="hidden" name="edit-rating" id="edit-rating" value="true" />
 				<?php 
 				submit_button( __( 'Update', 'multi-rating' ), 'primary', 'update-rating-btn', true, null );
@@ -111,24 +109,22 @@ function mr_edit_rating_screen() {
 function mr_edit_rating() {
 
 	// get the entry id
-	$entry_id = null;
+	$rating_entry_id = null;
 	if ( isset( $_GET['entry-id'] ) ) {
-		$entry_id = $_GET['entry-id'];
+		$rating_entry_id = $_GET['entry-id'];
 	} else if ( isset ( $_POST['entry-id'] ) ) {
-		$entry_id = $_POST['entry-id'];
+		$rating_entry_id = $_POST['entry-id'];
 	}
 	
 	$rating_items = Multi_Rating_API::get_rating_items( array(
-			'rating_item_entry_id' => $entry_id
+			'rating_item_entry_id' => $rating_entry_id
 	) );
 
 	global $wpdb;
 
 	// get post id
-	$post_id_query = 'SELECT rie.post_id as post_id'
-			. ' FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' AS rie'
-			. ' WHERE rating_item_entry_id = "' . $entry_id . '"';
-	$post_id = $wpdb->get_var( $post_id_query, 0, 0 );
+	$query = 'SELECT rie.post_id as post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' AS rie WHERE rating_item_entry_id = %d';
+	$post_id = $wpdb->get_var( $wpdb->prepare( $query, $rating_entry_id ), 0, 0 );
 
 	if ( $post_id == null ) {
 		echo '<div class="error"><p>' . __( 'An error occured', 'multi-rating' ) . '</p></div>';
@@ -140,20 +136,26 @@ function mr_edit_rating() {
 		$rating_item_value = isset( $_POST['rating-item-' . $rating_item_id] ) ? $_POST['rating-item-' . $rating_item_id]  : null;
 		
 		if ( $rating_item_value != null ) {
-			$query = 'SELECT COUNT(*) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' WHERE rating_item_entry_id = "' . $entry_id . '" AND rating_item_id = "' . $rating_item_id . '"';
-			$rows = $wpdb->get_col( $query, 0 );
+			
+			$query = 'SELECT COUNT(*) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' WHERE rating_item_entry_id = %d AND rating_item_id = %d';
+			$rows = $wpdb->get_col( $wpdb->prepare( $query, $rating_entry_id, $rating_item_id ) );
 
 			if ( $rows[0] == 0) {
-				$wpdb->insert( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME, array(
-						'rating_item_entry_id' => $entry_id,
-						'rating_item_id' => $rating_item_id,
-						'value' => $rating_item_value
-				), array('%d', '%d', '%d') );
+				
+				$wpdb->insert( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME,
+						array( 'rating_item_entry_id' => $rating_entry_id, 'rating_item_id' => $rating_item_id, 'value' => $rating_item_value ),
+						array('%d', '%d', '%d')
+				);
+			
 			} else {
-				$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME, array( 'value' => $rating_item_value ), array(
-						'rating_item_entry_id' => $entry_id,
-						'rating_item_id' =>	 $rating_item_id
-				) );
+
+				$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME, 
+						array( 'value' => $rating_item_value ), 
+						array( 'rating_item_entry_id' => $rating_entry_id, 'rating_item_id' => $rating_item_id ),
+						array( '%d' ),
+						array( '%d', '%d' )
+				);
+				
 			}
 		}
 	}
@@ -161,8 +163,12 @@ function mr_edit_rating() {
 	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 	$rating_results_cache = $general_settings[Multi_Rating::RATING_RESULTS_CACHE_OPTION];
 	if ($rating_results_cache == true) {
-		// update rating results cache
-		update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, null );
+		
+		// delete rating results cache
+		delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY );
+		delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating' );
+		delete_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries' );
+		
 	}
 	
 	// redirect back to entries page

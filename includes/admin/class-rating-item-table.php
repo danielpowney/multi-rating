@@ -249,14 +249,12 @@ class MR_Rating_Item_Table extends WP_List_Table {
 			
 			$checked = ( is_array( $_REQUEST['delete'] ) ) ? $_REQUEST['delete'] : array( $_REQUEST['delete'] );
 			
-			foreach( $checked as $id ) {
-				// TODO set acvtive column to 0 instead of deleting row
-				$query = 'DELETE FROM '. $wpdb->prefix.Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE ' .  MR_Rating_Item_Table::RATING_ITEM_ID_COLUMN . ' = "' . $id . '"';
-				
-				$results = $wpdb->query($query);
+			foreach( $checked as $rating_item_id ) {
+				// TODO set active column to 0 instead of deleting row
+				$wpdb->delete( $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME, array( 'rating_item_id' => $rating_item_id ), array( '%d' ) );
 			}
 			
-			echo '<div class="updated"><p>' . __('Delete rating items bulk action processed successfully', 'multi-rating' ) . '</p></div>';
+			echo '<div class="updated"><p>' . __( 'Delete rating items bulk action processed successfully', 'multi-rating' ) . '</p></div>';
 		}
 	}
 	
@@ -298,16 +296,19 @@ class MR_Rating_Item_Table extends WP_List_Table {
 			}
 			
 			// get current values for validation
-			$query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE rating_item_id = ' . intval( $rating_item_id );
-			$row = $wpdb->get_row( $query, ARRAY_A, 0 );
+			$query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME . ' WHERE rating_item_id = %d';
+			$row = $wpdb->get_row( $wpdb->prepare( $query, $rating_item_id ), ARRAY_A, 0 );
 			
 			$max_option_value = intval($row['max_option_value']);
 			$default_option_value = intval($row['default_option_value']);
+			
+			$data_format = array( '%d' );
 			
 			if ( $column == MR_Rating_Item_Table::DESCRIPTION_COLUMN ) {
 				if ( strlen( trim( $value ) ) == 0 ) {
 					$error_message .= __( 'Description cannot be empty. ', 'multi-rating' );
 				}
+				$data_format = array( '%s' );
 				
 			} else if ( $column == MR_Rating_Item_Table::MAX_OPTION_VALUE_COLUMN  ) {
 				if ( is_numeric( $value ) == false) {
@@ -329,13 +330,16 @@ class MR_Rating_Item_Table extends WP_List_Table {
 				if ( is_numeric( $value ) == false ) {
 					$error_message .= __( 'Weight must be numeric.', 'multi-rating' );
 				}
+				$data_format = array( '%f' );
+			} else if ( $column == MR_Rating_Item_Table::TYPE_COLUMN ) {
+				$data_format = array( '%s' );
 			}
 			
 			if ( strlen( $error_message ) == 0 ) {
-				$result = $wpdb->query( 'UPDATE '.$wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME.' SET '. $column . ' = "' . $value . '" WHERE ' . MR_Rating_Item_Table::RATING_ITEM_ID_COLUMN .' = ' .$rating_item_id) ;
+				$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME, array( $column => $value ), array( 'rating_item_id' => $rating_item_id ), $data_format, array( '%d' ) );
 				
 				if ( $result === FALSE ) {
-					$error_message = __('An error occured.', 'multi-rating' );
+					$error_message = __( 'An error occured.', 'multi-rating' );
 				}
 				
 				// WPML update string

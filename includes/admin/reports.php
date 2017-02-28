@@ -53,8 +53,8 @@ function mr_reports_screen() {
 						<?php	
 						global $wpdb;
 						$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
-						
 						$rows = $wpdb->get_results( $query, ARRAY_A );
+						
 						foreach ( $rows as $row ) {
 							$post = get_post( $row['post_id'] );
 							
@@ -96,7 +96,9 @@ function mr_reports_screen() {
 				}
 			}
 				
-			$query = 'SELECT DISTINCT DATE(entry_date) AS day, count(*) as count FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' as rie';
+			$query = 'SELECT DISTINCT DATE(entry_date) AS day, count(*) as count FROM ' 
+					. $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' as rie';
+			$query_args = array();
 			
 			$added_to_query = false;
 			if ( $post_id || $from_date || $to_date ) {
@@ -104,43 +106,49 @@ function mr_reports_screen() {
 			}
 				
 			if ( $post_id ) {
-				if ($added_to_query) {
+				if ( $added_to_query ) {
 					$query .= ' AND';
 				}
 					
-				$query .= ' rie.post_id = "' . $post_id . '"';
+				$query .= ' rie.post_id = %d';
+				array_push( $query_args, $post_id );
 				$added_to_query = true;
 			}
 				
 			if ( $from_date ) {
-				if ($added_to_query) {
+				if ( $added_to_query ) {
 					$query .= ' AND';
 				}
 					
-				$query .= ' rie.entry_date >= "' . $from_date . '"';
+				$query .= ' rie.entry_date >= %s';
+				array_push( $query_args, $from_date );
 				$added_to_query = true;
 			}
 				
 			if ( $to_date ) {
-				if ($added_to_query) {
+				if ( $added_to_query ) {
 					$query .= ' AND';
 				}
 					
-				$query .= ' rie.entry_date <= "' . $to_date . '"';
+				$query .= ' rie.entry_date <= %s';
+				array_push( $query_args, $to_date );
 				$added_to_query = true;
 			}
 				
 			$query .= ' GROUP BY day ORDER BY rie.entry_date DESC';
 			
-			$rows = $wpdb->get_results($query);
+			if ( count( $query_args ) > 0 ) {
+				$query = $wpdb->prepare( $query, $query_args );
+			}
+			
+			$rows = $wpdb->get_results( $query );
 			
 			$time_data = array();
 			foreach ( $rows as $row ) {
 				$day = $row->day;
 				$count = $row->count;
-				// TODO if a day has no data, then make it 0 visitors.
-				// Otherwise, it is not plotted on the graph as 0.
-		
+				
+				// TODO if a day has no data, then make it 0 visitors. Otherwise, it is not plotted on the graph as 0.
 				array_push( $time_data, array( ( strtotime( $day ) * 1000 ), intval( $count ) ) );
 			}
 			?>

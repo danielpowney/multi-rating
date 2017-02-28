@@ -101,7 +101,11 @@ jQuery(document).ready(function() {
 			}
 			
 			if (ratingForm && ratingForm.parent()) {
-				ratingForm.find(".save-rating").before(messages);
+				if (jsonResponse.status == 'success' && jsonResponse.data.hide_rating_form) {
+					ratingForm.parent().after(messages);
+				} else {
+					ratingForm.find(".save-rating").before(messages);
+				}
 			}
 		}
 		

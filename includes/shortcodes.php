@@ -18,7 +18,7 @@ function mr_rating_form( $atts = array(), $content = null, $tag ) {
 		$post_id = $post->ID;
 	}
 	
-	$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+	$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 	
 	extract( shortcode_atts( array(
 			'post_id' => $post_id,
@@ -65,7 +65,7 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 	}
 	
 	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-	$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+	$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 	
 	extract( shortcode_atts( array(
 			'post_id' => $post_id,
@@ -129,7 +129,7 @@ function mr_rating_results_list( $atts = array(), $content = null, $tag ) {
 	}
 	
 	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-	$custom_text_settings = (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
+	$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 	
 	extract( shortcode_atts( array(
 			'title' => $custom_text_settings[Multi_Rating::RATING_RESULTS_LIST_TITLE_TEXT_OPTION],

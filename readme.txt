@@ -1,18 +1,18 @@
 === Multi Rating ===
 Contributors: dpowney
 Donate link: http://www.danielpowney.com/donate
-Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, microdata, feedback, wpml, question
+Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, microdata, feedback, question
 Requires at least: 4.0
-Tested up to: 4.5
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.
+A powerful rating / review system plugin for WordPress with a niche of doing multi ratings better than anyone else. 
 
 == Description ==
 
-The best rating system plugin for WordPress. This is a simple plugin which allows users to rate posts based on multiple criteria and questions.
+The best rating system plugin for WordPress. This is simple plugin for users to rate posts based on multiple criteria / questions.
 
 View [Demo](http://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme).
 
@@ -35,7 +35,7 @@ View [Demo](http://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_me
 * Developer friently
 * i18n translation ready and WPML support
 * In-built template system for customization
-* All data stoted in your own WordPress database - no signup required!
+* All data stored in your own WordPress database - no signup required!
 
 = Shortcode Examples =
 
@@ -67,6 +67,7 @@ The [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medi
 * Thumbs up/down rating item type (e.g. like or dislike)
 * Option to disallow anonymous ratings
 * Embed reCAPTCHA in the rating form (add-on)
+* Gravity Forms integration (add-on)
 * And much more.
 
 Check out [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
@@ -100,6 +101,31 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.2.6 (15/02/2017) =
+* New: Font Awesome 4.7.0 support
+* New: Added mr_disable_custom_text filter to turn off custom text settings allowing language translation of strings
+* Bug: Fixed incorrect data format used when updating label of a rating item
+
+= 4.2.5 (25/01/2017) =
+* Bug: Fixed some potential SQL injection vulnerabilities
+* Bug: Fixed a couple of cross site scripting (XSS) vulnerabilities in the rating form
+* Bug: Fixed incorrect weight validation for decimals when adding a new rating item
+* Bug: Added missing validation of post id when saving a rating entry
+* Bug: Check if editor and administrator roles roles exist before adding mr_edit_rating capability
+
+= 4.2.4 (18/10/2016) =
+* New: Added badge icon to about page
+* New: Added post meta field "mr_rating_result_count_entries" which is a count of rating entries
+* New: Added post meta field "mr_rating_result_star_rating" which has the overall star rating
+
+= 4.2.3 (16/07/2016) =
+* Bug: Fixed styles for icon font library not defaulting correctly
+* Bug: Fixed hide rating form on submit and template strip newlines settings not saving correctly
+
+= 4.2.2 (14/07/2016) =
+* Bug: Fixed issue unable to add more than one rating item
+* Tweak: Added new error if default option > max option when adding a new rating item
 
 = 4.2.1 (09/07/2016) =
 * Bug: Fixed fatal error missing rating-entries.php file

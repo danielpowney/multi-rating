@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: The best rating system plugin for WordPress. Multi Rating allows visitors to rate a post based on multiple criteria and questions.
-Version: 4.2.1
+Version: 4.2.6
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '4.2.1',
+	VERSION = '4.2.6',
 	ID = 'multi-rating',
 
 	// tables
@@ -182,7 +182,11 @@ class Multi_Rating {
 			// do nothing now has an invalid user id associated to it - oh well... decided not to delete the 
 			// rating as the user id is not displayed or used
 		} else { // reassign ratings to a user
-			$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, array( 'user_id' => $reassign ), array( 'user_id' => $user_id ), array( '%d' ), array( '%d' ) );
+			$wpdb->update( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, 
+					array( 'user_id' => $reassign ),
+					array( 'user_id' => $user_id ), 
+					array( '%d' ), 
+					array( '%d' ) );
 		}
 	}
 	
@@ -194,11 +198,9 @@ class Multi_Rating {
 	public function deleted_post( $post_id ) {
 	
 		global $wpdb;
-	
-		$entry_query = 'SELECT rating_item_entry_id AS rating_entry_id '
-				. 'FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME
-				. ' WHERE post_id = "' . $post_id . '"';
-		$entries = $wpdb->get_results( $entry_query );
+		$query = 'SELECT rating_item_entry_id AS rating_entry_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME
+				. ' WHERE post_id = %d';
+		$entries = $wpdb->get_results( $wpdb->prepare( $query, $post_id ) );
 	
 		$this->delete_entries( $entries );
 	}
@@ -214,12 +216,9 @@ class Multi_Rating {
 		
 		foreach ( $entries as $entry_row ) {
 			$rating_entry_id = $entry_row->rating_entry_id;
-		
-			$delete_entry_query = 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE rating_item_entry_id = "' . $rating_entry_id . '"';
-			$results = $wpdb->query( $delete_entry_query );
-		
-			$delete_entry_values_query = 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' WHERE rating_item_entry_id = "' . $rating_entry_id . '"';
-			$results = $wpdb->query( $delete_entry_values_query );
+			
+			$wpdb->delete( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, array( 'rating_item_entry_id' => $rating_entry_id ), array( '%d' ) );
+			$wpdb->delete( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME, array( 'rating_item_entry_id' => $rating_entry_id ), array( '%d' ) );
 		}
 	}
 
@@ -317,28 +316,32 @@ class Multi_Rating {
 			// do nothing
 		}
 		
-		// Adds mr_edit_ratings capability to allow Editor role to be able to edit ratings
+		// Adds mr_edit_ratings capability which allows the editor and administrator roles to be able to edit / moderate ratings
 		$editor_role = get_role( 'editor' );
-		$administrator_role = get_role( 'administrator' );
+		$admin_role = get_role( 'administrator' );
 		
-		$editor_role->add_cap( 'mr_edit_ratings' );
-		$administrator_role->add_cap( 'mr_edit_ratings' );
+		if ( $editor_role ) {
+			$editor_role->add_cap( 'mr_edit_ratings' );
+		}
+		if ( $admin_role ) {
+			$admin_role->add_cap( 'mr_edit_ratings' );
+		}
 		
 		// if no rating items exist, add a sample one :)
 		try {
 			
-			$count = $wpdb->get_var( 'SELECT COUNT(rating_item_id) FROM ' . $wpdb->prefix 
-					. Multi_Rating::RATING_ITEM_TBL_NAME );
+			$count = $wpdb->get_var( 'SELECT COUNT(rating_item_id) FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME );
 			
 			if ( is_numeric( $count ) && $count == 0 ) {
-				$results = $wpdb->insert(  $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME, array(
+				$wpdb->insert(  $wpdb->prefix . Multi_Rating::RATING_ITEM_TBL_NAME, array(
 						'description' => __( 'Sample rating item', 'multi-rating' ),
 						'max_option_value' => 5,
 						'default_option_value' => 5,
 						'weight' => 1,
 						'type' => 'star_rating',
 						'required' => true
-				) );
+				),
+				array( '%s', '%d', '%d', '%f', '%s', '%d' ) );
 			}
 			
 		} catch ( Exception $e ) {
@@ -487,6 +490,8 @@ class Multi_Rating {
 				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' );
 			} else if ( $icon_font_library == 'font-awesome-4.6.3' ) {
 				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
+			} else if ( $icon_font_library == 'font-awesome-4.7.0' ) {
+				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
 			} else if ( $icon_font_library == 'dashicons' ) {
 				wp_enqueue_style( 'dashicons' );
 			}
@@ -619,10 +624,15 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 	mr_update_check();
 }
 
-/*
+/**
  * Instantiate plugin main class
  */
 function mr_multi_rating() {
-	return Multi_Rating::instance();
+
+	do_action( 'mr_before_init' );
+
+	Multi_Rating::instance();
+
+	do_action( 'mr_after_init' );
 }
-mr_multi_rating();
+add_action( 'plugins_loaded', 'mr_multi_rating' );

@@ -1,39 +1,34 @@
 === Multi Rating ===
 Contributors: dpowney
-Donate link: http://www.danielpowney.com/donate
-Tags: rating, multi-rating, post rating, star, multi, criteria, rich snippet, testimonial, review, microdata, feedback, question
+Tags: rating, review, star rating, multi rating, post rating, rating criteria, rich snippet
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 4.8
 Stable tag: trunk
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A powerful rating / review system plugin for WordPress with a niche of doing multi ratings better than anyone else. 
+A powerful post rating / review system plugin for WordPress including 5 star ratings and rich snippets.
 
 == Description ==
 
-The best rating system plugin for WordPress. This is simple plugin for users to rate posts based on multiple criteria / questions.
+A powerful post rating / review system plugin for WordPress with a niche of doing multi ratings better than anyone else.
 
-View [Demo](http://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme).
+View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme).
 
 = Key Features =
 
-* 5 star ratings, percentage and score results
-* Multiple rating criteria and questions using star ratings, select drop-down lists and radio buttons to choose answers from
-* Font Awesome used for star icons or upload your own custom star images to use instead
-* Shortcodes and widgets to display the rating form and rating results
-* Shortcode and widget to display a list of rating results (sort by highest rated, lowest rated, most entries, post title ascending or post title descending)
-* Ability to add schema.org microdata to show the aggregate ratings in search engine results as rich snippets
-* View the rating results, entries and selected values in the WP-admin
-* Apply weights to rating items to adjust the overall rating results
-* Automatic placement settings to display the rating form and rating results on every post in different positions
-* Meta-box on the edit post page to override the default automatic placement settings
-* Settings to enable post types, turn on duplicate check validation, custom text and apply different styles etc...
-* Graphical reports on the number of entries per day
+* Rate posts based on multiple rating criteria / questions with star ratings, select drop-down lists and radio buttons
+* Average ratings can be out of 5 stars, a percentage or an aggregated score
+* Add schema.org microdata to show the aggregate rating / reviews in SERP as rich snippets
+* Font Awesome and Dashicon support for star icons or upload your own custom star image icons
 * Tools to export ratings to a CSV file
-* Edit ratings in WP-admin (Editor & Administrator user roles only)
-* Developer friently
-* i18n translation ready and WPML support
+* Shortcodes and widgets to display the rating form and overall post ratings
+* Shortcode and widget to display a list of ratings (sort by highest rated, lowest rated, most entries, post title ascending or post title descending)
+* View / edit all ratings and details in WP-admin
+* Apply weights to rating items to adjust the average ratings
+* Automatic placement of rating form and average ratings on enabled post types
+* Settings to validate duplicates, change default text and apply different styles etc...
+* i18n translation ready and WPML plugin support
 * In-built template system for customization
 * All data stored in your own WordPress database - no signup required!
 
@@ -49,40 +44,32 @@ View [Demo](http://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_me
 
 = Pro version available! =
 
-The [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=top) version provides a significant additional feature set, including:
+The [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=top) version provides a significant additional feature set, including:
 
 * Unlimited rating forms
 * Ratings moderation (approve or unapprove rating entries)
 * WordPress comment system integration
-* Logged in users can update or delete their existing ratings
 * Bayesian average ratings
-* Add common review fields to the rating form including title, name, e-mail and comments	
+* Add common review fields to the rating form (title, name, e-mail and comments)
 * Add custom fields to the rating form to collect additional information
-* Show a list of rating entry details in a review layout		
-* Show a breakdown of rating item results in a poll layout
-* Show text labels for rating item options instead of numbers	
+* Show a list of rating entry details in a review layout
+* Show a breakdown of rating items in a poll layout
+* Show text labels for rating item options instead of numbers
 * Extra shortcodes and widgets (i.e. reviews, user ratings dashboard and rating item results)
+* Logged in users can update or delete their existing ratings
 * Filters to set different rating forms and override auto placement settings for specific taxonomies, terms, post types, post id's and page URL's
 * Options to exclude the home page, search page and archive pages (e.g. category)
 * Thumbs up/down rating item type (e.g. like or dislike)
 * Option to disallow anonymous ratings
-* Embed reCAPTCHA in the rating form (add-on)
+* Google reCAPTCHA validation (add-on)
 * Gravity Forms integration (add-on)
-* And much more.
+* Readonly REST API (add-on)
+* And much more...
 
-Check out [Multi Rating Pro](http://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
-
-== Installation ==
-
-1. Install plugin via the WordPress.org plugin directory. Unzip and place plugin folder in /wp-content/plugins/ directory for manual installation
-1. Activate the plugin through the 'Plugins' menu in WP-admin
-1. Go to Settings page in the 'Multi Rating' menu in WP-admin. The auto placement settings should be turned on with only the 'post' post type enabled by default.
-
-== Frequently Asked Questions ==
-
-Documentation can be found on the [demo page](http://multiratingpro.com/demo-page-free?utm_source=faq&utm_medium=free-plugin&utm_campaign=readme).
+Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
 
 == Screenshots ==
+
 1. Auto placement of rating results after post title and rating form after post content. Twenty Fifteen theme.
 2. Rating Results List shortcode. [mr_rating_results_list show_filter="true" title="Top Ratings" sort_by="highest_rated"]
 3. Rating results in WP-admin for each post.
@@ -101,6 +88,9 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.2.7 (25/07/2017) =
+* Tweak: Turned off auto placement in RSS feeds by checking the is_feed() function. Note a simple way to flush an RSS feed cache is to update a post.
 
 = 4.2.6 (15/02/2017) =
 * New: Font Awesome 4.7.0 support
@@ -165,7 +155,7 @@ Documentation can be found on the [demo page](http://multiratingpro.com/demo-pag
 * Tweak: Fixed plugin about page for WP 4.3
 
 = 4.1.8 (14/08/2015) =
-* Tweak: Made it easier to add your own schema.org microdata and override the default "http://schema.org/Article" micordata using new filter mr_rating_result_microdata. The old filters mrp_rating_result_microdata_thing and mrp_rating_result_microdata_thing_properties are no longer supported.
+* Tweak: Made it easier to add your own schema.org microdata and override the default "https://schema.org/Article" micordata using new filter mr_rating_result_microdata. The old filters mrp_rating_result_microdata_thing and mrp_rating_result_microdata_thing_properties are no longer supported.
 
 = 4.1.7 (08/07/2015) =
 * Bug: Fixed schema.org microdata for itemtype Article (the post) in rating-result.php template file missing required itemprops publishedDate, headline and image 

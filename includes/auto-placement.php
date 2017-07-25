@@ -18,7 +18,7 @@ function mr_filter_the_content( $content ) {
 		return $content; // No post id available to display rating form
 	}
 	
-	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
+	$can_apply_filter = ! ( is_feed() || ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
 	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_content', $content, $post_id ) ) {
 		return $content;
 	}
@@ -112,7 +112,7 @@ function mr_filter_the_title( $title ) {
 		return $title; // No post id available to display rating result
 	}
 	
-	$can_apply_filter = ! ( ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
+	$can_apply_filter = ! ( is_feed() || ! in_the_loop() || ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) );
 	if ( ! apply_filters( 'mr_can_apply_filter', $can_apply_filter, 'the_title', $title, $post_id ) ) {
 		return $title;
 	}

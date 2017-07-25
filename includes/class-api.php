@@ -147,8 +147,8 @@ class Multi_Rating_API {
 					'post_id' => $post_id,
 					'rating_items' => $rating_items
 			) );
-		
-			if ( $rating_results_cache == true)  {
+			
+			if ( $rating_results_cache == true )  {
 				// update rating results cache
 				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY, $rating_result );
 				update_post_meta( $post_id, Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating', $rating_result['adjusted_star_result'] );
@@ -237,7 +237,7 @@ class Multi_Rating_API {
 		if ($count_entries > 0) {
 			// calculate 5 star result
 			$score_result = round( doubleval($score_result_total ) / $count_entries, 2 );
-			$adjusted_score_result =round(doubleval($adjusted_score_result_total ) / $count_entries, 2 );
+			$adjusted_score_result = round(doubleval($adjusted_score_result_total ) / $count_entries, 2 );
 				
 			// calculate star result
 			$star_result = round( doubleval( $star_result_total ) / $count_entries, 2 );

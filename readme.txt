@@ -64,6 +64,7 @@ The [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_med
 * Google reCAPTCHA validation (add-on)
 * Gravity Forms integration (add-on)
 * Readonly REST API (add-on)
+* WPML & Polylang plugin comptatibility
 * And much more...
 
 Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
@@ -88,6 +89,9 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.2.8 =
+* Bug: Upon plugin activation, do not redirect to about page if network admin
 
 = 4.2.7 (25/07/2017) =
 * Tweak: Turned off auto placement in RSS feeds by checking the is_feed() function. Note a simple way to flush an RSS feed cache is to update a post.

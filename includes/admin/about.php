@@ -221,6 +221,7 @@ function mr_about_screen() {
 			<li><?php _e( 'Option to disallow anonymous ratings', 'multi-rating' ); ?></li>
 			<li><?php _e( 'Embed reCAPTCHA in the rating form (add-on)', 'multi-rating' ); ?></li>
 			<li><?php _e( 'Gravity Forms integration (add-on)', 'multi-rating' ); ?></li>
+			<li><?php _e( 'WPML & Polylang plugin compatbility', 'multi-rating' ); ?></li>
 			<li><?php _e( 'And much more.', 'multi-rating' ); ?></li>
 		</ol>
 		

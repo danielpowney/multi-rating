@@ -373,7 +373,7 @@ class Multi_Rating {
 	 * Redirects to about page on activation
 	 */
 	function redirect_about_page() {
-		if ( get_option( MULTI_RATING::DO_ACTIVATION_REDIRECT_OPTION, false ) ) {
+		if ( ! is_network_admin() && get_option( MULTI_RATING::DO_ACTIVATION_REDIRECT_OPTION, false ) ) {
 			delete_option( MULTI_RATING::DO_ACTIVATION_REDIRECT_OPTION );
 			wp_redirect( 'admin.php?page=' . MULTI_RATING::ABOUT_PAGE_SLUG );
 		}
@@ -598,7 +598,9 @@ class Multi_Rating {
 function mr_activate_plugin() {
 	
 	if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		add_option(MULTI_RATING::DO_ACTIVATION_REDIRECT_OPTION, true);
+		if ( ! is_network_admin() ) { // is admin network request?
+			add_option(MULTI_RATING::DO_ACTIVATION_REDIRECT_OPTION, true);
+		}
 		Multi_Rating::activate_plugin();
 	}
 	
@@ -635,4 +637,4 @@ function mr_multi_rating() {
 
 	do_action( 'mr_after_init' );
 }
-add_action( 'plugins_loaded', 'mr_multi_rating' );
+add_action( 'after_setup_theme', 'mr_multi_rating' );

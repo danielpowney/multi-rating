@@ -14,8 +14,11 @@ table.entries th#id, table.ratingitems th#rating_item_id, table.ratingresults th
 table.ratingitems th#description {
 	width: 20em;
 }
-table.ratingitems td.description .view {
-	font-weight: bold;
+table.ratingitems td.description input {
+	width: 100%;
+}
+table.ratingitems td input.small-text {
+	padding: 3px 5px;
 }
 form#add-new-rating-item-form select#type,table.ratingitems td.type select {
 	width: 6em;
@@ -25,7 +28,7 @@ table.ratingresults th#entries_count, table.ratingresults th#action {
 }
 
 /* Reports */
-#reports-form p.description { 
+#reports-form p.description {
 	margin-top: 4px;
 }
 
@@ -79,7 +82,89 @@ li#toplevel_page_mr_rating_results .wp-submenu li a.wp-first-item {
 }
 
 
-.about-wrap .mr-badge { float: right; border-radius: 4px; margin: 0 0 15px 15px; max-width: 120px; }
+.about-wrap .mr-badge { float: right; border-radius: 4px; margin: 0 0 15px 15px; max-width: 120px; background-color: #37587b; padding-top: 10px; padding-bottom: 10px; }
 .about-wrap #mr-header { margin-bottom: 15px; }
 .about-wrap #mr-header h1 { margin-bottom: 15px !important; }
 .about-wrap #mr-header .about-text { margin: 0 0 15px; max-width: 670px; }
+
+
+/* Settings Page */
+#mr-settings-main {
+	width: 800px;
+    min-height: 872px;
+    position: relative;
+    padding-top: 10px;
+}
+#mr-settings-content {
+	width: 100%;
+    min-width: 463px;
+    float: left;
+    margin-bottom: 20px;
+}
+#mr-settings-sidebar {
+	width: 292px;
+    position: absolute;
+    right: -312px;
+}
+#mr-settings-sidebar a {
+	text-decoration: none;
+	color: #37587b;
+}
+#mr-upgrade-logo {
+	background-color: #37587b; /*#37587b; */
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#mr-upgrade-content ul {
+	margin-left: 30px;
+}
+#mr-upgrade-content ul li {
+	margin: 5px 0 10px 0;
+	font-size: 16px;
+}
+#mr-upgrade-content ul li span {
+    margin-left: -31px;
+    font-size: 22px;
+    margin-right: 6px;
+}
+#mr-upgrade-content {
+	background: #fff;
+	padding: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+/* About Page */
+.mr-about .changelog, .mr-about .feature-section {
+	padding-bottom: 0px;
+}
+.mr-about .about-section {
+	text-align: center;
+	color: #555d66;
+	font-size: 30px;
+	line-height: 1.9em;
+	font-weight: 400;
+	margin-bottom: 0px;
+}
+.mr-about .nav-tab .dashicons {
+	line-height: 24px;
+	font-size: 90%;
+}
+.mr-about .tab-upgrade-to-pro {
+	color: #0073aa;
+}
+
+span.mr-star-rating .dashicons {
+	font-size: 1.3em;
+    width: 0.9em;
+    height: 1em;
+}
+
+.mr-star-rating + .star-result {
+	margin-left: 0px;
+}
+
+
+
+#ui-datepicker-div {display: none;}

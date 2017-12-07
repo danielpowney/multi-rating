@@ -59,7 +59,7 @@ function mr_template_html_strip_newlines( $html ) {
 	return $html;
 }
 add_filter( 'mr_template_html', 'mr_template_html_strip_newlines', 10, 1 );
- 
+
 
 /**
  * add a link to the Pro version in the menu
@@ -67,7 +67,7 @@ add_filter( 'mr_template_html', 'mr_template_html_strip_newlines', 10, 1 );
 function mr_add_pro_menu_item() {
 
 	global $submenu;
-	$submenu['mr_rating_results'][] = array( 'Pro version', 'manage_options', 'http://multiratingpro.com?utm_source=menu&utm_medium=free-plugin&utm_campaign=wp-admin' );
+	$submenu['mr_rating_results'][] = array( 'Upgrade to Pro', 'manage_options', 'http://multiratingpro.com?utm_source=menu&utm_medium=free-plugin&utm_campaign=wp-admin' );
 
 }
 add_action( 'admin_menu', 'mr_add_pro_menu_item' );

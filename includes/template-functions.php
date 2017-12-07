@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 /**
  * Template functions
- * 
+ *
  * Looks in the following directories in priority order for template files:
  * 1. wp-content/themes/CHILD_THEME/multi-rating/{filename}
  * 2. wp-content/themes/PARENT_THEME/multi-rating/{filename}
@@ -26,16 +26,16 @@
 function mr_get_template_part( $slug, $name = null, $load = true, $template_vars ) {
 	// Execute code for this part
 	do_action( 'get_template_part_' . $slug, $slug, $name );
- 
+
 	// Setup possible parts
 	$templates = array();
 	if ( isset( $name ) )
 		$templates[] = $slug . '-' . $name . '.php';
 	$templates[] = $slug . '.php';
- 
+
 	// Allow template parts to be filtered
 	$templates = apply_filters( 'mr_get_template_part', $templates, $slug, $name );
- 
+
 	// Return the part that is found
 	mr_locate_template( $templates, $load, false, $template_vars );
 }
@@ -96,9 +96,9 @@ function mr_locate_template( $template_names, $load = false, $require_once = tru
 }
 
 /**
- * 
+ *
  * Taken from WordPress template.php
- * 
+ *
  * Require the template file with WordPress environment and Multi Rating params
  *
  * The globals are set up for the template file to ensure that the WordPress
@@ -111,13 +111,13 @@ function mr_locate_template( $template_names, $load = false, $require_once = tru
  * @param bool $require_once Whether to require_once or require. Default true.
  */
 function mr_load_template( $_template_file, $require_once = true, $template_vars = array() ) {
-	
+
 	$template_vars = apply_filters( 'mr_load_template_params', $template_vars ); // in case you want to add your own global variables or common data
-		
+
 	if ( $template_vars ) {
 		extract( $template_vars );
 	}
-		
+
 	if ( $require_once )
 		require_once( $_template_file );
 	else
@@ -126,7 +126,7 @@ function mr_load_template( $_template_file, $require_once = true, $template_vars
 
 /**
  * Gets the relative path to the plugin directory
- * 
+ *
  * @return relative path to plugin directory
  */
 function mr_get_templates_dir() {
@@ -152,13 +152,13 @@ function mr_load_star_rating_style_params( $template_vars ) {
 	$image_height = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
 	$star_rating_colour = $styles_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
 
-	return array_merge( $template_vars, array(
+	return array_merge( array(
 			'icon_classes' => $icon_classes,
 			'use_custom_star_images' => $use_custom_star_images,
 			'image_width' => $image_width,
 			'image_height' => $image_height,
 			'star_rating_colour' => $star_rating_colour
-	) );
+	), $template_vars );
 
 }
 add_filter( 'mr_load_template_params', 'mr_load_star_rating_style_params' );

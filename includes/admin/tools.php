@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Shows the tools screen
@@ -7,142 +7,136 @@ function mr_tools_screen() {
 	?>
 	<div class="wrap">
 		<h2><?php _e( 'Tools', 'multi-rating' ); ?></h2>
-		
+
 		<div class="metabox-holder">
 			<div class="postbox">
-				<h3><span><?php _e( 'Export Rating Results', 'multi-rating' ); ?></span></h3>
+				<h3><span><?php _e( 'Export Rating Entries', 'multi-rating' ); ?></span></h3>
 				<div class="inside">
-					<p><?php _e( 'Export Rating Results to a CSV file.', 'multi-rating' ); ?></p>
-					
+					<p><?php _e( 'Download a CSV of rating entries.', 'multi-rating' ); ?></p>
+
 					<form method="post" id="export-rating-results-form">
 						<p>
 							<input type="text" name="username" id="username" class="" autocomplete="off" placeholder="Username">
 							<input type="text" class="date-picker" autocomplete="off" name="from-date1" placeholder="From - yyyy-MM-dd" id="from-date1">
 							<input type="text" class="date-picker" autocomplete="off" name="to-date1" placeholder="To - yyyy-MM-dd" id="to-date1">
-							
+
 							<select name="post-id" id="post-id">
 								<option value=""><?php _e( 'All posts / pages', 'multi-rating' ); ?></option>
-								<?php	
+								<?php
 								global $wpdb;
 								$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
 								$rows = $wpdb->get_results( $query, ARRAY_A );
-			
+
 								foreach ( $rows as $row ) {
 									$post_id = $row['post_id'];
 									$temp_post_id = $post_id;
-									
+
 									// WPML get adjusted post id for active language, just for the string translation
 									if ( function_exists( 'icl_object_id' ) ) {
 										$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
 									}
-									
+
 									?>
 									<option value="<?php echo $post_id; ?>">
 										<?php echo get_the_title( $temp_post_id ); ?>
 									</option>
 								<?php } ?>
 							</select>
-						</p>
-						
-						<p>
+
 							<input type="hidden" name="export-rating-results" id="export-rating-results" value="false" />
-							<?php 
-							submit_button( __( 'Export', 'multi-rating' ), 'secondary', 'export-btn', false, null );
+							<?php
+							submit_button( __( 'Generate CSV', 'multi-rating' ), 'secondary', 'export-btn', false, null );
 							?>
 						</p>
 					</form>
 				</div><!-- .inside -->
 			</div>
 		</div>
-		
-		<?php 
-		
+
+		<?php
+
 		if ( current_user_can( 'manage_options' ) ) {
 			?>
-		
+
 			<div class="metabox-holder">
 				<div class="postbox">
-					<h3><span><?php _e( 'Clear Database', 'multi-rating' ); ?></span></h3>
+					<h3><span><?php _e( 'Delete Rating Entries', 'multi-rating' ); ?></span></h3>
 					<div class="inside">
-						<p><?php _e( 'Delete rating results from the database.', 'multi-rating' ); ?></p>
-						
+						<p><?php _e( 'Permanently delete rating entries from the database.', 'multi-rating' ); ?></p>
+
 						<form method="post" id="clear-database-form">
 							<p>
 								<input type="text" name="username" id="username" class="" autocomplete="off" placeholder="Username">
 								<input type="text" class="date-picker" autocomplete="off" name="from-date2" placeholder="From - yyyy-MM-dd" id="from-date2">
 								<input type="text" class="date-picker" autocomplete="off" name="to-date2" placeholder="To - yyyy-MM-dd" id="to-date2">
-								
+
 								<select name="post-id" id="post-id">
 									<option value=""><?php _e( 'All posts / pages', 'multi-rating' ); ?></option>
-									<?php	
+									<?php
 									global $wpdb;
 									$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
 									$rows = $wpdb->get_results( $query, ARRAY_A );
-									
+
 									foreach ( $rows as $row ) {
 										$post_id = $row['post_id'];
 										$temp_post_id = $post_id;
-										
+
 										// WPML get adjusted post id for active language, just for the string translation
 										if ( function_exists( 'icl_object_id' ) ) {
 											$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
 										}
-										
+
 										?>
 										<option value="<?php echo $post_id; ?>">
 											<?php echo get_the_title( $temp_post_id ); ?>
 										</option>
 									<?php } ?>
 								</select>
-							</p>
-						
-							<p>
+
 								<input type="hidden" name="clear-database" id="clear-database" value="false" />
-								<?php 
-								submit_button( $text = __('Clear Database', 'multi-rating' ), $type = 'delete', $name = 'clear-database-btn', $wrap = false, $other_attributes = null );
+								<?php
+								submit_button( $text = __('Delete Rating Entries', 'multi-rating' ), $type = 'delete', $name = 'clear-database-btn', $wrap = false, $other_attributes = null );
 								?>
 							</p>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+
 					<div class="metabox-holder">
 				<div class="postbox">
-					<h3><span><?php _e( 'Clear Cache', 'multi-rating' ); ?></span></h3>
+					<h3><span><?php _e( 'Delete Calculated Ratings', 'multi-rating' ); ?></span></h3>
 					<div class="inside">
-						<p><?php _e( 'Clear the cached rating results stored in the WordPress post meta table.', 'multi-rating' ); ?></p>
-						
+						<p><?php _e( 'Ratings are calculated on page load if necessary and then stored in the database for performance.', 'multi-rating' ); ?></p>
+
 						<form method="post" id="clear-cache-form">
 							<p>
 								<select name="post-id" id="post-id">
 									<option value=""><?php _e( 'All posts / pages', 'multi-rating' ); ?></option>
-									<?php	
+									<?php
 									global $wpdb;
 									$query = 'SELECT DISTINCT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
 									$rows = $wpdb->get_results( $query, ARRAY_A );
-				
+
 									foreach ( $rows as $row ) {
 										$post_id = $row['post_id'];
 										$temp_post_id = $post_id;
-										
+
 										// WPML get adjusted post id for active language, just for the string translation
 										if ( function_exists( 'icl_object_id' ) ) {
 											$temp_post_id = icl_object_id ( $post_id , get_post_type( $post_id ), true, ICL_LANGUAGE_CODE );
 										}
-										
+
 										?>
 										<option value="<?php echo $post_id; ?>">
 											<?php echo get_the_title( $temp_post_id ); ?>
 										</option>
 									<?php } ?>
 								</select>
-							</p>
-							
-							<p>
+
 								<input type="hidden" name="clear-cache" id="clear-cache" value="false" />
-								<?php 
-								submit_button( __( 'Clear Cache', 'multi-rating' ), 'secondary', 'clear-cache-btn', false, null );
+								<?php
+								submit_button( __( 'Delete Calculated Ratings', 'multi-rating' ), 'secondary', 'clear-cache-btn', false, null );
 								?>
 							</p>
 						</form>
@@ -160,14 +154,14 @@ function mr_tools_screen() {
 function mr_export_rating_results() {
 
 	$file_name = 'rating-results-' . date( 'YmdHis' ) . '.csv';
-		
+
 	$username = isset( $_POST['username'] ) ? $_POST['username'] : null;
 	$from_date = isset( $_POST['from-date1'] ) ? $_POST['from-date1'] : null;
 	$to_date = isset( $_POST['to-date1'] ) ? $_POST['to-date1'] : null;
 	$post_id = isset( $_POST['post-id'] ) ? $_POST['post-id'] : null;
-		
+
 	$filters = array();
-	
+
 	$filters['user_id'] = null;
 	if ( $username != null && strlen( $username ) > 0 ) {
 		// get user id
@@ -176,34 +170,34 @@ function mr_export_rating_results() {
 			$filters['user_id'] = $user->ID;
 		}
 	}
-	
+
 	if ( $post_id != null && strlen( $post_id ) > 0 ) {
 		$filters['post_id'] = $post_id;
 	}
-	
+
 	if ( $from_date != null && strlen( $from_date ) > 0 ) {
 		list( $year, $month, $day ) = explode( '-', $from_date ); // default yyyy-mm-dd format
 			if ( checkdate( $month , $day , $year )) {
 			$filters['from_date'] = $from_date;
 		}
 	}
-	
+
 	if ( $to_date != null && strlen($to_date) > 0 ) {
 		list( $year, $month, $day ) = explode( '-', $to_date );// default yyyy-mm-dd format
 			if ( checkdate( $month , $day , $year )) {
 			$filters['to_date'] = $to_date;
 		}
 	}
-		
+
 	if ( mr_generare_csv_report( $file_name, $filters ) ) {
-			
+
 		header('Content-type: text/csv');
 		header('Content-Disposition: attachment; filename="' . $file_name . '"');
 		readfile($file_name);
 			// delete file
 		unlink($file_name);
 	}
-		
+
 	die();
 }
 
@@ -217,7 +211,7 @@ function mr_export_rating_results() {
 function mr_generare_csv_report( $file_name, $filters ) {
 
 	$rating_item_entries = Multi_Rating_API::get_rating_item_entries( $filters );
-		
+
 	$header_row = __('Entry Id', 'multi-rating') . ', '
 			. __('Entry Date', 'multi-rating') . ', '
 			. __('Post Id', 'multi-rating') . ', '
@@ -235,7 +229,7 @@ function mr_generare_csv_report( $file_name, $filters ) {
 
 	// iterate all found rating item entries and create row in report
 	if ( count( $rating_item_entries ) > 0 ) {
-			
+
 		foreach ( $rating_item_entries as $rating_item_entry ) {
 
 			$post_id = $rating_item_entry['post_id'];
@@ -265,7 +259,7 @@ function mr_generare_csv_report( $file_name, $filters ) {
 	$file = null;
 	try {
 		$file = fopen( $file_name, 'w' );
-			
+
 		foreach ( $export_data_rows as $row ) {
 			fputcsv( $file, explode(',', $row ) );
 		}
@@ -282,16 +276,16 @@ function mr_generare_csv_report( $file_name, $filters ) {
  * Clears all rating results from the database
  */
 function mr_clear_database() {
-	
+
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
-	
+
 	$username = isset( $_POST['username'] ) ? $_POST['username'] : null;
 	$from_date = isset( $_POST['from-date2'] ) ? $_POST['from-date2'] : null;
 	$to_date = isset( $_POST['to-date2'] ) ? $_POST['to-date2'] : null;
 	$post_id = isset( $_POST['post-id'] ) ? $_POST['post-id'] : null;
-	
+
 	$user_id = null;
 	if ( $username ) {
 		$user = get_user_by( 'login', $username );
@@ -299,34 +293,34 @@ function mr_clear_database() {
 			$user_id = $user->ID;
 		}
 	}
-	
+
 	$entries = Multi_Rating_API::get_rating_item_entries( array(
 			'user_id' => $user_id,
 			'from_date' => $from_date,
 			'to_date' => $to_date,
 			'post_id' => $post_id,
 	) );
-	
+
 	if ( count( $entries) > 0 ) {
-	
+
 		$rating_entry_ids = array();
 		foreach ( $entries as $entry ) {
 			array_push( $rating_entry_ids, $entry['rating_item_entry_id'] );
-			
+
 			// rating results cache will be refreshed next time it's needed
 			delete_post_meta( $entry['post_id'], Multi_Rating::RATING_RESULTS_POST_META_KEY );
 			delete_post_meta( $entry['post_id'], Multi_Rating::RATING_RESULTS_POST_META_KEY . '_star_rating' );
 			delete_post_meta( $entry['post_id'], Multi_Rating::RATING_RESULTS_POST_META_KEY . '_count_entries' );
 		}
-		
+
 		global $wpdb;
-		
+
 		$entry_id_list = implode( ',', $rating_entry_ids );
-	
+
 		try {
 			$rows = $wpdb->get_results( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' WHERE rating_item_entry_id IN ( ' . $entry_id_list . ')' );
 			$rows = $wpdb->get_results( 'DELETE FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_VALUE_TBL_NAME . ' WHERE rating_item_entry_id IN ( ' . $entry_id_list . ')' );
-			
+
 			echo '<div class="updated"><p>' . __( 'Database cleared successfully.', 'multi-rating' ) . '</p></div>';
 		} catch ( Exception $e ) {
 			echo '<div class="error"><p>' . sprintf( __('An error has occured. %s', 'multi-rating' ), $e->getMessage() ) . '</p></div>';
@@ -341,7 +335,7 @@ function mr_clear_database() {
  * Clears rating results cache stored in the WordPress post meta table
  */
 function mr_clear_cache() {
-	
+
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
@@ -352,14 +346,14 @@ function mr_clear_cache() {
 
 	$query = 'SELECT post_id FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME;
 	$query_args = array();
-	
+
 	if ( $post_id != '' ) {
 		$query .= ' WHERE post_id = %d';
 		array_push( $query_args, $post_id );
 	}
 
 	$query .= ' GROUP BY post_id';
-	
+
 	if ( count( $query_args ) > 0 ) {
 		$query = $wpdb->prepare( $query, $query_args );
 	}

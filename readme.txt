@@ -1,8 +1,8 @@
 === Multi Rating ===
 Contributors: dpowney
-Tags: rating, review, star rating, multi rating, post rating, rating criteria, rich snippet
+Tags: rating, review, star rating, multi rating, post rating, rating criteria, rich snippet, question, poll, survey, quiz, vote, voting
 Requires at least: 4.0
-Tested up to: 4.8
+Tested up to: 4.9
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -11,15 +11,15 @@ A powerful post rating / review system plugin for WordPress including 5 star rat
 
 == Description ==
 
-A powerful post rating / review system plugin for WordPress with a niche of doing multi ratings better than anyone else.
+A powerful post rating / review system plugin for WordPress with a niche of doing multi ratings better than anyone else. Can also be used for polls, quizzes, voting and surveys.
 
 View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme).
 
 = Key Features =
 
-* Rate posts based on multiple rating criteria / questions with star ratings, select drop-down lists and radio buttons
+* Rate posts based on multiple rating criteria / questions with star ratings, select drop-downs and radio buttons
 * Average ratings can be out of 5 stars, a percentage or an aggregated score
-* Add schema.org microdata to show the aggregate rating / reviews in SERP as rich snippets
+* Add schema.org microdata to show the aggregate rating / reviews in search engine results pages (SERP) as rich snippets
 * Font Awesome and Dashicon support for star icons or upload your own custom star image icons
 * Tools to export ratings to a CSV file
 * Shortcodes and widgets to display the rating form and overall post ratings
@@ -28,9 +28,8 @@ View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_m
 * Apply weights to rating items to adjust the average ratings
 * Automatic placement of rating form and average ratings on enabled post types
 * Settings to validate duplicates, change default text and apply different styles etc...
-* i18n translation ready and WPML plugin support
+* i18n translation ready
 * In-built template system for customization
-* All data stored in your own WordPress database - no signup required!
 
 = Shortcode Examples =
 
@@ -42,56 +41,61 @@ View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_m
 * [mr_rating_results_list title="Top Ratings" sort_by="highest_rated" limit="10"]
 * [mr_rating_results_list title="Ratings" sort_by="most_entries" limit="5"]
 
-= Pro version available! =
+= Upgrade to Pro =
 
 The [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=top) version provides a significant additional feature set, including:
 
-* Unlimited rating forms
+* Create multiple rating forms
 * Ratings moderation (approve or unapprove rating entries)
-* WordPress comment system integration
-* Bayesian average ratings
-* Add common review fields to the rating form (title, name, e-mail and comments)
-* Add custom fields to the rating form to collect additional information
-* Show a list of rating entry details in a review layout
-* Show a breakdown of rating items in a poll layout
+* WordPress comment ratings
+* E-mail notifications for new rating entries
 * Show text labels for rating item options instead of numbers
-* Extra shortcodes and widgets (i.e. reviews, user ratings dashboard and rating item results)
+* Bayesian average ratings
+* Add common review fields (title, name, e-mail and comments)
+* Add custom fields to collect additional information
+* Display rating entry details in a review layout
+* Display rating item results in a poll / bar chart layout (e.g. Amazon style ratings)
+* Extra shortcodes and widgets (i.e. reviews, dashboard of user ratings and detailed rating item results)
 * Logged in users can update or delete their existing ratings
-* Filters to set different rating forms and override auto placement settings for specific taxonomies, terms, post types, post id's and page URL's
+* Override the rating form to be used on specific posts, URLs, post types, post ids, taxonomies, terms etc…
 * Options to exclude the home page, search page and archive pages (e.g. category)
-* Thumbs up/down rating item type (e.g. like or dislike)
-* Option to disallow anonymous ratings
+* Includes a thumbs up / thumbs down rating item type (e.g. like or dislike)
+* Option to only allow ratings from logged in users
 * Google reCAPTCHA validation (add-on)
 * Gravity Forms integration (add-on)
 * Readonly REST API (add-on)
-* WPML & Polylang plugin comptatibility
-* And much more...
+* WPML plugin certified & Polylang plugin comptatibility
+* And much much more...
 
 Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
 
 == Screenshots ==
 
-1. Auto placement of rating results after post title and rating form after post content. Twenty Fifteen theme.
-2. Rating Results List shortcode. [mr_rating_results_list show_filter="true" title="Top Ratings" sort_by="highest_rated"]
-3. Rating results in WP-admin for each post.
-4. Every rating entry can be viewed in WP-admin and edited
-5. Rating Results List widget options include displaying the post feature image, a rank, changing the result type (star rating out of 5, score or percentage), different sorting mechanisms (highest rated, lowest rated etc...), set widget title and much more.
-6. Rating items table.
-7. General settings.
-8. Style settings include star rating select and on hover colors, load Font Awesome library CDN, version of Font Awesome and the ability to set custom star rating images to use instead of Font Awesome icons.
-9. Custom text setting.
-10. Graphical report on the number of entries per day.
-11. The plugin has several tools including exporting rating results to a CSV file, clearing the rating results cache and deleting rating results in bulk.
-12. WP-admin plugin menu.
-13. Edit post page. Add shortcodes in the editor. The Multi Rating meta-box can set the auto placement settings per post to override the default settings.
-14. Rating Results List Widget. Twenty Fifteen theme.
+1. Rating form and rating results
+2. [mr_rating_results_list] shortcode
+3. Results in WP-admin
+4. Entries in WP-admin
+5. Widget options
+6. Rating items in WP-admin
+7. Settings 1
+8. Settings 2
+9. Settings 3
+10. Reports
+11. Tools
 
 == Upgrade Notice ==
 
 == Changelog ==
 
-= 4.2.8 =
+= 4.2.8 (05/12/2017) =
 * Bug: Upon plugin activation, do not redirect to about page if network admin
+* Bug: Fixed admin css not loading correctly
+* Tweak: Fixed visible date-picker div element in WP-admin
+* Tweak: Improved UI for Ratings, Entries, Rating Items and Reports screens in WP-admin
+* Tweak: Updated About page
+* Tweak: Added Upgrade to Pro advert in Settings screen in WP-admin
+* Tweak: Updated text in Tools screen in WP-admin
+* Bug: Removed comment form from appearing in the auto placement settings under the rating form position
 
 = 4.2.7 (25/07/2017) =
 * Tweak: Turned off auto placement in RSS feeds by checking the is_feed() function. Note a simple way to flush an RSS feed cache is to update a post.
@@ -124,7 +128,7 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 = 4.2.1 (09/07/2016) =
 * Bug: Fixed fatal error missing rating-entries.php file
 
-= 4.2 (08/07/2016) = 
+= 4.2 (08/07/2016) =
 * New: Added Dashicon support
 * New: Added Font Awesome 4.2.0, 4.5.0 and 4.6.3 support
 * New: Added Pro version menu item
@@ -162,7 +166,7 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 * Tweak: Made it easier to add your own schema.org microdata and override the default "https://schema.org/Article" micordata using new filter mr_rating_result_microdata. The old filters mrp_rating_result_microdata_thing and mrp_rating_result_microdata_thing_properties are no longer supported.
 
 = 4.1.7 (08/07/2015) =
-* Bug: Fixed schema.org microdata for itemtype Article (the post) in rating-result.php template file missing required itemprops publishedDate, headline and image 
+* Bug: Fixed schema.org microdata for itemtype Article (the post) in rating-result.php template file missing required itemprops publishedDate, headline and image
 
 = 4.1.6 (02/08/2015) =
 * Bug: Fixed dbdelta key spacing as per https://core.trac.wordpress.org/ticket/32314
@@ -178,7 +182,7 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 
 = 4.1.3 (06/07/2015) =
 * Tweak: Changed post link in rating results and rating entries tables to the edit post page
-* Bug: Fixed touch event on minus icon with custom star images in rating form not working properly 
+* Bug: Fixed touch event on minus icon with custom star images in rating form not working properly
 
 = 4.1.2 (03/07/2015) =
 * Bug: Fixed error creating db tables on activation caused by stray comma in SQL statement
@@ -366,7 +370,7 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 = 1.1.3 (14/12/2013) =
 * Bug: Fixed post title on top rating results widget
 
-= 1.1.2 = (14/12/2013) =
+= 1.1.2 (14/12/2013) =
 * Bug: Removed debugging comment accidentally left behind
 
 = 1.1.1 (12/12/2013) =

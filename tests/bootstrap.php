@@ -8,20 +8,20 @@ if ( ! $_tests_dir ) {
 require_once $_tests_dir . '/includes/functions.php';
 
 function _manually_load_plugin() {
-	
-	// Add your theme …	
+
+	// Add your theme …
 	switch_theme('twentyfifteen');
 
 	// Update array with plugins to include ...
 	$plugins_to_active = array(
 			'multi-rating/multi-rating.php'
 	);
-	
+
 	update_option( 'active_plugins', $plugins_to_active );
-	
+
 	// uncomment this to create db tables
-	//require dirname( dirname( __FILE__ ) ) . '/multi-rating.php';
-	//Multi_Rating::activate_plugin();
+	require dirname( dirname( __FILE__ ) ) . '/multi-rating.php';
+	Multi_Rating::activate_plugin();
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

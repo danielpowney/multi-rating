@@ -637,4 +637,5 @@ function mr_multi_rating() {
 
 	do_action( 'mr_after_init' );
 }
-add_action( 'after_setup_theme', 'mr_multi_rating' );
+// Note WPML is initialized in "plugins_loaded" with priority 10, so priority needs > 10
+add_action( 'plugins_loaded', 'mr_multi_rating', 11 );

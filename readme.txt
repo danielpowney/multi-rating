@@ -87,6 +87,9 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 
 == Changelog ==
 
+= 4.2.9 (22/12/2017) =
+* Tweak: Changed doubleval to floatval to avoid Wordfence and GravityScan false positive security alert for eval( $_POST string
+
 = 4.2.8 (05/12/2017) =
 * Bug: Upon plugin activation, do not redirect to about page if network admin
 * Bug: Fixed admin css not loading correctly

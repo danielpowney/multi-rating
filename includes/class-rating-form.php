@@ -26,7 +26,6 @@ class MR_Rating_Form {
 			$rating_items = $_POST['ratingItems'];
 			$post_id = isset( $_POST['postId'] ) && is_numeric( $_POST['postId'] ) ? intval( $_POST['postId'] ) : null;
 			$sequence = isset( $_POST['sequence'] ) && is_numeric( $_POST['sequence'] ) ? intval( $_POST['sequence'] ) : null;
-			$ip_address = MR_Utils::get_ip_address();
 			$entry_date_mysql = current_time( 'mysql' );
 			
 			// WPML get original pst id for default language
@@ -79,9 +78,8 @@ class MR_Rating_Form {
 			$wpdb->insert( $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME, array(
 					'post_id' => $post_id,
 					'entry_date' => $entry_date_mysql,
-					'ip_address' => $ip_address,
 					'user_id' => $user_id,
-			), array( '%d', '%s', '%s', '%d' ) );
+			), array( '%d', '%s', '%d' ) );
 	
 			$rating_entry_id = $wpdb->insert_id;
 	

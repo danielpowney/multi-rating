@@ -87,6 +87,9 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 
 == Changelog ==
 
+= 4.3 (14/04/2018) =
+* Tweak: Removed IP address duplicate checking for GDPR compliance. Cookies will be the default option used instead.
+
 = 4.2.9 (22/12/2017) =
 * Tweak: Changed doubleval to floatval to avoid Wordfence and GravityScan false positive security alert for eval( $_POST string
 

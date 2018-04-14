@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: A powerful rating system and review plugin for WordPress.
-Version: 4.2.9
+Version: 4.3
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -38,7 +38,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '4.2.9',
+	VERSION = '4.3',
 	ID = 'multi-rating',
 
 	// tables
@@ -295,7 +295,6 @@ class Multi_Rating {
 					rating_item_entry_id bigint(20) NOT NULL AUTO_INCREMENT,
 					post_id bigint(20) NOT NULL,
 					entry_date datetime NOT NULL,
-					ip_address varchar(100),
 					user_id bigint(20) DEFAULT 0,
 					PRIMARY KEY  (rating_item_entry_id),
 					KEY ix_rating_entry (rating_item_entry_id,post_id)

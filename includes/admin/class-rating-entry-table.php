@@ -15,7 +15,6 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 	RATING_ITEM_ENTRY_ID_COLUMN 	= 'rating_item_entry_id',
 	POST_ID_COLUMN 					= 'post_id',
 	ENTRY_DATE_COLUMN 				= 'entry_date',
-	IP_ADDRESS_COLUMN 				= 'ip_address',
 	USER_ID_COLUMN 					= 'user_id',
 	RATING_RESULT_COLUMN 			= 'rating_result',
 	SHORTCODE_COLUMN 				= 'shortcode',
@@ -114,7 +113,6 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 				MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN =>__( 'ID', 'multi-rating' ),
 				MR_Rating_Entry_Table::POST_ID_COLUMN => __( 'Post', 'multi-rating' ),
 				MR_Rating_Entry_Table::ENTRY_DATE_COLUMN =>__( 'Date', 'multi-rating' ),
-				MR_Rating_Entry_Table::IP_ADDRESS_COLUMN	=>__( 'IP Address', 'multi-rating' ),
 				MR_Rating_Entry_Table::USER_ID_COLUMN => __( 'User ID', 'multi-rating' ),
 				MR_Rating_Entry_Table::RATING_RESULT_COLUMN => __( 'Rating Details', 'multi-rating' )
 		);
@@ -133,7 +131,7 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 
 		// Register the columns
 		$columns = $this->get_columns();
-		$hidden = array( MR_Rating_Entry_Table::USER_ID_COLUMN, MR_Rating_Entry_Table::IP_ADDRESS_COLUMN );
+		$hidden = array( MR_Rating_Entry_Table::USER_ID_COLUMN );
 		$sortable = $this->get_sortable_columns();
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
@@ -263,7 +261,6 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 			}
 
 			case MR_Rating_Entry_Table::RATING_ITEM_ENTRY_ID_COLUMN :
-			case MR_Rating_Entry_Table::IP_ADDRESS_COLUMN :
 			case MR_Rating_Entry_Table::USER_ID_COLUMN :
 				echo $item[ $column_name ];
 				break;

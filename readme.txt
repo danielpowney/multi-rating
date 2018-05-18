@@ -1,4 +1,4 @@
-=== Multi Rating ===
+﻿=== Multi Rating ===
 Contributors: dpowney
 Tags: rating, review, star rating, multi rating, post rating, rating criteria, rich snippet, question, poll, survey, quiz, vote, voting
 Requires at least: 4.0
@@ -86,6 +86,10 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 4.2.9 (22/12/2017) =
+* Tweak: Changed doubleval to floatval to avoid Wordfence and GravityScan false positive security alert for eval( $_POST string
+* Bug: Fixed PHP error ehen saving rating items due to typo...
 
 = 4.2.8 (05/12/2017) =
 * Bug: Upon plugin activation, do not redirect to about page if network admin

@@ -7,32 +7,6 @@
  */
 class MR_Utils {
 	
-	/** 
-	 * Gets the client ip address
-	 * 
-	 * @return IP address
-	 */
-	public static function get_ip_address() {
-		
-		$client_IP_address = '';
-		
-		if ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-			$client_IP_address = $_SERVER['HTTP_CLIENT_IP'];
-		} else if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-			$client_IP_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		} else if ( isset( $_SERVER['HTTP_X_FORWARDED'] ) ) {
-			$client_IP_address = $_SERVER['HTTP_X_FORWARDED'];
-		} else if ( isset( $_SERVER['HTTP_FORWARDED_FOR'] ) ) {
-			$client_IP_address = $_SERVER['HTTP_FORWARDED_FOR'];
-		} else if ( isset( $_SERVER['HTTP_FORWARDED'] ) ) {
-			$client_IP_address = $_SERVER['HTTP_FORWARDED'];
-		} else if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
-			$client_IP_address = $_SERVER['REMOTE_ADDR'];
-		}
-		
-		return $client_IP_address;
-	}
-	
 	/**
 	 * Gets the current URL
 	 *
@@ -245,7 +219,7 @@ class MR_Utils {
 	}
 	
 	/**
-	 * Perform cookie and IP address restriction type checks
+	 * Perform save rating restriction type checks
 	 *
 	 * @param array validation_results
 	 * @param int $post_id
@@ -255,13 +229,11 @@ class MR_Utils {
 		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
 		
 		$hours = $general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION];
-		$ip_address = MR_Utils::get_ip_address();
 		$save_rating_restriction_types = $general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION];
 		
 		foreach ( $save_rating_restriction_types as $save_rating_restriction_type ) {
 			
-			if ( ( $save_rating_restriction_type == 'ip_address' && MR_Utils::ip_address_validation_check( $ip_address, $post_id, $hours ) == true )
-					|| ( $save_rating_restriction_type == 'cookie' && MR_Utils::cookie_validation_check( $post_id ) == true ) ) {
+			if ( $save_rating_restriction_type == 'cookie' && isset( $_COOKIE[Multi_Rating::POST_SAVE_RATING_COOKIE . '-' . $post_id] ) ) {
 					
 				$custom_text_settings = (array) Multi_Rating::instance()->settings->custom_text_settings;
 				
@@ -275,30 +247,7 @@ class MR_Utils {
 	
 		return $validation_results;
 	}
-	
-	/**
-	 * Checks whether save rating cookie exists for a post
-	 * 
-	 * @param $post_id
-	 */
-	public static function cookie_validation_check( $post_id ) {
-		return isset( $_COOKIE[Multi_Rating::POST_SAVE_RATING_COOKIE . '-' . $post_id] );
-	}
 
-	/**
-	 * Check IP address has not saved a rating form with the post ID within specified hours
-	 */
-	public static function ip_address_validation_check( $ip_address, $post_id, $hours ) {
-		global $wpdb;
-		
-		$previous_day_date = date( 'Y-m-d H:i:s', strtotime( current_time('mysql') ) - ( 1 * 1 * 60 * 60 * $hours ) );
-		
-		$query = 'SELECT * FROM ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME 
-				. ' WHERE ip_address = %s AND post_id = %d AND entry_date >= %s';
-		$rows = $wpdb->get_results( $wpdb->prepare( $query, $ip_address, $post_id, $previous_day_date ) );
-		
-		return ( count( $rows ) > 0 );
-	}
 	
 	/**
 	 * Checks if any ratings items are required which means zero cannot be selected

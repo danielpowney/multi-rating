@@ -26,8 +26,33 @@ function mr_update_check() {
 	
 	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 4.2 ) {
 		mr_upgrade_to_4_2();
+	}
+
+	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 4.3 ) {
+		mr_upgrade_to_4_3();
 		update_option( Multi_Rating::VERSION_OPTION, Multi_Rating::VERSION ); // latest version upgrade complete
 	}
+}
+
+
+/**
+ * Remove IP address db column in rating entries table. This is no longer used for duplicate 
+ * checks to ensure GDPR compliance.
+ */
+function mr_upgrade_to_4_3() {
+	
+	global $wpdb;
+	$query = 'ALTER TABLE ' . $wpdb->prefix . Multi_Rating::RATING_ITEM_ENTRY_TBL_NAME . ' DROP COLUMN ip_address';
+	$wpdb->query( $query );
+
+	// if the duplicate checking currently uses IP addresses, change the option to use cookies instead
+	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
+	$duplicate_check_methods = $general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION];
+	if ( in_array( 'ip_address', $duplicate_check_methods ) ) {
+		$general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION] = array( 'cookie' );
+	}
+
+	update_option( Multi_Rating::GENERAL_SETTINGS,  $general_settings );
 }
 
 /**

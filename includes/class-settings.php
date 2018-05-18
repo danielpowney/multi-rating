@@ -51,7 +51,7 @@ class MR_Settings {
 		// Merge with defaults
 
 		$this->general_settings = array_merge( array(
-				Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION 		=> array( 'ip_address' ),
+				Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION 		=> array( 'cookie' ),
 				Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION 		=> 24,
 				Multi_Rating::POST_TYPES_OPTION 						=> 'post',
 				Multi_Rating::RATING_RESULTS_CACHE_OPTION 				=> true,
@@ -208,7 +208,6 @@ class MR_Settings {
 	function field_duplicate_check_method() {
 
 		$save_rating_restrictions_types = array(
-				'ip_address' => __( 'IP Address', 'multi-rating' ),
 				'cookie' => __( 'Cookie', 'multi-rating')
 		);
 

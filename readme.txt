@@ -20,7 +20,7 @@ View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_m
 * Rate posts based on multiple rating criteria / questions with star ratings, select drop-downs and radio buttons
 * Average ratings can be out of 5 stars, a percentage or an aggregated score
 * 3 easy to use Gutenberg blocks
-* Add schema.org microdata to show the aggregate rating / reviews in search engine results pages (SERP) as rich snippets
+* Add schema.org JSON-LD structured data to show the aggregate ratings in search engine results pages (SERP) as rich snippets
 * Font Awesome and Dashicon support for star icons or upload your own custom star image icons
 * Tools to export ratings to a CSV file
 * Shortcodes and widgets to display the rating form and overall post ratings
@@ -31,7 +31,7 @@ View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_m
 * Settings to validate duplicates, change default text and apply different styles etc...
 * i18n translation ready
 * In-built template system for customization
-* REST API
+* REST API endpoints
 
 = Shortcode Examples =
 
@@ -107,7 +107,7 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 * Tweak: Removed WPML references
 
 = 4.3 (14/04/2018) =
-* Tweak: Removed IP address duplicate checks for GDPR compliance. Cookies will be the default option used instead.
+* Tweak: Removed IP address duplicate checking for GDPR compliance. Cookies will be the default option used instead.
 * Bug: Fixed PHP error when saving rating items due to typo...
 
 = 4.2.9 (22/12/2017) =

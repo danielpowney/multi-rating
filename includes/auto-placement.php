@@ -59,7 +59,6 @@ function mr_filter_the_content( $content ) {
 					'post_id' => $post_id,
 					'echo' => false,
 					'show_date' => false,
-					'generate_microdata' => is_singular(),
 					'class' => $rating_results_position . ' mr-filter'
 			) );
 		}
@@ -136,9 +135,9 @@ function mr_filter_the_title( $title ) {
 				'post_id' => $post_id,
 				'echo' => false,
 				'show_date' => false,
-				'generate_microdata' => is_singular(),
 				'class' => $rating_results_position . ' mr-filter'
 		) );
+		
 	}
 
 	$filtered_title = '';
@@ -170,7 +169,7 @@ add_filter( 'the_title', 'mr_filter_the_title' );
  * @return $can_apply_filter
  */
 function mr_can_apply_filter( $can_apply_filter, $filter_name, $value, $post_id ) {
-
+	
 	if ( $can_apply_filter ) {
 		$can_apply_filter = MR_Utils::check_post_type_enabled( $post_id );
 	}

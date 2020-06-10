@@ -90,7 +90,7 @@ li#toplevel_page_mr_rating_results .wp-submenu li a.wp-first-item {
 
 /* Settings Page */
 #mr-settings-main {
-	width: 800px;
+	max-width: 748px;
     min-height: 872px;
     position: relative;
     padding-top: 10px;
@@ -161,10 +161,15 @@ span.mr-star-rating .dashicons {
     height: 1em;
 }
 
-.mr-star-rating + .star-result {
-	margin-left: 0px;
-}
-
-
 
 #ui-datepicker-div {display: none;}
+
+/* Gutenberg */
+.mr-plugin-sidebar .components-base-control__help {
+    margin-top: 0px;
+    font-style: italic;
+}
+.mr-help {
+    margin-top: -8px;
+    font-style: italic;
+}

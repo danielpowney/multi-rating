@@ -692,17 +692,9 @@ class Multi_Rating_API {
 				'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
 				'class' => '',
 				'before_count' => '(',
-				'after_count' => ')',
-				'generate_microdata' => false
+				'after_count' => ')'
 		) ) );
 		
-		if ( is_string( $show_rich_snippets ) ) {
-			$show_rich_snippets = $show_rich_snippets == 'true' ? true : false;
-			$generate_microdata = $show_rich_snippets;
-		}
-		if ( is_string( $generate_microdata ) ) {
-			$generate_microdata = $generate_microdata == 'true' ? true : false;
-		}
 		if ( is_string( $show_title ) ) {
 			$show_title = $show_title == 'true' ? true : false;
 		}
@@ -735,7 +727,6 @@ class Multi_Rating_API {
 		ob_start();
 		mr_get_template_part( 'rating-result', null, true, array(
 				'no_rating_results_text' => $no_rating_results_text,
-				'generate_microdata' => $generate_microdata,
 				'show_title' => $show_title,
 				'show_date' => false,
 				'show_count' => $show_count,
@@ -933,7 +924,6 @@ class Multi_Rating_API {
 			'filter_label_text' => $filter_label_text,
 			'show_featured_img' => $show_featured_img,
 			'image_size' => $image_size,
-			'generate_microdata' => false,
 			'class' => $class . ' rating-results-list',
 			'rating_results' => $rating_results,
 			'before_count' => '(',

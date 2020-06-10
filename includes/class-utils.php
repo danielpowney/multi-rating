@@ -163,20 +163,23 @@ class MR_Utils {
 	 * @return array icon classes
 	 */
 	public static function get_icon_classes( $icon_font_library ) {
-		
 		$icon_classes = array();
-		
-		if ( $icon_font_library == 'font-awesome-4.0.3' || $icon_font_library == 'font-awesome-4.1.0'
-				|| $icon_font_library == 'font-awesome-4.2.0' || $icon_font_library == 'font-awesome-4.3.0'
-				|| $icon_font_library == 'font-awesome-4.5.0' || $icon_font_library == 'font-awesome-4.6.3'
-				|| $icon_font_library == 'font-awesome-4.7.0' ) {
+
+		if ( $icon_font_library == 'font-awesome-v5' ) {
+			$icon_classes['star_full'] = 'fas fa-star mr-star-full';
+			$icon_classes['star_hover'] = 'fas fa-star mr-star-hover';
+			$icon_classes['star_half'] = 'fas fa-star-half-alt mr-star-half';
+			$icon_classes['star_empty'] = 'far fa-star mr-star-empty';
+			$icon_classes['minus'] = 'fas fa-minus mr-minus';
+			$icon_classes['spinner'] = 'fas fa-spinner fa-spin mr-spinner';
+		} else if ( $icon_font_library == 'font-awesome-v4' ) {
 			$icon_classes['star_full'] = 'fa fa-star mr-star-full';
 			$icon_classes['star_hover'] = 'fa fa-star mr-star-hover';
 			$icon_classes['star_half'] = 'fa fa-star-half-o mr-star-half';
 			$icon_classes['star_empty'] = 'fa fa-star-o mr-star-empty';
 			$icon_classes['minus'] = 'fa fa-minus-circle mr-minus';
 			$icon_classes['spinner'] = 'fa fa-spinner fa-spin mr-spinner';
-		} else if ( $icon_font_library == 'font-awesome-3.2.1' ) {
+		} else if ( $icon_font_library == 'font-awesome-v3' ) {
 			$icon_classes['star_full'] = 'icon-star mr-star-full';
 			$icon_classes['star_hover'] = 'icon-star mr-star-hover';
 			$icon_classes['star_half'] = 'icon-star-half-full mr-star-half';
@@ -199,7 +202,7 @@ class MR_Utils {
 	 * @param $post_id
 	 */
 	public static function check_post_type_enabled( $post_id ) {
-		$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );
+		$general_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );
 	
 		$post_types = $general_settings[ Multi_Rating::POST_TYPES_OPTION ];
 		if ( ! isset( $post_types ) ) {

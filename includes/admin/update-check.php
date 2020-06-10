@@ -36,6 +36,41 @@ function mr_update_check() {
 
 
 /**
+ * Make Font Awesome icons local and move post types option to auto placement settings
+ */
+function mr_upgrade_to_5() {
+	
+	$styles_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );	
+	$icon_font_library = $styles_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+	
+	if ( isset( $icon_font_library ) ) {
+		
+		if ( $icon_font_library == 'font-awesome-4.0.3' || $icon_font_library == 'font-awesome-4.1.0' 
+				|| $icon_font_library == 'font-awesome-4.2.0' || $icon_font_library == 'font-awesome-4.3.0'
+				|| $icon_font_library == 'font-awesome-4.5.0' || $icon_font_library == 'font-awesome-4.6.3'
+				|| $icon_font_library == 'font-awesome-4.7.0' ) {
+			$styles_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION] = 'font-awesome-v4';
+		} else if ( $icon_font_library == 'font-awesome-3.2.1' ) {
+			$styles_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION] = 'font-awesome-v3';
+		}
+	}
+	
+	update_option( Multi_Rating::STYLE_SETTINGS,  $styles_settings );
+
+	$general_settings = (array) get_option( Multi_Rating::GENERAL_SETTINGS );	
+	$auto_placement_settings = (array) get_option( Multi_Rating::POSITION_SETTINGS );	
+
+	if ( isset( $general_settings[Multi_Rating::POST_TYPES_OPTION] ) ) {
+		$auto_placement_settings[Multi_Rating::POST_TYPES_OPTION] = $general_settings[Multi_Rating::POST_TYPES_OPTION];
+		unset( $general_settings[Multi_Rating::POST_TYPES_OPTION] );
+	}
+
+	update_option( Multi_Rating::GENERAL_SETTINGS, $general_settings);
+	update_option( Multi_Rating::POSITION_SETTINGS, $auto_placement_settings);
+
+}
+
+/**
  * Remove IP address db column in rating entries table. This is no longer used for duplicate 
  * checks to ensure GDPR compliance.
  */

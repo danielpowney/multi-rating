@@ -3,7 +3,9 @@ jQuery(document).ready(function() {
 	// supporting different versions of Font Awesome icons
 	var icon_classes = jQuery.parseJSON(mr_frontend_data.icon_classes);
 	
-	jQuery(".rating-form :button").click(function(e) {
+	jQuery(".rating-form :submit").click(function(e) {
+
+		e.preventDefault();
 	
 		var ratingItems = [];
 		var customFields = [];

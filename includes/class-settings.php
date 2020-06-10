@@ -53,13 +53,14 @@ class MR_Settings {
 		$this->general_settings = array_merge( array(
 				Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION 		=> array( 'cookie' ),
 				Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION 		=> 24,
-				Multi_Rating::POST_TYPES_OPTION 						=> 'post',
+				Multi_Rating::ADD_STRUCTURED_DATA_OPTION				=> array( 'create_type', 'wpseo', 'woocommerce' ),
 				Multi_Rating::RATING_RESULTS_CACHE_OPTION 				=> true,
 				Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION 		=> true,
 				Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION 			=> true
 		), $this->general_settings );
 
 		$this->position_settings = array_merge( array(
+				Multi_Rating::POST_TYPES_OPTION 						=> 'post',
 				Multi_Rating::RATING_RESULTS_POSITION_OPTION 			=> 'after_title',
 				Multi_Rating::RATING_FORM_POSITION_OPTION 				=> 'after_content'
 		), $this->position_settings );
@@ -84,11 +85,10 @@ class MR_Settings {
 		}
 
 		$this->style_settings = array_merge( array(
-				Multi_Rating::CUSTOM_CSS_OPTION 						=> '',
 				Multi_Rating::STAR_RATING_COLOUR_OPTION 				=> '#ffd700',
 				Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION 			=> '#ffba00',
 				Multi_Rating::INCLUDE_FONT_AWESOME_OPTION 				=> true,
-				Multi_Rating::FONT_AWESOME_VERSION_OPTION 				=> 'font-awesome-4.7.0',
+				Multi_Rating::FONT_AWESOME_VERSION_OPTION 				=> 'font-awesome-v5',
 				Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION 				=> '#EC6464',
 				Multi_Rating::DISABLE_STYLES_OPTION 					=> false
 		), $this->style_settings );
@@ -120,37 +120,22 @@ class MR_Settings {
 
 		add_settings_section( 'section_general', __( 'General Settings', 'multi-rating' ), array( &$this, 'section_general_desc' ), Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::GENERAL_SETTINGS);
 
-		$post_types = $post_types = get_post_types( array(
-				'public' => true,
-				'show_ui' => true
-		), 'objects' );
-
-		$post_type_checkboxes = array();
-		foreach ( $post_types as $post_type ) {
-			array_push( $post_type_checkboxes, array(
-					'name' => $post_type->name,
-					'label' => $post_type->labels->name
-			) );
-		}
-
 		$setting_fields = array(
-				Multi_Rating::POST_TYPES_OPTION => array(
-						'title' 	=> __( 'Post Types', 'rating-pro' ),
-						'callback' 	=> 'field_checkboxes',
-						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::GENERAL_SETTINGS,
-						'section' 	=> 'section_general',
-						'args' => array(
-								'option_name' 	=> Multi_Rating::GENERAL_SETTINGS,
-								'setting_id' 	=> Multi_Rating::POST_TYPES_OPTION,
-								'description' 	=> __( 'Enable post types for auto placement of the rating form and rating results.', 'multi-rating' ),
-								'checkboxes' 	=> $post_type_checkboxes
-						)
-				),
 				Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION => array(
 						'title' 	=> __( 'Duplicate Check Method', 'multi-rating' ),
 						'callback' 	=> 'field_duplicate_check_method',
 						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::GENERAL_SETTINGS,
 						'section' 	=> 'section_general'
+				),
+				Multi_Rating::ADD_STRUCTURED_DATA_OPTION => array(
+						'title' 	=> __( 'Structured Data', 'multi-rating' ),
+						'callback' 	=> 'field_structured_data',
+						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::GENERAL_SETTINGS,
+						'section' 	=> 'section_general',
+						'args' => array(
+								'option_name' 	=> Multi_Rating::GENERAL_SETTINGS,
+								'setting_id' 	=> Multi_Rating::ADD_STRUCTURED_DATA_OPTION
+						)
 				),
 				Multi_Rating::RATING_RESULTS_CACHE_OPTION => array(
 						'title' 	=> __( 'Store Calculated Ratings', 'multi-rating' ),
@@ -160,11 +145,11 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::GENERAL_SETTINGS,
 								'setting_id' 	=> Multi_Rating::RATING_RESULTS_CACHE_OPTION,
-								'label' 		=> __( 'Check this box if you want to store calculated ratings as a cache in the database so you don\'t need to recalculate ratings on each page load.', 'multi-rating' )
+								'label' 		=> __( 'Check this box if you want to store calculated ratings in the database instead of recalculating results on each page load.', 'multi-rating' )
 						)
 				),
 				Multi_Rating::HIDE_RATING_FORM_AFTER_SUBMIT_OPTION => array(
-						'title' 	=> __( 'Hide Rating Form Submit', 'multi-rating' ),
+						'title' 	=> __( 'Hide Rating Form on Submit', 'multi-rating' ),
 						'callback' 	=> 'field_checkbox',
 						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::GENERAL_SETTINGS,
 						'section' 	=> 'section_general',
@@ -182,7 +167,7 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::GENERAL_SETTINGS,
 								'setting_id' 	=> Multi_Rating::TEMPLATE_STRIP_NEWLINES_OPTION,
-								'label' 		=> sprintf( __( 'Some plugins convert newlines to HTML paragraphs similar to <a href="%s">wpautop</a> (e.g. Visual Composer). Check this box if you want to prevent this from happening by stripping the newlines from the Multi Rating templates.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/wpautop' )
+								'label' 		=> sprintf( __( 'Some plugins convert newlines to HTML paragraphs similar to <a href="%s">wpautop</a> (e.g. Visual Composer). Check this box if you want to prevent this from happening by stripping the newlines from the templates.', 'multi-rating' ), 'https://codex.wordpress.org/Function_Reference/wpautop' )
 						)
 				)
 		);
@@ -207,10 +192,14 @@ class MR_Settings {
 	 */
 	function field_duplicate_check_method() {
 
+		?>
+		<p><?php _e( 'Choose a method to prevent people rating the same post multiple times.', 'multi-rating' ); ?></p>
+		<p><?php
 		$save_rating_restrictions_types = array(
+				/*'ip_address' => __( 'IP Address', 'multi-rating' ),*/
 				'cookie' => __( 'Cookie', 'multi-rating')
 		);
-
+	
 		$save_rating_restriction_types_checked = $this->general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION];
 		foreach ( $save_rating_restrictions_types as $save_rating_restrictions_type => $save_rating_restrictions_label) {
 			echo '<input type="checkbox" name="' . Multi_Rating::GENERAL_SETTINGS . '[' . Multi_Rating::SAVE_RATING_RESTRICTION_TYPES_OPTION . '][]" value="' . $save_rating_restrictions_type . '"';
@@ -223,10 +212,25 @@ class MR_Settings {
 			}
 			echo ' />&nbsp;<label class="checkbox-label">' . $save_rating_restrictions_label . '</label><br />';
 		}
-		?>
+		?></p>
+		<p><label><?php _e('Hours', 'multi-rating'); ?></label>&nbsp;<input class="small-text" type="number" min="1" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION; ?>]" value="<?php echo $this->general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION]; ?>" /></p>
+		<?php
+	}
 
-		<label><?php _e('Hours', 'multi-rating'); ?></label>&nbsp;<input class="small-text" type="number" min="1" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION; ?>]" value="<?php echo $this->general_settings[Multi_Rating::SAVE_RATING_RESTRICTION_HOURS_OPTION]; ?>" />
-		<p><?php _e( 'Choose a method to prevent ratings for the same post multiple times. This only applies for anonymous users.', 'multi-rating' ); ?></p>
+	/**
+	 * Structured data
+	 */
+	function field_structured_data( $args) {
+		$settings = (array) get_option( $args['option_name' ] );
+		$value = $settings[$args['setting_id']];
+		?>
+		<p><?php _e( 'Adds support for rich snippets with aggregate ratings for posts in search engine results pages (SERP).', 'multi-rating' ); ?></p>
+
+		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="create_type" <?php if ( in_array( 'create_type', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e( 'Create new type', 'multi-rating' );?></label><br /><i><?php _e('Adds a new piece for the type configured on each post. You may need to add additional structured data using the <code>mr_structured_data</code> filter.', 'multi-rating' ); ?></i></p>
+		
+		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="wpseo" <?php if ( in_array( 'wpseo', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e('WordPress SEO plugin graph.', 'multi-rating' );?></label><br /><i><?php _e('Adds to main entity where possible.' ,'multi-rating' ); ?></i></p>
+
+		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="woocommerce" <?php if ( in_array( 'woocommerce', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e('WooCommerce plugin products', 'multi-rating' ); ?></label><br /><i><?php _e('Adds to existing Product type.', 'multi-rating'); ?></i></p>
 		<?php
 	}
 
@@ -251,8 +255,8 @@ class MR_Settings {
 			}
 		}
 
-		if ( ! isset( $input[Multi_Rating::POST_TYPES_OPTION] ) ) {
-			$input[Multi_Rating::POST_TYPES_OPTION] = array();
+		if ( ! isset( $input[Multi_Rating::ADD_STRUCTURED_DATA_OPTION] ) ) {
+			$input[Multi_Rating::ADD_STRUCTURED_DATA_OPTION] = array();
 		}
 
 		// rating reulsts cache
@@ -291,7 +295,33 @@ class MR_Settings {
 
 		add_settings_section( 'section_position', __( 'Auto Placement Settings', 'multi-rating' ), array( &$this, 'section_position_desc' ), Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::POSITION_SETTINGS );
 
+		$post_types = $post_types = get_post_types( array(
+				'public' => true,
+				'show_ui' => true
+		), 'objects' );
+
+		$post_type_checkboxes = array();
+
+		foreach ( $post_types as $post_type ) {
+			array_push( $post_type_checkboxes, array(
+					'name' => $post_type->name,
+					'label' => $post_type->labels->name
+			) );
+		}
+
 		$setting_fields = array(
+				Multi_Rating::POST_TYPES_OPTION => array(
+						'title' 	=> __( 'Post Types', 'rating-pro' ),
+						'callback' 	=> 'field_checkboxes',
+						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::POSITION_SETTINGS,
+						'section' 	=> 'section_position',
+						'args' => array(
+								'option_name' 	=> Multi_Rating::POSITION_SETTINGS,
+								'setting_id' 	=> Multi_Rating::POST_TYPES_OPTION,
+								'description' 	=> __( 'Enabled post types for auto placement.', 'multi-rating' ),
+								'checkboxes' 	=> $post_type_checkboxes
+						)
+				),
 				Multi_Rating::RATING_FORM_POSITION_OPTION => array(
 						'title' 	=> __( 'Rating Form Position', 'multi-rating' ),
 						'callback' 	=> 'field_select',
@@ -339,6 +369,7 @@ class MR_Settings {
 	 * Position section description
 	 */
 	function section_position_desc() {
+		_e( 'Note you can override the default auto placement settings on each post.', 'multi-rating' );
 
 	}
 
@@ -349,6 +380,11 @@ class MR_Settings {
 	 * @return unknown
 	 */
 	function sanitize_position_settings( $input ) {
+
+		if ( ! isset( $input[Multi_Rating::POST_TYPES_OPTION] ) ) {
+			$input[Multi_Rating::POST_TYPES_OPTION] = array();
+		}
+
 		return $input;
 	}
 
@@ -362,15 +398,10 @@ class MR_Settings {
 		add_settings_section( 'section_styles', __( 'Style Settings', 'multi-rating' ), array( &$this, 'section_style_desc' ), Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::STYLE_SETTINGS );
 
 		$icon_font_library_options = array(
-				'font-awesome-4.7.0'		=> __( 'Font Awesome 4.7.0', 'multi-rating' ),
-				'font-awesome-4.6.3'		=> __( 'Font Awesome 4.6.3', 'multi-rating' ),
-				'font-awesome-4.5.0'		=> __( 'Font Awesome 4.5.0', 'multi-rating' ),
-				'font-awesome-4.3.0' 		=> __( 'Font Awesome 4.3.0', 'multi-rating' ),
-				'font-awesome-4.2.0'		=> __( 'Font Awesome 4.2.0', 'multi-rating' ),
-				'font-awesome-4.1.0' 		=> __( 'Font Awesome 4.1.0', 'multi-rating' ),
-				'font-awesome-4.0.3' 		=> __( 'Font Awesome 4.0.3', 'multi-rating' ),
-				'font-awesome-3.2.1' 		=> __( 'Font Awesome 3.2.1', 'multi-rating' ),
-				'dashicons' 				=> __( 'Dashicons', 'multi-rating' )
+				'font-awesome-v5'		=> __( 'Font Awesome v5', 'multi-rating' ),
+				'font-awesome-v4'		=> __( 'Font Awesome v4', 'multi-rating' ),
+				'font-awesome-v3' 		=> __( 'Font Awesome v3', 'multi-rating' ),
+				'dashicons' 				=> __( 'WordPress Dashicons', 'multi-rating' )
 		);
 		$icon_font_library_options = apply_filters( 'mr_icon_font_library_options', $icon_font_library_options );
 
@@ -409,7 +440,7 @@ class MR_Settings {
 						)
 				),
 				Multi_Rating::FONT_AWESOME_VERSION_OPTION => array(
-						'title' 	=> __( 'Icon Font Library', 'multi-rating' ),
+						'title' 	=> __( 'Icons', 'multi-rating' ),
 						'callback' 	=> 'field_select',
 						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::STYLE_SETTINGS,
 						'section' 	=> 'section_styles',
@@ -421,25 +452,14 @@ class MR_Settings {
 						)
 				),
 				Multi_Rating::INCLUDE_FONT_AWESOME_OPTION => array(
-						'title' 	=> __( 'Load Icon Font Library from CDN', 'multi-rating' ),
+						'title' 	=> __( 'Load Icons', 'multi-rating' ),
 						'callback' 	=> 'field_checkbox',
 						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::STYLE_SETTINGS,
 						'section' 	=> 'section_styles',
 						'args' => array(
 								'option_name' 	=> Multi_Rating::STYLE_SETTINGS,
 								'setting_id' 	=> Multi_Rating::INCLUDE_FONT_AWESOME_OPTION,
-								'label' 		=> __( 'Check this box if you want to load the font icon library from a CDN.', 'multi-rating' )
-						)
-				),
-				Multi_Rating::CUSTOM_CSS_OPTION => array(
-						'title' 	=> __( 'Custom CSS', 'multi-rating' ),
-						'callback' 	=> 'field_textarea',
-						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::STYLE_SETTINGS,
-						'section' 	=> 'section_styles',
-						'args' => array(
-								'option_name' 	=> Multi_Rating::STYLE_SETTINGS,
-								'setting_id' 	=> Multi_Rating::CUSTOM_CSS_OPTION,
-								'footer' 		=> __( 'Enter custom CSS styles above.', 'multi-rating' )
+								'label' 		=> __( 'If your theme or another plugin is already loading these icons, you should uncheck this to avoid any conflicts., ', 'multi-rating' )
 						)
 				),
 				Multi_Rating::DISABLE_STYLES_OPTION => array(
@@ -488,8 +508,6 @@ class MR_Settings {
 		} else {
 			$input[Multi_Rating::DISABLE_STYLES_OPTION] = false;
 		}
-
-		$input[Multi_Rating::CUSTOM_CSS_OPTION] = addslashes($input[Multi_Rating::CUSTOM_CSS_OPTION]);
 
 		return $input;
 	}

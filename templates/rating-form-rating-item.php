@@ -4,7 +4,7 @@
  * Rating form rating item template
  */
 ?>
-<p class="rating-item mr <?php if ( isset( $class ) ) { echo esc_attr( $class ); } ?>" <?php if ( isset( $style ) ) { echo 'style="' . esc_attr( $style ) . '"'; } ?>>
+<div class="rating-item mr <?php if ( isset( $class ) ) { echo esc_attr( $class ); } ?>" <?php if ( isset( $style ) ) { echo 'style="' . esc_attr( $style ) . '"'; } ?>>
 	<label class="description" for="<?php echo $element_id; ?>"><?php echo esc_html( $description ); ?></label>
 			
 	<?php
@@ -49,4 +49,4 @@
 	}	
 	?>
 	<span id="<?php echo $element_id; ?>-error" class="mr-error"></span>
-</p>
+</div>

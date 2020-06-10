@@ -1,8 +1,8 @@
-=== Multi Rating ===
+﻿=== Multi Rating ===
 Contributors: dpowney
 Tags: rating, review, star rating, multi rating, post rating, rating criteria, rich snippet, question, poll, survey, quiz, vote, voting
 Requires at least: 4.0
-Tested up to: 4.9
+Tested up to: 5.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,7 @@ View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_m
 
 * Rate posts based on multiple rating criteria / questions with star ratings, select drop-downs and radio buttons
 * Average ratings can be out of 5 stars, a percentage or an aggregated score
+* 3 easy to use Gutenberg blocks
 * Add schema.org microdata to show the aggregate rating / reviews in search engine results pages (SERP) as rich snippets
 * Font Awesome and Dashicon support for star icons or upload your own custom star image icons
 * Tools to export ratings to a CSV file
@@ -30,6 +31,7 @@ View [Demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_m
 * Settings to validate duplicates, change default text and apply different styles etc...
 * i18n translation ready
 * In-built template system for customization
+* REST API
 
 = Shortcode Examples =
 
@@ -64,7 +66,6 @@ The [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_med
 * Google reCAPTCHA validation (add-on)
 * Gravity Forms integration (add-on)
 * Readonly REST API (add-on)
-* WPML plugin certified & Polylang plugin comptatibility
 * And much much more...
 
 Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=bottom).
@@ -87,8 +88,27 @@ Check out [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&u
 
 == Changelog ==
 
+= 5.0 =
+* New: Added REST API support for rating results list, rating items and a custom field on posts with rating results
+* New: Font Awesome v3, v4 and v5 icons are now local rainstead of using an external CDN
+* Tweak: Fixed about page CSS and removed Credits tab.
+* Tweak: Removed custom CSS option. You should move this to the Customizer.
+* Tweak: Some minor CSS style changes. You may need to update your styles.
+* New: Gutenberg support. Added 3 blocks for the rating form, rating result and rating reslt list. Migrated post meta settings to Gutenberg editor.
+* New: Added JSON-LD AggregateRatings structured data support for supported schema.org item types. Removed old microdata format which was previously added in the templates.
+* New: Added support for WooCommerce products AggregateRating structured data
+* New: Added support for Wordpress SEO (Yoast) structured data graph
+* Tweak: Removed minified assets.
+* Tweak: Removed widget check for enabled post types.
+* Tweak: Moved enabled post types option to the auto placement settings.
+* Tweak: Changed classic editor post meta box styles.
+
+= 4.3.1 =
+* Tweak: Removed WPML references
+
 = 4.3 (14/04/2018) =
-* Tweak: Removed IP address duplicate checking for GDPR compliance. Cookies will be the default option used instead.
+* Tweak: Removed IP address duplicate checks for GDPR compliance. Cookies will be the default option used instead.
+* Bug: Fixed PHP error when saving rating items due to typo...
 
 = 4.2.9 (22/12/2017) =
 * Tweak: Changed doubleval to floatval to avoid Wordfence and GravityScan false positive security alert for eval( $_POST string

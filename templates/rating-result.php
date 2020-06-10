@@ -1,18 +1,8 @@
 <?php 
-
-$generate_microdata = ( isset( $generate_microdata ) && $generate_microdata ) 
-		|| ( isset( $show_rich_snippets ) && $show_rich_snippets == true );
 $count = isset( $rating_result['count'] ) ? $rating_result['count'] : 0;
-if ( $count == null || $count == 0 ) {
-	$generate_microdata = false;
-}
 ?>
 
-<span class="rating-result <?php echo esc_attr( $class ); ?>" <?php 
-if ( $generate_microdata ) {
-	$microdata = 'itemscope itemtype="http://schema.org/AggregateRating"';
-	echo apply_filters( 'mr_microdata_aggregate_rating_attributes', $microdata, $post_id );
-} ?>>
+<span class="rating-result <?php echo esc_attr( $class ); ?>">
 	<?php
 	if ( ( $count == null || $count == 0 ) && $ignore_count == false ) {
 		// ignore count is used to not show this block
@@ -35,15 +25,13 @@ if ( $generate_microdata ) {
 		if ( $result_type == Multi_Rating::SCORE_RESULT_TYPE ) {
 			
 			mr_get_template_part( 'rating-result', 'score', true, array( 
-					'rating_result' => $rating_result,
-					'generate_microdata' => $generate_microdata
+					'rating_result' => $rating_result
 			 ) );
 			
 		} else if ( $result_type == Multi_Rating::PERCENTAGE_RESULT_TYPE ) {
 			
 			mr_get_template_part( 'rating-result', 'percentage', true, array( 
-					'rating_result' => $rating_result,
-					'generate_microdata' => $generate_microdata
+					'rating_result' => $rating_result
 			 ) );
 			
 		} else { // star rating
@@ -66,8 +54,7 @@ if ( $generate_microdata ) {
 				'star_result' => $star_result,
 				'icon_classes' => $icon_classes,
 				'image_height' => $image_height,
-				'image_width' => $image_width,
-				'generate_microdata' => $generate_microdata
+				'image_width' => $image_width
 			) );
 		
 		}
@@ -83,13 +70,7 @@ if ( $generate_microdata ) {
 			<span class="count">
 				<?php 
 				echo $before_count;
-				if ( $generate_microdata ) { 
-					echo '<span itemprop="ratingCount">'; 
-				}
 				echo number_format( $count );
-				if ( $generate_microdata ) {
-					echo '</span>';
-				}
 				echo $after_count; 
 				?>
 			</span>
@@ -105,14 +86,6 @@ if ( $generate_microdata ) {
 			<span class="date"><?php echo $before_date . mysql2date( get_option('date_format'), $rating_result['entry_date'] ) . $after_date; ?></span>
 			<?php
 		}
-		
-		if ( $generate_microdata ) {
-			$microdata = '<span itemprop="itemReviewed" itemscope itemtype="http://schema.org/Thing">'
-					. '<meta itemprop="name" content="' . $post_obj->post_title . '" />'
-					. '</span>';
-			echo apply_filters( 'mr_microdata_rating_result_item_reviewed', $microdata, $post_id );
-		}
-		
 	}
 	?>
 </span>

@@ -76,21 +76,13 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 			'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,
 			'class' => '',
 			'before_count' => '(',
-			'after_count' => ')',
-			'generate_microdata' => false
+			'after_count' => ')'
 	), $atts ) );
 	
 	if ( $post_id == null ) {
 		return; // No post Id available
 	}
 	
-	if ( is_string( $show_rich_snippets ) ) {
-		$show_rich_snippets = $show_rich_snippets == 'true' ? true : false;
-		$generate_microdata = $show_rich_snippets;
-	}
-	if ( is_string( $generate_microdata ) ) {
-		$generate_microdata = $generate_microdata == 'true' ? true : false;
-	}
 	if ( is_string( $show_title) ) {
 		$show_title = $show_title == 'true' ? true : false;
 	}
@@ -101,7 +93,6 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 	return Multi_Rating_API::display_rating_result( array(
 			'post_id' => $post_id,
 			'no_rating_results_text' => $no_rating_results_text,
-			'generate_microdata' => $generate_microdata,
 			'show_title' => $show_title,
 			'show_date' => false,
 			'show_count' => $show_count,
@@ -173,6 +164,9 @@ function mr_rating_results_list( $atts = array(), $content = null, $tag ) {
 	}
 	if ( is_string( $show_featured_img ) ) {
 		$show_featured_img = $show_featured_img == 'true' ? true : false;
+	}
+	if ( is_string( $show_rank ) ) {
+		$show_rank = $show_rank == 'true' ? true : false;
 	}
 	
 	if ( $category_id != 0 ) {

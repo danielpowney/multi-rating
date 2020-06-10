@@ -3,33 +3,24 @@
  * Shows the about screen
  */
 function mr_about_screen() {
-
-	// if version is less than 3.8 then manually add the necessary css missing from about.css
-	if ( ! version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) {
-		?>
-		<style type="text/css">
-			.about-wrap .changelog .feature-section { overflow: hidden; }
-			.about-wrap .feature-section { margin-top: 20px; }
-			.about-wrap .feature-section.two-col > div { position: relative; width: 47.5%; margin-right: 4.999999999%; float: left; }
-			.about-wrap .feature-section.col .last-feature { margin-right: 0; }
-			.about-wrap hr { border: 0; border-top: 1px solid #DFDFDF; }
-			.about-wrap { position: relative; margin: 25px 40px 0 20px; max-width: 1050px; font-size: 15px; }
-			.about-wrap img { margin: 0; max-width: 100%; vertical-align: middle; }
-			.about-wrap .changelog h2.about-headline-callout { margin: 1.1em 0 0.2em; font-size: 2.4em; font-weight: 300; line-height: 1.3; text-align: center; }
-			.about-wrap .feature-section img { margin-bottom: 20px !important; }
-			.about-wrap h3 { margin: 1em 0 .6em; font-size: 1.5em; line-height: 1.5em; }
-			.about-wrap .feature-section.three-col div { width: 29.75%; }
-			.about-wrap .feature-section.two-col > div { margin-right: 4.8%; }
-		</style>
-		<?php
-	} else {
-		?>
-		<style type="text/css">
-			.about-wrap .wp-people-group { margin-top: 10px !important; }
-		</style>
-		<?php
-	} ?>
-
+	?>
+	<style type="text/css">
+		.about-wrap .changelog .feature-section { overflow: hidden; }
+		.about-wrap .feature-section { margin-top: 20px; }
+		.about-wrap .feature-section.two-col > div { position: relative; width: 47.5%; margin-right: 4.999999999%; float: left; }
+		.about-wrap .feature-section.col .last-feature { margin-right: 0; }
+		.about-wrap hr { border: 0; border-top: 1px solid #DFDFDF; }
+		.about-wrap { position: relative; margin: 25px 40px 0 20px; max-width: 1050px; font-size: 15px; }
+		.about-wrap img { margin: 0; max-width: 100%; vertical-align: middle; }
+		.about-wrap .changelog h2.about-headline-callout { margin: 1.1em 0 0.2em; font-size: 2.4em; font-weight: 300; line-height: 1.3; text-align: center; }
+		.about-wrap .feature-section img { margin-bottom: 20px !important; }
+		.about-wrap h3 { margin: 1em 0 .6em; font-size: 2.2em; line-height: 1.5em; }
+		.about-wrap .feature-section.three-col div, .three-col .col { width: 29.75%;  display: inline-block; vertical-align: top; margin-top: 2em; margin-top: 2em;}
+		.about-wrap .feature-section.two-col > div { margin-right: 4.8%; }
+		.update-messages h2, .update-php h2, h4 {  margin: 0 !important; }
+		.about-wrap .wp-people-group { margin-top: 10px !important; }
+		.about-wrap h4 { font-size: 1.6em; line-height: 1.5em; }
+	</style>
 	<div class="wrap about-wrap mr-about">
 
 		<div id="mr-header">
@@ -47,7 +38,7 @@ function mr_about_screen() {
 			$tabs = array (
 					'about'	 			=> __( 'Getting Started', 'multi-rating' ),
 					'changelog'			=> __( 'Changelog', 'multi-rating' ),
-					'credits'			=> __( 'Credits', 'multi-rating' ),
+					/*'credits'			=> __( 'Credits', 'multi-rating' ),*/
 					'upgrade-to-pro'				=> __( 'Upgrade to Pro <span class="dashicons dashicons-star-filled"></span>', 'multi-rating' )
 			);
 
@@ -113,11 +104,7 @@ function mr_about_tab_content() {
 			</div>
 		</div>
 
-		<br />
-
 		<hr />
-
-		<br />
 
 		<div class="under-the-hood col three-col">
 

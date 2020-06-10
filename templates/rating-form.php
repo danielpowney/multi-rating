@@ -1,17 +1,13 @@
 <div class="rating-form <?php echo esc_attr( $class ); ?>">
-
-	<?php
-	if ( ! empty( $title ) ) {
-		
-		$before_title = apply_filters( 'mr_rating_form_before_title', $before_title, $post_id );
-		$after_title = apply_filters( 'mr_rating_form_after_title', $after_title, $post_id );
-		
-		echo "$before_title" . esc_html( $title ) . "$after_title";
-	}
-	
-	?>
 	<form id="rating-form-<?php echo $post_id; ?>-<?php echo MR_Rating_Form::$sequence; ?>" action="#">
-	<?php
+		<?php
+		if ( ! empty( $title ) ) {
+			
+			$before_title = apply_filters( 'mr_rating_form_before_title', $before_title, $post_id );
+			$after_title = apply_filters( 'mr_rating_form_after_title', $after_title, $post_id );
+			
+			echo "$before_title" . esc_html( $title ) . "$after_title";
+		}
 	
 		do_action( 'mr_rating_form_before_rating_items', $post_id, $rating_items );
 		/**
@@ -51,7 +47,9 @@
 		do_action( 'mr_rating_form_before_buttons' );
 		
 		?>
-		<input type="button" class="btn btn-default save-rating" id="saveBtn-<?php echo $post_id; ?>-<?php echo MR_Rating_Form::$sequence; ?>" value="<?php echo esc_attr( $submit_button_text ); ?>"></input>
+		<div class="wp-block-button">
+			<input type="submit" class="wp-block-button__link save-rating" id="saveBtn-<?php echo $post_id; ?>-<?php echo MR_Rating_Form::$sequence; ?>" value="<?php echo esc_attr( $submit_button_text ); ?>"></input>
+		</div>
 		<input type="hidden" name="sequence" value="<?php echo MR_Rating_Form::$sequence; ?>" />
 		
 		<?php 

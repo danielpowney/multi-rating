@@ -494,26 +494,6 @@ class MR_Rating_Form_Widget extends WP_Widget {
 
 
 /**
- * Checks filters settings to determine whether rating form or rating results widget can be applied
- *
- * @param boolean $can_apply_widget
- * @param string $filter_name
- * @param string $value
- * @param int $post_id
- * @return $can_apply_widget
- */
-function mr_can_apply_widget( $can_apply_widget, $post_id, $args, $instance ) {
-
-	if ( $can_apply_widget ) {
-		$can_apply_widget = MR_Utils::check_post_type_enabled( $post_id );
-	}
-
-	return $can_apply_widget;
-}
-add_filter( 'mr_can_apply_widget', 'mr_can_apply_widget', 10, 4 );
-
-
-/**
  * Gets terms by taxonomy and returns a JSON response
  */
 function mr_get_terms_by_taxonomy() {

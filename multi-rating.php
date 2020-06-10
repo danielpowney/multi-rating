@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: A powerful rating system and review plugin for WordPress.
-Version: 4.3
+Version: 5.0
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -30,15 +30,10 @@ class Multi_Rating {
 	public $settings = null;
 
 	/**
-	 * Post metabox instance variable
-	 */
-	public $post_metabox = null;
-
-	/**
 	 * Constants
 	 */
 	const
-	VERSION = '4.3',
+	VERSION = '5.0',
 	ID = 'multi-rating',
 
 	// tables
@@ -55,7 +50,6 @@ class Multi_Rating {
 	CUSTOM_IMAGES_SETTINGS						= 'mr_custom_images_settings',
 
 	// options
-	CUSTOM_CSS_OPTION 							= 'mr_custom_css',
 	STAR_RATING_COLOUR_OPTION					= 'mr_star_rating_colour',
 	STAR_RATING_HOVER_COLOUR_OPTION				= 'mr_star_rating_hover_colour',
 	RATING_RESULTS_POSITION_OPTION				= 'mr_rating_results_position',
@@ -63,6 +57,7 @@ class Multi_Rating {
 	RATING_FORM_TITLE_TEXT_OPTION 				= 'mr_rating_form_title_text',
 	RATING_RESULTS_LIST_TITLE_TEXT_OPTION 		= 'mr_rating_results_list_title_text',
 	POST_TYPES_OPTION							= 'mr_post_types',
+	ADD_STRUCTURED_DATA_OPTION					= 'mr_add_structured_data',
 	SUBMIT_RATING_FORM_BUTTON_TEXT_OPTION		= 'mr_rating_form_button_text',
 	FILTER_BUTTON_TEXT_OPTION					= 'mr_filter_button_text',
 	FILTER_LABEL_TEXT_OPTION					= 'mr_filter_label_text',
@@ -113,9 +108,10 @@ class Multi_Rating {
 	ENTRY_VALUES_TAB							= 'mr_entry_values',
 	ENTRIES_PER_DAY_REPORT_TAB					= 'mr_entries_per_day_report',
 
-	// post meta box
+	// post meta
 	RATING_FORM_POSITION_POST_META				= 'rating_form_position',
 	RATING_RESULTS_POSITION_POST_META			= 'rating_results_position',
+	STRUCTURED_DATA_TYPE_POST_META				= 'mr_structured_data_type',
 	RATING_RESULTS_POST_META_KEY				= 'mr_rating_results',
 
 	// cookies
@@ -147,20 +143,20 @@ class Multi_Rating {
 			self::$instance->includes();
 			self::$instance->settings = new MR_Settings();
 
-			$disable_styles = self::instance()->settings->style_settings[Multi_Rating::DISABLE_STYLES_OPTION];
-			if ( ! $disable_styles ) {
-				add_action( 'wp_head', array( self::$instance, 'mr_head') );
-			}
+			new MR_Structured_Data();
+			new MR_Gutenberg();
 
 			add_action( 'init', array( self::$instance, 'load_textdomain' ) );
 
 			if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-
-				self::$instance->post_metabox = new MR_Post_Metabox();
+				// classic editor
+				new MR_Post_Metabox();
 
 				add_action( 'delete_user', array( self::$instance, 'delete_user' ), 11, 2 );
 				add_action( 'deleted_post', array( self::$instance, 'deleted_post' ) );
 			}
+
+			add_action( 'rest_api_init', array( self::$instance, 'rest_api_init' ) );
 
 			self::$instance->add_ajax_callbacks();
 		}
@@ -238,6 +234,13 @@ class Multi_Rating {
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'actions.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'legacy.php';
 		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'template-functions.php';
+		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-structured-data.php';
+		require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-gutenberg.php';
+
+		require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-rest-api-common.php';
+		require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-rest-api-rating-items.php';
+		require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'class-rest-api-rating-results.php';
+		require_once dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'rest-api-custom-fields.php';
 
 		if ( is_admin() ) {
 
@@ -253,6 +256,7 @@ class Multi_Rating {
 			require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'settings.php';
 			require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'tools.php';
 			require dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'edit-rating.php';
+
 		}
 	}
 
@@ -396,7 +400,7 @@ class Multi_Rating {
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Entries', 'multi-rating' ), __( 'Entries', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::RATING_ENTRIES_PAGE_SLUG, 'mr_rating_entries_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Rating Items', 'multi-rating' ), __( 'Rating Items', 'multi-rating' ), 'manage_options', Multi_Rating::RATING_ITEMS_PAGE_SLUG, 'mr_rating_items_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Settings', 'multi-rating' ), __( 'Settings', 'multi-rating' ), 'manage_options', Multi_Rating::SETTINGS_PAGE_SLUG, 'mr_settings_screen' );
-		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Reports', 'multi-rating' ), __( 'Reports', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::REPORTS_PAGE_SLUG, 'mr_reports_screen' );
+		//add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Reports', 'multi-rating' ), __( 'Reports', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::REPORTS_PAGE_SLUG, 'mr_reports_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Tools', 'multi-rating' ), __( 'Tools', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::TOOLS_PAGE_SLUG, 'mr_tools_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'About', 'multi-rating' ), __( 'About', 'multi-rating' ), 'mr_edit_ratings', Multi_Rating::ABOUT_PAGE_SLUG, 'mr_about_screen' );
 		add_submenu_page( Multi_Rating::RATING_RESULTS_PAGE_SLUG, __( 'Edit Rating', 'multi-rating' ), '', 'mr_edit_ratings', Multi_Rating::EDIT_RATING_PAGE_SLUG, 'mr_edit_rating_screen' );
@@ -422,12 +426,13 @@ class Multi_Rating {
 		wp_enqueue_script( 'mr-admin-script', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
 		wp_localize_script( 'mr-admin-script', 'mr_admin_data', $config_array );
 
-		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend-min.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
+		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
 		wp_localize_script( 'mr-frontend-script', 'mr_frontend_data', $config_array );
 
 		$disable_styles = self::instance()->settings->style_settings[Multi_Rating::DISABLE_STYLES_OPTION];
 		if ( ! $disable_styles ) {
-			wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend-min.css', __FILE__ ) );
+			wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend.css', __FILE__ ) );
+			wp_add_inline_style( 'mr-frontend-style', self::instance()->inline_styles() );
 		}
 		wp_enqueue_style( 'mr-admin-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'admin.css', __FILE__ ) );
 
@@ -463,34 +468,21 @@ class Multi_Rating {
 		// Add simple table CSS for rating form
 		$disable_styles = self::instance()->settings->style_settings[Multi_Rating::DISABLE_STYLES_OPTION];
 		if ( ! $disable_styles )  {
-			wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend-min.css', __FILE__ ) );
+			wp_enqueue_style( 'mr-frontend-style', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'frontend.css', __FILE__ ) );
+			wp_add_inline_style( 'mr-frontend-style', self::instance()->inline_styles() );
 		}
 
-		// Allow support for other versions of Font Awesome
 		$load_icon_font_library = $style_settings[Multi_Rating::INCLUDE_FONT_AWESOME_OPTION];
 		$icon_font_library = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
-
 		$icon_classes = MR_Utils::get_icon_classes( $icon_font_library );
 
-		$protocol = ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) ? 'https' : 'http';
-
 		if ( $load_icon_font_library ) {
-			if ( $icon_font_library == 'font-awesome-4.0.3' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' );
-			} else if ( $icon_font_library == 'font-awesome-3.2.1' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css' );
-			} else if ( $icon_font_library == 'font-awesome-4.1.0' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' );
-			} else if ( $icon_font_library == 'font-awesome-4.2.0' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
-			} else if ( $icon_font_library == 'font-awesome-4.3.0' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' );
-			} else if ( $icon_font_library == 'font-awesome-4.5.0' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' );
-			} else if ( $icon_font_library == 'font-awesome-4.6.3' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
-			} else if ( $icon_font_library == 'font-awesome-4.7.0' ) {
-				wp_enqueue_style( 'font-awesome', $protocol . '://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
+			if ( $icon_font_library == 'font-awesome-v5' ) {
+				wp_enqueue_style( 'font-awesome', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'font-awesome' . DIRECTORY_SEPARATOR . 'font-awesome-5.13.0' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'all.css', __FILE__ ) );
+			} else if ( $icon_font_library == 'font-awesome-v4' ) {
+				wp_enqueue_style( 'font-awesome', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'font-awesome' . DIRECTORY_SEPARATOR . 'font-awesome-4.7.0' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'font-awesome.min.css', __FILE__ ) );
+			} else if ( $icon_font_library == 'font-awesome-v3' ) {
+				wp_enqueue_style( 'font-awesome', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'font-awesome' . DIRECTORY_SEPARATOR . 'font-awesome-3.2.1' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'font-awesome.min.css', __FILE__ ) );
 			} else if ( $icon_font_library == 'dashicons' ) {
 				wp_enqueue_style( 'dashicons' );
 			}
@@ -503,7 +495,7 @@ class Multi_Rating {
 				'use_custom_star_images' => ( $custom_images_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES] == true ) ? "true" : "false"
 		);
 
-		wp_enqueue_script( 'mr-frontend-script', plugins_url('assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend-min.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );
+		wp_enqueue_script( 'mr-frontend-script', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'frontend.js', __FILE__), array('jquery'), Multi_Rating::VERSION . 'a', true );
 		wp_localize_script( 'mr-frontend-script', 'mr_frontend_data', $config_array );
 	}
 
@@ -523,70 +515,91 @@ class Multi_Rating {
 	}
 
 	/**
-	 * WP head
+	 * Inline styles
 	 */
-	function mr_head() {
+	public function inline_styles() {
 
-		if ( apply_filters( 'mr_head_css', true ) ) { // in case you want to move the CSS into your theme instead
+		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+		$custom_images_settings = (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
+		$star_rating_colour = $style_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
+		$star_rating_hover_colour = $style_settings[Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION];
+		$error_message_colour = $style_settings[Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION];
+		$image_width = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
+		$image_height = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
+		$custom_images_enabled = $custom_images_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];
 
-			$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
-			$custom_images_settings = (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
+		ob_start();
+		
+		if ($custom_images_enabled) {
+		?>
+			.mr-custom-full-star {
+				background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_FULL_STAR_IMAGE]; ?>) no-repeat;
+				width: <?php echo $image_width; ?>px;
+				height: <?php echo $image_height; ?>px;
+				background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
+				image-rendering: -moz-crisp-edges;
+				display: inline-block;
+			}
+			.mr-custom-half-star {
+				background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_HALF_STAR_IMAGE]; ?>) no-repeat;
+				width: <?php echo $image_width; ?>px;
+				height: <?php echo $image_height; ?>px;
+				background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
+				image-rendering: -moz-crisp-edges;
+				display: inline-block;
+			}
+			.mr-custom-empty-star {
+				background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE]; ?>) no-repeat;
+				width: <?php echo $image_width; ?>px;
+				height: <?php echo $image_height; ?>px;
+				background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
+				image-rendering: -moz-crisp-edges;
+				display: inline-block;
+			}
+			.mr-custom-hover-star {
+				background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_HOVER_STAR_IMAGE]; ?>) no-repeat;
+				width: <?php echo $image_width; ?>px;
+				height: <?php echo $image_height; ?>px;
+				background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
+				image-rendering: -moz-crisp-edges;
+				display: inline-block;
+			}
+		<?php
+		}
+		?>
+		.mr-star-hover {
+			color: <?php echo $star_rating_hover_colour; ?> !important;
+		}
+		.mr-star-full, .mr-star-half, .mr-star-empty {
+			color: <?php echo $star_rating_colour; ?>;
+		}
+		.mr-error {
+			color: <?php echo $error_message_colour; ?>;
+		}
+		<?php
 
-			$star_rating_colour = $style_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
-			$star_rating_hover_colour = $style_settings[Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION];
-			$error_message_colour = $style_settings[Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION];
+		return ob_get_clean();
+	}
 
-			$image_width = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
-			$image_height = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
+	/**
+	 * Initialises REST API
+	 */
+	function rest_api_init() {
 
-			?>
-			<style type="text/css">
-				<?php
-				echo $style_settings[Multi_Rating::CUSTOM_CSS_OPTION];
-				?>
-				.mr-custom-full-star {
-					background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_FULL_STAR_IMAGE]; ?>) no-repeat;
-					width: <?php echo $image_width; ?>px;
-					height: <?php echo $image_height; ?>px;
-					background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
-					image-rendering: -moz-crisp-edges;
-					display: inline-block;
-				}
-				.mr-custom-half-star {
-					background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_HALF_STAR_IMAGE]; ?>) no-repeat;
-					width: <?php echo $image_width; ?>px;
-					height: <?php echo $image_height; ?>px;
-					background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
-					image-rendering: -moz-crisp-edges;
-					display: inline-block;
-				}
-				.mr-custom-empty-star {
-					background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_EMPTY_STAR_IMAGE]; ?>) no-repeat;
-					width: <?php echo $image_width; ?>px;
-					height: <?php echo $image_height; ?>px;
-					background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
-					image-rendering: -moz-crisp-edges;
-					display: inline-block;
-				}
-				.mr-custom-hover-star {
-					background: url(<?php echo $custom_images_settings[Multi_Rating::CUSTOM_HOVER_STAR_IMAGE]; ?>) no-repeat;
-					width: <?php echo $image_width; ?>px;
-					height: <?php echo $image_height; ?>px;
-					background-size: <?php echo $image_width; ?>px <?php echo $image_height; ?>px;
-					image-rendering: -moz-crisp-edges;
-					display: inline-block;
-				}
-				.mr-star-hover {
-					color: <?php echo $star_rating_hover_colour; ?> !important;
-				}
-				.mr-star-full, .mr-star-half, .mr-star-empty {
-					color: <?php echo $star_rating_colour; ?>;
-				}
-				.mr-error {
-					color: <?php echo $error_message_colour; ?>;
-				}
-			</style>
-			<?php
+	    new MR_REST_API_Rating_Items();
+	    new MR_REST_API_Rating_Results();
+		
+		$post_types = get_post_types( array( 'public' => true ) );
+
+		foreach ( $post_types as $post_type ) {
+
+			register_rest_field( $post_type,
+				'multi-rating',
+				array(
+					'get_callback'    => 'mr_rest_api_custom_fields'
+				)
+			);
+
 		}
 	}
 }

@@ -99,7 +99,7 @@ function mr_save_rating_item() {
 			array_push( $error_messages, __( 'Default option value cannot be empty and must be a whole number. ', 'multi-rating' ) );
 		}
 
-		if ( count( $error_message) == 0) {
+		if ( count( $error_messages ) == 0) {
 
 			global $wpdb;
 

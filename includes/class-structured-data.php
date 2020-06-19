@@ -29,7 +29,7 @@ class MR_Structured_Data {
 
 			// WordPress SEO by Yoast
 			if ( in_array( 'wpseo', $add_structured_data ) ) {
-				add_filter( 'wpseo_schema_article', array( $this, 'wpseo_article' ), 99, 1 );
+				add_filter( 'wpseo_schema_graph_pieces', array( $this, 'wpseo_hijack_pieces' ), 99, 2  );
 			}
 
 			// WooCommerce products
@@ -39,6 +39,20 @@ class MR_Structured_Data {
 
 		}
 
+	}
+
+	/**
+	 * Hijack Yoast SEO pieces and inject aggregateRating or Review to main entity where supported
+	 */
+	public function wpseo_hijack_pieces( $pieces, $context ) {
+	    
+	    foreach( $pieces as $index => $piece ) {
+			$path = explode('\\', get_class( $piece) );
+			$className = array_pop( $path );
+	    	add_filter( 'wpseo_schema_' . strtolower( $className ), array( $this, 'wpseo_structured_data' ), 99, 1 );
+	    }
+
+	    return $pieces;
 	}
 
 
@@ -110,13 +124,6 @@ echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
 	}
 
 
-	/*add_filter( 'mr_structured_data' , function( $schema, $post_id ) {
-		return 
-	'        "hello" : "abc",
-	';
-	}, 10, 2);
-	*/
-
 	/**
 	 * Adds AggregateRating structured data to WP SEO plugin main entity schema. I
 	 * Note if another plugin or theme changes the Article schema type to another 
@@ -124,12 +131,11 @@ echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
 	 *
 	 * @parameter 	schema
 	 */
-	public function wpseo_article( $schema ) {
+	public function wpseo_structured_data( $schema ) {
 
-		// /$schema['@type'] = 'Book';
-
-		$post_id = get_queried_object_id();
-	    $rating_result = Multi_Rating_API::get_rating_result( $post_id );
+		// Check if article type has been overriden to a supported type for 
+		// aggregate rating and review. Note each schema type has different 
+		// requirements. The name attribute is quite important too.
 
 	    $supported_types = [ 'Book', 'Course', 'CreativeWorkSeason', 
 	    	'CreativeWorkSeries', 'Episode', 'Event', 'Game', 'HowTo', 
@@ -137,13 +143,23 @@ echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
 	    	'MusicRecording', 'Organization', 'Product', 'Recipe', 
 	    	'SoftwareApplication' ];
 
-		if ( in_array( $schema['@type'], $supported_types ) ) {
-		    $schema['aggregateRating'] = array(
-		    	'@type' => "AggregateRating",
-		    	'reviewCount' => $rating_result['count'],
-		    	'ratingValue' => $rating_result['adjusted_star_result']
-		    );
+	    if ( ! in_array( $schema['@type'], $supported_types ) || ! isset( $schema['mainEntityOfPage']) ){
+			return $schema;
 		}
+
+		$post_id = get_queried_object_id();
+	    $rating_result = Multi_Rating_API::get_rating_result( $post_id );
+
+	    if ($rating_result == null 
+				|| ($rating_result !== null && $rating_result['count'] === 0)) {
+			return $schema;
+		}
+		
+		$schema['aggregateRating'] = array(
+		   	'@type' => "AggregateRating",
+		   	'reviewCount' => $rating_result['count'],
+		   	'ratingValue' => $rating_result['adjusted_star_result']
+		);
 
 	    return $schema;
 	}
@@ -158,6 +174,12 @@ echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
 	function woocommerce_product( $schema, $product ) {	
 
 		$rating_result = Multi_Rating_API::get_rating_result( $product->get_id() );
+
+		if ($rating_result == null 
+				|| ($rating_result !== null && $rating_result['count'] === 0)) {
+			return $schema;
+		}
+
 		$schema['aggregateRating'] = array(
 		   	'@type' => "AggregateRating",
 		   	'reviewCount' => $rating_result['count'],
@@ -168,3 +190,25 @@ echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
 	}
 
 }
+
+
+function mr_structured_data_type_localbusiness_example( $schema, $post_id ) {
+
+	$structured_data_type = get_post_meta( $post_id, Multi_Rating::STRUCTURED_DATA_TYPE_POST_META, true );
+
+	if ( $structured_data_type === 'LocalBusiness' ) {
+		return '
+"address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Seattle",
+    "addressRegion": "WA",
+    "postalCode": "98052",
+    "streetAddress": "20341 Whitworth Institute 405 N. Whitworth"
+},
+"priceRange": "$$$",
+"telephone": "+18005551234",';
+    }
+    
+    return '';
+}
+add_filter( 'mr_structured_data_type' , 'mr_structured_data_type_localbusiness_example', 10, 2);

@@ -15,7 +15,7 @@ function mr_about_screen() {
 		.about-wrap .changelog h2.about-headline-callout { margin: 1.1em 0 0.2em; font-size: 2.4em; font-weight: 300; line-height: 1.3; text-align: center; }
 		.about-wrap .feature-section img { margin-bottom: 20px !important; }
 		.about-wrap h3 { margin: 1em 0 .6em; font-size: 2.2em; line-height: 1.5em; }
-		.about-wrap .feature-section.three-col div, .three-col .col { width: 29.75%;  display: inline-block; vertical-align: top; margin-top: 2em; margin-top: 2em;}
+		.about-wrap .feature-section.three-col div, .three-col .col { width: 29.75%;  display: inline-block; vertical-align: top; margin-top: 2em; margin-top: 2em; padding-right: 1em;}
 		.about-wrap .feature-section.two-col > div { margin-right: 4.8%; }
 		.update-messages h2, .update-php h2, h4 {  margin: 0 !important; }
 		.about-wrap .wp-people-group { margin-top: 10px !important; }
@@ -91,16 +91,13 @@ function mr_about_tab_content() {
 				<p><?php printf( __( 'Configure <a href="admin.php?page=%s">automatic placement</a> settings to display the rating form and or rating results on posts or pages (e.g. after the post content).', 'multi-rating' ), Multi_Rating::SETTINGS_PAGE_SLUG ); ?></p>
 			</div>
 			<div class="col last-feature">
-				<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'shortcodes.png' , __FILE__ ); ?>" />
-				<h4><?php _e( 'Add Shortcodes', 'multi-rating' ); ?></h4>
+				<img src="<?php echo plugins_url( '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'gutenberg-blocks.PNG' , __FILE__ ); ?>" />
+				<h4><?php _e( 'Gutenberg Blocks', 'multi-rating' ); ?></h4>
+				
 				<p>
-					<?php printf( __( '<a href="%s">[mr_rating_form]</a> - displays the rating form.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_form?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?>
-					<br />
-
-					<?php printf( __( '<a href="%s">[mr_rating_result]</a> - displays the rating result.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_result?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?>
-					<br />
-
-					<?php printf( __( '<a href="%s">[mr_rating_results_list]</a> - displays a list of rating results.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_results_list?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?></p>
+					<?php _e( 'There\'s 3 Gutenberg Blocks to easily add the rating form to a post, and display the average rating result and a list of the highest rated posts.', 'multi-rating' ); ?>
+				</p>
+				
 			</div>
 		</div>
 
@@ -109,15 +106,17 @@ function mr_about_tab_content() {
 		<div class="under-the-hood col three-col">
 
 			<div class="col">
+
+				<h4><?php _e( 'Shortcodes', 'multi-rating'); ?></h4>
+				<p><?php printf( __( '<a href="%s">[mr_rating_form]</a> - displays the rating form.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_form?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?><br />
+				<?php printf( __( '<a href="%s">[mr_rating_result]</a> - displays the rating result.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_result?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?><br />
+				<?php printf( __( '<a href="%s">[mr_rating_results_list]</a> - displays a list of rating results.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_results_list?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?></p>
+
 				<h4><?php _e( 'SERP Rich Snippets', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'schema.org microdata is added for ratings displayed via the automatic placement setttings.', 'multi-rating' ); ?></p>
-				<p><?php _e( 'For shortcodes you need to add attribute generate_microdata e.g. [mr_rating_result generate_microdata=true].', 'multi-rating' ); ?></p>
+				<p><?php _e( 'Enables rich snippets to appear in search engine results pages (SERP) with schema.org JSON-LD structured data added added to posts and pages.', 'multi-rating' ); ?></p>
 
 				<h4><?php _e( 'WordPress Star Ratings', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'You can change the icon font libaries used for star ratings (e.g. Font Awesome and Dashicons). Or you can upload custom star rating images to use instead of icon fonts.', 'multi-rating' ); ?></p>
-
-				<h4><?php _e( 'Export Rating to a CSV File', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'There\'s a tool which allows you to export ratings to a CSV file.', 'multi-rating' ); ?></p>
 
 				<h4><?php _e( 'Edit Rating Entries', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'You can edit selected rating item values for rating entries.', 'multi-rating' ); ?></p>
@@ -125,20 +124,20 @@ function mr_about_tab_content() {
 			</div>
 
 			<div class="col">
-				<h4><?php _e( 'Custom Post Type Support', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'Remember to enable custom post types under the auto placement settings.', 'multi-rating' ); ?></p>
-
-				<h4><?php _e( 'Taxonomy Support', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'You can filter ratings by taxonomies and terms e.g. [mr_rating_result_list taxonomy="post_tag" term_id="1"].', 'multi-rating' ); ?></p>
+				<h4><?php _e( 'Custom Post Types', 'multi-rating' ); ?></h4>
+				<p><?php _e( 'Remember to enable custom post types under the automatic placement settings.', 'multi-rating' ); ?></p>
 
 				<h4><?php _e( 'i18n Translation Ready', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'The plugin is translation ready (.pot file in the languages directory).', 'multi-rating' ); ?></p>
 
-				<h4><?php _e( 'In-built Template System', 'multi-rating' ); ?></h4>
+				<h4><?php _e( 'In-built Templates', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'Customize the HTML presentation using the in-built template system.', 'multi-rating' ); ?></p>
 
 				<h4><?php _e( 'Rating Item Types', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'You can choose from select dropdown lists, star ratings and radio buttons.', 'multi-rating' ); ?></p>
+
+				<h4><?php _e( 'Export Rating to CSV', 'multi-rating' ); ?></h4>
+				<p><?php _e( 'There\'s a tool which allows you to export ratings to a CSV file.', 'multi-rating' ); ?></p>
 			</div>
 
 			<div class="col last-feature">
@@ -149,13 +148,10 @@ function mr_about_tab_content() {
 				<h4><?php _e( 'Weighted Rating Items', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'You can assign different weights to rating items which are factored into rating calculations.', 'multi-rating' ); ?></p>
 
-				<h4><?php _e( 'Meta-box', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'There\'s a meta-box on the edit post page so that you can override the auto placement settings.', 'multi-rating' ); ?></p>
-
 				<h4><?php _e( 'Developer Friendly', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'Excellent code quality, static API class and plenty of extensible WordPress action hooks & filters.', 'multi-rating' ); ?></p>
+				<p><?php _e( 'Excellent code quality, REST API endpoints, static API class and plenty of extensible WordPress action hooks & filters.', 'multi-rating' ); ?></p>
 				<h4><?php _e( 'Duplicate Checks', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'Perform duplicate check using IP address and or cookies.', 'multi-rating' ); ?></p>
+				<p><?php _e( 'Perform duplicate checks using cookies to ensure users cannot rate the same post multiple times.', 'multi-rating' ); ?></p>
 			</div>
 		</div>
 	</div>

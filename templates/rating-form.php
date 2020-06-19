@@ -10,6 +10,7 @@
 		}
 	
 		do_action( 'mr_rating_form_before_rating_items', $post_id, $rating_items );
+		
 		/**
 		 * Rating Items
 		 */

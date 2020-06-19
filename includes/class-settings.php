@@ -129,7 +129,7 @@ class MR_Settings {
 				),
 				Multi_Rating::ADD_STRUCTURED_DATA_OPTION => array(
 						'title' 	=> __( 'Structured Data', 'multi-rating' ),
-						'callback' 	=> 'field_structured_data',
+						'callback' 	=> 'field_add_structured_data',
 						'page' 		=> Multi_Rating::SETTINGS_PAGE_SLUG . '&setting=' . Multi_Rating::GENERAL_SETTINGS,
 						'section' 	=> 'section_general',
 						'args' => array(
@@ -218,19 +218,19 @@ class MR_Settings {
 	}
 
 	/**
-	 * Structured data
+	 * Add structured data option
 	 */
-	function field_structured_data( $args) {
+	function field_add_structured_data( $args) {
 		$settings = (array) get_option( $args['option_name' ] );
 		$value = $settings[$args['setting_id']];
 		?>
 		<p><?php _e( 'Adds support for rich snippets with aggregate ratings for posts in search engine results pages (SERP).', 'multi-rating' ); ?></p>
 
-		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="create_type" <?php if ( in_array( 'create_type', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e( 'Create new type', 'multi-rating' );?></label><br /><i><?php _e('Adds a new piece for the type configured on each post. You may need to add additional structured data using the <code>mr_structured_data</code> filter.', 'multi-rating' ); ?></i></p>
+		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="create_type" <?php if ( in_array( 'create_type', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e( 'Create new type', 'multi-rating' );?></label><br /><i><?php _e('Adds a new piece for the type configured on each post.', 'multi-rating' ); ?></i></p>
 		
-		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="wpseo" <?php if ( in_array( 'wpseo', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e('WordPress SEO plugin graph.', 'multi-rating' );?></label><br /><i><?php _e('Adds to main entity where possible.' ,'multi-rating' ); ?></i></p>
+		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="wpseo" <?php if ( in_array( 'wpseo', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e('WordPress SEO plugin integration', 'multi-rating' );?></label><br /><i><?php _e('Adds to main entity where possible.' ,'multi-rating' ); ?></i></p>
 
-		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="woocommerce" <?php if ( in_array( 'woocommerce', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e('WooCommerce plugin products', 'multi-rating' ); ?></label><br /><i><?php _e('Adds to existing Product type.', 'multi-rating'); ?></i></p>
+		<p><input type="checkbox" name="<?php echo Multi_Rating::GENERAL_SETTINGS; ?>[<?php echo Multi_Rating::ADD_STRUCTURED_DATA_OPTION; ?>][]" value="woocommerce" <?php if ( in_array( 'woocommerce', $value ) ) { echo 'checked="checked"'; } ?>/><label class="checkbox-label"><?php _e('WooCommerce plugin integration', 'multi-rating' ); ?></label><br /><i><?php _e('Adds to existing Product type.', 'multi-rating'); ?></i></p>
 		<?php
 	}
 
@@ -459,7 +459,7 @@ class MR_Settings {
 						'args' => array(
 								'option_name' 	=> Multi_Rating::STYLE_SETTINGS,
 								'setting_id' 	=> Multi_Rating::INCLUDE_FONT_AWESOME_OPTION,
-								'label' 		=> __( 'If your theme or another plugin is already loading these icons, you should uncheck this to avoid any conflicts., ', 'multi-rating' )
+								'label' 		=> __( 'If your theme or another plugin is already loading these icons, you should uncheck this to avoid any conflicts. ', 'multi-rating' )
 						)
 				),
 				Multi_Rating::DISABLE_STYLES_OPTION => array(

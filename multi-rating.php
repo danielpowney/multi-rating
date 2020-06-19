@@ -520,10 +520,12 @@ class Multi_Rating {
 	public function inline_styles() {
 
 		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+		
 		$custom_images_settings = (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
 		$star_rating_colour = $style_settings[Multi_Rating::STAR_RATING_COLOUR_OPTION];
 		$star_rating_hover_colour = $style_settings[Multi_Rating::STAR_RATING_HOVER_COLOUR_OPTION];
 		$error_message_colour = $style_settings[Multi_Rating::ERROR_MESSAGE_COLOUR_OPTION];
+
 		$image_width = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_WIDTH];
 		$image_height = $custom_images_settings[Multi_Rating::CUSTOM_STAR_IMAGE_HEIGHT];
 		$custom_images_enabled = $custom_images_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES];

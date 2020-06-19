@@ -30,6 +30,10 @@ function mr_update_check() {
 
 	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 4.3 ) {
 		mr_upgrade_to_4_3();
+	}
+
+	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 5) {
+		mr_upgrade_to_5();
 		update_option( Multi_Rating::VERSION_OPTION, Multi_Rating::VERSION ); // latest version upgrade complete
 	}
 }

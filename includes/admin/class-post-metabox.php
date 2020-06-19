@@ -113,7 +113,7 @@ class MR_Post_Metabox {
 			</select>
 			<span class="mr-help"><?php _e( 'Auto placement position for the rating result on the post', 'multi-rating' ); ?></p>
 		</p>
-		<hr style="margin-top: 10px" />
+		<hr style="margin-top: 1em; margin-bottom:1em;" />
 		<p><strong><?php _e( 'Structured Data Type', 'multi-rating' ); ?></strong></p>
 		<p><label for="mr-structured-data-type"><?php _e( 'Create New Type', 'multi-rating' ); ?></label></p>
 		<p>

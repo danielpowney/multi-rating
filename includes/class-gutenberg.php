@@ -104,7 +104,7 @@ class MR_Gutenberg {
 				],
 				'show_filter' => [
 					'type' => 'boolean',
-					'default' => true
+					'default' => false
 				],
 				'limit' => [
 					'type' => 'integer',

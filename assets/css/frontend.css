@@ -197,10 +197,15 @@ p.mr label.description {
 /* Blocks */
 .rating-form .wp-block-button {
 	margin-top: 1em;
+	display: inline-block;
 }
 .rating-results-list .wp-block-button { 
 	display: inline-block;
 }
 .wp-block-button .mr-error  {
     margin-bottom: 1em;
+}
+.wp-block-button .mr-spinner {
+	color: inherit;
+	display: inline-block;
 }

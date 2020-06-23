@@ -477,15 +477,19 @@ class Multi_Rating {
 		$icon_classes = MR_Utils::get_icon_classes( $icon_font_library );
 
 		if ( $load_icon_font_library ) {
+
+			$protocol = ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) ? 'https' : 'http';
+			
 			if ( $icon_font_library == 'font-awesome-v5' ) {
-				wp_enqueue_style( 'font-awesome', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'font-awesome' . DIRECTORY_SEPARATOR . 'font-awesome-5.13.0' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'all.css', __FILE__ ) );
+				wp_enqueue_style( 'font-awesome', $protocol . '://use.fontawesome.com/releases/v5.13.0/css/all.css' );
 			} else if ( $icon_font_library == 'font-awesome-v4' ) {
-				wp_enqueue_style( 'font-awesome', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'font-awesome' . DIRECTORY_SEPARATOR . 'font-awesome-4.7.0' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'font-awesome.min.css', __FILE__ ) );
+				wp_enqueue_style( 'font-awesome', $protocol . '://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css' );
 			} else if ( $icon_font_library == 'font-awesome-v3' ) {
-				wp_enqueue_style( 'font-awesome', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'font-awesome' . DIRECTORY_SEPARATOR . 'font-awesome-3.2.1' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'font-awesome.min.css', __FILE__ ) );
+				wp_enqueue_style( 'font-awesome', $protocol . '://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css' );
 			} else if ( $icon_font_library == 'dashicons' ) {
 				wp_enqueue_style( 'dashicons' );
 			}
+			
 		}
 
 		$config_array = array(

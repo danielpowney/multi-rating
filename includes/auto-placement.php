@@ -169,10 +169,6 @@ add_filter( 'the_title', 'mr_filter_the_title' );
  * @return $can_apply_filter
  */
 function mr_can_apply_filter( $can_apply_filter, $filter_name, $value, $post_id ) {
-	
-	if ( $can_apply_filter ) {
-		$can_apply_filter = MR_Utils::check_post_type_enabled( $post_id );
-	}
 
 	return $can_apply_filter;
 }

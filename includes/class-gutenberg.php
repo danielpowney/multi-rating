@@ -170,24 +170,30 @@ class MR_Gutenberg {
 	 */
 	public function register_post_meta() {
 
-		register_post_meta( 'post', Multi_Rating::RATING_FORM_POSITION_POST_META, array(
-			'show_in_rest' => true,
-	        'single' => true,
-	        'type' => 'string',
-	        'auth_callback' => function () { return current_user_can('edit_posts'); }
-	    ));
-		register_post_meta( 'post', Multi_Rating::RATING_RESULTS_POSITION_POST_META, array(
-			'show_in_rest' => true,
-	        'single' => true,
-	        'type' => 'string',
-	        'auth_callback' => function () { return current_user_can('edit_posts'); }
-		));
-		register_post_meta( 'post', Multi_Rating::STRUCTURED_DATA_TYPE_POST_META, array(
-			'show_in_rest' => true,
-	        'single' => true,
-	        'type' => 'string',
-	        'auth_callback' => function () { return current_user_can('edit_posts'); }
-		));
+		$post_types = get_post_types( array( 'public' => true ) );
+
+		foreach ( $post_types as $post_type ) {
+
+			register_post_meta( $post_type, Multi_Rating::RATING_FORM_POSITION_POST_META, array(
+				'show_in_rest' => true,
+		        'single' => true,
+		        'type' => 'string',
+		        'auth_callback' => function () { return current_user_can('edit_posts'); }
+		    ));
+			register_post_meta( $post_type, Multi_Rating::RATING_RESULTS_POSITION_POST_META, array(
+				'show_in_rest' => true,
+		        'single' => true,
+		        'type' => 'string',
+		        'auth_callback' => function () { return current_user_can('edit_posts'); }
+			));
+			register_post_meta( $post_type, Multi_Rating::STRUCTURED_DATA_TYPE_POST_META, array(
+				'show_in_rest' => true,
+		        'single' => true,
+		        'type' => 'string',
+		        'auth_callback' => function () { return current_user_can('edit_posts'); }
+			));
+
+		}
 
 	}
 

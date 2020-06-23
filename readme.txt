@@ -69,36 +69,36 @@ Looking for some more advanced functionality? The [Multi Rating Pro](https://mul
 == Screenshots ==
 
 1. Rating form and rating results
-2. [mr_rating_results_list] shortcode
-3. Results in WP-admin
-4. Entries in WP-admin
-5. Widget options
-6. Rating items in WP-admin
-7. Settings 1
-8. Settings 2
-9. Settings 3
-10. Reports
-11. Tools
+2. Gutenberg blocks 1
+3. Gutenberg blocks 2
+4. General settings
+5. Auto placement settings
+6. Style settings
+7. Post ratings in WP-admin
+8. Rating entries in WP-admin
+9. Rating items in WP-admin
+10. Widget options for list of rating results
 
 == Upgrade Notice ==
 
 == Changelog ==
 
 = 5.0 =
-* New: Added REST API support for rating results list, rating items and a custom field on posts with rating results
-* New: Font Awesome v3, v4 and v5 icons are now local rainstead of using an external CDN
+* New: Added REST API readonly endpoints for rating results list, rating items and a custom field on posts with rating results
+* Tweak: Upgraded Font Awesome icons to latest v3 & v4 and added v5
 * Tweak: Fixed about page CSS and removed Credits tab.
 * Tweak: Removed custom CSS option. You should move this to the Customizer.
 * Tweak: Some minor CSS style changes. You may need to update your styles.
 * New: Added 3 Gutenberg blocks for the rating form, rating result and rating reslt list.
 * New: Migrated post meta settings to Gutenberg editor.
 * New: Added JSON-LD AggregateRatings structured data support for supported schema.org item types. Removed old microdata format which was previously added in the templates.
-* New: Added support for WooCommerce products AggregateRating structured data
-* New: Added support for Wordpress SEO (Yoast) structured data graph
+* New: Added integration with WooCommerce Product structured data
+* New: Added integration with Wordpress SEO (Yoast) structured data graph
 * Tweak: Removed minified assets.
 * Tweak: Removed widget check for enabled post types.
 * Tweak: Moved enabled post types option to the auto placement settings.
 * Tweak: Changed classic editor post meta box styles.
+* Tweak: Removed post type check from the mr_can_apply_filter filter. This allows auto placement even when the post type is not enabled using post meta fields.
 
 = 4.3.1 =
 * Tweak: Removed WPML references

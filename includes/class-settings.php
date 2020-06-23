@@ -42,11 +42,11 @@ class MR_Settings {
 	 */
 	function load_settings() {
 
-		$this->general_settings 		= (array) get_option( Multi_Rating::GENERAL_SETTINGS );
-		$this->position_settings 		= (array) get_option( Multi_Rating::POSITION_SETTINGS );
-		$this->custom_text_settings 	= (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS );
-		$this->style_settings 			= (array) get_option( Multi_Rating::STYLE_SETTINGS );
-		$this->custom_images_settings 	= (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
+		$this->general_settings 		= (array) get_option( Multi_Rating::GENERAL_SETTINGS, array() );
+		$this->position_settings 		= (array) get_option( Multi_Rating::POSITION_SETTINGS, array() );
+		$this->custom_text_settings 	= (array) get_option( Multi_Rating::CUSTOM_TEXT_SETTINGS, array() );
+		$this->style_settings 			= (array) get_option( Multi_Rating::STYLE_SETTINGS, array() );
+		$this->custom_images_settings 	= (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS, array() );
 
 		// Merge with defaults
 

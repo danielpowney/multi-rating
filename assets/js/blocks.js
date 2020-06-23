@@ -18,7 +18,7 @@
 		icon: 'star-filled',
 		category: 'common',
 
-		// Custom attributes - ser server side
+		// Custom attributes - server side
 
 		// Built-in functions
 		edit: function( props ) {

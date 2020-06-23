@@ -112,7 +112,7 @@ function mr_about_tab_content() {
 				<?php printf( __( '<a href="%s">[mr_rating_result]</a> - displays the rating result.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_result?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?><br />
 				<?php printf( __( '<a href="%s">[mr_rating_results_list]</a> - displays a list of rating results.', 'multi-rating' ), 'http://multiratingpro.com/demo-page-free#mr_rating_results_list?utm_source=about&utm_medium=free-plugin&utm_campaign=wp-admin&utm_content=documentation"' ); ?></p>
 
-				<h4><?php _e( 'SERP Rich Snippets', 'multi-rating' ); ?></h4>
+				<h4><?php _e( 'Google Rich Snippets', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'Enables rich snippets to appear in search engine results pages (SERP) with schema.org JSON-LD structured data added added to posts and pages.', 'multi-rating' ); ?></p>
 
 				<h4><?php _e( 'WordPress Star Ratings', 'multi-rating' ); ?></h4>
@@ -130,7 +130,7 @@ function mr_about_tab_content() {
 				<h4><?php _e( 'i18n Translation Ready', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'The plugin is translation ready (.pot file in the languages directory).', 'multi-rating' ); ?></p>
 
-				<h4><?php _e( 'In-built Templates', 'multi-rating' ); ?></h4>
+				<h4><?php _e( 'In-built Template System', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'Customize the HTML presentation using the in-built template system.', 'multi-rating' ); ?></p>
 
 				<h4><?php _e( 'Rating Item Types', 'multi-rating' ); ?></h4>
@@ -149,7 +149,7 @@ function mr_about_tab_content() {
 				<p><?php _e( 'You can assign different weights to rating items which are factored into rating calculations.', 'multi-rating' ); ?></p>
 
 				<h4><?php _e( 'Developer Friendly', 'multi-rating' ); ?></h4>
-				<p><?php _e( 'Excellent code quality, REST API endpoints, static API class and plenty of extensible WordPress action hooks & filters.', 'multi-rating' ); ?></p>
+				<p><?php _e( 'Excellent code quality, readonly REST API endpoints, API functions and extensible WordPress action hooks & filters.', 'multi-rating' ); ?></p>
 				<h4><?php _e( 'Duplicate Checks', 'multi-rating' ); ?></h4>
 				<p><?php _e( 'Perform duplicate checks using cookies to ensure users cannot rate the same post multiple times.', 'multi-rating' ); ?></p>
 			</div>

@@ -108,7 +108,7 @@
 		      	label: 'Create New Type',
 		       	description: __( 'Schema.org item type for post.', 'multi-rating' ),
 		       	options: [
-		       		{ value: '', label: __( '', 'multi-rating' ) },
+		       		{ value: '', label: '' },
 		       		{ value: 'Book', label: __( 'Book', 'multi-rating' ) },
 		       		{ value: 'Course', label: __( 'Course', 'multi-rating' ) },
 		       		{ value: 'CreativeWorkSeason', label: __( 'CreativeWorkSeason', 'multi-rating' ) },

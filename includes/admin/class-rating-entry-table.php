@@ -277,8 +277,7 @@ class MR_Rating_Entry_Table extends WP_List_Table {
 				mr_get_template_part( 'rating-result', 'star-rating', true, array(
 						'icon_classes' => $icon_classes,
 						'max_stars' => 5,
-						'star_result' => $rating_result['adjusted_star_result'],
-						'generate_microdata' => false,
+						'star_result' => $rating_result['adjusted_star_result']
 				) );
 				$overall_rating = ob_get_contents();
 				ob_end_clean();

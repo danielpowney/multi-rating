@@ -685,7 +685,6 @@ class Multi_Rating_API {
 		extract( wp_parse_args( $params, array(
 				'post_id' => null,
 				'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION],
-				'show_rich_snippets' => false, // @deprecated
 				'show_title' => false,
 				'show_count' => true,
 				'echo' => true,

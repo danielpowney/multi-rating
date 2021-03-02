@@ -124,7 +124,6 @@
 			mr_get_template_part( 'rating-result', null, true, array(
 				'no_rating_results_text' => '',
 				'ignore_count' => true,
-				'generate_microdata' => false,
 				'show_title' => false,
 				'before_title' => $before_title,
 				'after_title' => $after_title,

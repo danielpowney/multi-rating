@@ -3,7 +3,7 @@
 Plugin Name: Multi Rating
 Plugin URI: http://wordpress.org/plugins/multi-rating/
 Description: A powerful rating system and review plugin for WordPress.
-Version: 5.0
+Version: 5.0.3
 Author: Daniel Powney
 Author URI: http://danielpowney.com
 License: GPL2
@@ -33,7 +33,7 @@ class Multi_Rating {
 	 * Constants
 	 */
 	const
-	VERSION = '5.0',
+	VERSION = '5.0.3',
 	ID = 'multi-rating',
 
 	// tables
@@ -414,13 +414,19 @@ class Multi_Rating {
 	public function admin_assets() {
 
 		$style_settings = (array) get_option( Multi_Rating::STYLE_SETTINGS );
+		$custom_images_settings = (array) get_option( Multi_Rating::CUSTOM_IMAGES_SETTINGS );
 
 		wp_enqueue_script( 'jquery' );
+
+		$icon_font_library = $style_settings[Multi_Rating::FONT_AWESOME_VERSION_OPTION];
+		$icon_classes = MR_Utils::get_icon_classes( $icon_font_library );
 
 		$config_array = array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'ajax_nonce' => wp_create_nonce( Multi_Rating::ID.'-nonce' ),
-				'confirm_clear_db_message' => __( 'Are you sure you want to permanently delete ratings?', 'multi-rating' )
+				'confirm_clear_db_message' => __( 'Are you sure you want to permanently delete ratings?', 'multi-rating' ),
+				'icon_classes' => json_encode( $icon_classes ),
+				'use_custom_star_images' => ( $custom_images_settings[Multi_Rating::USE_CUSTOM_STAR_IMAGES] == true ) ? "true" : "false"
 		);
 
 		wp_enqueue_script( 'mr-admin-script', plugins_url( 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'admin.js', __FILE__), array('jquery'), Multi_Rating::VERSION, true );

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: multi-rating\n"
-"POT-Creation-Date: 2020-06-24 21:29+1000\n"
+"POT-Creation-Date: 2020-09-21 08:51+1000\n"
 "PO-Revision-Date: 2017-02-10 21:45+1000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -508,22 +508,22 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:286
+#: ../includes/admin/class-rating-entry-table.php:285
 #, php-format
 msgid "Overall Rating: %s"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:310 ../multi-rating.php:406
+#: ../includes/admin/class-rating-entry-table.php:309 ../multi-rating.php:406
 msgid "Edit Rating"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:346
+#: ../includes/admin/class-rating-entry-table.php:345
 #: ../includes/admin/class-rating-item-table.php:252
-#: ../includes/admin/class-rating-results-table.php:396
+#: ../includes/admin/class-rating-results-table.php:395
 msgid "Delete"
 msgstr ""
 
-#: ../includes/admin/class-rating-entry-table.php:383
+#: ../includes/admin/class-rating-entry-table.php:382
 msgid "Entries deleted successfully"
 msgstr ""
 
@@ -674,15 +674,15 @@ msgstr ""
 msgid "Shortcode"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:354
+#: ../includes/admin/class-rating-results-table.php:353
 msgid "None"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:359
+#: ../includes/admin/class-rating-results-table.php:358
 msgid "View Entries"
 msgstr ""
 
-#: ../includes/admin/class-rating-results-table.php:441
+#: ../includes/admin/class-rating-results-table.php:440
 msgid "Rating results deleted successfully."
 msgstr ""
 
@@ -1293,6 +1293,6 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ../multi-rating.php:423
+#: ../multi-rating.php:427
 msgid "Are you sure you want to permanently delete ratings?"
 msgstr ""

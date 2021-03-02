@@ -2,7 +2,7 @@
 Contributors: dpowney
 Tags: rating, review, post rating, star rating, seo, schema.org, json-ld
 Requires at least: 4.0
-Tested up to: 5.4
+Tested up to: 5.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,22 +13,24 @@ A powerful post rating / review system plugin for WordPress.
 
 A powerful post rating / review system plugin for WordPress with a niche of doing multi ratings better than anyone else.
 
-Would you like to see the plugin in action? Check out [the demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme) showcasing all features.
+Check out [the demo](https://multiratingpro.com/demo-page-free?utm_source=view-demo&utm_medium=free-plugin&utm_campaign=readme).
 
 = Features =
 
-* Rate posts based on different criteria / questions with **star ratings**, select drop-down lists and radio buttons
-* Compatible with both the Classic Editor and new **Gutenberg** editor
-* Adds JSON-LD metadata for **Google reviews snippets** to improve SEO
-* Integrates JSON-LD metadata with Yoast **SEO schema graph** and WooCommerce for products
-* Use **Font Awesome** icons for star ratings or upload your own custom images
-* Several shortcodes and widgets available to display the rating form, rating results and a list of highest rated posts
-* Can apply different weights to rating items to adjust results
-* Automatically add the rating form and rating result to post content
+* Rate posts based on different criteria with **star ratings**, select and radio buttons
+* Compatible with both the Classic editor and new **Gutenberg** editor
+* Adds **Google review snippets** to improve SEO (JSON-LD)
+* Integrates JSON-LD structured data with WordPress SEO (Yoast) and WooCommerce plugins
+* Use **Font Awesome** icons or upload custom images intead
+* Several **Gutenberg blocks**, shortcodes and widgets available
+* Can apply different **weights** to rating items to adjust results
+* Can **automatically add** the rating form and rating result to post content
 * **i18n translation ready** for multilingual sites
-* In-built **template system** to customize presentation
+* In-built **template system** to customize the HTML presentation
 * Access ratings through the WordPress **REST API**
 * Can export rating entries to CSV
+* Can edit rating details from WP-admin
+* Style options for stars icon colors
 
 = Shortcodes =
 
@@ -36,13 +38,14 @@ Would you like to see the plugin in action? Check out [the demo](https://multira
 * [mr_rating_result] - displays the overall rating result.
 * [mr_rating_results_list] - displays a list of post ratings.
 
-Examples:
+Shortcode examples:
+
 * [mr_rating_form title="Please rate this" submit_button_text="Submit"]
-* [mr_rating_result post_id="100" no_rating_results_text="No rating result yet" show_rich_snippets="false"]
+* [mr_rating_result post_id="100" no_rating_results_text="No rating result yet"]
 * [mr_rating_results_list title="Top Ratings" sort_by="highest_rated" limit="10"]
 * [mr_rating_results_list title="Ratings" sort_by="most_entries" limit="5"]
 
-= Upgrade To Pro =
+= Premium Version =
 
 Looking for some more advanced functionality? The [Multi Rating Pro](https://multiratingpro.com?utm_source=pro-version&utm_medium=free-plugin&utm_campaign=readme&utm_content=top) version provides a significant additional feature set, including:
 
@@ -83,7 +86,17 @@ Looking for some more advanced functionality? The [Multi Rating Pro](https://mul
 
 == Changelog ==
 
-= 5.0 =
+= 5.0.3 (21/09/2020) =
+* Fix: Custom image settings undefined error in admin
+
+= 5.0.2 (14/08/2020) =
+* Fix: Console error in Gutenberg editor due to icon_classes missing
+* Fix: Deprecated jQuery function live() was used in admin JS
+
+= 5.0.1 (28/06/2020) =
+* Fix: Auto placement post type issue
+
+= 5.0 (27/06/2020) =
 * New: Added REST API readonly endpoints for rating results list, rating items and a custom field on posts with rating results
 * Tweak: Upgraded Font Awesome icons to latest v3 & v4 and added v5
 * Tweak: Fixed about page CSS and removed Credits tab.

@@ -4,8 +4,7 @@ jQuery(document).ready(function() {
 		jQuery("#form-submitted").val("true");
 	});
 
-	jQuery("#clear-database-btn").live('click',function(e) {
-
+	jQuery("#clear-database-btn").click(function() {
 		var result = confirm(mr_admin_data.confirm_clear_db_message);
 		if (result == true) {
 			jQuery("#clear-database").val("true");

@@ -1,7 +1,10 @@
 jQuery(document).ready(function() {	
 
 	// supporting different versions of Font Awesome icons
-	var icon_classes = jQuery.parseJSON(mr_frontend_data.icon_classes);
+	var icon_classes = mr_frontend_data.icon_classes;
+	if (typeof icon_classes === 'string') {
+		icon_classes = jQuery.parseJSON(icon_classes);
+	}
 	
 	jQuery(".rating-form :submit").click(function(e) {
 
@@ -125,7 +128,10 @@ jQuery(document).ready(function() {
 	 */
 	var ratingItemStatus = {};
 	
-	var useCustomStarImages = jQuery.parseJSON(mr_frontend_data.use_custom_star_images);
+	var useCustomStarImages = mr_frontend_data.use_custom_star_images;
+	if (typeof useCustomStarImages === 'string') {
+		useCustomStarImages = jQuery.parseJSON(useCustomStarImages);
+	}
 	
 	jQuery(".mr-star-rating-select .mr-star-empty, .mr-star-rating-select .mr-star-full").on("click", function(e) {
 		

@@ -70,7 +70,6 @@ function mr_rating_result( $atts = array(), $content = null, $tag ) {
 	extract( shortcode_atts( array(
 			'post_id' => $post_id,
 			'no_rating_results_text' => $custom_text_settings[Multi_Rating::NO_RATING_RESULTS_TEXT_OPTION],
-			'show_rich_snippets' => false, // @deprecated
 			'show_title' => false,
 			'show_count' => true,
 			'result_type' => Multi_Rating::STAR_RATING_RESULT_TYPE,

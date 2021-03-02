@@ -7,6 +7,11 @@ function mr_update_check() {
 	
 	// Check if we need to do an upgrade from a previous version
 	$previous_plugin_version = get_option( Multi_Rating::VERSION_OPTION );
+
+	if ( ! $previous_plugin_version ) { // not set
+		update_option( Multi_Rating::VERSION_OPTION, Multi_Rating::VERSION ); // latest version upgrade complete
+		return;
+	}
 	
 	if ( $previous_plugin_version != Multi_Rating::VERSION && $previous_plugin_version < 3 ) {
 		mr_upgrade_to_3_0();

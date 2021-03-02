@@ -70,6 +70,8 @@ class MR_Structured_Data {
 
 			$structured_data_type = get_post_meta( $post_id, Multi_Rating::STRUCTURED_DATA_TYPE_POST_META, true );
 
+			$structured_data_type = apply_filters( 'mr_structured_data_item_type', $structured_data_type, $post_id );
+
 			if ( $structured_data_type == '' ) {
 				return;
 			}
@@ -103,13 +105,13 @@ class MR_Structured_Data {
     {
 	    "@context": "https://schema.org/",
         "@type": "<?php echo $structured_data_type; ?>",
-        "name": "<?php echo $post_title; ?>",
+        "name": "<?php echo htmlspecialchars( addslashes( $post_title ), ENT_NOQUOTES ); ?>",
 <?php if ($post_thumbnail_url) { ?>
         "image": [
        	    "<?php echo $post_thumbnail_url; ?>"
         ],
 <?php } if ($post_excerpt) { ?>
-        "description": "<?php echo esc_html($post_excerpt); ?>",
+        "description": "<?php echo htmlspecialchars( addslashes( $post_excerpt ), ENT_NOQUOTES ); ?>",
 <?php }
 echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
         "aggregateRating": {
@@ -190,25 +192,3 @@ echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
 	}
 
 }
-
-
-function mr_structured_data_type_localbusiness_example( $schema, $post_id ) {
-
-	$structured_data_type = get_post_meta( $post_id, Multi_Rating::STRUCTURED_DATA_TYPE_POST_META, true );
-
-	if ( $structured_data_type === 'LocalBusiness' ) {
-		return '
-"address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Seattle",
-    "addressRegion": "WA",
-    "postalCode": "98052",
-    "streetAddress": "20341 Whitworth Institute 405 N. Whitworth"
-},
-"priceRange": "$$$",
-"telephone": "+18005551234",';
-    }
-    
-    return '';
-}
-add_filter( 'mr_structured_data_type' , 'mr_structured_data_type_localbusiness_example', 10, 2);

@@ -2,7 +2,7 @@
 Contributors: dpowney
 Tags: rating, review, post rating, star rating, seo, schema.org, json-ld
 Requires at least: 4.0
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -85,6 +85,11 @@ Looking for some more advanced functionality? The [Multi Rating Pro](https://mul
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 5.0.4 (02/03/2021) =
+* New: Added mr_structured_data_item_type filter
+* Fix: Special characters causing invalid JSON-LD markup
+* Fix: Fresh install upgrade error
 
 = 5.0.3 (21/09/2020) =
 * Fix: Custom image settings undefined error in admin

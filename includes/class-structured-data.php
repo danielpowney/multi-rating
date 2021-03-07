@@ -105,19 +105,19 @@ class MR_Structured_Data {
     {
 	    "@context": "https://schema.org/",
         "@type": "<?php echo $structured_data_type; ?>",
-        "name": "<?php echo htmlspecialchars( addslashes( $post_title ), ENT_NOQUOTES ); ?>",
+        "name": <?php echo json_encode( $post_title ); ?>,
 <?php if ($post_thumbnail_url) { ?>
         "image": [
        	    "<?php echo $post_thumbnail_url; ?>"
         ],
 <?php } if ($post_excerpt) { ?>
-        "description": "<?php echo htmlspecialchars( addslashes( $post_excerpt ), ENT_NOQUOTES ); ?>",
+        "description": <?php echo json_encode( $post_excerpt ); ?>,
 <?php }
 echo apply_filters( 'mr_structured_data_type', '', $post_id ); ?>
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "<?php echo $rating_result['adjusted_star_result']; ?>",
-            "reviewCount": "<?php echo $rating_result['count']; ?>"
+            "ratingValue": <?php echo $rating_result['adjusted_star_result']; ?>,
+            "reviewCount": <?php echo $rating_result['count']; ?>
         }
     }
 	</script>
